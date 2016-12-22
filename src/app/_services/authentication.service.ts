@@ -1,13 +1,11 @@
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 
-import {User} from '../_models/user.model'
+import {User} from '../_models/user'
 export {User}
 
 
 var users = [
-  new User('test','test'),
-  new User('root','root')
 ];
 
 @Injectable()

@@ -12,6 +12,7 @@ import { UserStoryComponent} from './user-story/user-story.component';
 
 import { PrivateComponent } from '../private/private.component'
 import { LoginComponent } from './login/login.component'
+import { RegisterComponent } from './register/register.component'
 
 export const router: Routes = [
   { path: '', redirectTo: 'landing', pathMatch: 'full' },
@@ -24,7 +25,8 @@ export const router: Routes = [
   { path: 'roadmap', component: RoadmapComponent },
   { path: 'user-story', component: UserStoryComponent },
   { path: 'home', component: PrivateComponent},
-  { path: 'login', component: LoginComponent }
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent }
 ];
 
 export const routes: ModuleWithProviders = RouterModule.forRoot(router);

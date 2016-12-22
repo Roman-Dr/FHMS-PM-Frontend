@@ -20,6 +20,7 @@ import { PrivateComponent } from '../private/private.component';
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
