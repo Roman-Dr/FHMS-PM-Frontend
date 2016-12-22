@@ -8,6 +8,7 @@ import { SprintComponent } from './sprint/sprint.component';
 import { EstimationComponent } from './estimation/estimation.component';
 import { ChartComponent } from './chart/chart.component';
 import { RoadmapComponent } from './roadmap/roadmap.component';
+import { UserStoryComponent} from './user-story/user-story.component';
 
 
 export const router: Routes = [
@@ -18,7 +19,8 @@ export const router: Routes = [
   { path: 'sprint', component: SprintComponent },
   { path: 'estimation', component: EstimationComponent },
   { path: 'chart', component: ChartComponent },
-  { path: 'roadmap', component: RoadmapComponent }
+  { path: 'roadmap', component: RoadmapComponent },
+  { path: 'user-story', component: UserStoryComponent } 
 ];
 
 export const routes: ModuleWithProviders = RouterModule.forRoot(router);
