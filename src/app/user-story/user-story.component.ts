@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {UserStory} from './UserStory';
-import {UserStoryDataServiceService} from '../_service/user-story-data-service.service';
+import {UserStoryDataServiceService} from '../_services/user-story-data-service.service';
 
 @Component({
   selector: 'app-UserStory',
