@@ -1,0 +1,20 @@
+<section class="app-UserStory">
+  <header class="header">
+    <h1>User-Stories</h1>
+    <input class="newUserStory" placeholder="What's your Story? Insert a Task !" autofocus="" [(ngModel)]="newUserStory.title" (keyup.enter)="addUserStory()">
+  </header>
+  <section class="main" *ngIf="userStories.length > 0">
+    <ul class="userStory-list">
+      <li *ngFor="let userStory of userStories" [class.completed]="userStory.complete">
+        <div class="view">
+          <input class="toggle" data-toggle="toggle" type="checkbox" (click)="toggleUserStoryComplete(userStory)" [checked]="userStory.complete">
+          <label class="black">{{userStory.title}}</label>
+          <button class="destroy" (click)="removeUserStory(userStory)"></button>
+        </div>
+      </li>
+    </ul>
+  </section>
+  <footer class="footer" *ngIf="userStories.length > 0">
+    <span class="userStory-count"><strong>{{userStories.length}}</strong> {{userStories.length == 1 ? 'UserStory' : 'User Stories'}} left</span>
+  </footer>
+</section>
