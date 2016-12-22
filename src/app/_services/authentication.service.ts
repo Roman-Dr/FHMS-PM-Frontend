@@ -6,8 +6,8 @@ export {User}
 
 
 var users = [
-  new User('admin@admin.com','adm9'),
-  new User('user1@gmail.com','a23')
+  new User('test','test'),
+  new User('root','root')
 ];
 
 @Injectable()
@@ -22,7 +22,7 @@ export class AuthenticationService {
   }
 
   login(user){
-    var authenticatedUser = users.find(u => u.email === user.email);
+    var authenticatedUser = users.find(u => u.username === user.username);
     if (authenticatedUser && authenticatedUser.password === user.password){
       localStorage.setItem("user", JSON.stringify(authenticatedUser));
       this._router.navigate(['home']);
