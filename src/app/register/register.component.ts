@@ -4,6 +4,8 @@ import {Router} from "@angular/router";
 import { AuthHttp } from 'angular2-jwt';
 import {Http} from "@angular/http";
 
+var jwtDecode = require('jwt-decode');
+
 @Component({
   selector: 'register',
   templateUrl: './register.component.html',
@@ -15,10 +17,13 @@ import {Http} from "@angular/http";
 
 export class RegisterComponent {
   jwt: string;
+  decodedJwt: string;
   response: string;
+  api: string;
 
   constructor(public router: Router, public http: Http, public authHttp: AuthHttp) {
     this.jwt = localStorage.getItem('id_token');
+    this.decodedJwt = this.jwt && jwtDecode(this.jwt);
   }
 
   logout() {
