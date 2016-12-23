@@ -4,7 +4,7 @@ import {Injectable} from '@angular/core';
 import {UserStory} from '../user-story/UserStory';
 
 @Injectable()
-export class UserStoryDataServiceService {
+export class UserStoryDataService {
 
   // Placeholder for last id so we can simulate
   // automatic incrementing of id's
@@ -17,7 +17,7 @@ export class UserStoryDataServiceService {
   }
 
   // Simulate POST /todos
-  addTodo(userStory: UserStory): UserStoryDataServiceService {
+  addTodo(userStory: UserStory): UserStoryDataService {
     if (!userStory.id) {
       userStory.id = ++this.lastId;
     }
@@ -26,7 +26,7 @@ export class UserStoryDataServiceService {
   }
 
   // Simulate DELETE /todos/:id
-  deleteTodoById(id: number): UserStoryDataServiceService {
+  deleteTodoById(id: number): UserStoryDataService {
     this.userStories = this.userStories
       .filter(userStory => userStory.id !== id);
     return this;

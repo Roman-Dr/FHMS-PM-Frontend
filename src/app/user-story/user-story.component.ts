@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {UserStory} from './UserStory';
-import {UserStoryDataServiceService} from '../_services/user-story-data-service.service';
+import {UserStoryDataService} from '../_services/user-story-data-service';
 
 
 
@@ -8,13 +8,13 @@ import {UserStoryDataServiceService} from '../_services/user-story-data-service.
   selector: 'app-UserStory',
   templateUrl: './user-story.component.html',
   styleUrls: ['./user-story.component.css'],
-  providers: [UserStoryDataServiceService]
+  providers: [UserStoryDataService]
 })
 export class UserStoryComponent {
 
   newUserStory: UserStory = new UserStory();
 
-  constructor(private userStoryDataServiceService: UserStoryDataServiceService) {
+  constructor(private userStoryDataServiceService: UserStoryDataService) {
   }
 
   addUserStory() {
