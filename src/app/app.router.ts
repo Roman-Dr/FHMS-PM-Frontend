@@ -11,14 +11,14 @@ import { RoadmapComponent } from './roadmap/roadmap.component';
 import { UserStoryComponent} from './user-story/user-story.component';
 import { LoginComponent } from './login/login.component'
 import { RegisterComponent } from './register/register.component'
-import { AuthGuard } from './common/auth.guard';
+import { LoggedInGuard } from './_guards/logged-in.guard';
 
 export const router: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', component: LoginComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'landing', component: LandingComponent  },
+  { path: 'landing', component: LandingComponent, canActivate: [LoggedInGuard]  },
   { path: 'backlog', component: BacklogComponent },
   { path: 'board', component: BoardComponent },
   { path: 'sprint', component: SprintComponent },

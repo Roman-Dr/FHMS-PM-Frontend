@@ -1,10 +1,8 @@
 import {Component} from '@angular/core';
 import {UserService} from "../_services/user.service";
 import {Router} from "@angular/router";
-import { AuthHttp } from 'angular2-jwt';
-import {Http} from "@angular/http";
+import {User} from "../_models/user";
 
-var jwtDecode = require('jwt-decode');
 
 @Component({
   selector: 'register',
@@ -16,46 +14,24 @@ var jwtDecode = require('jwt-decode');
 
 
 export class RegisterComponent {
-  jwt: string;
-  decodedJwt: string;
-  response: string;
-  api: string;
+  newUser: User = new User()
+  errorMessage: string;
 
-  constructor(public router: Router, public http: Http, public authHttp: AuthHttp) {
-    this.jwt = localStorage.getItem('id_token');
-    this.decodedJwt = this.jwt && jwtDecode(this.jwt);
+  constructor(private _userService: UserService, private _router: Router) {
   }
 
-  logout() {
-    localStorage.removeItem('id_token');
-    this.router.navigate(['login']);
-  }
 
-  callAnonymousApi() {
-    this._callApi('Anonymous', 'http://localhost:3001/api/random-quote');
-  }
-
-  callSecuredApi() {
-    this._callApi('Secured', 'http://localhost:3001/api/protected/random-quote');
-  }
-
-  _callApi(type, url) {
-    this.response = null;
-    if (type === 'Anonymous') {
-      // For non-protected routes, just use Http
-      this.http.get(url)
-        .subscribe(
-          response => this.response = response.text(),
-          error => this.response = error.text()
-        );
-    }
-    if (type === 'Secured') {
-      // For protected routes, use AuthHttp
-      this.authHttp.get(url)
-        .subscribe(
-          response => this.response = response.text(),
-          error => this.response = error.text()
-        );
+  onSubmit(email, password) {
+    let success = this._userService.registerUser(email, password)
+    if (success) {
+      console.log(this._router);
+      success.subscribe(
+        user => this.newUser = user,
+        error => this.errorMessage = <any> error
+      );
+      this._router.navigate(['landing']);
+    } else {
+      console.log("Register failed, display error to user");
     }
   }
 }

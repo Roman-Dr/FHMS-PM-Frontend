@@ -16,10 +16,9 @@ import { RoadmapComponent } from './roadmap/roadmap.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { UserStoryComponent } from './user-story/user-story.component';
-import { AuthGuard } from './common/auth.guard';
-
-import { AUTH_PROVIDERS } from 'angular2-jwt';
-
+import {platformBrowserDynamic} from "@angular/platform-browser-dynamic";
+import {LoggedInGuard} from "./_guards/logged-in.guard";
+import {UserService} from "./_services/user.service";
 
 @NgModule({
   declarations: [
@@ -42,8 +41,10 @@ import { AUTH_PROVIDERS } from 'angular2-jwt';
     NgbModule.forRoot(),
     routes
   ],
-  providers: [AuthGuard, ...AUTH_PROVIDERS],
+  providers: [UserService, LoggedInGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
 
+
+platformBrowserDynamic().bootstrapModule(AppModule);

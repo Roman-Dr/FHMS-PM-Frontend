@@ -10,21 +10,12 @@ import {UserService} from "../_services/user.service";
 })
 export class LandingComponent{
 
-  users: User[];
-  errorMessage: string;
 
-  constructor(private _userService: UserService) { }
+
+  constructor() { }
 
   ngOnInit() {
-    this.getUsers();
-  }
 
-  getUsers() {
-    this._userService.getUsers()
-      .subscribe(
-        users => this.users = users,
-        error => this.errorMessage = <any> error
-      )
-  }
+}
 
 }

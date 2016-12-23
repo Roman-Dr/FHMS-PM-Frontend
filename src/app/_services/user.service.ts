@@ -1,52 +1,66 @@
 import { Injectable } from '@angular/core';
-import {Http, Response, Headers} from '@angular/http'
-import { User } from '../_models/user'
-import { Observable } from 'rxjs/Observable'
+import {Http, Headers} from '@angular/http'
 import 'rxjs/Rx'
-
 
 
 @Injectable()
 export class UserService {
-
-  private headers: Headers;
-
-
-  constructor(private _http: Http) {
-
-    this.headers = new Headers();
-    this.headers.append('Content-Type', 'application/json');
-    this.headers.append('Accept', 'application/json');
-
-  }
-
+  private loggedIn = false;
   private _apiUrl = 'http://10.60.67.20:3000/api/users/';
 
-  getUsers() {
-    return this._http.get(this._apiUrl)
-      .map(res => <User[]> res.json())
-      .catch(this.handleError);
+  constructor(private http: Http) {
+    this.loggedIn = !!localStorage.getItem('auth_token');
   }
 
-  getUser(id:number) {
-    return this._http.get(this._apiUrl + id)
-      .map(res => <User>res.json())
-      .catch(this.handleError);
+  login(email, password) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    return this.http
+      .post(
+        this._apiUrl +'login',
+        JSON.stringify({ email, password }),
+        { headers }
+      )
+      .map(res => res.json())
+      .map((res) => {
+        if (res.success) {
+          localStorage.setItem('auth_token', res.auth_token);
+          this.loggedIn = true;
+        }
+
+        return res.success;
+      });
   }
 
-  addUser(newUser:User) {
-    let toAdd = JSON.stringify({email: newUser.email, password: newUser.password, firstName: newUser.firstName, lastName: newUser.lastName, birthDate: newUser.birthDate})
-
-    return this._http.post(this._apiUrl + 'signup', toAdd, { headers: this.headers })
-      .map(res => <User>res.json())
-      .catch(this.handleError);
+  logout() {
+    localStorage.removeItem('auth_token');
+    this.loggedIn = false;
   }
 
-  private handleError (error: Response) {
-    console.error(error);
-    return Observable.throw(error.json().error || 'Server error')
+  isLoggedIn() {
+    return this.loggedIn;
   }
 
+  registerUser(email, password) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+
+
+    return this.http.post
+    (this._apiUrl +'signup',
+      JSON.stringify({email, password}), { headers }
+      )
+      .map(res => res.json())
+      .map((res) => {
+        if (res.success) {
+          console.log("Register successful");
+        }
+
+        return res.success;
+      })
+  }
 
 }
 

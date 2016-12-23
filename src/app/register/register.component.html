@@ -1,14 +1,14 @@
-<div>
-  <div class="register jumbotron centered">
-    <h1>Welcome to the angular2 authentication sample!</h1>
-    <h2 *ngIf="jwt">Your JWT is:</h2>
-    <pre *ngIf="jwt" class="jwt"><code></code></pre>
-    <pre *ngIf="jwt" class="jwt"><code></code></pre>
-    <p>Click any of the buttons to call an API and get a response</p>
-    <p><a class="btn btn-primary btn-lg" role="button" (click)="callAnonymousApi()">Call Anonymous API</a></p>
-    <p><a class="btn btn-primary btn-lg" role="button" (click)="callSecuredApi()">Call Secure API</a></p>
-    <p><a class="btn btn-primary btn-lg" role="button" (click)="logout()">Logout</a></p>
-    <h2 *ngIf="response">The response of calling the <span class="red"></span> API is:</h2>
-    <h3 *ngIf="response"></h3>
-  </div>
+<div class="register jumbotron center-block">
+  <h1>Login</h1>
+  <form role="form" (submit)="onSubmit(email.value, password.value)">
+    <div class="form-group">
+      <label for="email">E-Mail</label>
+      <input type="text" #email class="form-control" id="email" placeholder="E-Mail">
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" #password class="form-control" id="password" placeholder="Password">
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+  </form>
 </div>
