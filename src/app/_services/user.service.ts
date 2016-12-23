@@ -20,7 +20,7 @@ export class UserService {
 
   }
 
-  private _apiUrl = 'http://10.60.67.20:3000/api/users';
+  private _apiUrl = 'http://10.60.67.20:3000/api/users/';
 
   getUsers() {
     return this._http.get(this._apiUrl)
@@ -37,7 +37,7 @@ export class UserService {
   addUser(newUser:User) {
     let toAdd = JSON.stringify({email: newUser.email, password: newUser.password, firstName: newUser.firstName, lastName: newUser.lastName, birthDate: newUser.birthDate})
 
-    return this._http.post(this._apiUrl, toAdd, { headers: this.headers })
+    return this._http.post(this._apiUrl + 'signup', toAdd, { headers: this.headers })
       .map(res => <User>res.json())
       .catch(this.handleError);
   }
@@ -46,6 +46,8 @@ export class UserService {
     console.error(error);
     return Observable.throw(error.json().error || 'Server error')
   }
+
+
 }
 
 
