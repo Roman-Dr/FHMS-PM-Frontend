@@ -12,6 +12,11 @@ export class UserService {
     this.loggedIn = !!localStorage.getItem('auth_token');
   }
 
+  getUsers() {
+    return this.http.get(this._apiUrl)
+      .map(res => res.json())
+  }
+
   login(email, password) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');

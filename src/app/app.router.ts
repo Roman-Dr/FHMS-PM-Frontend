@@ -14,12 +14,11 @@ import { RegisterComponent } from './register/register.component'
 import { LoggedInGuard } from './_guards/logged-in.guard';
 
 export const router: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: '**', component: LoginComponent },
+  { path: '', component: LandingComponent, pathMatch: 'full' },
+  { path: 'landing', component: LandingComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'landing', component: LandingComponent, canActivate: [LoggedInGuard]  },
-  { path: 'backlog', component: BacklogComponent },
+  { path: 'backlog', component: BacklogComponent, canActivate: [LoggedInGuard] },
   { path: 'board', component: BoardComponent },
   { path: 'sprint', component: SprintComponent },
   { path: 'estimation', component: EstimationComponent },
@@ -27,6 +26,7 @@ export const router: Routes = [
   { path: 'roadmap', component: RoadmapComponent },
   { path: 'user-story', component: UserStoryComponent }
 
+  // { path: 'profile', component: ProfileComponent, canActivate: [LoggedInGuard] }
 ];
 
 export const routes: ModuleWithProviders = RouterModule.forRoot(router);
