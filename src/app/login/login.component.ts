@@ -10,7 +10,7 @@ import {AuthenticationService, User} from '../_services/authentication.service'
 
 export class LoginComponent {
 
-  public user = new User('','');
+  public user = new User();
   public errorMsg = '';
 
   constructor(
