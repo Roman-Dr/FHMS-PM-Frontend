@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http'
+import {Http, Response, Headers} from '@angular/http'
 import { User } from '../_models/user'
 import { Observable } from 'rxjs/Observable'
 import 'rxjs/Rx'
@@ -9,27 +9,35 @@ import 'rxjs/Rx'
 @Injectable()
 export class UserService {
 
-  constructor( private  http:Http) {
+  private headers: Headers;
+
+
+  constructor(private _http: Http) {
+
+    this.headers = new Headers();
+    this.headers.append('Content-Type', 'application/json');
+    this.headers.append('Accept', 'application/json');
 
   }
-  private _apiUrl = 'http://10.60.67.20:3000/api/users/';
+
+  private _apiUrl = 'http://10.60.67.20:3000/api/users';
 
   getUsers() {
-    return this.http.get(this._apiUrl)
+    return this._http.get(this._apiUrl)
       .map(res => <User[]> res.json())
       .catch(this.handleError);
   }
 
   getUser(id:number) {
-    return this.http.get(this._apiUrl + id)
+    return this._http.get(this._apiUrl + id)
       .map(res => <User>res.json())
       .catch(this.handleError);
   }
 
   addUser(newUser:User) {
-    let toAdd = JSON.stringify({firstName: newUser.firstName, lastName: newUser.lastName, birthDate: newUser.birthDate})
+    let toAdd = JSON.stringify({email: newUser.email, password: newUser.password, firstName: newUser.firstName, lastName: newUser.lastName, birthDate: newUser.birthDate})
 
-    return this.http.post(this._apiUrl, toAdd)
+    return this._http.post(this._apiUrl, toAdd, { headers: this.headers })
       .map(res => <User>res.json())
       .catch(this.handleError);
   }

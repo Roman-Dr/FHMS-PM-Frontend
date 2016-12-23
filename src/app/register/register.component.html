@@ -1,8 +1,10 @@
 <section class="app-register">
 <div class="col-sm-6">
-  <input class="newUser form-control" placeholder="Vorname" autofocus="" [(ngModel)]="newUser.firstName" >
-  <input class="newUser form-control" placeholder="Nachname" autofocus="" [(ngModel)]="newUser.lastName" >
-  <input class="newUser form-control" placeholder="Geburtstag" autofocus="" [(ngModel)]="newUser.birthDate" >
+  <input class="newUser form-control" type="email" placeholder="Email" autofocus="" [(ngModel)]="newUser.email" >
+  <input class="newUser form-control" type="password" placeholder="Passwort" autofocus="" [(ngModel)]="newUser.password" >
+  <input class="newUser form-control" type="text" placeholder="Vorname" autofocus="" [(ngModel)]="newUser.firstName" >
+  <input class="newUser form-control" type="text" placeholder="Nachname" autofocus="" [(ngModel)]="newUser.lastName" >
+  <input class="newUser form-control" type="text" placeholder="Geburtstag" autofocus="" [(ngModel)]="newUser.birthDate" >
 </div>
   <button type="button" class="btn btn-primary" (click)="addUser()">Registrieren</button>
 </section>
