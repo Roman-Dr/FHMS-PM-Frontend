@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {UserStory} from './UserStory';
-import {UserStoryDataService} from '../_services/user-story-data-service';
+import {UserStoryDataService} from '../_services/user-story-data.service';
 
 
 
@@ -18,21 +18,21 @@ export class UserStoryComponent {
   }
 
   addUserStory() {
-      this.userStoryDataServiceService.addTodo(this.newUserStory);
+      this.userStoryDataServiceService.addUserStory(this.newUserStory);
       this.newUserStory = new UserStory();
     
   }
 
   toggleUserStoryComplete(userStory) {
-    this.userStoryDataServiceService.toggleTodoComplete(userStory);
+    this.userStoryDataServiceService.toggleUserStoryComplete(userStory);
   }
 
   removeUserStory(userStory) {
-    this.userStoryDataServiceService.deleteTodoById(userStory.id);
+    this.userStoryDataServiceService.deleteUserStoryById(userStory.id);
   }
 
   get userStories() {
-    return this.userStoryDataServiceService.getAllTodos();
+    return this.userStoryDataServiceService.getAllUserStories();
   }
 
 }

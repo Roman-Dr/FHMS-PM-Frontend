@@ -17,7 +17,7 @@ export class UserStoryDataService {
   }
 
   // Simulate POST /todos
-  addTodo(userStory: UserStory): UserStoryDataService {
+  addUserStory(userStory: UserStory): UserStoryDataService {
     if(userStory.author==''||userStory.title==''){
 
     }
@@ -31,15 +31,15 @@ export class UserStoryDataService {
   }
 
   // Simulate DELETE /todos/:id
-  deleteTodoById(id: number): UserStoryDataService {
+  deleteUserStoryById(id: number): UserStoryDataService {
     this.userStories = this.userStories
       .filter(userStory => userStory.id !== id);
     return this;
   }
 
   // Simulate PUT /todos/:id
-  updateTodoById(id: number, values: Object = {}): UserStory {
-    let userStory = this.getTodoById(id);
+  updateUserStoryById(id: number, values: Object = {}): UserStory {
+    let userStory = this.getUserStoryById(id);
     if (!userStory) {
       return null;
     }
@@ -48,20 +48,20 @@ export class UserStoryDataService {
   }
 
   // Simulate GET /todos
-  getAllTodos(): UserStory[] {
+  getAllUserStories(): UserStory[] {
     return this.userStories;
   }
 
   // Simulate GET /todos/:id
-  getTodoById(id: number): UserStory {
+  getUserStoryById(id: number): UserStory {
     return this.userStories
       .filter(userStory => userStory.id === id)
       .pop();
   }
 
   // Toggle todo complete
-  toggleTodoComplete(userStory: UserStory) {
-    let updatedTodo = this.updateTodoById(userStory.id, {
+  toggleUserStoryComplete(userStory: UserStory) {
+    let updatedTodo = this.updateUserStoryById(userStory.id, {
       complete: !userStory.complete
     });
     return updatedTodo;

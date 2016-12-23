@@ -2,7 +2,7 @@
   <header class="header">
     <h1>User-Stories</h1>
     <input class="newUserStory" placeholder="What's your Story? Insert a Task !" autofocus="" [(ngModel)]="newUserStory.title" (keyup.enter)="addUserStory()">
-    <input class="newUserStory" placeholder="Who are your?" autofocus="" [(ngModel)]="newUserStory.author" (keyup.enter)="addUserStory()">
+    <input class="newUserStory" placeholder="Author?" autofocus="" [(ngModel)]="newUserStory.author" (keyup.enter)="addUserStory()">
   </header>
   <section class="main" *ngIf="userStories.length > 0">
     <ul class="userStory-list">
