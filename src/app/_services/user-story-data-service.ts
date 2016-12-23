@@ -18,11 +18,16 @@ export class UserStoryDataService {
 
   // Simulate POST /todos
   addTodo(userStory: UserStory): UserStoryDataService {
-    if (!userStory.id) {
-      userStory.id = ++this.lastId;
+    if(userStory.author==''){
+
     }
-    this.userStories.push(userStory);
-    return this;
+    else {
+      if (!userStory.id) {
+        userStory.id = ++this.lastId;
+      }
+      this.userStories.push(userStory);
+      return this;
+    }
   }
 
   // Simulate DELETE /todos/:id

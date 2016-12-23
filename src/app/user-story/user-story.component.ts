@@ -18,8 +18,9 @@ export class UserStoryComponent {
   }
 
   addUserStory() {
-    this.userStoryDataServiceService.addTodo(this.newUserStory);
-    this.newUserStory = new UserStory();
+      this.userStoryDataServiceService.addTodo(this.newUserStory);
+      this.newUserStory = new UserStory();
+    
   }
 
   toggleUserStoryComplete(userStory) {
