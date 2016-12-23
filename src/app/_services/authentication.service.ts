@@ -5,11 +5,19 @@ import {User} from '../_models/user'
 export {User}
 
 
-var users = [
+let user = new User;
+user.firstName = "Daniel";
+user.lastName = "Bruns";
+user.birthDate = "30.04.1991";
+
+let users = [
+ user
 ];
+
 
 @Injectable()
 export class AuthenticationService {
+
 
   constructor(
     private _router: Router){}
@@ -20,8 +28,9 @@ export class AuthenticationService {
   }
 
   login(user){
-    var authenticatedUser = users.find(u => u.username === user.username);
-    if (authenticatedUser && authenticatedUser.password === user.password){
+
+    var authenticatedUser = users.find(u => u.firstName === user.firstName);
+    if (authenticatedUser && authenticatedUser['birthDate'] === user.birthDate){
       localStorage.setItem("user", JSON.stringify(authenticatedUser));
       this._router.navigate(['home']);
       return true;
@@ -35,4 +44,7 @@ export class AuthenticationService {
       this._router.navigate(['login']);
     }
   }
+
+
+
 }

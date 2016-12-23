@@ -1,27 +1,30 @@
-<div class="container" >
+<div class="container">
   <div class="title">
     Welcome
   </div>
   <div class="panel-body">
     <div class="row">
       <div class="col-sm-6">
-        <label for="username">Username (Debug: Test)</label>
-        <input [(ngModel)]="user.username" id="username"
+        <label for="username">FirstName (Debug: Daniel)</label>
+        <input [(ngModel)]="user.firstName" id="username"
                type="text" class="validate form-control">
       </div>
     </div>
-
     <div class="row">
       <div class="col-sm-6">
-        <label for="password">Password (Debug: Test)</label>
-        <input [(ngModel)]="user.password" id="password"
+        <label for="password">BirthDate (Debug: 30.04.1991)</label>
+        <input [(ngModel)]="user.birthDate" id="password"
                type="password" class=" form-control">
       </div>
     </div>
 
     <span>{{errorMsg}}</span>
+
+
     <button (click)="login()"
-            class="btn waves-effect waves-light"
-            type="submit" name="action">Login</button>
+            class="btn btn-default"
+            type="submit" name="action">Login
+    </button>
+
   </div>
 </div>

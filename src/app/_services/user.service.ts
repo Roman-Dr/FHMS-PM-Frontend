@@ -20,6 +20,12 @@ export class UserService {
       .catch(this.handleError);
   }
 
+  getUser(id:number) {
+    return this.http.get(this._apiUrl + id)
+      .map(res => <User>res.json())
+      .catch(this.handleError);
+  }
+
   addUser(newUser:User) {
     let toAdd = JSON.stringify({firstName: newUser.firstName, lastName: newUser.lastName, birthDate: newUser.birthDate})
 
