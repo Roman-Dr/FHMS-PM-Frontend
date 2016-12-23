@@ -6,7 +6,6 @@ import { Observable } from 'rxjs/Observable'
 import 'rxjs/Rx'
 
 import {Router} from "@angular/router";
-import {sha1} from "@angular/compiler/src/i18n/digest";
 
 
 
@@ -19,6 +18,7 @@ let users = [
  user
 ];
 
+// not neccessary!
 
 @Injectable()
 export class AuthenticationService {
@@ -51,14 +51,6 @@ export class AuthenticationService {
     if (localStorage.getItem("user") === null){
       this._router.navigate(['login']);
     }
-  }
-
-  checkCredentialsApi(user: User){
-    let toCheck = JSON.stringify({firstName: user.firstName,  birthDate: user.birthDate})
-    var encryptedCheck = sha1(toCheck)
-
-    return this.http.get(this._apiUrl + encryptedCheck)
-      .map(res => <User[]> res.json())
   }
 
 

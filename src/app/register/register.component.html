@@ -1,10 +1,14 @@
-<section class="app-register">
-<div class="col-sm-6">
-  <input class="newUser form-control" type="email" placeholder="Email" autofocus="" [(ngModel)]="newUser.email" >
-  <input class="newUser form-control" type="password" placeholder="Passwort" autofocus="" [(ngModel)]="newUser.password" >
-  <input class="newUser form-control" type="text" placeholder="Vorname" autofocus="" [(ngModel)]="newUser.firstName" >
-  <input class="newUser form-control" type="text" placeholder="Nachname" autofocus="" [(ngModel)]="newUser.lastName" >
-  <input class="newUser form-control" type="text" placeholder="Geburtstag" autofocus="" [(ngModel)]="newUser.birthDate" >
+<div>
+  <div class="register jumbotron centered">
+    <h1>Welcome to the angular2 authentication sample!</h1>
+    <h2 *ngIf="jwt">Your JWT is:</h2>
+    <pre *ngIf="jwt" class="jwt"><code></code></pre>
+    <pre *ngIf="jwt" class="jwt"><code></code></pre>
+    <p>Click any of the buttons to call an API and get a response</p>
+    <p><a class="btn btn-primary btn-lg" role="button" (click)="callAnonymousApi()">Call Anonymous API</a></p>
+    <p><a class="btn btn-primary btn-lg" role="button" (click)="callSecuredApi()">Call Secure API</a></p>
+    <p><a class="btn btn-primary btn-lg" role="button" (click)="logout()">Logout</a></p>
+    <h2 *ngIf="response">The response of calling the <span class="red"></span> API is:</h2>
+    <h3 *ngIf="response"></h3>
+  </div>
 </div>
-  <button type="button" class="btn btn-primary" (click)="addUser()">Registrieren</button>
-</section>

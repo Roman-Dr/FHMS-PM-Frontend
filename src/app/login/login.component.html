@@ -1,30 +1,15 @@
-<div class="container">
-  <div class="title">
-    Welcome
-  </div>
-  <div class="panel-body">
-    <div class="row">
-      <div class="col-sm-6">
-        <label for="username">FirstName (Debug: Daniel)</label>
-        <input [(ngModel)]="user.firstName" id="username"
-               type="text" class="validate form-control">
-      </div>
+<div class="login jumbotron center-block">
+  <h1>Login</h1>
+  <form role="form" (submit)="login($event, username.value, password.value)">
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" #username class="form-control" id="username" placeholder="Username">
     </div>
-    <div class="row">
-      <div class="col-sm-6">
-        <label for="password">BirthDate (Debug: 30.04.1991)</label>
-        <input [(ngModel)]="user.birthDate" id="password"
-               type="password" class=" form-control">
-      </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" #password class="form-control" id="password" placeholder="Password">
     </div>
-
-    <span>{{errorMsg}}</span>
-
-
-    <button (click)="login()"
-            class="btn btn-default"
-            type="submit" name="action">Login
-    </button>
-
-  </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+    <a routerLink="register">Click here to Signup</a>
+  </form>
 </div>

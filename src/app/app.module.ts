@@ -16,9 +16,9 @@ import { RoadmapComponent } from './roadmap/roadmap.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { UserStoryComponent } from './user-story/user-story.component';
-import { PrivateComponent } from '../private/private.component';
+import { AuthGuard } from './common/auth.guard';
 
-
+import { AUTH_PROVIDERS } from 'angular2-jwt';
 
 
 @NgModule({
@@ -33,8 +33,7 @@ import { PrivateComponent } from '../private/private.component';
     RoadmapComponent,
     LoginComponent,
     RegisterComponent,
-    UserStoryComponent,
-    PrivateComponent
+    UserStoryComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +42,7 @@ import { PrivateComponent } from '../private/private.component';
     NgbModule.forRoot(),
     routes
   ],
-  providers: [],
+  providers: [AuthGuard, ...AUTH_PROVIDERS],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
