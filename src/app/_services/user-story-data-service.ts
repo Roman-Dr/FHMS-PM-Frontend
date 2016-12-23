@@ -18,7 +18,7 @@ export class UserStoryDataService {
 
   // Simulate POST /todos
   addTodo(userStory: UserStory): UserStoryDataService {
-    if(userStory.author==''){
+    if(userStory.author==''||userStory.title==''){
 
     }
     else {
