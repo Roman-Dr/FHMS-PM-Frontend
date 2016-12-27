@@ -2,18 +2,40 @@
 
 import {Injectable} from '@angular/core';
 import {UserStory} from '../user-story/UserStory';
+import {Headers, Http} from "@angular/http";
+import 'rxjs/Rx'
+import { Observable } from 'rxjs/Observable'
+import {User} from "../_models/user";
 
 @Injectable()
 export class UserStoryDataService {
+
+
+  private headers: Headers;
+
+
+  constructor(private _http: Http) {
+
+    this.headers = new Headers();
+    this.headers.append('Content-Type', 'application/json');
+    this.headers.append('Accept', 'application/json');
+
+  }
+
+  private _apiUrl = 'http://10.60.67.20:3000/api/userstories/';
 
   // Placeholder for last id so we can simulate
   // automatic incrementing of id's
   lastId: number = 0;
 
   // Placeholder for todo's
+
   userStories: UserStory[] = [];
 
-  constructor() {
+
+  getUserStories() {
+    return this._http.get(this._apiUrl)
+      .map(res => res.json());
   }
 
   // Simulate POST /todos
