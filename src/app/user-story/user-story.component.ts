@@ -13,26 +13,39 @@ import {UserStoryDataService} from '../_services/user-story-data.service';
 export class UserStoryComponent {
 
   newUserStory: UserStory = new UserStory();
+  userstories: UserStory[];
 
-  constructor(private userStoryDataServiceService: UserStoryDataService) {
+  constructor(private userStoryDataService: UserStoryDataService) {
+  }
+
+  ngOnInit() {
+    this.getUserStories();
   }
 
   addUserStory() {
-      this.userStoryDataServiceService.addUserStory(this.newUserStory);
+      this.userStoryDataService.addUserStory(this.newUserStory);
       this.newUserStory = new UserStory();
-    
+
   }
 
   toggleUserStoryComplete(userStory) {
-    this.userStoryDataServiceService.toggleUserStoryComplete(userStory);
+    this.userStoryDataService.toggleUserStoryComplete(userStory);
   }
 
   removeUserStory(userStory) {
-    this.userStoryDataServiceService.deleteUserStoryById(userStory.id);
+    this.userStoryDataService.deleteUserStoryById(userStory.id);
   }
 
   get userStories() {
-    return this.userStoryDataServiceService.getAllUserStories();
+    return this.userStoryDataService.getAllUserStories();
   }
+
+  getUserStories() {
+    this.userStoryDataService.getUserStories()
+      .subscribe(
+        userstories => this.userstories = userstories
+      )
+  }
+
 
 }
