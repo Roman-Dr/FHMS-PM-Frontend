@@ -49,6 +49,7 @@ export class UserStoryDataService {
 
   // Simulate GET /todos
   getAllUserStories(): UserStory[] {
+    console.log("Service: getAllUserStories()");
     return this.userStories;
   }
 

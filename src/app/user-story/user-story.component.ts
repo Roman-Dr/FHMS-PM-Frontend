@@ -14,25 +14,28 @@ export class UserStoryComponent {
 
   newUserStory: UserStory = new UserStory();
 
-  constructor(private userStoryDataServiceService: UserStoryDataService) {
+  constructor(private userStoryDataService: UserStoryDataService) {
   }
 
   addUserStory() {
-      this.userStoryDataServiceService.addUserStory(this.newUserStory);
+    console.log('EINE NEUE USERSTORY WURDE ANGELEGT');
+      this.userStoryDataService.addUserStory(this.newUserStory);
       this.newUserStory = new UserStory();
-    
+
+
   }
 
   toggleUserStoryComplete(userStory) {
-    this.userStoryDataServiceService.toggleUserStoryComplete(userStory);
+    this.userStoryDataService.toggleUserStoryComplete(userStory);
   }
 
   removeUserStory(userStory) {
-    this.userStoryDataServiceService.deleteUserStoryById(userStory.id);
+    this.userStoryDataService.deleteUserStoryById(userStory.id);
   }
 
   get userStories() {
-    return this.userStoryDataServiceService.getAllUserStories();
+    console.log("Components: userStories()");
+    return this.userStoryDataService.getAllUserStories();
   }
 
 }

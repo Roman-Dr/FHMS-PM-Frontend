@@ -4,18 +4,6 @@
   </header>
     <div id="userstories">
       <p>Usertories</p>
-      <section class="app-UserStory" *ngIf="userStories.length > 0">
-        <ul class="userStory-list">
-          <li *ngFor="let userStory of userStories" [class.completed]="userStory.complete">
-            <div class="view">
-              <input class="toggle" data-toggle="toggle" type="checkbox" (click)="toggleUserStoryComplete(userStory)" [checked]="userStory.complete">
-              <label class="black">{{userStory.title}}</label>
-              <label class="blacksmall">{{userStory.author}}, {{userStory.timestamp}}</label>
-              <button class="destroy" (click)="removeUserStory(userStory)"></button>
-            </div>
-          </li>
-        </ul>
-      </section>
     </div>
     <div id="backlogs">
       <p>Backlog</p>
