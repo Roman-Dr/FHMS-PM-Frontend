@@ -45,6 +45,7 @@ import { PrivateComponent } from '../private/private.component';
   ],
   providers: [],
   bootstrap: [AppComponent]
+
 })
 export class AppModule { }
 
