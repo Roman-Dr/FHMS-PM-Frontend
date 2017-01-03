@@ -1,6 +1,7 @@
-import {Component} from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import {UserStory} from './UserStory';
 import {UserStoryDataService} from '../_services/user-story-data.service';
+import { Observable } from 'rxjs/Observable';
 
 
 
@@ -12,19 +13,27 @@ import {UserStoryDataService} from '../_services/user-story-data.service';
 })
 export class UserStoryComponent {
 
-  newUserStory: UserStory = new UserStory();
-  userstories: UserStory[];
+  //newUserStory: UserStory = new UserStory();
 
   constructor(private userStoryDataService: UserStoryDataService) {
   }
 
-  ngOnInit() {
-    this.getUserStories();
+  userstories: UserStory[];
+
+  loadUserStories(){
+    this.userStoryDataService.get_All_Userstories().subscribe(userstories=>this.userstories=userstories, err => {console.log(err);
+    });
   }
 
-  addUserStory() {
+  ngOnInit(){
+    this.loadUserStories()
+  }
+
+  /*addUserStory() {
+    console.log('EINE NEUE USERSTORY WURDE ANGELEGT');
       this.userStoryDataService.addUserStory(this.newUserStory);
       this.newUserStory = new UserStory();
+
 
   }
 
@@ -37,15 +46,8 @@ export class UserStoryComponent {
   }
 
   get userStories() {
+    console.log("Components: userStories()");
     return this.userStoryDataService.getAllUserStories();
   }
-
-  getUserStories() {
-    this.userStoryDataService.getUserStories()
-      .subscribe(
-        userstories => this.userstories = userstories
-      )
-  }
-
-
+*/
 }

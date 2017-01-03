@@ -43,6 +43,7 @@ import {UserService} from "./_services/user.service";
   ],
   providers: [UserService, LoggedInGuard],
   bootstrap: [AppComponent]
+
 })
 export class AppModule {
 
