@@ -3,8 +3,6 @@ import {UserStory} from './UserStory';
 import {UserStoryDataService} from '../_services/user-story-data.service';
 import { Observable } from 'rxjs/Observable';
 
-
-
 @Component({
   selector: 'app-UserStory',
   templateUrl: './user-story.component.html',
@@ -13,15 +11,13 @@ import { Observable } from 'rxjs/Observable';
 })
 export class UserStoryComponent {
 
-  getMyUserStoriesFromServer:string;
+ 
   postMyUserStoriesToServer:string;
-
-  userStoryID:number;
+  
   userStoryName:string;
   userStoryComplete:boolean = false;
   userStoryAuthor: string;
   userStoryTimeStamp:  Date=new Date();
-  //newUserStory: UserStory = new UserStory();
 
   constructor(private userStoryDataService: UserStoryDataService) {
   }

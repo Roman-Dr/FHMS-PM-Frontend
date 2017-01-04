@@ -17,14 +17,6 @@ export class UserStoryDataService {
   constructor (private http: Http) {}
 
   private userstoriesUrl = 'http://localhost:3000/api/userstories';
-/*
-  get_All_Userstories(): Observable<UserStory[]>{
-    return this.http.get(this.userstoriesUrl)
-      .map((res: Response) => res.json())
-      .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
-  }*/
-
-
 
   postUserStoryRestful(userStoryName:string,userStoryComplete:boolean,userStoryAuthor:string,userStoryTimeStamp:Date){
 
