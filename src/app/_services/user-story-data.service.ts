@@ -26,10 +26,10 @@ export class UserStoryDataService {
 
 
 
-  postUserStoryRestful(userStoryID:number,userStoryName:string,userStoryComplete:boolean,userStoryAuthor:string,userStoryTimeStamp:Date){
+  postUserStoryRestful(userStoryName:string,userStoryComplete:boolean,userStoryAuthor:string,userStoryTimeStamp:Date){
 
-    let body = JSON.stringify({ "userStoryID":userStoryID,"userStoryName":userStoryName,"userStoryComplete":userStoryComplete,"userStoryAuthor":userStoryAuthor,"userStoryTimeStamp":userStoryTimeStamp });
-    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+    let body = JSON.stringify({ "title":userStoryName,"complete":userStoryComplete,"author":userStoryAuthor,"timestmp":userStoryTimeStamp });
+    let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers, method: "post" });
 
     return this.http.post(this.userstoriesUrl,body,options)
