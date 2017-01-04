@@ -1,58 +1,69 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http'
-import { User } from '../_models/user'
-export { User }
-import { Observable } from 'rxjs/Observable'
+import {Http, Headers} from '@angular/http'
 import 'rxjs/Rx'
-
-import {Router} from "@angular/router";
-
-
-
-let user = new User;
-user.firstName = "Daniel";
-user.lastName = "Bruns";
-user.birthDate = "30.04.1991";
-
-let users = [
- user
-];
-
-// not neccessary!
+import {Observable} from "rxjs";
 
 @Injectable()
 export class AuthenticationService {
 
-  private _apiUrl = 'http://10.60.67.20:3000/api/users/';
+  private loggedIn = false;
+  //private _apiUrl = 'http://10.60.67.20:3000/api/user/';
+  private _apiUrl = 'http://localhost:3000/api/user/';
 
+  constructor(private http: Http) {
+    this.loggedIn = !!localStorage.getItem('auth_token');
+  }
 
-  constructor(
-    private _router: Router,
-  private http:Http){}
+  login(email, password) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    return this.http
+      .post(
+        this._apiUrl +'login',
+        JSON.stringify({ email, password }),
+        { headers }
+      )
+      .map(res => res.json())
+      .map((res) => {
+        if (res.success) {
+          localStorage.setItem('auth_token', res.auth_token);
+          this.loggedIn = true;
+        }
+
+        return res.success;
+      });
+  }
 
   logout() {
-    localStorage.removeItem("user");
-    this._router.navigate(['login']);
+    localStorage.removeItem('auth_token');
+    this.loggedIn = false;
   }
 
-  login(user: User){
-
-    var authenticatedUser = users.find(u => u.firstName === user.firstName);
-    if (authenticatedUser && authenticatedUser['birthDate'] === user.birthDate){
-      localStorage.setItem("user", JSON.stringify(authenticatedUser));
-      this._router.navigate(['home']);
-      return true;
-    }
-    return false;
-
+  isLoggedIn() {
+    return this.loggedIn;
   }
 
-  checkCredentials(){
-    if (localStorage.getItem("user") === null){
-      this._router.navigate(['login']);
-    }
-  }
 
+  registerUser(email, password) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+
+
+    return this.http.post
+    (this._apiUrl +'signup',
+      JSON.stringify({email, password}), { headers }
+    )
+      .map(res => res.json())
+      .map((res) => {
+        if (res.success) {
+          console.log("Register successful");
+        }
+
+        return res.success;
+      })
+  }
 
 
 }
