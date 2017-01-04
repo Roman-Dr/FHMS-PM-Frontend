@@ -12,6 +12,7 @@ export class AuthenticationService {
 
   constructor(private http: Http) {
     this.loggedIn = !!localStorage.getItem('auth_token');
+
   }
 
   login(email, password) {

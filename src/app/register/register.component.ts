@@ -1,14 +1,14 @@
 import {Component} from '@angular/core';
-import {UserService} from "../_services/user.service";
 import {Router} from "@angular/router";
 import {User} from "../_models/user";
+import {AuthenticationService} from "../_services/authentication.service";
 
 
 @Component({
   selector: 'register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
-  providers: [UserService]
+  providers: [AuthenticationService]
 })
 
 
@@ -17,12 +17,12 @@ export class RegisterComponent {
   newUser: User = new User()
   errorMessage: string;
 
-  constructor(private _userService: UserService, private _router: Router) {
+  constructor(private authenticationService: AuthenticationService, private _router: Router) {
   }
 
 
   onSubmit(email, password) {
-    let success = this._userService.registerUser(email, password)
+    let success = this.authenticationService.registerUser(email, password)
     if (success) {
       console.log(this._router);
       success.subscribe(

@@ -6,7 +6,8 @@ import { AuthenticationService } from '../_services/authentication.service';
 @Component({
   selector: 'login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+  providers: [AuthenticationService]
 })
 
 
