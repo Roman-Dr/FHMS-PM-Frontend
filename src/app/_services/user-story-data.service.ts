@@ -26,7 +26,16 @@ export class UserStoryDataService {
 
 
 
+  postUserStoryRestful(userStoryID:number,userStoryName:string,userStoryComplete:boolean,userStoryAuthor:string,userStoryTimeStamp:Date){
 
+    let body = JSON.stringify({ "userStoryID":userStoryID,"userStoryName":userStoryName,"userStoryComplete":userStoryComplete,"userStoryAuthor":userStoryAuthor,"userStoryTimeStamp":userStoryTimeStamp });
+    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+    let options = new RequestOptions({ headers: headers, method: "post" });
+
+    return this.http.post(this.userstoriesUrl,body,options)
+      .map(res => res.json())
+      .catch(this.handleError);
+  }
 
 
   get_All_Userstories(): Observable<UserStory[]>{

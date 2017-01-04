@@ -13,6 +13,14 @@ import { Observable } from 'rxjs/Observable';
 })
 export class UserStoryComponent {
 
+  getMyUserStoriesFromServer:string;
+  postMyUserStoriesToServer:string;
+
+  userStoryID:number;
+  userStoryName:string;
+  userStoryComplete:boolean = false;
+  userStoryAuthor: string;
+  userStoryTimeStamp:  Date=new Date();
   //newUserStory: UserStory = new UserStory();
 
   constructor(private userStoryDataService: UserStoryDataService) {
@@ -29,14 +37,14 @@ export class UserStoryComponent {
     this.loadUserStories()
   }
 
-  /*addUserStory() {
-    console.log('EINE NEUE USERSTORY WURDE ANGELEGT');
-      this.userStoryDataService.addUserStory(this.newUserStory);
-      this.newUserStory = new UserStory();
-
-
+  addUserStory() {
+      this.userStoryDataService.postUserStoryRestful(this.userStoryID, this.userStoryName,this.userStoryComplete,this.userStoryAuthor,this.userStoryTimeStamp).subscribe(
+        data => this.postMyUserStoriesToServer = JSON.stringify(data),
+        error => console.log("Error HTTTP POST SERVICE"),
+        () => console.log("Job Done Post!")
+      );
   }
-
+/*
   toggleUserStoryComplete(userStory) {
     this.userStoryDataService.toggleUserStoryComplete(userStory);
   }

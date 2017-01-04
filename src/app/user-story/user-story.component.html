@@ -1,8 +1,8 @@
 <section class="app-UserStory">
   <header class="header">
     <h1>User-Stories</h1>
-    <input class="newUserStory" placeholder="What's your Story? Insert a Task !" autofocus="" [(ngModel)]="newUserStory.title" (keyup.enter)="addUserStory()">
-    <input class="newUserStory" placeholder="Author?" autofocus="" [(ngModel)]="newUserStory.author" (keyup.enter)="addUserStory()">
+    <input class="newUserStory" placeholder="What's your Story? Insert a Task !" autofocus="" [(ngModel)]="userStoryName" (keyup.enter)="addUserStory()">
+    <input class="newUserStory" placeholder="Author?" autofocus="" [(ngModel)]="userStoryAuthor" (keyup.enter)="addUserStory()">
   </header>
   <p>Vor LI</p>
   <li *ngFor="let userstory of userstories">{{userstory.id}}</li>
