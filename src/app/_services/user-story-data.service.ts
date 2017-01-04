@@ -17,16 +17,17 @@ export class UserStoryDataService {
   constructor (private http: Http) {}
 
   private userstoriesUrl = 'http://localhost:3000/api/userstories';
-/*
-  get_All_Userstories(): Observable<UserStory[]>{
-    return this.http.get(this.userstoriesUrl)
-      .map((res: Response) => res.json())
-      .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
-  }*/
 
+  postUserStoryRestful(userStoryName:string,userStoryComplete:boolean,userStoryAuthor:string,userStoryTimeStamp:Date){
 
+    let body = JSON.stringify({ "title":userStoryName,"complete":userStoryComplete,"author":userStoryAuthor,"timestmp":userStoryTimeStamp });
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers, method: "post" });
 
-
+    return this.http.post(this.userstoriesUrl,body,options)
+      .map(res => res.json())
+      .catch(this.handleError);
+  }
 
 
   get_All_Userstories(): Observable<UserStory[]>{
