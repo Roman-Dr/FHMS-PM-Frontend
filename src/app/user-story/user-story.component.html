@@ -4,26 +4,27 @@
     <input class="newUserStory" placeholder="What's your Story? Insert a Task !" autofocus="" [(ngModel)]="userStoryName" (keyup.enter)="addUserStory()">
     <input class="newUserStory" placeholder="Author?" autofocus="" [(ngModel)]="userStoryAuthor" (keyup.enter)="addUserStory()">
   </header>
-  <p>Vor LI</p>
-  <li *ngFor="let userstory of userstories">{{userstory.id}}</li>
-  <li *ngFor="let userstory of userstories">{{userstory.title}}</li>
-  <li *ngFor="let userstory of userstories">{{userstory.complete}}</li>
-  <p>nach LI</p>
-<p>{{get_All_Userstories()}}</p>
-  <section class="main" *ngIf="userstories.length > 0">
-    <p>Start section</p>
+  <!--<p>Vor LI</p>-->
+  <!--<li *ngFor="let userstory of userstories">{{userstory.id}}</li>-->
+  <!--<li *ngFor="let userstory of userstories">{{userstory.title}}</li>-->
+  <!--<li *ngFor="let userstory of userstories">{{userstory.complete}}</li>-->
+  <!--<p>nach LI</p>-->
+  <!--<p>{{get_All_Userstories()}}</p>-->
+  <!--<section class="main" *ngIf="userstories.length > 0">-->
+  <!--<section class="main">-->
+    <!--<p>Start section</p>-->
     <ul class="userStory-list">
       <li *ngFor="let userstory of userstories" [class.completed]="userstory.complete">
         <div class="view">
-          <input class="toggle" data-toggle="toggle" type="checkbox" (click)="toggleUserStoryComplete(userStory)" [checked]="userStory.complete">
-          <label class="black">{{userStory.title}}</label>
-          <label class="blacksmall">{{userStory.author}}, {{userStory.timestamp}}</label>
+          <input class="toggle" data-toggle="toggle" type="checkbox" (click)="toggleUserStoryComplete(userStory)" [checked]="userstory.complete">
+          <label class="black">{{userstory.title}}</label>
+          <label class="blacksmall">{{userstory.author}}, {{userstory.timestamp}}</label>
           <button class="destroy" (click)="removeUserStory(userStory)"></button>
         </div>
       </li>
     </ul>
-  </section>
-  <footer class="footer" *ngIf="userStories.length > 0">
-    <span class="userStory-count"><strong>{{userStories.length}}</strong> {{userStories.length == 1 ? 'UserStory' : 'User Stories'}} left</span>
-  </footer>
+  <!--</section>-->
+  <!--<footer class="footer" *ngIf="userstories.length > 0">-->
+    <!--<span class="userStory-count"><strong>{{userstories.length}}</strong> {{userstories.length == 1 ? 'UserStory' : 'User Stories'}} left</span>-->
+  <!--</footer>-->
 </section>

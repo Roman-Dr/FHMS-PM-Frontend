@@ -18,7 +18,7 @@ export const router: Routes = [
   { path: 'landing', component: LandingComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'backlog', component: BacklogComponent, canActivate: [LoggedInGuard] },
+  { path: 'backlog', component: BacklogComponent },
   { path: 'board', component: BoardComponent },
   { path: 'sprint', component: SprintComponent },
   { path: 'estimation', component: EstimationComponent },

@@ -30,10 +30,9 @@ export class UserStoryDataService {
   }
 
 
-  get_All_Userstories(): Observable<UserStory[]>{
+  getUserStories() {
     return this.http.get(this.userstoriesUrl)
-      .map(this.extractData)
-      .catch(this.handleError);
+      .map(res => res.json())
   }
 
   private extractData(res: Response) {

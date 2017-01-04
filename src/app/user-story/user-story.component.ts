@@ -11,9 +11,9 @@ import { Observable } from 'rxjs/Observable';
 })
 export class UserStoryComponent {
 
- 
+
   postMyUserStoriesToServer:string;
-  
+
   userStoryName:string;
   userStoryComplete:boolean = false;
   userStoryAuthor: string;
@@ -25,7 +25,10 @@ export class UserStoryComponent {
   userstories: UserStory[];
 
   loadUserStories(){
-    this.userStoryDataService.get_All_Userstories().subscribe(userstories=>this.userstories=userstories, err => {console.log(err);
+    this.userStoryDataService.getUserStories()
+      .subscribe(
+        userstories=>this.userstories=userstories,
+        err => {console.log(err);
     });
   }
 
