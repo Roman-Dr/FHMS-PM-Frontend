@@ -41,7 +41,9 @@ export class UserStoryComponent {
         data => this.postMyUserStoriesToServer = JSON.stringify(data),
         error => console.log("Error HTTTP POST SERVICE"),
         () => console.log("Job Done Post!")
-      );
+
+      )
+        ;
   }
 /*
   toggleUserStoryComplete(userStory) {

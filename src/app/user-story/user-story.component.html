@@ -10,7 +10,7 @@
   <!--<li *ngFor="let userstory of userstories">{{userstory.complete}}</li>-->
   <!--<p>nach LI</p>-->
   <!--<p>{{get_All_Userstories()}}</p>-->
-  <!--<section class="main" *ngIf="userstories.length > 0">-->
+  <section class="main" *ngIf="userstories?.length > 0">
   <!--<section class="main">-->
     <!--<p>Start section</p>-->
     <ul class="userStory-list">
@@ -23,8 +23,8 @@
         </div>
       </li>
     </ul>
-  <!--</section>-->
-  <!--<footer class="footer" *ngIf="userstories.length > 0">-->
-    <!--<span class="userStory-count"><strong>{{userstories.length}}</strong> {{userstories.length == 1 ? 'UserStory' : 'User Stories'}} left</span>-->
-  <!--</footer>-->
+  </section>
+  <footer class="footer" *ngIf="userstories?.length > 0">
+    <span class="userStory-count"><strong>{{userstories?.length}}</strong> {{userstories?.length == 1 ? 'UserStory' : 'User Stories'}} left</span>
+  </footer>
 </section>
