@@ -26,7 +26,7 @@ export class UserStoryComponent {
 
   }
 
-  
+
 
 
   userstories: UserStory[];
@@ -44,13 +44,21 @@ export class UserStoryComponent {
   }
 
   addUserStory() {
+    if((!this.userStoryAuthor)||(!this.userStoryName)){
+      console.log("UserStoryName oder UserStoryAuthor sind leer: Componentd")
+      this.userStoryAuthor=null
+      this.userStoryName=null
+    }
+    else{
       this.userStoryDataService.postUserStoryRestful( this.userStoryName,this.userStoryComplete,this.userStoryAuthor,this.userStoryTimeStamp).subscribe(
         //data => this.postMyUserStoriesToServer = JSON.stringify(data),
         data => this.userstories.push(data),
         error => console.log("Error HTTTP POST SERVICE"),
         () => console.log("Job Done Post!")
       );
-
+     this.userStoryAuthor=null
+    this.userStoryName=null
+    }
   }
 /*
   toggleUserStoryComplete(userStory) {
