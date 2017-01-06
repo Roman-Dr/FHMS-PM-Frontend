@@ -19,6 +19,7 @@ import { UserStoryComponent } from './user-story/user-story.component';
 import {platformBrowserDynamic} from "@angular/platform-browser-dynamic";
 import {LoggedInGuard} from "./_guards/logged-in.guard";
 import {UserService} from "./_services/user.service";
+import { ProjectComponent } from './project/project.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import {UserService} from "./_services/user.service";
     RoadmapComponent,
     LoginComponent,
     RegisterComponent,
-    UserStoryComponent
+    UserStoryComponent,
+    ProjectComponent
   ],
   imports: [
     BrowserModule,

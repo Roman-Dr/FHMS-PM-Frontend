@@ -17,19 +17,19 @@ export class RegisterComponent {
   newUser: User = new User()
   errorMessage: string;
 
-  constructor(private authenticationService: AuthenticationService, private _router: Router) {
+  constructor(private authenticationService: AuthenticationService, private router: Router) {
   }
 
 
   onSubmit(email, password) {
     let success = this.authenticationService.registerUser(email, password)
     if (success) {
-      console.log(this._router);
+      console.log(this.router);
       success.subscribe(
         user => this.newUser = user,
         error => this.errorMessage = <any> error
       );
-      this._router.navigate(['landing']);
+      this.router.navigate(['landing']);
     } else {
       console.log("Register failed, display error to user");
     }

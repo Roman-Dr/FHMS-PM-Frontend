@@ -12,12 +12,14 @@ import { UserStoryComponent} from './user-story/user-story.component';
 import { LoginComponent } from './login/login.component'
 import { RegisterComponent } from './register/register.component'
 import { LoggedInGuard } from './_guards/logged-in.guard';
+import {ProjectComponent} from "./project/project.component";
 
 export const router: Routes = [
   { path: '', component: LandingComponent, pathMatch: 'full' },
   { path: 'landing', component: LandingComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'project', component: ProjectComponent },
   { path: 'backlog', component: BacklogComponent },
   { path: 'board', component: BoardComponent },
   { path: 'sprint', component: SprintComponent },

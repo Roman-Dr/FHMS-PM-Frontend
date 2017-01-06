@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {User} from "../_models/user";
 import {UserService} from "../_services/user.service";
 
@@ -8,19 +8,19 @@ import {UserService} from "../_services/user.service";
   styleUrls: ['./landing.component.css'],
   providers: [UserService]
 })
-export class LandingComponent{
+export class LandingComponent implements OnInit{
 
   users: User[];
   errorMessage: string;
 
-  constructor(private _userService: UserService) { }
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
     this.getUsers();
   }
 
   getUsers() {
-    this._userService.getUsers()
+    this.userService.getUsers()
       .subscribe(
         users => this.users = users,
         error => this.errorMessage = <any> error
