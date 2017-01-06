@@ -1,24 +1,16 @@
 <section class="app-UserStory">
   <header class="header">
     <h1>User-Stories</h1>
-    <input class="newUserStory" placeholder="What's your Story? Insert a Task !" autofocus="" [(ngModel)]="userStoryName" (keyup.enter)="addUserStory()">
-    <input class="newUserStory" placeholder="Author?" autofocus="" [(ngModel)]="userStoryAuthor" (keyup.enter)="addUserStory()">
+    <input #inputUserStoryLabel class="newUserStory" placeholder="What's your Story? Insert a Task !" autofocus="" [(ngModel)]="userStoryName" (keyup.enter)="addUserStory()" (keyup.enter)="inputUserStoryLabel.value=''" (keyup.enter)="inputAuthorLabel.value=''">
+    <input #inputAuthorLabel class="newUserStory" placeholder="Author?" autofocus="" [(ngModel)]="userStoryAuthor" (keyup.enter)="addUserStory()" (keyup.enter)="inputAuthorLabel.value=''" (keyup.enter)="inputUserStoryLabel.value=''">
   </header>
-  <!--<p>Vor LI</p>-->
-  <!--<li *ngFor="let userstory of userstories">{{userstory.id}}</li>-->
-  <!--<li *ngFor="let userstory of userstories">{{userstory.title}}</li>-->
-  <!--<li *ngFor="let userstory of userstories">{{userstory.complete}}</li>-->
-  <!--<p>nach LI</p>-->
-  <!--<p>{{get_All_Userstories()}}</p>-->
   <section class="main" *ngIf="userstories?.length > 0">
-  <!--<section class="main">-->
-    <!--<p>Start section</p>-->
     <ul class="userStory-list">
       <li *ngFor="let userstory of userstories" [class.completed]="userstory.complete">
         <div class="view">
           <input class="toggle" data-toggle="toggle" type="checkbox" (click)="toggleUserStoryComplete(userStory)" [checked]="userstory.complete">
           <label class="black">{{userstory.title}}</label>
-          <label class="blacksmall">{{userstory.author}}, {{userstory.timestamp}}</label>
+          <label class="blacksmall">{{userstory.author}}, {{userstory.timestmp}}</label>
           <button class="destroy" (click)="removeUserStory(userStory)"></button>
         </div>
       </li>

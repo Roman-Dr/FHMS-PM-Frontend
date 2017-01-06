@@ -19,14 +19,18 @@ export class UserStoryDataService {
   private userstoriesUrl = 'http://10.60.67.20:3000/api/userstories';
 
   postUserStoryRestful(userStoryName:string,userStoryComplete:boolean,userStoryAuthor:string,userStoryTimeStamp:Date){
-
+    if(userStoryName||userStoryAuthor){
+      console.log("UserStoryName oder UserStoryAuthor sind leer")
+    }
+    else{
     let body = JSON.stringify({ "title":userStoryName,"complete":userStoryComplete,"author":userStoryAuthor,"timestmp":userStoryTimeStamp });
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers, method: "post" });
 
     return this.http.post(this.userstoriesUrl,body,options)
-      .map(res => res.json())
+      .map(this.extractData)
       .catch(this.handleError);
+    }
   }
 
 
