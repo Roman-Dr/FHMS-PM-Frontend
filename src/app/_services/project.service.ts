@@ -4,8 +4,8 @@ import 'rxjs/Rx'
 
 @Injectable()
 export class ProjectService {
-  // private _apiUrl = 'http://10.60.67.20:3000/api/projects/';
-  private _apiUrl = 'http://localhost:3000/api/projects/';
+  private _apiUrl = 'http://10.60.67.20:3000/api/projects/';
+  // private _apiUrl = 'http://localhost:3000/api/projects/';
 
   constructor(private http: Http) { }
 

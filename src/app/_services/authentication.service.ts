@@ -7,8 +7,8 @@ import {Observable} from "rxjs";
 export class AuthenticationService {
 
   private loggedIn = false;
-  //private _apiUrl = 'http://10.60.67.20:3000/api/user/';
-  private _apiUrl = 'http://localhost:3000/api/user/';
+  private _apiUrl = 'http://10.60.67.20:3000/api/user/';
+  // private _apiUrl = 'http://localhost:3000/api/user/';
 
   constructor(private http: Http) {
     this.loggedIn = !!localStorage.getItem('auth_token');
