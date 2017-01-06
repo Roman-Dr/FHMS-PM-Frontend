@@ -18,6 +18,13 @@ export class UserStoryDataService {
 
   private userstoriesUrl = 'http://10.60.67.20:3000/api/userstories';
 
+
+  deleteUserStory= (id: string): Observable<Response> => {
+    console.log("Service: "+id)
+    return this.http.delete(this.userstoriesUrl+"/"+id)
+      .catch(this.handleErrorDelete);
+  }
+
   postUserStoryRestful(userStoryName:string,userStoryComplete:boolean,userStoryAuthor:string,userStoryTimeStamp:Date){
 
       console.log(userStoryName+";"+userStoryAuthor)
@@ -39,6 +46,11 @@ export class UserStoryDataService {
   private extractData(res: Response) {
     let body = res.json();
     return body.data || { };
+  }
+
+  private handleErrorDelete(error: Response) {
+    console.error(error);
+    return Observable.throw(error.json().error || 'Server error');
   }
 
   private handleError (error: Response | any) {

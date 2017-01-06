@@ -31,6 +31,19 @@ export class UserStoryComponent {
 
   userstories: UserStory[];
 
+
+  removeUserStory(userstory: UserStory){
+    console.log("Component: "+userstory.id)
+    this.userStoryDataService.deleteUserStory(userstory.id)
+      .subscribe(
+        response => {
+        }, error => {
+          console.log(error);
+        }, () => {
+          console.log('Deleted complete');
+        });
+  }
+
   loadUserStories(){
     this.userStoryDataService.getUserStories()
       .subscribe(
