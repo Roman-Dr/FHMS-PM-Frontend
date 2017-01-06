@@ -19,9 +19,10 @@ export class UserStoryDataService {
   private userstoriesUrl = 'http://10.60.67.20:3000/api/userstories';
 
 
-  deleteUserStory= (id: string): Observable<Response> => {
+  deleteUserStory (id){
+    let headers = new Headers({ 'Content-Type': 'application/json' });
     console.log("Service: "+id)
-    return this.http.delete(this.userstoriesUrl+"/"+id)
+    return this.http.delete(this.userstoriesUrl+"/"+id,{headers: headers}).toPromise()
       .catch(this.handleErrorDelete);
   }
 

@@ -59,7 +59,8 @@ export class ProjectComponent implements OnInit {
         project => this.newProject = project,
         error => this.errorMessage = <any> error
       );
-      location.reload()
+      
+      //location.reload()
     } else {
       console.log("Create Project failed.");
     }
