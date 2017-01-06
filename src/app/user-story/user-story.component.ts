@@ -19,6 +19,7 @@ export class UserStoryComponent {
   userStoryAuthor: string;
   userStoryTimeStamp:  Date=new Date();
 
+
   constructor(private userStoryDataService: UserStoryDataService) {
   }
 
@@ -38,7 +39,8 @@ export class UserStoryComponent {
 
   addUserStory() {
       this.userStoryDataService.postUserStoryRestful( this.userStoryName,this.userStoryComplete,this.userStoryAuthor,this.userStoryTimeStamp).subscribe(
-        data => this.postMyUserStoriesToServer = JSON.stringify(data),
+        //data => this.postMyUserStoriesToServer = JSON.stringify(data),
+        data => this.userstories.push(data),
         error => console.log("Error HTTTP POST SERVICE"),
         () => console.log("Job Done Post!")
 

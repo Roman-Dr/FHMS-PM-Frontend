@@ -1,7 +1,7 @@
 <section class="app-UserStory">
   <header class="header">
     <h1>User-Stories</h1>
-    <input class="newUserStory" placeholder="What's your Story? Insert a Task !" autofocus="" [(ngModel)]="userStoryName" (keyup.enter)="addUserStory()">
+    <input class="newUserStory" placeholder="{{somePlaceholder}}" autofocus="" [(ngModel)]="userStoryName" (keyup.enter)="addUserStory()">
     <input class="newUserStory" placeholder="Author?" autofocus="" [(ngModel)]="userStoryAuthor" (keyup.enter)="addUserStory()">
   </header>
   <!--<p>Vor LI</p>-->
@@ -18,7 +18,7 @@
         <div class="view">
           <input class="toggle" data-toggle="toggle" type="checkbox" (click)="toggleUserStoryComplete(userStory)" [checked]="userstory.complete">
           <label class="black">{{userstory.title}}</label>
-          <label class="blacksmall">{{userstory.author}}, {{userstory.timestamp}}</label>
+          <label class="blacksmall">{{userstory.author}}, {{userstory.timestmp}}</label>
           <button class="destroy" (click)="removeUserStory(userStory)"></button>
         </div>
       </li>

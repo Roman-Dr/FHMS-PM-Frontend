@@ -25,7 +25,7 @@ export class UserStoryDataService {
     let options = new RequestOptions({ headers: headers, method: "post" });
 
     return this.http.post(this.userstoriesUrl,body,options)
-      .map(res => res.json())
+      .map(this.extractData)
       .catch(this.handleError);
   }
 
