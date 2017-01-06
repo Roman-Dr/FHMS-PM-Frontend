@@ -5,7 +5,12 @@
     {{project.description}}<br>
     {{project.dueDate}} <br>
     {{project.owner}}<br>
+
+    <button (click)="removeProject(project._id)" type="submit" class="btn btn-default btn-sm">
+      <span class="glyphicon glyphicon-remove"></span> Remove
+    </button>
   </div>
+
 
   <p>
     <button (click)="showCreation()" type="submit" class="btn btn-default">Neues Projekt?</button>

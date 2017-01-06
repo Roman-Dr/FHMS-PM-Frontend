@@ -46,6 +46,11 @@ export class ProjectComponent implements OnInit {
     this.projectService.chooseProject(projectId);
   }
 
+  removeProject(projectId) {
+    this.projectService.removeProject(projectId);
+    location.reload()
+  }
+
   createProject(displayName, description, dueDate, owner, stakeholders, contributors ) {
     let success = this.projectService.createProject(displayName, description, dueDate, owner, stakeholders, contributors );
     if (success) {

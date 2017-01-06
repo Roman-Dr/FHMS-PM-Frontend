@@ -7,7 +7,11 @@ export class ProjectService {
   private _apiUrl = 'http://10.60.67.20:3000/api/projects/';
   // private _apiUrl = 'http://localhost:3000/api/projects/';
 
-  constructor(private http: Http) { }
+  private headers = new Headers();
+
+  constructor(private http: Http) {
+    this.headers.append('Content-Type', 'application/json');
+  }
 
 
   getProjects() {
@@ -17,20 +21,18 @@ export class ProjectService {
 
   chooseProject(projectId) {
     if (localStorage.getItem('project_url') === null) {
-      localStorage.setItem('project_url', this._apiUrl+projectId );
+      localStorage.setItem('project_url', this._apiUrl+projectId)
     } else {
       localStorage.removeItem('project_url');
-      localStorage.setItem('project_url', this._apiUrl+projectId );
+      localStorage.setItem('project_url', this._apiUrl+projectId)
     }
   }
 
   createProject(displayName, description, dueDate, owner, stakeholders, contributors ) {
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
 
     return this.http.post
     (this._apiUrl,
-      JSON.stringify({displayName, description, dueDate, owner, stakeholders, contributors}), { headers }
+      JSON.stringify({displayName, description, dueDate, owner, stakeholders, contributors}), { headers: this.headers }
     )
       .map(res => res.json())
       .map((res) => {
@@ -40,5 +42,11 @@ export class ProjectService {
 
         return res.success;
       })
+  }
+
+  removeProject(projectId) {
+    return this.http.delete(this._apiUrl+projectId, {headers: this.headers})
+      .toPromise()
+      .then(() => null)
   }
 }
