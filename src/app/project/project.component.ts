@@ -42,6 +42,10 @@ export class ProjectComponent implements OnInit {
       )
   }
 
+  chooseProject(projectId) {
+    this.projectService.chooseProject(projectId);
+  }
+
   createProject(displayName, description, dueDate, owner, stakeholders, contributors ) {
     let success = this.projectService.createProject(displayName, description, dueDate, owner, stakeholders, contributors );
     if (success) {
@@ -50,13 +54,14 @@ export class ProjectComponent implements OnInit {
         project => this.newProject = project,
         error => this.errorMessage = <any> error
       );
-      this.router.navigate(['project']);
+      location.reload()
     } else {
       console.log("Create Project failed.");
     }
   }
 
-  showCreation(): void {
+
+  showCreation() {
     if (this.create) {
       this.create = false;
     }

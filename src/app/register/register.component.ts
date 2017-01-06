@@ -14,7 +14,7 @@ import {AuthenticationService} from "../_services/authentication.service";
 
 
 export class RegisterComponent {
-  newUser: User = new User()
+  newUser: User = new User();
   errorMessage: string;
 
   constructor(private authenticationService: AuthenticationService, private router: Router) {

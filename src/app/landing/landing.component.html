@@ -2,7 +2,9 @@
 <h3>Folgende User sind im System</h3>
 <ul>
   <li *ngFor="let user of users">
-    <p>{{ user.email}} {{user.password}}</p>
+    <p>{{ user._id}} {{ user.email}} {{user.password}}</p>
   </li>
 </ul>
+
+
 

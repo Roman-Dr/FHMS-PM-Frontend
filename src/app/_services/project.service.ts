@@ -4,8 +4,8 @@ import 'rxjs/Rx'
 
 @Injectable()
 export class ProjectService {
-  private _apiUrl = 'http://10.60.67.20:3000/api/projects/';
-  // private _apiUrl = 'http://localhost:3000/api/projects/';
+  // private _apiUrl = 'http://10.60.67.20:3000/api/projects/';
+  private _apiUrl = 'http://localhost:3000/api/projects/';
 
   constructor(private http: Http) { }
 
@@ -13,6 +13,15 @@ export class ProjectService {
   getProjects() {
     return this.http.get(this._apiUrl)
       .map(res => res.json())
+  }
+
+  chooseProject(projectId) {
+    if (localStorage.getItem('project_url') === null) {
+      localStorage.setItem('project_url', this._apiUrl+projectId );
+    } else {
+      localStorage.removeItem('project_url');
+      localStorage.setItem('project_url', this._apiUrl+projectId );
+    }
   }
 
   createProject(displayName, description, dueDate, owner, stakeholders, contributors ) {

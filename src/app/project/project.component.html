@@ -1,10 +1,11 @@
 <div class="app-project">
-  <h3>Folgende Projekte sind im System</h3>
-  <ul>
-    <li *ngFor="let project of projects">
-      <p>{{ project.id}} {{project.displayName}} {{project.description}} {{project.dueDate}} {{project.owner}}</p>
-    </li>
-  </ul>
+  <h2>Folgende Projekte sind im System</h2>
+  <div class="jumbotron" *ngFor="let project of projects">
+    <a routerLink="/landing" (click)="chooseProject(project._id)"><h4>{{project.displayName}}</h4></a>
+    {{project.description}}<br>
+    {{project.dueDate}} <br>
+    {{project.owner}}<br>
+  </div>
 
   <p>
     <button (click)="showCreation()" type="submit" class="btn btn-default">Neues Projekt?</button>
@@ -12,7 +13,7 @@
 
   <div *ngIf="create">
     <div class="jumbotron center-block">
-      <form role="form" (submit)="createProject(displayName.value, description.value, dueDate.value, owner.value)">
+      <form role="form" (submit)="createProject(displayName.value, description.value, dueDate.value, owner.value, stakeholders.value, contributors.value)">
         <div class="form-group">
           <input type="text" #displayName class="form-control" id="display-name" placeholder="Anzeigename">
         </div>
@@ -20,21 +21,21 @@
           <textarea #description class="form-control" id="description" placeholder="Beschreibung"></textarea>
         </div>
         <div class="form-group">
-          <input type="date" #dueDate class="form-control" id="due-date" placeholder="Fälligkeit">
+          <input type="date" #dueDate class="form-control" id="due-date">
         </div>
         <div class="form-group">
           <select #owner>
-            <option *ngFor="let user of users" value="{{ user.id }}">{{ user.email }}</option>
+            <option *ngFor="let user of users" value="{{ user._id }}">{{ user.email }}</option>
           </select>
         </div>
         <div class="form-group">
-          <select disabled #stakeholders>
-
+          <select multiple #stakeholders>
+            <option *ngFor="let user of users" value="{{ user._id }}">{{ user.email }}</option>
           </select>
         </div>
         <div class="form-group">
-          <select disabled #contributors>
-
+          <select multiple #contributors>
+            <option *ngFor="let user of users" value="{{ user._id }}">{{ user.email }}</option>
           </select>
         </div>
         <button type="submit" class="btn btn-default">Submit</button>
