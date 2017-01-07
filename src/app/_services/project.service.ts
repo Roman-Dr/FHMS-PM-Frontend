@@ -39,7 +39,6 @@ export class ProjectService {
         if (res.success) {
           console.log("Create Project successful");
         }
-
         return res.success;
       })
   }

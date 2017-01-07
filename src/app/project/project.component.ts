@@ -15,7 +15,7 @@ export class ProjectComponent implements OnInit {
 
   projects: Project[];
   users: User[];
-  newProject: Project = new Project();
+  user: User;
   errorMessage: string;
   create = false;
 
@@ -42,29 +42,36 @@ export class ProjectComponent implements OnInit {
       )
   }
 
+  getUser(userId) {
+    this.userService.getUser(userId)
+      .subscribe(
+        user => this.user = user,
+        error => this.errorMessage = <any> error
+      )
+  }
+
   chooseProject(projectId) {
     this.projectService.chooseProject(projectId);
   }
 
   removeProject(projectId) {
     this.projectService.removeProject(projectId);
-    location.reload()
   }
 
   createProject(displayName, description, dueDate, owner, stakeholders, contributors ) {
     let success = this.projectService.createProject(displayName, description, dueDate, owner, stakeholders, contributors );
+    let newProject = new Project(displayName, description, dueDate);
     if (success) {
-      console.log(this.router);
       success.subscribe(
-        project => this.newProject = project,
+        project => this.projects.push(newProject),
         error => this.errorMessage = <any> error
       );
-      location.reload()
+    this.showCreation();
     } else {
       console.log("Create Project failed.");
     }
-  }
 
+  }
 
   showCreation() {
     if (this.create) {

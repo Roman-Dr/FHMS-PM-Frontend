@@ -19,7 +19,7 @@ export const router: Routes = [
   { path: 'landing', component: LandingComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'project', component: ProjectComponent },
+  { path: 'projects', component: ProjectComponent },
   { path: 'backlog', component: BacklogComponent },
   { path: 'board', component: BoardComponent },
   { path: 'sprint', component: SprintComponent },
