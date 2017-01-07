@@ -16,7 +16,7 @@ export class UserStoryDataService {
 
   constructor (private http: Http) {}
 
-  private userstoriesUrl = 'http://10.60.67.20:3000/api/userstories';
+  private userstoriesUrl = localStorage.getItem('project_url')+'/userstories';
 
 
   deleteUserStory (id){
