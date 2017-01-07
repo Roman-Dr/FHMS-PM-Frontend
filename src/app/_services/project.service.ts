@@ -45,6 +45,7 @@ export class ProjectService {
 
   removeProject(projectId) {
     return this.http.delete(this._apiUrl+projectId, {headers: this.headers})
+      .map(res => res.json())
       .toPromise()
       .then(() => null)
   }

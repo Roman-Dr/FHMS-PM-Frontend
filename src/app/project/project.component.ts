@@ -56,6 +56,7 @@ export class ProjectComponent implements OnInit {
 
   removeProject(projectId) {
     this.projectService.removeProject(projectId);
+
   }
 
   createProject(displayName, description, dueDate, owner, stakeholders, contributors ) {
