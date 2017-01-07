@@ -23,7 +23,7 @@ export class AuthenticationService {
       .post(
         this._apiUrl +'login',
         JSON.stringify({ email, password }),
-        { headers }
+        {headers: headers }
       )
       .map(res => res.json())
       .map((res) => {

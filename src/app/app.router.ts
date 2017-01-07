@@ -16,7 +16,7 @@ import { LoggedInGuard } from './_guards/logged-in.guard';
 import {ProjectComponent} from "./project/project.component";
 
 export const router: Routes = [
-  { path: '', component: LandingComponent, pathMatch: 'full' },
+  { path: '', component: LoginComponent, pathMatch: 'full' },
   { path: 'landing', component: LandingComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },

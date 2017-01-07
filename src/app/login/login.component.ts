@@ -21,10 +21,10 @@ export class LoginComponent {
   }
 
   onSubmit(email, password) {
-    this.authenticationService.login(email, password).subscribe((result) => {
-      if (result) {
-        this.router.navigate(['landing']);
-      }
-    });
+    this.authenticationService.login(email, password)
+      .subscribe(
+        success => {
+          this.router.navigate(['/projects']);
+        });
   }
 }

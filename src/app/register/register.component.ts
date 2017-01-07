@@ -29,7 +29,7 @@ export class RegisterComponent {
         user => this.newUser = user,
         error => this.errorMessage = <any> error
       );
-      this.router.navigate(['landing']);
+      this.router.navigate(['/login']);
     } else {
       console.log("Register failed, display error to user");
     }
