@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Project} from "../_models/project";
 import {ProjectService} from "../_services/project.service";
 import {Router} from "@angular/router";
@@ -14,12 +14,14 @@ import {User} from "../_models/user";
 export class ProjectComponent implements OnInit {
 
   projects: Project[];
-  users: User[];
   user: User;
+  userEmail: string;
+  users: User[];
   errorMessage: string;
   create = false;
 
-  constructor(private projectService: ProjectService, private userService: UserService, private router: Router) { }
+  constructor(private projectService: ProjectService, private userService: UserService, private router: Router) {
+  }
 
   ngOnInit() {
     this.getProjects();
@@ -46,7 +48,7 @@ export class ProjectComponent implements OnInit {
     this.userService.getUser(userId)
       .subscribe(
         user => this.user = user,
-        error => this.errorMessage = <any> error
+        error => this.errorMessage = <any> error,
       )
   }
 
@@ -56,24 +58,21 @@ export class ProjectComponent implements OnInit {
 
   removeProject(projectId) {
     this.projectService.removeProject(projectId)
-          .subscribe();
+      .subscribe(
+        success => {
+          this.getProjects();
+        });
 
 
   }
 
-  createProject(displayName, description, dueDate, owner, stakeholders, contributors ) {
-    let success = this.projectService.createProject(displayName, description, dueDate, owner, stakeholders, contributors );
-    let newProject = new Project(displayName, description, dueDate);
-    if (success) {
-      success.subscribe(
-        project => this.projects.push(newProject),
-        error => this.errorMessage = <any> error
-      );
-    this.showCreation();
-    } else {
-      console.log("Create Project failed.");
-    }
-
+  createProject(displayName, description, dueDate, owner, stakeholders, contributors) {
+    this.projectService.createProject(displayName, description, dueDate, owner, stakeholders, contributors)
+      .subscribe(
+        success => {
+          this.getProjects();
+          this.showCreation();
+        });
   }
 
   showCreation() {
