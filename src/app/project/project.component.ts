@@ -55,7 +55,9 @@ export class ProjectComponent implements OnInit {
   }
 
   removeProject(projectId) {
-    this.projectService.removeProject(projectId);
+    this.projectService.removeProject(projectId)
+          .subscribe();
+
 
   }
 
