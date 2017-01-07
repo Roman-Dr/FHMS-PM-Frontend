@@ -1,6 +1,5 @@
 import {Backlog} from "../backlog/backlog";
 export class UserStory {
-  id: number;
   title: string = '';
   complete: boolean = false;
   author: string='';
