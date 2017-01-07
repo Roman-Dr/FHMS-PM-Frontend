@@ -20,6 +20,7 @@ import {platformBrowserDynamic} from "@angular/platform-browser-dynamic";
 import {LoggedInGuard} from "./_guards/logged-in.guard";
 import {UserService} from "./_services/user.service";
 import { ProjectComponent } from './project/project.component';
+import { ProjectNavComponent } from './project-nav/project-nav.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { ProjectComponent } from './project/project.component';
     LoginComponent,
     RegisterComponent,
     UserStoryComponent,
-    ProjectComponent
+    ProjectComponent,
+    ProjectNavComponent
   ],
   imports: [
     BrowserModule,

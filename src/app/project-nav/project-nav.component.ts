@@ -1,14 +1,14 @@
-import {Component, OnInit} from '@angular/core';
-import {Project} from "../_models/project";
+import { Component, OnInit } from '@angular/core';
 import {ProjectService} from "../_services/project.service";
+import {Project} from "../_models/project";
 
 @Component({
-  selector: 'app-landing',
-  templateUrl: './landing.component.html',
-  styleUrls: ['./landing.component.css'],
+  selector: 'app-project-nav',
+  templateUrl: './project-nav.component.html',
+  styleUrls: ['./project-nav.component.css'],
   providers: [ProjectService]
 })
-export class LandingComponent implements OnInit{
+export class ProjectNavComponent implements OnInit {
 
   project: Project;
   errorMessage: string;
@@ -28,5 +28,4 @@ export class LandingComponent implements OnInit{
         error => this.errorMessage = <any> error
       )
   }
-
 }

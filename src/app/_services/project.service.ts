@@ -19,11 +19,21 @@ export class ProjectService {
       .map(res => res.json())
   }
 
+  getProject(projectId) {
+    return this.http.get(this._apiUrl+projectId)
+      .map(res => res.json())
+  }
+
+
   chooseProject(projectId) {
     if (localStorage.getItem('project_url') === null) {
+      localStorage.setItem('project_id', projectId);
       localStorage.setItem('project_url', this._apiUrl+projectId)
     } else {
+      localStorage.removeItem('project_id');
       localStorage.removeItem('project_url');
+
+      localStorage.setItem('project_id', projectId);
       localStorage.setItem('project_url', this._apiUrl+projectId)
     }
   }

@@ -12,6 +12,7 @@ import { UserStoryComponent} from './user-story/user-story.component';
 import { LoginComponent } from './login/login.component'
 import { RegisterComponent } from './register/register.component'
 import { LoggedInGuard } from './_guards/logged-in.guard';
+
 import {ProjectComponent} from "./project/project.component";
 
 export const router: Routes = [
@@ -26,7 +27,7 @@ export const router: Routes = [
   { path: 'estimation', component: EstimationComponent },
   { path: 'chart', component: ChartComponent },
   { path: 'roadmap', component: RoadmapComponent },
-  { path: 'user-story', component: UserStoryComponent }
+  { path: 'user-story', component: UserStoryComponent },
 
   // { path: 'profile', component: ProfileComponent, canActivate: [LoggedInGuard] }
 ];
