@@ -10,7 +10,7 @@
         <div class="view">
           <input class="toggle" data-toggle="toggle" type="checkbox" (click)="toggleUserStoryComplete(userStory)" [checked]="userstory.complete">
           <label class="black">{{userstory.title}}</label>
-          <label class="blacksmall">{{userstory.author}}, {{userstory.timestmp}}</label>
+          <label class="blacksmall">{{userstory.authorDisplayName}}, {{userstory.creationDate}}</label>
           <button class="destroy" (click)="removeUserStory(userstory)"></button>
         </div>
       </li>
