@@ -67,7 +67,7 @@ export class UserStoryComponent {
       this.userStoryName=null
     }
     else{
-      this.userStoryDataService.postUserStoryRestful( this.userStoryName,this.userStoryComplete,this.userStoryAuthor,this.userStoryTimeStamp).subscribe(
+      this.userStoryDataService.postUserStoryRestful( this.userStoryName,this.userStoryComplete,this.userStoryAuthor).subscribe(
         //data => this.postMyUserStoriesToServer = JSON.stringify(data),
         data => {
             this.loadUserStories()

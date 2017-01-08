@@ -27,10 +27,10 @@ export class UserStoryDataService {
       .catch(this.handleErrorDelete);
   }
 
-  postUserStoryRestful(userStoryName:string,userStoryComplete:boolean,userStoryAuthor:string,userStoryTimeStamp:Date){
+  postUserStoryRestful(userStoryName:string,userStoryComplete:boolean,userStoryAuthor){
 
       console.log(userStoryName+"; "+userStoryAuthor)
-    let body = JSON.stringify({ "title":userStoryName,"complete":userStoryComplete,"authorDisplayName":userStoryAuthor,"creationDate":userStoryTimeStamp });
+    let body = JSON.stringify({ "title":userStoryName,"complete":userStoryComplete,"authorId":userStoryAuthor });
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers, method: "post" });
 
