@@ -34,7 +34,11 @@ export class UserStoryComponent {
 
   removeUserStory(userstory){
     console.log("Component: "+userstory._id)
-    this.userStoryDataService.deleteUserStory(userstory._id);
+    this.userStoryDataService.deleteUserStory(userstory._id).subscribe(
+      data => {
+        this.loadUserStories()
+      }
+    );
       /*.subscribe(
         response => {
         }, error => {
@@ -65,13 +69,14 @@ export class UserStoryComponent {
     else{
       this.userStoryDataService.postUserStoryRestful( this.userStoryName,this.userStoryComplete,this.userStoryAuthor,this.userStoryTimeStamp).subscribe(
         //data => this.postMyUserStoriesToServer = JSON.stringify(data),
-        data => this.userstories.push(data),
-        error => console.log("Error HTTTP POST SERVICE"),
-        () => console.log("Job Done Post!")
+        data => {
+            this.loadUserStories()
+        }
       );
      this.userStoryAuthor=null
     this.userStoryName=null
     }
+
   }
 /*
   toggleUserStoryComplete(userStory) {

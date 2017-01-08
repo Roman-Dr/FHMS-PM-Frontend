@@ -22,7 +22,8 @@ export class UserStoryDataService {
   deleteUserStory (id){
     let headers = new Headers({ 'Content-Type': 'application/json' });
     console.log("Service: "+id)
-    return this.http.delete(this.userstoriesUrl+"/"+id,{headers: headers}).toPromise()
+    return this.http.delete(this.userstoriesUrl+"/"+id,{headers: headers})
+      .map(this.extractData)
       .catch(this.handleErrorDelete);
   }
 
