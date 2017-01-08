@@ -38,7 +38,7 @@ export class ProjectService {
     }
   }
 
-  createProject(displayName, description, dueDate, owner, stakeholders, contributors ) {
+  createProject(displayName: string, description: string, dueDate: string, owner: string, stakeholders: string[], contributors: string[] ) {
 
     return this.http.post
     (this._apiUrl,
@@ -52,6 +52,23 @@ export class ProjectService {
         return res.success;
       })
   }
+
+
+  updateProject(displayName: string, description: string, dueDate: string, owner: string, stakeholders: string[], contributors: string[] ) {
+
+    return this.http.put
+    (this._apiUrl,
+      JSON.stringify({displayName, description, dueDate, owner, stakeholders, contributors}), { headers: this.headers }
+    )
+      .map(res => res.json())
+      .map((res) => {
+        if (res.success) {
+          console.log("Update Project successful");
+        }
+        return res.success;
+      })
+  }
+
 
   removeProject(projectId) {
     return this.http.delete(this._apiUrl+projectId, {headers: this.headers})
