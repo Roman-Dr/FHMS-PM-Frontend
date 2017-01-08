@@ -27,13 +27,13 @@ export class UserStoryDataService {
       .catch(this.handleErrorDelete);
   }
 
-  postUserStoryRestful(userStoryName:string,userStoryComplete:boolean,userStoryAuthor){
+  postUserStoryRestful(userStoryName:string,userStoryComplete:boolean,userStoryAuthor:string){
 
       console.log(userStoryName+"; "+userStoryAuthor)
     let body = JSON.stringify({ "title":userStoryName,"complete":userStoryComplete,"authorId":userStoryAuthor });
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers, method: "post" });
-
+    console.log("vorPostService")
     return this.http.post(this.userstoriesUrl,body,options)
       .map(this.extractData)
       .catch(this.handleError);
@@ -66,6 +66,8 @@ export class UserStoryDataService {
       errMsg = error.message ? error.message : error.toString();
     }
     console.error(errMsg);
+
+    console.log("nachPostService")
     return Observable.throw(errMsg);
   }
 

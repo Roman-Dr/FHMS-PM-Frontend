@@ -2,6 +2,8 @@ import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import {UserStory} from './UserStory';
 import {UserStoryDataService} from '../_services/user-story-data.service';
 import { Observable } from 'rxjs/Observable';
+import {User} from "../_models/user";
+import {UserService} from "../_services/user.service";
 
 @Component({
   selector: 'app-UserStory',
@@ -15,14 +17,15 @@ export class UserStoryComponent {
 
 
   postMyUserStoriesToServer:string;
-
+  users: User;
   userStoryName:string;
   userStoryComplete:boolean = false;
   userStoryAuthor: string;
   userStoryTimeStamp:  Date=new Date();
+  errorMessage: string;
 
 
-  constructor(private userStoryDataService: UserStoryDataService) {
+  constructor(private userStoryDataService: UserStoryDataService, private userService: UserService) {
 
   }
 
@@ -58,15 +61,25 @@ export class UserStoryComponent {
 
   ngOnInit(){
     this.loadUserStories()
+    this.getUsers()
+  }
+
+  getUsers() {
+    this.userService.getUsers()
+      .subscribe(
+        users => this.users = users,
+        error => this.errorMessage = <any> error
+      )
   }
 
   addUserStory() {
     if((!this.userStoryAuthor)||(!this.userStoryName)){
-      console.log("UserStoryName oder UserStoryAuthor sind leer: Componentd")
+      console.log("UserStoryName("+this.userStoryName+") oder UserStoryAuthor("+this.userStoryAuthor+") sind leer: Componentd")
       this.userStoryAuthor=null
       this.userStoryName=null
     }
     else{
+      console.log("1")
       this.userStoryDataService.postUserStoryRestful( this.userStoryName,this.userStoryComplete,this.userStoryAuthor).subscribe(
         //data => this.postMyUserStoriesToServer = JSON.stringify(data),
         data => {
