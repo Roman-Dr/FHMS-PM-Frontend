@@ -44,6 +44,7 @@ export class BacklogComponent {
 
   ngOnInit(){
     this.loadBacklogitems()
+    this.getUsers()
   }
 
   getUsers() {

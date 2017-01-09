@@ -23,6 +23,7 @@
           <li *ngFor="let backlogitem of backlogitems">
             <div class="view">
               <label class="black">{{backlogitem.title}}</label>
+              <label class="black">{{backlogitem.description}}</label>
               <label class="blacksmall">{{backlogitem.author}}, {{backlogitem.timestamp}}</label>
               <button class="destroy" (click)="removeBacklogitem(backlogitem)"></button>
             </div>
