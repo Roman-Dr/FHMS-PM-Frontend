@@ -1,11 +1,33 @@
-<section class="app-UserStory">
+<section class="app-Backlog">
   <header class="header">
     <h1>Backlog</h1>
+    <input #inputBacklogLabel class="newBacklogitem" placeholder="Your Backlog Title!" autofocus="" [(ngModel)]="backlogitemTitle" (keyup.enter)="addBacklogitem()" (keyup.enter)="inputBacklogLabel.value=''" (keyup.enter)="inputBacklogDescription.value=''">
+    <select #owner id="owner" [(ngModel)]="backlogitemAuthor" class="form-control" >
+      <option *ngFor="let user of users" value="{{user._id}}">{{ user.email }}</option>
+    </select>
+    <select #owner id="state" [(ngModel)]="backlogitemState" class="form-control" >
+      <option value="New">New</option>
+      <option value="Committed">Committed</option>
+      <option value="Done">Done</option>
+      <option value="Removed">Removed</option>
+    </select>
+    <input #inputBacklogDescription class="newBacklogitem" placeholder="Insert a Description" autofocus="" [(ngModel)]="backlogitemDescription" (keyup.enter)="addBacklogitem()" (keyup.enter)="inputBacklogDescription.value=''" (keyup.enter)="inputBacklogLabel.value=''">
   </header>
     <div id="userstories">
       <p>Usertories</p>
     </div>
     <div id="backlogs">
       <p>Backlog</p>
+      <section class="main" *ngIf="backlogitems?.length > 0">
+        <ul class="backlogItem-list">
+          <li *ngFor="let backlogitem of backlogitems">
+            <div class="view">
+              <label class="black">{{backlogitem.title}}</label>
+              <label class="blacksmall">{{backlogitem.author}}, {{backlogitem.timestamp}}</label>
+              <button class="destroy" (click)="removeBacklogitem(backlogitem)"></button>
+            </div>
+          </li>
+        </ul>
+      </section>
     </div>
 </section>

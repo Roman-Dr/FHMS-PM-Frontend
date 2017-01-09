@@ -74,7 +74,7 @@ export class UserStoryComponent {
 
   addUserStory() {
     if((!this.userStoryAuthor)||(!this.userStoryName)){
-      console.log("UserStoryName("+this.userStoryName+") oder UserStoryAuthor("+this.userStoryAuthor+") sind leer: Componentd")
+      console.log("UserStoryName("+this.userStoryName+") oder UserStoryAuthor("+this.userStoryAuthor+") sind leer: Component")
       this.userStoryAuthor=null
       this.userStoryName=null
     }
