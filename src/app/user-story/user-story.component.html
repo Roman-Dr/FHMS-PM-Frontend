@@ -1,8 +1,11 @@
 <section class="app-UserStory">
   <header class="header">
     <h1>User-Stories</h1>
-    <input #inputUserStoryLabel class="newUserStory" placeholder="What's your Story? Insert a Task !" autofocus="" [(ngModel)]="userStoryName" (keyup.enter)="addUserStory()" (keyup.enter)="inputUserStoryLabel.value=''" (keyup.enter)="inputAuthorLabel.value=''">
-    <input #inputAuthorLabel class="newUserStory" placeholder="Author?" autofocus="" [(ngModel)]="userStoryAuthor" (keyup.enter)="addUserStory()" (keyup.enter)="inputAuthorLabel.value=''" (keyup.enter)="inputUserStoryLabel.value=''">
+    <input #inputUserStoryLabel class="newUserStory" placeholder="What's your Story? Insert a Task !" autofocus="" [(ngModel)]="userStoryName" (keyup.enter)="addUserStory()" (keyup.enter)="inputUserStoryLabel.value=''">
+    <!--<input #inputAuthorLabel class="newUserStory" placeholder="Author?" autofocus="" [(ngModel)]="userStoryAuthor" (keyup.enter)="addUserStory()" (keyup.enter)="inputAuthorLabel.value=''" (keyup.enter)="inputUserStoryLabel.value=''"> !-->
+    <select #owner id="owner" [(ngModel)]="userStoryAuthor" class="form-control" >
+      <option *ngFor="let user of users" value="{{user._id}}">{{ user.email }}</option>
+    </select>
   </header>
   <section class="main" *ngIf="userstories?.length > 0">
     <ul class="userStory-list">
@@ -10,7 +13,7 @@
         <div class="view">
           <input class="toggle" data-toggle="toggle" type="checkbox" (click)="toggleUserStoryComplete(userStory)" [checked]="userstory.complete">
           <label class="black">{{userstory.title}}</label>
-          <label class="blacksmall">{{userstory.author}}, {{userstory.timestmp}}</label>
+          <label class="blacksmall">{{userstory.authorDisplayName}}, {{userstory.creationDate}}</label>
           <button class="destroy" (click)="removeUserStory(userstory)"></button>
         </div>
       </li>
