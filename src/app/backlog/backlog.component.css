@@ -53,6 +53,10 @@ body {
   0 25px 50px 0 rgba(0, 0, 0, 0.1);
 }
 
+.list-group-item {
+  background-color: #999999;
+}
+
 #backlogs{
   margin: 0;
   padding: 0;

@@ -18,9 +18,6 @@ export class BacklogComponent {
   constructor(private backlogDataService: BacklogDataService, private  userService: UserService, private userStoryDataService: UserStoryDataService) {
   }
 
-  userStoryName:string;
-  userStoryComplete:boolean = false;
-  userStoryAuthor: string;
   errorMessage: string;
   userstories: UserStory[];
 
