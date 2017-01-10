@@ -14,6 +14,7 @@ import { AuthenticationService } from '../_services/authentication.service';
 export class LoginComponent {
   private headers: Headers;
 
+
   constructor(private authenticationService: AuthenticationService, private router: Router) {
     this.headers = new Headers();
     this.headers.append('Content-Type', 'application/json');
@@ -21,10 +22,11 @@ export class LoginComponent {
   }
 
   onSubmit(email, password) {
-    this.authenticationService.login(email, password)
-      .subscribe(
-        success => {
-          this.router.navigate(['/projects']);
-        });
+    this.authenticationService.login(email, password).subscribe(
+      success => {
+        this.authenticationService.setLoggedIn();
+        console.log(this.authenticationService.isLoggedIn());
+        this.router.navigate(['/projects'])
+      })
   }
 }

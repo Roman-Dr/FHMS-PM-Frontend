@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Http, Headers} from '@angular/http'
+import {Http, Headers, Response} from '@angular/http'
 import 'rxjs/Rx'
 
 @Injectable()
@@ -11,7 +11,7 @@ export class AuthenticationService {
   // private _apiUrl = 'http://localhost:3000/api/user/';
 
   constructor(private http: Http) {
-    this.loggedIn = !!localStorage.getItem('auth_token');
+    this.loggedIn = false;
     this.headers.append('Content-Type', 'application/json');
 
   }
@@ -26,26 +26,23 @@ export class AuthenticationService {
       .map(res => res.json())
       .map((res) => {
         if (res.success) {
-
-          this.loggedIn = true;
+          console.log("Login successful");
         }
 
         return res.success;
-      });
+      })
   }
 
   logout() {
     return this.http.get(this._apiUrl +'logout')
-  .map(res => res.json())
+      .map(res => res.json())
       .map((res) => {
         if (res.success) {
-
-          this.loggedIn = false;
+          console.log("Logout successful");
         }
 
         return res.success;
-      });
-
+      })
   }
 
   isLoggedIn() {
@@ -67,6 +64,17 @@ export class AuthenticationService {
         return res.success;
       })
   }
+
+
+  setLoggedIn(){
+    if (this.loggedIn == false) {
+      this.loggedIn = true;
+    }
+    else {
+      this.loggedIn = false;
+    }
+  }
+
 
 
 }
