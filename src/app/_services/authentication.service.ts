@@ -1,34 +1,32 @@
 import { Injectable } from '@angular/core';
 import {Http, Headers} from '@angular/http'
 import 'rxjs/Rx'
-import {Observable} from "rxjs";
 
 @Injectable()
 export class AuthenticationService {
 
   private loggedIn = false;
+  private headers = new Headers();
   private _apiUrl = 'http://10.60.67.20:3000/api/user/';
   // private _apiUrl = 'http://localhost:3000/api/user/';
 
   constructor(private http: Http) {
     this.loggedIn = !!localStorage.getItem('auth_token');
+    this.headers.append('Content-Type', 'application/json');
 
   }
 
   login(email, password) {
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-
     return this.http
       .post(
         this._apiUrl +'login',
         JSON.stringify({ email, password }),
-        {headers: headers }
+        {headers: this.headers }
       )
       .map(res => res.json())
       .map((res) => {
         if (res.success) {
-          localStorage.setItem('auth_token', res.auth_token);
+
           this.loggedIn = true;
         }
 
@@ -37,8 +35,17 @@ export class AuthenticationService {
   }
 
   logout() {
-    localStorage.removeItem('auth_token');
-    this.loggedIn = false;
+    return this.http.get(this._apiUrl +'logout')
+  .map(res => res.json())
+      .map((res) => {
+        if (res.success) {
+
+          this.loggedIn = false;
+        }
+
+        return res.success;
+      });
+
   }
 
   isLoggedIn() {
@@ -47,14 +54,9 @@ export class AuthenticationService {
 
 
   registerUser(email, password) {
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-
-
-
     return this.http.post
     (this._apiUrl +'signup',
-      JSON.stringify({email, password}), { headers }
+      JSON.stringify({email, password}), {headers: this.headers }
     )
       .map(res => res.json())
       .map((res) => {
