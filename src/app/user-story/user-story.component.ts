@@ -15,13 +15,10 @@ import {UserService} from "../_services/user.service";
 export class UserStoryComponent {
 
 
-
-  postMyUserStoriesToServer:string;
   users: User;
   userStoryName:string;
   userStoryComplete:boolean = false;
   userStoryAuthor: string;
-  userStoryTimeStamp:  Date=new Date();
   errorMessage: string;
 
 

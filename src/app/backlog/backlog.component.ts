@@ -3,18 +3,26 @@ import { Backlog} from './backlog';
 import {BacklogDataService} from '../_services/backlog-data.service';
 import {User} from "../_models/user";
 import {UserService} from "../_services/user.service";
+import {UserStoryDataService} from '../_services/user-story-data.service';
+import {UserStory} from "../user-story/UserStory";
 
 @Component({
   selector: 'app-backlog',
   templateUrl: './backlog.component.html',
   styleUrls: ['./backlog.component.css'],
-  providers: [BacklogDataService]
+  providers: [BacklogDataService, UserStoryDataService]
 })
 export class BacklogComponent {
 
 
-  constructor(private backlogDataService: BacklogDataService, private  userService: UserService) {
+  constructor(private backlogDataService: BacklogDataService, private  userService: UserService, private userStoryDataService: UserStoryDataService) {
   }
+
+  userStoryName:string;
+  userStoryComplete:boolean = false;
+  userStoryAuthor: string;
+  errorMessage: string;
+  userstories: UserStory[];
 
   backlogitemTitle:string;
   backlogitemState:string;
@@ -23,7 +31,6 @@ export class BacklogComponent {
 
   backlogitems: Backlog[];
   users: User;
-  errorMessage: string;
 
   removeBacklogitem(backlogitem){
     console.log("Component: "+backlogitem._id)
@@ -45,6 +52,7 @@ export class BacklogComponent {
   ngOnInit(){
     this.loadBacklogitems()
     this.getUsers()
+    this.loadUserStories()
   }
 
   getUsers() {
@@ -74,6 +82,14 @@ export class BacklogComponent {
       this.backlogitemAuthor=null
       this.backlogitemDescription=null
     }
+  }
+
+  loadUserStories(){
+    this.userStoryDataService.getUserStories()
+      .subscribe(
+        userstories=>this.userstories=userstories,
+        err => {console.log(err);
+        });
   }
 
 }

@@ -12,12 +12,27 @@
       <option value="Removed">Removed</option>
     </select>
     <input #inputBacklogDescription class="newBacklogitem" placeholder="Insert a Description" autofocus="" [(ngModel)]="backlogitemDescription" (keyup.enter)="addBacklogitem()" (keyup.enter)="inputBacklogDescription.value=''" (keyup.enter)="inputBacklogLabel.value=''">
+    <p></p>
   </header>
     <div id="userstories">
-      <p>Usertories</p>
+      <h1>Usertories</h1>
+      <section class="main" *ngIf="userstories?.length > 0">
+        <ul class="userStory-list">
+          <li *ngFor="let userstory of userstories" [class.completed]="userstory.complete">
+            <div class="view">
+              <input class="toggle" data-toggle="toggle" type="checkbox" (click)="toggleUserStoryComplete(userStory)" [checked]="userstory.complete">
+              <label class="black">{{userstory.title}}</label>
+              <label class="blacksmall">{{userstory.authorDisplayName}}, {{userstory.creationDate}}</label>
+            </div>
+          </li>
+        </ul>
+      </section>
+      <footer class="footer" *ngIf="userstories?.length > 0">
+        <span class="userStory-count"><strong>{{userstories?.length}}</strong> {{userstories?.length == 1 ? 'UserStory' : 'User Stories'}} left</span>
+      </footer>
     </div>
     <div id="backlogs">
-      <p>Backlog</p>
+      <h1>Backlog</h1>
       <section class="main" *ngIf="backlogitems?.length > 0">
         <ul class="backlogItem-list">
           <li *ngFor="let backlogitem of backlogitems">
