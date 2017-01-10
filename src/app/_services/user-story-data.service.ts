@@ -1,6 +1,3 @@
-
-
-
 import {UserStory} from '../user-story/UserStory';
 import { Injectable }     from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';

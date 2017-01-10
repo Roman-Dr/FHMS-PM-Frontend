@@ -15,7 +15,7 @@ export class ProjectService {
 
 
   getProjects() {
-    return this.http.get(this._apiUrl)
+    return this.http.get(this._apiUrl, { withCredentials: true })
       .map(res => res.json())
   }
 
@@ -39,7 +39,6 @@ export class ProjectService {
   }
 
   createProject(displayName: string, description: string, dueDate: string, owner: string, stakeholders: string[], contributors: string[] ) {
-
     return this.http.post
     (this._apiUrl,
       JSON.stringify({displayName, description, dueDate, owner, stakeholders, contributors}), { headers: this.headers }

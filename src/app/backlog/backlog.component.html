@@ -1,11 +1,48 @@
-<section class="app-UserStory">
+<section class="app-Backlog">
   <header class="header">
     <h1>Backlog</h1>
+    <input #inputBacklogLabel class="newBacklogitem" placeholder="Your Backlog Title!" autofocus="" [(ngModel)]="backlogitemTitle" (keyup.enter)="addBacklogitem()" (keyup.enter)="inputBacklogLabel.value=''" (keyup.enter)="inputBacklogDescription.value=''">
+    <select #owner id="owner" [(ngModel)]="backlogitemAuthor" class="form-control" >
+      <option *ngFor="let user of users" value="{{user._id}}">{{ user.email }}</option>
+    </select>
+    <select #owner id="state" [(ngModel)]="backlogitemState" class="form-control" >
+      <option value="New">New</option>
+      <option value="Committed">Committed</option>
+      <option value="Done">Done</option>
+      <option value="Removed">Removed</option>
+    </select>
+    <input #inputBacklogDescription class="newBacklogitem" placeholder="Insert a Description" autofocus="" [(ngModel)]="backlogitemDescription" (keyup.enter)="addBacklogitem()" (keyup.enter)="inputBacklogDescription.value=''" (keyup.enter)="inputBacklogLabel.value=''">
+    <p></p>
   </header>
     <div id="userstories">
-      <p>Usertories</p>
+      <h1>Usertories</h1>
+      <section class="main" *ngIf="userstories?.length > 0">
+        <ul class="list-group">
+          <li *ngFor="let userstory of userstories">
+            <div class="view">
+              <label class="black">{{userstory.title}}</label>
+              <label class="blacksmall">{{userstory.authorDisplayName}}, {{userstory.creationDate}}</label>
+            </div>
+          </li>
+        </ul>
+      </section>
+      <footer class="footer" *ngIf="userstories?.length > 0">
+        <span class="userStory-count"><strong>{{userstories?.length}}</strong> {{userstories?.length == 1 ? 'UserStory' : 'User Stories'}} left</span>
+      </footer>
     </div>
     <div id="backlogs">
-      <p>Backlog</p>
+      <h1>Backlog</h1>
+      <section class="main" *ngIf="backlogitems?.length > 0">
+        <ul class="list-group">
+          <li *ngFor="let backlogitem of backlogitems" class="list-group-item">
+            <div class="view">
+              <label class="black">{{backlogitem.title}}</label>
+              <label class="black">{{backlogitem.description}}</label>
+              <label class="blacksmall">{{backlogitem.author}}, {{backlogitem.timestamp}}</label>
+              <button class="destroy" (click)="removeBacklogitem(backlogitem)"></button>
+            </div>
+          </li>
+        </ul>
+      </section>
     </div>
 </section>

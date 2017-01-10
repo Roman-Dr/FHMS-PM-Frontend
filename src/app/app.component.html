@@ -11,34 +11,39 @@
     <div class="navbar-collapse collapse" id="navbar-main">
       <ul class="nav navbar-nav">
 
-        <li>
-          <a routerLink="landing">Home</a>
-        </li>
-         <li>
-          <a routerLink="user-story">User-Story</a>
-        </li>
-        <li>
-          <a routerLink="backlog">Backlog</a>
-        </li>
-        <li>
-          <a routerLink="sprint">Sprint</a>
-        </li>
-        <li>
-          <a routerLink="board">SCRUM Board</a>
-        </li>
-        <li>
-          <a routerLink="estimation">Estimation Effort</a>
-        </li>
-        <li>
-          <a routerLink="chart">Burndown Chart</a>
-        </li>
-        <li>
-          <a routerLink="roadmap">Roadmap</a>
-        </li>
+          <li>
+            <a routerLink="landing">Home</a>
+          </li>
+          <li>
+            <a routerLink="user-story">User-Story</a>
+          </li>
+          <li>
+            <a routerLink="backlog">Backlog</a>
+          </li>
+          <li>
+            <a routerLink="sprint">Sprint</a>
+          </li>
+          <li>
+            <a routerLink="board">SCRUM Board</a>
+          </li>
+          <li>
+            <a routerLink="estimation">Estimation Effort</a>
+          </li>
+          <li>
+            <a routerLink="chart">Burndown Chart</a>
+          </li>
+          <li>
+            <a routerLink="roadmap">Roadmap</a>
+          </li>
+
       </ul>
 
       <div class="nav navbar-nav navbar-right">
-        <a routerLink="login"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-log-in"></span></button></a>
+        <a routerLink="login">
+          <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-log-in"></span></button>
+        </a>
+        <button type="button" class="btn btn-primary" (click)="logout()"><span
+          class="glyphicon glyphicon-log-out"></span></button>
       </div>
 
     </div>

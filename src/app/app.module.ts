@@ -17,10 +17,10 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { UserStoryComponent } from './user-story/user-story.component';
 import {platformBrowserDynamic} from "@angular/platform-browser-dynamic";
-import {LoggedInGuard} from "./_guards/logged-in.guard";
-import {UserService} from "./_services/user.service";
 import { ProjectComponent } from './project/project.component';
 import { ProjectNavComponent } from './project-nav/project-nav.component';
+import {AuthenticationService} from "./_services/authentication.service";
+import {UserService} from "./_services/user.service";
 
 @NgModule({
   declarations: [
@@ -45,7 +45,7 @@ import { ProjectNavComponent } from './project-nav/project-nav.component';
     NgbModule.forRoot(),
     routes
   ],
-  providers: [UserService, LoggedInGuard],
+  providers: [UserService, AuthenticationService],
   bootstrap: [AppComponent]
 
 })
