@@ -15,13 +15,10 @@ import {UserService} from "../_services/user.service";
 export class UserStoryComponent {
 
 
-
-  postMyUserStoriesToServer:string;
   users: User;
   userStoryName:string;
   userStoryComplete:boolean = false;
   userStoryAuthor: string;
-  userStoryTimeStamp:  Date=new Date();
   errorMessage: string;
 
 
@@ -74,7 +71,7 @@ export class UserStoryComponent {
 
   addUserStory() {
     if((!this.userStoryAuthor)||(!this.userStoryName)){
-      console.log("UserStoryName("+this.userStoryName+") oder UserStoryAuthor("+this.userStoryAuthor+") sind leer: Componentd")
+      console.log("UserStoryName("+this.userStoryName+") oder UserStoryAuthor("+this.userStoryAuthor+") sind leer: Component")
       this.userStoryAuthor=null
       this.userStoryName=null
     }

@@ -1,8 +1,117 @@
-#userstories {
-  width: 40em;
-  float:left;
+#userstories, #backlogs{
+  float: left;
+  width: 50%;
 }
 
-#backlogs {
-  margin-left: 40em;
+#userstories{
+  float: left;
+  height: auto;
+  white-space : nowrap;
+  overflow: auto;
 }
+
+#backlogs{
+  border-left: 5px ridge;
+  padding: 15px;
+  width: 50%;
+}
+
+
+button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: 100%;
+  vertical-align: baseline;
+  font-family: inherit;
+  font-weight: inherit;
+  color: inherit;
+  -webkit-appearance: none;
+  appearance: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  line-height: 1.4em;
+  background: #f5f5f5;
+  color: #000000;
+  min-width: 230px;
+  max-width: 550px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 300;
+}
+
+.app-Backlog {
+  background: #fff;
+  position: relative;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2),
+  0 25px 50px 0 rgba(0, 0, 0, 0.1);
+}
+
+#backlogs{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#backlogs  li {
+  position: relative;
+  font-size: 24px;
+  border-bottom: 1px solid #ededed;
+}
+
+#backlogs li label {
+  word-break: break-all;
+  margin-left: 45px;
+  display: block;
+  line-height: 1.2;
+  transition: color 0.4s;
+}
+
+#backlogs li {
+  position: relative;
+  font-size: 16px;
+  border-bottom: 1px solid #000000;
+}
+
+#backlogs{
+  color: black;
+  background: #fff;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2),
+  0 25px 50px 0 rgba(0, 0, 0, 0.1);
+  border: black;
+}
+
+
+#backlogs li .destroy {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 10px;
+  bottom: 0;
+  width: 40px;
+  height: 40px;
+  margin: auto 0;
+  font-size: 30px;
+  color: #cc9a9a;
+  margin-bottom: 11px;
+  transition: color 0.2s ease-out;
+}
+
+#backlogs li .destroy:hover {
+  color: #af5b5e;
+}
+
+#backlogs li .destroy:after {
+  content: '×';
+}
+
+#backlogs li:hover .destroy {
+  display: block;
+}
+
