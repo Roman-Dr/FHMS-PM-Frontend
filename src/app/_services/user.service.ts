@@ -23,6 +23,11 @@ export class UserService {
   }
 
 
+  testCookieLink(){
+    return this.http.get(this._apiUrl+'profile')
+      .map(res => res.json())
+  }
+
 }
 
 
