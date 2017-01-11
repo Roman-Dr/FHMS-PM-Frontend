@@ -21,6 +21,8 @@ import { ProjectComponent } from './project/project.component';
 import { ProjectNavComponent } from './project-nav/project-nav.component';
 import {AuthenticationService} from "./_services/authentication.service";
 import {UserService} from "./_services/user.service";
+import {RouterModule} from "@angular/router";
+import {LoggedInGuard} from "./logged-in.guard";
 
 @NgModule({
   declarations: [
@@ -43,9 +45,9 @@ import {UserService} from "./_services/user.service";
     FormsModule,
     HttpModule,
     NgbModule.forRoot(),
-    routes
+    RouterModule.forRoot(routes)
   ],
-  providers: [UserService, AuthenticationService],
+  providers: [UserService, AuthenticationService, LoggedInGuard],
   bootstrap: [AppComponent]
 
 })

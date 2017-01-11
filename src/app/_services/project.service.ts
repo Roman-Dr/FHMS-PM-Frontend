@@ -15,7 +15,7 @@ export class ProjectService {
 
 
   getProjects() {
-    return this.http.get(this._apiUrl, { withCredentials: true })
+    return this.http.get(this._apiUrl)
       .map(res => res.json())
   }
 

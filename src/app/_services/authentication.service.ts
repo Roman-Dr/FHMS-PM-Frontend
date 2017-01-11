@@ -11,7 +11,7 @@ export class AuthenticationService {
   // private _apiUrl = 'http://localhost:3000/api/user/';
 
   constructor(private http: Http) {
-    this.loggedIn = false;
+    this.loggedIn = !!localStorage.getItem('auth_token');
     this.headers.append('Content-Type', 'application/json');
 
   }
@@ -26,6 +26,7 @@ export class AuthenticationService {
       .map(res => res.json())
       .map((res) => {
         if (res.success) {
+          localStorage.setItem('auth_token', res.auth_token);
           console.log("Login successful");
         }
 
@@ -38,6 +39,7 @@ export class AuthenticationService {
       .map(res => res.json())
       .map((res) => {
         if (res.success) {
+          localStorage.removeItem('auth_token');
           console.log("Logout successful");
         }
 
