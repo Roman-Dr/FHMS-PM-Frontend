@@ -1,26 +1,31 @@
 import { Injectable } from '@angular/core';
 import {Http, Headers} from "@angular/http";
 import 'rxjs/Rx'
+import {HeaderService} from "./header.service";
 
 @Injectable()
 export class ProjectService {
   private _apiUrl = 'http://10.60.67.20:3000/api/projects/';
   // private _apiUrl = 'http://localhost:3000/api/projects/';
 
-  private headers = new Headers();
 
-  constructor(private http: Http) {
-    this.headers.append('Content-Type', 'application/json');
+
+  constructor(private http: Http, private headerService: HeaderService) {
+
   }
 
 
   getProjects() {
-    return this.http.get(this._apiUrl)
+    let headers = this.headerService.setHeadersForGet();
+
+    return this.http.get(this._apiUrl, { headers })
       .map(res => res.json())
   }
 
   getProject(projectId) {
-    return this.http.get(this._apiUrl+projectId)
+    let headers = this.headerService.setHeadersForGet();
+
+    return this.http.get(this._apiUrl+projectId, { headers })
       .map(res => res.json())
   }
 
@@ -39,9 +44,11 @@ export class ProjectService {
   }
 
   createProject(displayName: string, description: string, dueDate: string, owner: string, stakeholders: string[], contributors: string[] ) {
+    let headers = this.headerService.setHeadersForPost();
+
     return this.http.post
     (this._apiUrl,
-      JSON.stringify({displayName, description, dueDate, owner, stakeholders, contributors}), { headers: this.headers }
+      JSON.stringify({displayName, description, dueDate, owner, stakeholders, contributors}), { headers }
     )
       .map(res => res.json())
       .map((res) => {
@@ -54,10 +61,11 @@ export class ProjectService {
 
 
   updateProject(displayName: string, description: string, dueDate: string, owner: string, stakeholders: string[], contributors: string[] ) {
+    let headers = this.headerService.setHeadersForPost();
 
     return this.http.put
     (this._apiUrl,
-      JSON.stringify({displayName, description, dueDate, owner, stakeholders, contributors}), { headers: this.headers }
+      JSON.stringify({displayName, description, dueDate, owner, stakeholders, contributors}), { headers }
     )
       .map(res => res.json())
       .map((res) => {
@@ -70,7 +78,9 @@ export class ProjectService {
 
 
   removeProject(projectId) {
-    return this.http.delete(this._apiUrl+projectId, {headers: this.headers})
+    let headers = this.headerService.setHeadersForPost();
+
+    return this.http.delete(this._apiUrl+projectId, {headers})
       .map(res => res.json())
       .map((res) => {
         if (res.success) {

@@ -23,6 +23,7 @@ import {AuthenticationService} from "./_services/authentication.service";
 import {UserService} from "./_services/user.service";
 import {RouterModule} from "@angular/router";
 import {LoggedInGuard} from "./logged-in.guard";
+import {HeaderService} from "./_services/header.service";
 
 @NgModule({
   declarations: [
@@ -47,7 +48,7 @@ import {LoggedInGuard} from "./logged-in.guard";
     NgbModule.forRoot(),
     RouterModule.forRoot(routes)
   ],
-  providers: [UserService, AuthenticationService, LoggedInGuard],
+  providers: [UserService, AuthenticationService, HeaderService, LoggedInGuard],
   bootstrap: [AppComponent]
 
 })
