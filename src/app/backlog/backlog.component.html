@@ -25,6 +25,9 @@
         <textarea rows="8" cols="76" #inputBacklogDescription class="newBacklogitem" placeholder="Insert a Description" autofocus=""
                [(ngModel)]="backlogitemDescription" (keyup.enter)="addBacklogitem()"
                   (keyup.enter)="inputBacklogDescription.value=''" (keyup.enter)="inputBacklogLabel.value=''"></textarea>
+        <select #owner id="assignedTo" [(ngModel)]="backlogitemAssignedTo" class="form-control">
+          <option *ngFor="let usertory of userstories" value="{{usertory._id}}">{{ usertory.title }}</option>
+        </select>
       </header>
         </div>
         <div class="modal-footer">
@@ -43,14 +46,16 @@
           <th>Backlog-Title</th>
           <th>Description</th>
           <th>Backlog-Author</th>
+          <th>Assigned to Userstory</th>
           <th>Created at</th>
           <th>Remove?</th>
           </thead>
         <tr *ngFor="let backlogitem of backlogitems">
             <td>{{backlogitem.title}}</td>
             <td>{{backlogitem.description}}</td>
-            <td>{{backlogitem.author}}</td>
-            <td> {{backlogitem.timestamp}}</td>
+            <td>{{backlogitem.authorDisplayName}}</td>
+            <td>{{backlogitem.assignedToId}}</td>
+            <td> {{backlogitem.creationDate}}</td>
             <td><button class="destroy" (click)="removeBacklogitem(backlogitem)">&times;</button></td>
         </tr>
         </table>
