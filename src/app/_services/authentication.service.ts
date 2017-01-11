@@ -34,10 +34,15 @@ export class AuthenticationService {
         // If everything went fine, return the response
         else {
           let resBody = res.json();
+          this.loggedIn = true;
 
           localStorage.setItem('auth_token', resBody.auth_token);
           localStorage.setItem('user_id', resBody.user_id);
 
+          console.log(localStorage.getItem('auth_token'));
+          console.log(localStorage.getItem('user_id'));
+
+          console.log(this.loggedIn);
           console.log("Login successful");
         }
       })
@@ -55,15 +60,19 @@ export class AuthenticationService {
         }
         // If everything went fine, return the response
         else {
+          this.loggedIn = false;
+
           localStorage.removeItem('auth_token');
           localStorage.removeItem('user_id');
 
+          console.log(this.loggedIn);
           console.log("Logout successful");
         }
       })
   }
 
   isLoggedIn() {
+    console.log(this.loggedIn);
     return this.loggedIn;
   }
 
