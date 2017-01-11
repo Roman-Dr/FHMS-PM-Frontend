@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import {Backlog} from '../backlog/backlog';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import {Observable} from 'rxjs/Rx';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
+import 'rxjs/Rx';
 
 @Injectable()
 export class BacklogDataService {
@@ -12,10 +11,9 @@ export class BacklogDataService {
 
   private backlogitemsUrl = localStorage.getItem('project_url')+'/backlogitems';
 
-
   deleteBacklogitem (id){
     let headers = new Headers({ 'Content-Type': 'application/json' });
-    console.log("Service Backlog: "+id)
+    console.log("Service: "+id)
     return this.http.delete(this.backlogitemsUrl+"/"+id,{headers: headers})
       .map(this.extractData)
       .catch(this.handleErrorDelete);
@@ -24,7 +22,7 @@ export class BacklogDataService {
   postBacklogitemRestful(backlogName:string, backlogState:string, backlogAuthor:string, backlogDescription:string, backlogAssignedTo:string){
 
     console.log(backlogName+"; "+backlogAuthor)
-    let body = JSON.stringify({ "title":backlogName,"state":backlogState,"authorDisplayName":backlogAuthor,"description":backlogDescription,"assignedToId":backlogAssignedTo });
+    let body = JSON.stringify({ "title":backlogName,"state":backlogState,"authorId":backlogAuthor,"description":backlogDescription,"userStoryId":backlogAssignedTo });
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers, method: "post" });
     console.log("vorPostService Backlog")

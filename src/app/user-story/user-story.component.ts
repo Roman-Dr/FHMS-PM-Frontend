@@ -17,7 +17,7 @@ export class UserStoryComponent {
 
   users: User;
   userStoryName:string;
-  userStoryComplete:boolean = false;
+  userStoryComplete:string="false";
   userStoryAuthor: string;
   errorMessage: string;
 
