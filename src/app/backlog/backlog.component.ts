@@ -33,8 +33,9 @@ export class BacklogComponent {
   removeBacklogitem(backlogitem){
     console.log("Component: "+backlogitem._id)
     this.backlogDataService.deleteBacklogitem(backlogitem._id).subscribe(
-      success => this.loadBacklogitems(),
-      error => this.errorMessage = <any> error
+      data => {
+        this.loadBacklogitems()
+      }
     );
   }
 
