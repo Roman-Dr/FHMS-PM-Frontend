@@ -9,7 +9,6 @@ import { UserStoryComponent} from './user-story/user-story.component';
 import { LoginComponent } from './login/login.component'
 import { RegisterComponent } from './register/register.component'
 import {ProjectComponent} from "./project/project.component";
-import { LoggedInGuard } from './logged-in.guard'
 
 export const routes = [
   { path: '', component: LoginComponent, pathMatch: 'full' },
@@ -24,7 +23,5 @@ export const routes = [
   { path: 'chart', component: ChartComponent },
   { path: 'roadmap', component: RoadmapComponent },
   { path: 'user-story', component: UserStoryComponent },
-
-  // { path: 'profile', component: ProfileComponent, canActivate: [LoggedInGuard] }
 ];
 

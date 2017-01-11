@@ -24,8 +24,6 @@ export class LoginComponent {
   onSubmit(email, password) {
     this.authenticationService.login(email, password).subscribe(
       success => {
-        this.authenticationService.setLoggedIn();
-        console.log(this.authenticationService.isLoggedIn());
         this.router.navigate(['/projects'])
       })
   }

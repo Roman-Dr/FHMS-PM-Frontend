@@ -50,12 +50,17 @@ export class ProjectService {
     (this._apiUrl,
       JSON.stringify({displayName, description, dueDate, owner, stakeholders, contributors}), { headers }
     )
-      .map(res => res.json())
-      .map((res) => {
-        if (res.success) {
+      .map(res => {
+        // If request fails, throw an Error that will be caught
+        if(res.status < 200 || res.status >= 300) {
+          throw new Error('This request has failed ' + res.status);
+        }
+        // If everything went fine, return the response
+        else {
+          res.json();
+
           console.log("Create Project successful");
         }
-        return res.success;
       })
   }
 
@@ -67,12 +72,17 @@ export class ProjectService {
     (this._apiUrl,
       JSON.stringify({displayName, description, dueDate, owner, stakeholders, contributors}), { headers }
     )
-      .map(res => res.json())
-      .map((res) => {
-        if (res.success) {
+      .map(res => {
+        // If request fails, throw an Error that will be caught
+        if(res.status < 200 || res.status >= 300) {
+          throw new Error('This request has failed ' + res.status);
+        }
+        // If everything went fine, return the response
+        else {
+          res.json();
+
           console.log("Update Project successful");
         }
-        return res.success;
       })
   }
 
@@ -81,12 +91,17 @@ export class ProjectService {
     let headers = this.headerService.setHeadersForPost();
 
     return this.http.delete(this._apiUrl+projectId, {headers})
-      .map(res => res.json())
-      .map((res) => {
-        if (res.success) {
+      .map(res => {
+        // If request fails, throw an Error that will be caught
+        if(res.status < 200 || res.status >= 300) {
+          throw new Error('This request has failed ' + res.status);
+        }
+        // If everything went fine, return the response
+        else {
+          res.json();
+
           console.log("Delete Project successful");
         }
-        return res.success;
       })
   }
 }

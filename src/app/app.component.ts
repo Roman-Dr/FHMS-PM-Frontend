@@ -19,8 +19,6 @@ export class AppComponent {
     this.authenticationService.logout()
       .subscribe(
         success => {
-          this.authenticationService.setLoggedIn();
-          console.log(this.authenticationService.isLoggedIn());
           this.router.navigate(['/login'])
         })
 
