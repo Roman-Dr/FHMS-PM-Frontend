@@ -20,7 +20,7 @@ export class ProjectComponent implements OnInit {
   errorMessage: string;
   create = false;
 
-  constructor(private projectService: ProjectService, private userService: UserService, private authenticationService: AuthenticationService) {
+  constructor(private projectService: ProjectService, private userService: UserService) {
   }
 
   ngOnInit() {

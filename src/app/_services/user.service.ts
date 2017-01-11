@@ -13,18 +13,18 @@ export class UserService {
   }
 
   getUsers() {
-    return this.http.get(this._apiUrl)
+    return this.http.get(this._apiUrl, { withCredentials: true })
       .map(res => res.json())
   }
 
   getUser(userId) {
-    return this.http.get(this._apiUrl+userId)
+    return this.http.get(this._apiUrl+userId,  { withCredentials: true })
       .map(res => res.json())
   }
 
 
   testCookieLink(){
-    return this.http.get(this._apiUrl+'profile')
+    return this.http.get(this._apiUrl+'profile',  { withCredentials: true })
       .map(res => res.json())
   }
 

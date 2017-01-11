@@ -3,17 +3,18 @@ import {Headers, Http} from "@angular/http";
 
 @Injectable()
 export class SprintService {
-  private _apiUrl = 'http://10.60.67.20:3000/api/projects/';
+
+  private _apiUrl = localStorage.getItem('project_url')+'/sprints';
   // private _apiUrl = 'http://localhost:3000/api/projects/';
 
   private headers = new Headers();
 
   constructor(private http: Http) { }
 
-  createProject(displayName: string, description: string, dueDate: string, owner: string, stakeholders: string[], contributors: string[] ) {
+  createSprint(sprintName: string, startDate: string, endDate: string, sprintCapacity: string[] ) {
     return this.http.post
     (this._apiUrl,
-      JSON.stringify({displayName, description, dueDate, owner, stakeholders, contributors}), { headers: this.headers }
+      JSON.stringify({sprintName, startDate, endDate, sprintCapacity}), { headers: this.headers }
     )
       .map(res => res.json())
       .map((res) => {
@@ -23,4 +24,10 @@ export class SprintService {
         return res.success;
       })
   }
+
+  getSprints() {
+    return this.http.get(this._apiUrl, { withCredentials: true })
+      .map(res => res.json())
+  }
+
 }
