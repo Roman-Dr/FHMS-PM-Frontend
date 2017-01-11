@@ -9,7 +9,6 @@
         </div>
         <div class="modal-body">
           <header class="header">
-    <h1>User-Stories</h1>
     <input #inputUserStoryLabel class="newUserStory" placeholder="What's your Story? Insert a Task !" autofocus="" [(ngModel)]="userStoryName" (keyup.enter)="addUserStory()" (keyup.enter)="inputUserStoryLabel.value=''">
     <!--<input #inputAuthorLabel class="newUserStory" placeholder="Author?" autofocus="" [(ngModel)]="userStoryAuthor" (keyup.enter)="addUserStory()" (keyup.enter)="inputAuthorLabel.value=''" (keyup.enter)="inputUserStoryLabel.value=''"> !-->
     <select #owner id="owner" [(ngModel)]="userStoryAuthor" class="form-control" >

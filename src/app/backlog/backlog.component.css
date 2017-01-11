@@ -9,9 +9,21 @@
   color:white;
 }
 
+.table{
+  background: white;
+}
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background: whitesmoke;
+}
 .backlogModal{
   color: white;
 }
+
+.main{
+  background: white;
+}
+
 button {
   margin: 0;
   padding: 0;
