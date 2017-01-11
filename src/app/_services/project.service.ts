@@ -57,9 +57,8 @@ export class ProjectService {
         }
         // If everything went fine, return the response
         else {
-          res.json();
-
           console.log("Create Project successful");
+          return res.json();
         }
       })
   }
@@ -79,9 +78,8 @@ export class ProjectService {
         }
         // If everything went fine, return the response
         else {
-          res.json();
-
-          console.log("Update Project successful");
+           console.log("Update Project successful");
+          return res.json();
         }
       })
   }
@@ -98,9 +96,8 @@ export class ProjectService {
         }
         // If everything went fine, return the response
         else {
-          res.json();
-
           console.log("Delete Project successful");
+          return res.json();
         }
       })
   }

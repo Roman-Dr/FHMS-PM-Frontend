@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
-import {Http, Headers, Response} from '@angular/http'
+import {Http} from '@angular/http'
 import 'rxjs/Rx'
 import {HeaderService} from "./header.service";
+
+
 
 @Injectable()
 export class AuthenticationService {
@@ -44,6 +46,8 @@ export class AuthenticationService {
 
           console.log(this.loggedIn);
           console.log("Login successful");
+
+          return resBody;
         }
       })
 
@@ -67,6 +71,8 @@ export class AuthenticationService {
 
           console.log(this.loggedIn);
           console.log("Logout successful");
+
+          return res.json();
         }
       })
   }
@@ -93,6 +99,8 @@ export class AuthenticationService {
         else {
           res.json();
           console.log("Register successful");
+
+          return res.json();
         }
       })
   }

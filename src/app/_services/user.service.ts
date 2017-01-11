@@ -24,7 +24,7 @@ export class UserService {
 
 
   testCookieLink(){
-    return this.http.get(this._apiUrl+'profile')
+    return this.http.get(this._apiUrl+'profile', {withCredentials: true})
       .map(res => res.json())
   }
 
