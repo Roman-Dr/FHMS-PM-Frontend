@@ -4,7 +4,7 @@ import {BacklogDataService} from '../_services/backlog-data.service';
 import {User} from "../_models/user";
 import {UserService} from "../_services/user.service";
 import {UserStoryDataService} from '../_services/user-story-data.service';
-import {UserStory} from "../user-story/UserStory";
+import {UserStory} from "../_models/UserStory";
 
 @Component({
   selector: 'app-backlog',

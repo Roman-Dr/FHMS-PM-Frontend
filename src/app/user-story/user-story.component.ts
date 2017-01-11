@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
-import {UserStory} from './UserStory';
+import {UserStory} from '../_models/UserStory';
 import {UserStoryDataService} from '../_services/user-story-data.service';
 import { Observable } from 'rxjs/Observable';
 import {User} from "../_models/user";
