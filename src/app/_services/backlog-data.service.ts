@@ -21,10 +21,10 @@ export class BacklogDataService {
       .catch(this.handleErrorDelete);
   }
 
-  postBacklogitemRestful(backlogName:string, backlogState:string, backlogAuthor:string, backlogDescription:string){
+  postBacklogitemRestful(backlogName:string, backlogState:string, backlogAuthor:string, backlogDescription:string, backlogAssignedTo:string){
 
     console.log(backlogName+"; "+backlogAuthor)
-    let body = JSON.stringify({ "title":backlogName,"state":backlogState,"authorId":backlogAuthor,"description":backlogDescription });
+    let body = JSON.stringify({ "title":backlogName,"state":backlogState,"authorDisplayName":backlogAuthor,"description":backlogDescription,"assignedToId":backlogAssignedTo });
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers, method: "post" });
     console.log("vorPostService Backlog")

@@ -1,48 +1,67 @@
 <section class="app-Backlog">
-  <header class="header">
+  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#formModal">Add Backlogitem</button>
+  <div id="formModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <label>Insert a new Backlog!</label>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+      <header class="header">
+        <h1 class="backlogModal">New backlog item:</h1>
+        <input #inputBacklogLabel class="newBacklogitem" placeholder="Your Backlog Title!" autofocus=""
+               [(ngModel)]="backlogitemTitle" (keyup.enter)="addBacklogitem()"
+               (keyup.enter)="inputBacklogLabel.value=''" (keyup.enter)="inputBacklogDescription.value=''">
+        <select #owner id="owner" [(ngModel)]="backlogitemAuthor" class="form-control">
+          <option *ngFor="let user of users" value="{{user._id}}">{{ user.email }}</option>
+        </select>
+        <select #owner id="state" [(ngModel)]="backlogitemState" class="form-control">
+          <option value="New">New</option>
+          <option value="Committed">Committed</option>
+          <option value="Done">Done</option>
+          <option value="Removed">Removed</option>
+        </select>
+        <textarea rows="8" cols="76" #inputBacklogDescription class="newBacklogitem" placeholder="Insert a Description" autofocus=""
+               [(ngModel)]="backlogitemDescription" (keyup.enter)="addBacklogitem()"
+                  (keyup.enter)="inputBacklogDescription.value=''" (keyup.enter)="inputBacklogLabel.value=''"></textarea>
+        <select #owner id="assignedTo" [(ngModel)]="backlogitemAssignedTo" class="form-control">
+          <option *ngFor="let usertory of userstories" value="{{usertory._id}}">{{ usertory.title }}</option>
+        </select>
+      </header>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success btn-lg" (click)="addBacklogitem()">Add Backlogitem</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="backlogs">
     <h1>Backlog</h1>
-    <input #inputBacklogLabel class="newBacklogitem" placeholder="Your Backlog Title!" autofocus="" [(ngModel)]="backlogitemTitle" (keyup.enter)="addBacklogitem()" (keyup.enter)="inputBacklogLabel.value=''" (keyup.enter)="inputBacklogDescription.value=''">
-    <select #owner id="owner" [(ngModel)]="backlogitemAuthor" class="form-control" >
-      <option *ngFor="let user of users" value="{{user._id}}">{{ user.email }}</option>
-    </select>
-    <select #owner id="state" [(ngModel)]="backlogitemState" class="form-control" >
-      <option value="New">New</option>
-      <option value="Committed">Committed</option>
-      <option value="Done">Done</option>
-      <option value="Removed">Removed</option>
-    </select>
-    <input #inputBacklogDescription class="newBacklogitem" placeholder="Insert a Description" autofocus="" [(ngModel)]="backlogitemDescription" (keyup.enter)="addBacklogitem()" (keyup.enter)="inputBacklogDescription.value=''" (keyup.enter)="inputBacklogLabel.value=''">
-    <p></p>
-  </header>
-    <div id="userstories">
-      <h1>Usertories</h1>
-      <section class="main" *ngIf="userstories?.length > 0">
-        <ul class="list-group">
-          <li *ngFor="let userstory of userstories">
-            <div class="view">
-              <label class="black">{{userstory.title}}</label>
-              <label class="blacksmall">{{userstory.authorDisplayName}}, {{userstory.creationDate}}</label>
-            </div>
-          </li>
-        </ul>
-      </section>
-      <footer class="footer" *ngIf="userstories?.length > 0">
-        <span class="userStory-count"><strong>{{userstories?.length}}</strong> {{userstories?.length == 1 ? 'UserStory' : 'User Stories'}} left</span>
-      </footer>
-    </div>
-    <div id="backlogs">
-      <h1>Backlog</h1>
-      <section class="main" *ngIf="backlogitems?.length > 0">
-        <ul class="list-group">
-          <li *ngFor="let backlogitem of backlogitems" class="list-group-item">
-            <div class="view">
-              <label class="black">{{backlogitem.title}}</label>
-              <label class="black">{{backlogitem.description}}</label>
-              <label class="blacksmall">{{backlogitem.author}}, {{backlogitem.timestamp}}</label>
-              <button class="destroy" (click)="removeBacklogitem(backlogitem)"></button>
-            </div>
-          </li>
-        </ul>
-      </section>
-    </div>
+    <section class="main" *ngIf="backlogitems?.length > 0">
+      <ul class="list-group">
+        <table class="table table-hover">
+          <thead>
+          <th>Backlog-Title</th>
+          <th>State</th>
+          <th>Description</th>
+          <th>Backlog-Author</th>
+          <th>Assigned to Userstory</th>
+          <th>Created at</th>
+          <th>Remove?</th>
+          </thead>
+        <tr *ngFor="let backlogitem of backlogitems">
+            <td>{{backlogitem.title}}</td>
+             <td>{{backlogitem.state}}</td>
+            <td>{{backlogitem.description}}</td>
+            <td>{{backlogitem.authorDisplayName}}</td>
+            <td>{{backlogitem.assignedToId}}</td>
+            <td> {{backlogitem.creationDate}}</td>
+            <td><button class="destroy" (click)="removeBacklogitem(backlogitem)">&times;</button></td>
+        </tr>
+        </table>
+      </ul>
+    </section>
+  </div>
 </section>
