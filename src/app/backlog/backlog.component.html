@@ -22,9 +22,9 @@
           <option value="Done">Done</option>
           <option value="Removed">Removed</option>
         </select>
-        <input #inputBacklogDescription class="newBacklogitem" placeholder="Insert a Description" autofocus=""
+        <textarea rows="8" cols="76" #inputBacklogDescription class="newBacklogitem" placeholder="Insert a Description" autofocus=""
                [(ngModel)]="backlogitemDescription" (keyup.enter)="addBacklogitem()"
-               (keyup.enter)="inputBacklogDescription.value=''" (keyup.enter)="inputBacklogLabel.value=''">
+                  (keyup.enter)="inputBacklogDescription.value=''" (keyup.enter)="inputBacklogLabel.value=''"></textarea>
       </header>
         </div>
         <div class="modal-footer">

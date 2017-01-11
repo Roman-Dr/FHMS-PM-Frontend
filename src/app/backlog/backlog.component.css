@@ -5,6 +5,10 @@
   padding: 15px;
 }
 
+#inputBacklogDescription{
+  height: 100px;
+}
+
 .modal-header{
   color:white;
 }

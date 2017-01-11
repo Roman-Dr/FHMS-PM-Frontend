@@ -102,6 +102,14 @@ body {
 	text-rendering: optimizeLegibility;
 }
 
+.app-UserStory h2 {
+  text-align: center;
+  color: #000000;
+  -webkit-text-rendering: optimizeLegibility;
+  -moz-text-rendering: optimizeLegibility;
+  text-rendering: optimizeLegibility;
+}
+
 .newUserStory,
 .edit {
 	position: relative;
