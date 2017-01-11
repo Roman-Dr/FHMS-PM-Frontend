@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Http, Headers} from "@angular/http";
+import {Http} from "@angular/http";
 import 'rxjs/Rx'
 import {HeaderService} from "./header.service";
 
@@ -12,8 +12,8 @@ export class ProjectService {
 
   constructor(private http: Http, private headerService: HeaderService) {
 
-  }
 
+  }
 
   getProjects() {
     let headers = this.headerService.setHeadersForGet();

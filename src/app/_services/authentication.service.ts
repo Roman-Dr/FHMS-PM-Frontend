@@ -35,6 +35,7 @@ export class AuthenticationService {
         }
         // If everything went fine, return the response
         else {
+
           let resBody = res.json();
           this.loggedIn = true;
 
