@@ -17,10 +17,15 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { UserStoryComponent } from './user-story/user-story.component';
 import {platformBrowserDynamic} from "@angular/platform-browser-dynamic";
-import {LoggedInGuard} from "./_guards/logged-in.guard";
-import {UserService} from "./_services/user.service";
 import { ProjectComponent } from './project/project.component';
 import { ProjectNavComponent } from './project-nav/project-nav.component';
+import {AuthenticationService} from "./_services/authentication.service";
+import {UserService} from "./_services/user.service";
+import {RouterModule} from "@angular/router";
+import {HeaderService} from "./_services/header.service";
+import {AuthGuard} from "./_services/auth-guard.service";
+import {ProjectGuard} from "./_services/project-guard.service";
+import {ProjectService} from "./_services/project.service";
 
 @NgModule({
   declarations: [
@@ -43,9 +48,9 @@ import { ProjectNavComponent } from './project-nav/project-nav.component';
     FormsModule,
     HttpModule,
     NgbModule.forRoot(),
-    routes
+    RouterModule.forRoot(routes)
   ],
-  providers: [UserService, LoggedInGuard],
+  providers: [UserService, AuthenticationService, ProjectService, HeaderService, AuthGuard, ProjectGuard],
   bootstrap: [AppComponent]
 
 })

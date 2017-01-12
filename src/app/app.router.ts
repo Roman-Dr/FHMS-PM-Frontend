@@ -1,6 +1,3 @@
-import { ModuleWithProviders } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-
 import { LandingComponent } from './landing/landing.component';
 import { BacklogComponent } from './backlog/backlog.component';
 import { BoardComponent } from './board/board.component';
@@ -11,25 +8,22 @@ import { RoadmapComponent } from './roadmap/roadmap.component';
 import { UserStoryComponent} from './user-story/user-story.component';
 import { LoginComponent } from './login/login.component'
 import { RegisterComponent } from './register/register.component'
-import { LoggedInGuard } from './_guards/logged-in.guard';
-
 import {ProjectComponent} from "./project/project.component";
+import {AuthGuard} from "./_services/auth-guard.service";
+import {ProjectGuard} from "./_services/project-guard.service";
 
-export const router: Routes = [
+export const routes = [
   { path: '', component: LoginComponent, pathMatch: 'full' },
-  { path: 'landing', component: LandingComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'projects', component: ProjectComponent },
-  { path: 'backlog', component: BacklogComponent },
-  { path: 'board', component: BoardComponent },
-  { path: 'sprint', component: SprintComponent },
-  { path: 'estimation', component: EstimationComponent },
-  { path: 'chart', component: ChartComponent },
-  { path: 'roadmap', component: RoadmapComponent },
-  { path: 'user-story', component: UserStoryComponent },
-
-  // { path: 'profile', component: ProfileComponent, canActivate: [LoggedInGuard] }
+  { path: 'projects', component: ProjectComponent, canActivate: [AuthGuard]},
+  { path: 'landing', component: LandingComponent, canActivate: [AuthGuard] },
+  { path: 'backlog', component: BacklogComponent, canActivate: [AuthGuard]},
+  { path: 'board', component: BoardComponent, canActivate: [AuthGuard] },
+  { path: 'sprints', component: SprintComponent, canActivate: [AuthGuard] },
+  { path: 'estimation', component: EstimationComponent, canActivate: [AuthGuard] },
+  { path: 'chart', component: ChartComponent, canActivate: [AuthGuard] },
+  { path: 'roadmap', component: RoadmapComponent, canActivate: [AuthGuard] },
+  { path: 'user-story', component: UserStoryComponent, canActivate: [AuthGuard] },
 ];
 
-export const routes: ModuleWithProviders = RouterModule.forRoot(router);

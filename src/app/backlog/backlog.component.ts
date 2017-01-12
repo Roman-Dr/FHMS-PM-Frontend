@@ -1,10 +1,10 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
-import { Backlog} from './backlog';
+import { Backlog} from '../_models/backlog';
 import {BacklogDataService} from '../_services/backlog-data.service';
 import {User} from "../_models/user";
 import {UserService} from "../_services/user.service";
 import {UserStoryDataService} from '../_services/user-story-data.service';
-import {UserStory} from "../user-story/UserStory";
+import {UserStory} from "../_models/UserStory";
 
 @Component({
   selector: 'app-backlog',
@@ -25,6 +25,7 @@ export class BacklogComponent {
   backlogitemState:string;
   backlogitemAuthor:string;
   backlogitemDescription:string;
+  backlogitemAssignedTo:string
 
   backlogitems: Backlog[];
   users: User;
@@ -61,15 +62,16 @@ export class BacklogComponent {
   }
 
   addBacklogitem() {
-    if((!this.backlogitemTitle)||(!this.backlogitemAuthor)||(!this.backlogitemDescription)){
-      console.log("BacklogTitle("+this.backlogitemTitle+") oder BacklogAuthor("+this.backlogitemAuthor+") oder BacklogDescription("+this.backlogitemDescription+") sind leer: Component Backlog")
+    if((!this.backlogitemTitle)||(!this.backlogitemAuthor)||(!this.backlogitemDescription)||(!this.backlogitemAssignedTo)){
+      console.log("BacklogTitle("+this.backlogitemTitle+") oder BacklogAuthor("+this.backlogitemAuthor+") oder BacklogDescription("+this.backlogitemDescription+") oder BacklogAssignedTo("+this.backlogitemAssignedTo+") sind leer: Component Backlog")
       this.backlogitemTitle=null
       this.backlogitemAuthor=null
       this.backlogitemDescription=null
+      this.backlogitemAssignedTo=null
     }
     else{
       console.log("1")
-      this.backlogDataService.postBacklogitemRestful( this.backlogitemTitle,this.backlogitemState,this.backlogitemAuthor,this.backlogitemDescription).subscribe(
+      this.backlogDataService.postBacklogitemRestful( this.backlogitemTitle,this.backlogitemState,this.backlogitemAuthor,this.backlogitemDescription, this.backlogitemAssignedTo).subscribe(
         //data => this.postMyUserStoriesToServer = JSON.stringify(data),
         data => {
           this.loadBacklogitems()
@@ -78,6 +80,7 @@ export class BacklogComponent {
       this.backlogitemTitle=null
       this.backlogitemAuthor=null
       this.backlogitemDescription=null
+      this.backlogitemAssignedTo=null
     }
   }
 

@@ -1,27 +1,39 @@
-#userstories, #backlogs{
-  float: left;
-  width: 50%;
-}
 
-#userstories{
-  float: left;
-  height: auto;
-  white-space : nowrap;
-  overflow: auto;
-}
 
 #backlogs{
   border-left: 5px ridge;
   padding: 15px;
-  width: 50%;
 }
 
+#inputBacklogDescription{
+  height: 100px;
+}
+
+.modal-header{
+  color:white;
+}
+
+.table{
+  background: white;
+}
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background: whitesmoke;
+}
+.backlogModal{
+  color: white;
+}
+
+.main{
+  background: white;
+}
 
 button {
   margin: 0;
   padding: 0;
   border: 0;
-  background: none;
+  color: black;
+
   font-size: 100%;
   vertical-align: baseline;
   font-family: inherit;
@@ -31,6 +43,11 @@ button {
   appearance: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+header{
+  background: #272b30;
+  color: #000000;
 }
 
 body {
@@ -47,14 +64,13 @@ body {
 }
 
 .app-Backlog {
-  background: #fff;
   position: relative;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2),
   0 25px 50px 0 rgba(0, 0, 0, 0.1);
 }
 
 .list-group-item {
-  background-color: #999999;
+  background-color: #f0f0f0;
 }
 
 #backlogs{

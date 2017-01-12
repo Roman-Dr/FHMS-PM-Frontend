@@ -1,4 +1,4 @@
-import {UserStory} from '../user-story/UserStory';
+import {UserStory} from '../_models/UserStory';
 import { Injectable }     from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import {Observable} from 'rxjs/Rx';
@@ -24,7 +24,7 @@ export class UserStoryDataService {
       .catch(this.handleErrorDelete);
   }
 
-  postUserStoryRestful(userStoryName:string,userStoryComplete:boolean,userStoryAuthor:string){
+  postUserStoryRestful(userStoryName:string,userStoryComplete:string,userStoryAuthor:string){
 
       console.log(userStoryName+"; "+userStoryAuthor)
     let body = JSON.stringify({ "title":userStoryName,"complete":userStoryComplete,"authorId":userStoryAuthor });

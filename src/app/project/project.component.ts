@@ -4,23 +4,23 @@ import {ProjectService} from "../_services/project.service";
 import {Router} from "@angular/router";
 import {UserService} from "../_services/user.service";
 import {User} from "../_models/user";
+import {AuthenticationService} from "../_services/authentication.service";
 
 @Component({
   selector: 'app-project',
   templateUrl: './project.component.html',
   styleUrls: ['./project.component.css'],
-  providers: [ProjectService, UserService]
+  providers: [ProjectService, UserService, AuthenticationService]
 })
 export class ProjectComponent implements OnInit {
 
   projects: Project[];
   user: User;
-  userEmail: string;
   users: User[];
   errorMessage: string;
   create = false;
 
-  constructor(private projectService: ProjectService, private userService: UserService, private router: Router) {
+  constructor(private projectService: ProjectService, private userService: UserService) {
   }
 
   ngOnInit() {
@@ -29,11 +29,11 @@ export class ProjectComponent implements OnInit {
   }
 
   getProjects() {
-    this.projectService.getProjects()
-      .subscribe(
-        projects => this.projects = projects,
-        error => this.errorMessage = <any> error
-      )
+      this.projectService.getProjects()
+        .subscribe(
+          projects => this.projects = projects,
+          error => this.errorMessage = <any> error
+        )
   }
 
   getUsers() {
@@ -59,15 +59,14 @@ export class ProjectComponent implements OnInit {
   removeProject(projectId) {
     this.projectService.removeProject(projectId)
       .subscribe(
-        success => {
-          this.getProjects();
-        });
+        success => this.getProjects()
+        );
 
 
   }
 
-  createProject(displayName: string, description: string, dueDate: string, owner: string, stakeholders: string[], contributors: string[]) {
-    this.projectService.createProject(displayName, description, dueDate, owner, stakeholders, contributors)
+  createProject(displayName: string, description: string, dueDate: string, stakeholders: string[], contributors: string[]) {
+    this.projectService.createProject(displayName, description, dueDate, localStorage.getItem('user_id'), stakeholders, contributors)
       .subscribe(
         success => {
           this.getProjects();
