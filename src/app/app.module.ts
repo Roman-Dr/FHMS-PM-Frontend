@@ -22,7 +22,6 @@ import { ProjectNavComponent } from './project-nav/project-nav.component';
 import {AuthenticationService} from "./_services/authentication.service";
 import {UserService} from "./_services/user.service";
 import {RouterModule} from "@angular/router";
-import {HeaderService} from "./_services/header.service";
 import {AuthGuard} from "./_services/auth-guard.service";
 import {ProjectGuard} from "./_services/project-guard.service";
 import {ProjectService} from "./_services/project.service";
@@ -50,7 +49,7 @@ import {ProjectService} from "./_services/project.service";
     NgbModule.forRoot(),
     RouterModule.forRoot(routes)
   ],
-  providers: [UserService, AuthenticationService, ProjectService, HeaderService, AuthGuard, ProjectGuard],
+  providers: [UserService, AuthenticationService, ProjectService, AuthGuard, ProjectGuard],
   bootstrap: [AppComponent]
 
 })

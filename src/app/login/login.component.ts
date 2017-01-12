@@ -12,13 +12,10 @@ import { AuthenticationService } from '../_services/authentication.service';
 
 
 export class LoginComponent {
-  private headers: Headers;
 
 
   constructor(private authenticationService: AuthenticationService, private router: Router) {
-    this.headers = new Headers();
-    this.headers.append('Content-Type', 'application/json');
-    this.headers.append('Accept', 'application/json');
+
   }
 
   onSubmit(email, password) {
