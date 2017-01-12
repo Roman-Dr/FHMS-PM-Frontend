@@ -34,6 +34,7 @@ export class ProjectService {
     if (localStorage.getItem('project_url') === null) {
       localStorage.setItem('project_id', projectId);
       localStorage.setItem('project_url', this._apiUrl+projectId)
+
     } else {
       localStorage.removeItem('project_id');
       localStorage.removeItem('project_url');
@@ -62,6 +63,7 @@ export class ProjectService {
         }
       })
   }
+
 
 
   updateProject(displayName: string, description: string, dueDate: string, owner: string, stakeholders: string[], contributors: string[] ) {

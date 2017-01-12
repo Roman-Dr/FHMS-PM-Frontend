@@ -22,8 +22,8 @@ import { ProjectNavComponent } from './project-nav/project-nav.component';
 import {AuthenticationService} from "./_services/authentication.service";
 import {UserService} from "./_services/user.service";
 import {RouterModule} from "@angular/router";
-import {LoggedInGuard} from "./logged-in.guard";
 import {HeaderService} from "./_services/header.service";
+import {AuthGuard} from "./_services/auth-guard.service";
 
 @NgModule({
   declarations: [
@@ -48,7 +48,7 @@ import {HeaderService} from "./_services/header.service";
     NgbModule.forRoot(),
     RouterModule.forRoot(routes)
   ],
-  providers: [UserService, AuthenticationService, HeaderService, LoggedInGuard],
+  providers: [UserService, AuthenticationService, HeaderService, AuthGuard],
   bootstrap: [AppComponent]
 
 })
