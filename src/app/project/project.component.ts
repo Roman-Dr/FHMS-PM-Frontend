@@ -65,8 +65,8 @@ export class ProjectComponent implements OnInit {
 
   }
 
-  createProject(displayName: string, description: string, dueDate: string, owner: string, stakeholders: string[], contributors: string[]) {
-    this.projectService.createProject(displayName, description, dueDate, owner, stakeholders, contributors)
+  createProject(displayName: string, description: string, dueDate: string, stakeholders: string[], contributors: string[]) {
+    this.projectService.createProject(displayName, description, dueDate, localStorage.getItem('user_id'), stakeholders, contributors)
       .subscribe(
         success => {
           this.getProjects();
