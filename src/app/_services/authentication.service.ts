@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Http} from '@angular/http'
 import 'rxjs/Rx'
 import {HeaderService} from "./header.service";
+import {ProjectService} from "./project.service";
 
 
 
@@ -13,8 +14,8 @@ export class AuthenticationService {
   private _apiUrl = 'http://10.60.67.20:3000/api/user/';
   // private _apiUrl = 'http://localhost:3000/api/user/';
 
-  constructor(private http: Http, private headerService: HeaderService) {
-    this.loggedIn = !!localStorage.getItem('auth_token');
+  constructor(private http: Http, private headerService: HeaderService, private projectService: ProjectService) {
+    this.loggedIn = !!localStorage.getItem('user_id');
 
 
   }
@@ -40,7 +41,7 @@ export class AuthenticationService {
           this.loggedIn = true;
 
           localStorage.setItem('auth_token', resBody.auth_token);
-          localStorage.setItem('user_id', resBody.user_id);
+          localStorage.setItem('user_id', resBody);
 
           console.log(localStorage.getItem('auth_token'));
           console.log(localStorage.getItem('user_id'));
@@ -70,8 +71,14 @@ export class AuthenticationService {
           localStorage.removeItem('auth_token');
           localStorage.removeItem('user_id');
 
+          localStorage.removeItem('project_id');
+          localStorage.removeItem('project_url');
+          this.projectService.setProjectSelectedFalse();
+
           console.log(this.loggedIn);
           console.log("Logout successful");
+
+          location.reload();
 
           return res.json();
         }

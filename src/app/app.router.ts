@@ -10,6 +10,7 @@ import { LoginComponent } from './login/login.component'
 import { RegisterComponent } from './register/register.component'
 import {ProjectComponent} from "./project/project.component";
 import {AuthGuard} from "./_services/auth-guard.service";
+import {ProjectGuard} from "./_services/project-guard.service";
 
 export const routes = [
   { path: '', component: LoginComponent, pathMatch: 'full' },

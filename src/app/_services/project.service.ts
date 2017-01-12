@@ -8,6 +8,7 @@ export class ProjectService {
   private _apiUrl = 'http://10.60.67.20:3000/api/projects/';
   // private _apiUrl = 'http://localhost:3000/api/projects/';
 
+  private projectSelected = false;
 
 
   constructor(private http: Http, private headerService: HeaderService) {
@@ -35,12 +36,16 @@ export class ProjectService {
       localStorage.setItem('project_id', projectId);
       localStorage.setItem('project_url', this._apiUrl+projectId)
 
+      this.projectSelected = true;
+
     } else {
       localStorage.removeItem('project_id');
       localStorage.removeItem('project_url');
 
       localStorage.setItem('project_id', projectId);
       localStorage.setItem('project_url', this._apiUrl+projectId)
+
+      this.projectSelected = true;
     }
   }
 
@@ -64,7 +69,14 @@ export class ProjectService {
       })
   }
 
+  isProjectSelected() {
+    return this.projectSelected;
+  }
 
+
+  setProjectSelectedFalse() {
+    this.projectSelected = false;
+  }
 
   updateProject(displayName: string, description: string, dueDate: string, owner: string, stakeholders: string[], contributors: string[] ) {
     let headers = this.headerService.setHeadersForPost();
