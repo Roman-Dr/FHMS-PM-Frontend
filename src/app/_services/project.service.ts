@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Http, Headers} from "@angular/http";
+import {Http, Headers, RequestOptions} from "@angular/http";
 import 'rxjs/Rx'
 
 @Injectable()
@@ -10,17 +10,16 @@ export class ProjectService {
   private headers = new Headers();
 
   constructor(private http: Http) {
-    this.headers.append('Content-Type', 'application/json');
   }
 
 
   getProjects() {
-    return this.http.get(this._apiUrl)
-      .map(res => res.json())
+   return this.http.get('http://10.60.67.20:3000/api/user/profile', { withCredentials: true })
+     .map(res => res.json())
   }
 
   getProject(projectId) {
-    return this.http.get(this._apiUrl+projectId)
+    return this.http.get(this._apiUrl+projectId, { withCredentials: true })
       .map(res => res.json())
   }
 
