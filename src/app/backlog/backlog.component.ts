@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
-import { Backlog} from './backlog';
+import { Backlog} from '../_models/backlog';
 import {BacklogDataService} from '../_services/backlog-data.service';
 import {User} from "../_models/user";
 import {UserService} from "../_services/user.service";

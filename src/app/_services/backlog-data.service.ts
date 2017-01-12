@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Backlog} from '../backlog/backlog';
+import {Backlog} from '../_models/backlog';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import {Observable} from 'rxjs/Rx';
 import 'rxjs/Rx';

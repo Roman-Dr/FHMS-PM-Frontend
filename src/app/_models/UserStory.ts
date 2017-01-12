@@ -1,4 +1,4 @@
-import {Backlog} from "../backlog/backlog";
+import {Backlog} from "./backlog";
 export class UserStory {
   title: string = '';
   complete: boolean = false;
