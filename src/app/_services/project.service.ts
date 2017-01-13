@@ -7,7 +7,7 @@ export class ProjectService {
   private _apiUrl = 'http://10.60.67.20:3000/api/projects/';
   // private _apiUrl = 'http://localhost:3000/api/projects/';
 
-  private projectSelected = false;
+  private projectSelected = !!localStorage.getItem('project_id');
 
   private headers: Headers = new Headers({ 'Content-Type': 'application/json' });
 
@@ -49,7 +49,7 @@ export class ProjectService {
 
     return this.http.post
     (this._apiUrl,
-      JSON.stringify({displayName, description, dueDate, owner, stakeholders, contributors}), { headers: this.headers }
+      JSON.stringify({displayName, description, dueDate, owner, stakeholders, contributors}), { withCredentials: true, headers: this.headers }
     )
       .map(res => {
         // If request fails, throw an Error that will be caught
@@ -70,7 +70,7 @@ export class ProjectService {
 
     return this.http.put
     (this._apiUrl,
-      JSON.stringify({displayName, description, dueDate, owner, stakeholders, contributors}), { headers: this.headers }
+      JSON.stringify({displayName, description, dueDate, owner, stakeholders, contributors}), { withCredentials: true, headers: this.headers }
     )
       .map(res => {
         // If request fails, throw an Error that will be caught
@@ -88,7 +88,7 @@ export class ProjectService {
 
   removeProject(projectId) {
 
-    return this.http.delete(this._apiUrl+projectId, {headers: this.headers})
+    return this.http.delete(this._apiUrl+projectId, {withCredentials: true, headers: this.headers})
       .map(res => {
         // If request fails, throw an Error that will be caught
         if(res.status < 200 || res.status >= 300) {
