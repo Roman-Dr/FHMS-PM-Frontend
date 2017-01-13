@@ -65,11 +65,11 @@ export class ProjectService {
   }
 
 
-  updateProject(displayName: string, description: string, dueDate: string, owner: string, stakeholders: string[], contributors: string[] ) {
+  updateProject(projectId: string, displayName: string, description: string, dueDate: string, owner: string, stakeholders: string[], contributors: string[] ) {
 
 
     return this.http.put
-    (this._apiUrl,
+    (this._apiUrl+projectId,
       JSON.stringify({displayName, description, dueDate, owner, stakeholders, contributors}), { withCredentials: true, headers: this.headers }
     )
       .map(res => {

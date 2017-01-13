@@ -6,6 +6,7 @@ import 'rxjs/Rx'
 @Injectable()
 export class UserService {
 
+
    private _apiUrl = 'http://10.60.67.20:3000/api/user/';
    // private _apiUrl = 'http://localhost:3000/api/user/';
 

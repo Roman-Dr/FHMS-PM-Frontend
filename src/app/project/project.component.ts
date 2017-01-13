@@ -74,6 +74,15 @@ export class ProjectComponent implements OnInit {
         });
   }
 
+
+  updateProject(projectId: string, displayName: string, description: string, dueDate: string, stakeholders: string[], contributors: string[]) {
+    this.projectService.updateProject(projectId, displayName, description, dueDate, localStorage.getItem('user_id'), stakeholders, contributors)
+      .subscribe(
+        success => {
+          this.getProjects();
+        });
+  }
+
   showCreation() {
     if (this.create) {
       this.create = false;
