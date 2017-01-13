@@ -1,4 +1,5 @@
-.jumbotron {
-margin-right: 5px;
-margin-bottom: 30px;
+.project-box {
+  margin: 15px;
+  width: 200px;
+  height: 250px;
 }

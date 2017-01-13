@@ -8,13 +8,11 @@
             <th class="col-sm-3">Name</th>
             <th class="col-sm-3">Startdatum</th>
             <th class="col-sm-3">Enddatum</th>
-            <th class="col-sm-3">Kapazität</th>
           </tr>
           <tr *ngFor="let sprint of sprints">
             <td>{{sprint.sprintName}}</td>
             <td>{{sprint.startDate}}</td>
             <td>{{sprint.endDate}}</td>
-            <td>{{sprint.sprintCapacity}}</td>
           </tr>
         </table>
 
@@ -26,24 +24,20 @@
     <div *ngIf="create">
       <div class="col-sm-12">
         <form role="form"
-              (keyup.enter)="createSprint(sprintName.value, startDate.value, endDate.value, sprintCapacity.value)" class="form-inline">
-          <div class="form-group col-sm-3">
+              (keyup.enter)="createSprint(sprintName.value, startDate.value, endDate.value)" class="form-inline">
+          <div class="form-group col-sm-4">
             <label for="sprint-name" class="sr-only">Name</label>
             <input type="text" #sprintName class="form-control col-sm-3" id="sprint-name" placeholder="Name">
           </div>
-          <div class="form-group col-sm-3">
+          <div class="form-group col-sm-4">
             <label for="start-date" class="sr-only">(Datum Auswahl funktioniert bisher nur unter Chrome - testweise bspw. "2017-01-15"
               eintragen)</label>
             <input type="date" #startDate class="form-control col-sm-3" id="start-date" placeholder="Startdatum">
           </div>
-          <div class="form-group col-sm-3">
+          <div class="form-group col-sm-4">
             <label for="end-date" class="sr-only">(Datum Auswahl funktioniert bisher nur unter Chrome - testweise bspw. "2017-01-15"
               eintragen)</label>
             <input type="date" #endDate class="form-control col-sm-3" id="end-date" placeholder="Enddatum">
-          </div>
-          <div class="form-group col-sm-3">
-            <label for="sprint-capacity" class="sr-only">Kapazität</label>
-            <input type="text" #sprintCapacity class="form-control col-sm-3" id="sprint-capacity" placeholder="Kapazität">
           </div>
         </form>
       </div>

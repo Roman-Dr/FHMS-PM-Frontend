@@ -11,10 +11,10 @@ export class SprintService {
 
   constructor(private http: Http) { }
 
-  createSprint(sprintName: string, startDate: string, endDate: string, sprintCapacity: string[] ) {
+  createSprint(sprintName: string, startDate: string, endDate: string ) {
     return this.http.post
     (this._apiUrl,
-      JSON.stringify({sprintName, startDate, endDate, sprintCapacity}), { headers: this.headers }
+      JSON.stringify({sprintName, startDate, endDate}), { headers: this.headers }
     )
       .map(res => res.json())
       .map((res) => {

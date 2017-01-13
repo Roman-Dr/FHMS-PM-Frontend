@@ -32,8 +32,8 @@ export class SprintComponent implements OnInit {
   }
 
 
-  createSprint(sprintName: string, startDate: string, endDate: string, sprintCapacity: string[]) {
-    this.sprintService.createSprint(sprintName, startDate, endDate, sprintCapacity)
+  createSprint(sprintName: string, startDate: string, endDate: string) {
+    this.sprintService.createSprint(sprintName, startDate, endDate)
       .subscribe(
         success => {
           this.getSprints();
