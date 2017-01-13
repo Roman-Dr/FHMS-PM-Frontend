@@ -38,9 +38,6 @@ export class AuthenticationService {
           this.loggedIn = true;
 
           localStorage.setItem('user_id', resBody);
-          console.log(localStorage.getItem('user_id'));
-          console.log(this.isLoggedIn());
-          console.log("Login successful");
 
           return resBody;
         }

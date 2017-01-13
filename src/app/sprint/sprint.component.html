@@ -5,24 +5,44 @@
       <div class="table-responsive">
         <table class="table">
           <tr>
-            <th class="col-sm-3">Name</th>
-            <th class="col-sm-3">Startdatum</th>
-            <th class="col-sm-3">Enddatum</th>
+            <th>Name</th>
+            <th>Startdatum</th>
+            <th>Enddatum</th>
+            <th></th>
           </tr>
           <tr *ngFor="let sprint of sprints">
             <td>{{sprint.sprintName}}</td>
             <td>{{sprint.startDate | date:'dd.MM.yyyy'}}</td>
             <td>{{sprint.endDate | date:'dd.MM.yyyy'}}</td>
+            <td>
+              <a href="#">
+                <span class="glyphicon glyphicon-ok"></span>
+              </a>
+
+              <a href="#">
+                <span class="glyphicon glyphicon-edit"></span>
+              </a>
+
+              <a href="#">
+                <span class="glyphicon glyphicon-list"></span>
+              </a>
+
+              <a href="#">
+              <span class="glyphicon glyphicon-remove"></span>
+            </a>
+
+            </td>
           </tr>
         </table>
 
       </div>
     </div>
+
   </div>
 
   <div class="row">
     <div *ngIf="create">
-      <div class="col-sm-12">
+      <div class="col-sm-7">
         <form role="form"
               (keyup.enter)="createSprint(sprintName.value, startDate.value, endDate.value)" class="form-inline">
           <div class="form-group col-sm-4">

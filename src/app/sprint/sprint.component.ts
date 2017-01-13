@@ -42,6 +42,15 @@ export class SprintComponent implements OnInit {
   }
 
 
+  createSprintCapacity(userId: string, dayOff: number, capacityPerDay: number) {
+    this.sprintService.createSprintCapacity(userId, dayOff, capacityPerDay)
+      .subscribe(
+        success => {
+          this.getSprints();
+        });
+  }
+
+
   showCreation() {
     if (this.create) {
       this.create = false;

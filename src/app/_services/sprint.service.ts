@@ -11,21 +11,48 @@ export class SprintService {
 
   constructor(private http: Http) { }
 
+
   createSprint(sprintName: string, startDate: string, endDate: string ) {
     return this.http.post
     (this._apiUrl,
       JSON.stringify({sprintName, startDate, endDate}), { headers: this.headers }
     )
-      .map(res => res.json())
-      .map((res) => {
-        if (res.success) {
-          console.log("Create Project successful");
+      .map(res => {
+        // If request fails, throw an Error that will be caught
+        if(res.status < 200 || res.status >= 300) {
+          throw new Error('This request has failed ' + res.status);
         }
-        return res.success;
+        // If everything went fine, return the response
+        else {
+          console.log("Create Sprint successful");
+          return res.json();
+        }
       })
   }
 
-  getSprints() {
+
+  createSprintCapacity(userId: string, daysOff: number, capacityPerDay: number ) {
+    return this.http.post
+    (this._apiUrl,
+      JSON.stringify({userId, daysOff, capacityPerDay}), {headers: this.headers}
+    )
+      .map(res => {
+        // If request fails, throw an Error that will be caught
+        if(res.status < 200 || res.status >= 300) {
+          throw new Error('This request has failed ' + res.status);
+        }
+        // If everything went fine, return the response
+        else {
+          console.log("Create Sprint Capacity successful");
+          return res.json();
+        }
+      })
+  }
+
+
+
+
+    getSprints() {
     return this.http.get(this._apiUrl)
       .map(res => res.json())
   }
