@@ -7,7 +7,7 @@ export class SprintService {
   private _apiUrl = localStorage.getItem('project_url')+'/sprints';
   // private _apiUrl = 'http://localhost:3000/api/projects/';
 
-  private headers = new Headers();
+  private headers = new Headers({ 'Content-Type': 'application/json' });
 
   constructor(private http: Http) { }
 

@@ -11,8 +11,8 @@
           </tr>
           <tr *ngFor="let sprint of sprints">
             <td>{{sprint.sprintName}}</td>
-            <td>{{sprint.startDate}}</td>
-            <td>{{sprint.endDate}}</td>
+            <td>{{sprint.startDate | date:'dd.MM.yyyy'}}</td>
+            <td>{{sprint.endDate | date:'dd.MM.yyyy'}}</td>
           </tr>
         </table>
 
@@ -30,13 +30,11 @@
             <input type="text" #sprintName class="form-control col-sm-3" id="sprint-name" placeholder="Name">
           </div>
           <div class="form-group col-sm-4">
-            <label for="start-date" class="sr-only">(Datum Auswahl funktioniert bisher nur unter Chrome - testweise bspw. "2017-01-15"
-              eintragen)</label>
+            <label for="start-date" class="sr-only">Startdatum</label>
             <input type="date" #startDate class="form-control col-sm-3" id="start-date" placeholder="Startdatum">
           </div>
           <div class="form-group col-sm-4">
-            <label for="end-date" class="sr-only">(Datum Auswahl funktioniert bisher nur unter Chrome - testweise bspw. "2017-01-15"
-              eintragen)</label>
+            <label for="end-date" class="sr-only">Enddatum</label>
             <input type="date" #endDate class="form-control col-sm-3" id="end-date" placeholder="Enddatum">
           </div>
         </form>
