@@ -70,6 +70,7 @@ export class UserStoryComponent {
   }
 
   addUserStory() {
+    this.userStoryAuthor=localStorage.getItem("user_id")
     if((!this.userStoryAuthor)||(!this.userStoryName)){
       console.log("UserStoryName("+this.userStoryName+") oder UserStoryAuthor("+this.userStoryAuthor+") sind leer: Component")
       this.userStoryAuthor=null
