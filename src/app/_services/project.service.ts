@@ -29,20 +29,9 @@ export class ProjectService {
 
 
   chooseProject(projectId) {
-    if (localStorage.getItem('project_url') === null) {
       localStorage.setItem('project_id', projectId);
       localStorage.setItem('project_url', this._apiUrl+projectId);
-
       this.projectSelected = true;
-    } else {
-      localStorage.removeItem('project_id');
-      localStorage.removeItem('project_url');
-
-      localStorage.setItem('project_id', projectId);
-      localStorage.setItem('project_url', this._apiUrl+projectId);
-
-      this.projectSelected = true;
-    }
   }
 
   createProject(displayName: string, description: string, dueDate: string, owner: string, stakeholders: string[], contributors: string[] ) {

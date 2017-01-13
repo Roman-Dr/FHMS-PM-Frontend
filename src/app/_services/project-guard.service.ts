@@ -9,6 +9,7 @@ export class ProjectGuard implements CanActivate {
 
   canActivate() {
     if (!this.project.isProjectSelected()) {
+      console.log(this.project.isProjectSelected());
       this.router.navigate(['/projects']);
       return false;
     }
