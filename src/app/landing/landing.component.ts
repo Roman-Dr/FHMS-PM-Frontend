@@ -30,11 +30,5 @@ export class LandingComponent implements OnInit{
       )
   }
 
-  testCookieLink(){
-    this.user.testCookieLink().subscribe(
-      success => {}
-    )
-
-  }
 
 }
