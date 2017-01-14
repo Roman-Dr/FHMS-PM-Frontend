@@ -4,7 +4,7 @@ import {Headers, Http} from "@angular/http";
 @Injectable()
 export class SprintService {
 
-  private _apiUrl = localStorage.getItem('project_url')+'/sprints';
+  private _apiUrl = localStorage.getItem('project_url')+'/sprints/';
   // private _apiUrl = 'http://localhost:3000/api/projects/';
 
   private headers = new Headers({ 'Content-Type': 'application/json' });
@@ -31,9 +31,25 @@ export class SprintService {
   }
 
 
-  createSprintCapacity(userId: string, daysOff: number, capacityPerDay: number ) {
+  deleteSprint(sprintId) {
+    return this.http.delete(this._apiUrl+sprintId, {withCredentials: true, headers: this.headers})
+      .map(res => {
+        // If request fails, throw an Error that will be caught
+        if(res.status < 200 || res.status >= 300) {
+          throw new Error('This request has failed ' + res.status);
+        }
+        // If everything went fine, return the response
+        else {
+          console.log("Delete Project successful");
+          return res.json();
+        }
+      })
+  }
+
+
+  createSprintCapacity(sprintId: string, userId: string, daysOff: number, capacityPerDay: number ) {
     return this.http.post
-    (this._apiUrl,
+    (this._apiUrl+sprintId,
       JSON.stringify({userId, daysOff, capacityPerDay}), {headers: this.headers}
     )
       .map(res => {

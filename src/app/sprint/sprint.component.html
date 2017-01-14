@@ -15,23 +15,52 @@
             <td>{{sprint.startDate | date:'dd.MM.yyyy'}}</td>
             <td>{{sprint.endDate | date:'dd.MM.yyyy'}}</td>
             <td>
-              <a href="#">
+              <button type="button" class="btn btn-default btn-sm" >
                 <span class="glyphicon glyphicon-ok"></span>
-              </a>
+              </button>
 
-              <a href="#">
+              <a href="#edit-sprint-{{sprint._id}}" data-toggle="modal" >
+              <button type="button" class="btn btn-default btn-sm" >
                 <span class="glyphicon glyphicon-edit"></span>
+              </button>
               </a>
 
-              <a href="#">
+              <button type="button" class="btn btn-default btn-sm" >
                 <span class="glyphicon glyphicon-list"></span>
-              </a>
+              </button>
 
-              <a href="#">
+              <button type="button" class="btn btn-default btn-sm" (click)="deleteSprint(sprint._id)">
               <span class="glyphicon glyphicon-remove"></span>
-            </a>
+            </button>
 
             </td>
+
+            <div class="modal fade" id="edit-sprint-{{sprint._id}}" tabindex="-1" role="dialog" aria-labelledby="edit-sprint" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h3 class="modal-title" id="edit-sprint">Sprint editieren</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+          </tr>
+          <tr>
+            <td><input type="text" #sprintName class="form-control col-sm-3" id="sprint-name" placeholder="Name"></td>
+            <td><input type="date" #startDate class="form-control col-sm-3" id="start-date" placeholder="Startdatum"></td>
+            <td><input type="date" #endDate class="form-control col-sm-3" id="end-date" placeholder="Enddatum"></td>
+            <td><button type="button" class="btn btn-default btn-sm" (click)="createSprint(sprintName.value, startDate.value, endDate.value)">
+              <span class="glyphicon glyphicon-plus"></span>
+            </button></td>
           </tr>
         </table>
 
@@ -40,32 +69,10 @@
 
   </div>
 
-  <div class="row">
-    <div *ngIf="create">
-      <div class="col-sm-7">
-        <form role="form"
-              (keyup.enter)="createSprint(sprintName.value, startDate.value, endDate.value)" class="form-inline">
-          <div class="form-group col-sm-4">
-            <label for="sprint-name" class="sr-only">Name</label>
-            <input type="text" #sprintName class="form-control col-sm-3" id="sprint-name" placeholder="Name">
-          </div>
-          <div class="form-group col-sm-4">
-            <label for="start-date" class="sr-only">Startdatum</label>
-            <input type="date" #startDate class="form-control col-sm-3" id="start-date" placeholder="Startdatum">
-          </div>
-          <div class="form-group col-sm-4">
-            <label for="end-date" class="sr-only">Enddatum</label>
-            <input type="date" #endDate class="form-control col-sm-3" id="end-date" placeholder="Enddatum">
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
 
-  <div class="row">
-    <button type="submit" class="btn btn-info btn-lg" (click)="showCreation()">
-      <span class="glyphicon glyphicon-plus"></span>
-    </button>
-  </div>
+
 
 </div>
+
+
+

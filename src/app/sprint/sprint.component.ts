@@ -13,7 +13,6 @@ export class SprintComponent implements OnInit {
 
   sprints: Sprint[];
   errorMessage: string;
-  create = false;
 
 
   constructor(private sprintService: SprintService) {
@@ -35,29 +34,27 @@ export class SprintComponent implements OnInit {
   createSprint(sprintName: string, startDate: string, endDate: string) {
     this.sprintService.createSprint(sprintName, startDate, endDate)
       .subscribe(
-        success => {
-          this.getSprints();
-          this.showCreation();
-        });
+        success => this.getSprints()
+        );
+  }
+
+  deleteSprint(sprintId) {
+    this.sprintService.deleteSprint(sprintId)
+      .subscribe(
+        success => this.getSprints()
+      );
+
+
   }
 
 
-  createSprintCapacity(userId: string, dayOff: number, capacityPerDay: number) {
-    this.sprintService.createSprintCapacity(userId, dayOff, capacityPerDay)
+  createSprintCapacity(sprintId: string, userId: string, dayOff: number, capacityPerDay: number) {
+    this.sprintService.createSprintCapacity(sprintId, userId, dayOff, capacityPerDay)
       .subscribe(
         success => {
           this.getSprints();
         });
   }
 
-
-  showCreation() {
-    if (this.create) {
-      this.create = false;
-    }
-    else {
-      this.create = true;
-    }
-  }
 
 }
