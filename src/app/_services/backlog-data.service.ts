@@ -13,7 +13,6 @@ export class BacklogDataService {
 
   private headers: Headers = new Headers({ 'Content-Type': 'application/json' });
 
-
   updateBacklog(backlogName:string, backlogState:string, backlogAuthor:string, backlogDescription:string, backlogAssignedTo:string){
     return this.http.put
     (this.backlogitemsUrl,
@@ -39,10 +38,11 @@ export class BacklogDataService {
   }
 
   postTask(id, task:string){
+    console.log(task)
     let body= JSON.stringify({"title":task})
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers, method: "post" });
-    return this.http.post(this.backlogitemsUrl+"/"+id+"/tasks/",body,options)
+    return this.http.post(this.backlogitemsUrl+"/"+id+"/tasks",body,options)
       .map(this.extractData)
       .catch(this.handleError);
   }
