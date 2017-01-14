@@ -10,24 +10,31 @@
         <div class="modal-body">
       <header class="header">
         <h1 class="backlogModal">Neues Backlogitem:</h1>
+
         <input #inputBacklogLabel class="newBacklogitem" placeholder="Your Backlog Title!" autofocus=""
                [(ngModel)]="backlogitemTitle" (keyup.enter)="addBacklogitem()"
                (keyup.enter)="inputBacklogLabel.value=''" (keyup.enter)="inputBacklogDescription.value=''">
+
         <select #owner id="owner" [(ngModel)]="backlogitemAuthor" class="form-control">
           <option *ngFor="let user of users" value="{{user._id}}">{{ user.email }}</option>
         </select>
+
         <select #owner id="state" [(ngModel)]="backlogitemState" class="form-control">
           <option value="New">New</option>
           <option value="Committed">Committed</option>
           <option value="Done">Done</option>
           <option value="Removed">Removed</option>
         </select>
+
         <textarea rows="8" cols="76" #inputBacklogDescription class="newBacklogitem" placeholder="Insert a Description" autofocus=""
                [(ngModel)]="backlogitemDescription" (keyup.enter)="addBacklogitem()"
-                  (keyup.enter)="inputBacklogDescription.value=''" (keyup.enter)="inputBacklogLabel.value=''"></textarea>
+                  (keyup.enter)="inputBacklogDescription.value=''" (keyup.enter)="inputBacklogLabel.value=''">
+        </textarea>
+
         <select #owner id="assignedTo" [(ngModel)]="backlogitemAssignedTo" class="form-control">
           <option *ngFor="let userstory of userstories" value="{{userstory._id}}">{{ userstory.title }}</option>
         </select>
+
       </header>
         </div>
         <div class="modal-footer">
@@ -68,6 +75,9 @@
                       <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                       <div class="modal-body">
+                        <input #inputBacklogTask placeholder="Your Task" autofocus=""
+                               [(ngModel)]="backlogitemTask" (keyup.enter)="addTask(backlogitem)"
+                               (keyup.enter)="inputBacklogTask.value=''">
                           {{backlogitem.tasks}}
                       </div>
                     </div>

@@ -1,6 +1,7 @@
 export class Backlog{
   id: number;
   title: string = '';
+  task: string;
   status: string='';
   author: string='';
   complete: boolean;

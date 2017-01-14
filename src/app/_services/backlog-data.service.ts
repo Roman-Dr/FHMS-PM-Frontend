@@ -11,16 +11,43 @@ export class BacklogDataService {
 
   private backlogitemsUrl = localStorage.getItem('project_url')+'/backlogitems';
 
+  private headers: Headers = new Headers({ 'Content-Type': 'application/json' });
+
+
+  updateBacklog(backlogName:string, backlogState:string, backlogAuthor:string, backlogDescription:string, backlogAssignedTo:string){
+    return this.http.put
+    (this.backlogitemsUrl,
+      JSON.stringify({backlogName,backlogState,backlogAuthor,backlogDescription,backlogAssignedTo}),{ withCredentials: true, headers: this.headers}
+    )
+      .map(res => { if(res.status < 200 || res.status >= 300) {
+      throw new Error('This request has failed ' + res.status);
+    }
+    // If everything went fine, return the response
+    else {
+      console.log("Update Project successful");
+      return res.json();
+    }
+  })
+}
+
   deleteBacklogitem (id){
-    let headers = new Headers({ 'Content-Type': 'application/json' });
+   // let headers = new Headers({ 'Content-Type': 'application/json' });
     console.log("Service: "+id)
-    return this.http.delete(this.backlogitemsUrl+"/"+id,{headers: headers})
+    return this.http.delete(this.backlogitemsUrl+"/"+id,{headers: this.headers})
       .map(this.extractData)
       .catch(this.handleErrorDelete);
   }
 
-  postBacklogitemRestful(backlogName:string, backlogState:string, backlogAuthor:string, backlogDescription:string, backlogAssignedTo:string){
+  postTask(id, task:string){
+    let body= JSON.stringify({"title":task})
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers, method: "post" });
+    return this.http.post(this.backlogitemsUrl+"/"+id+"/tasks/",body,options)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
 
+  postBacklogitemRestful(backlogName:string, backlogState:string, backlogAuthor:string, backlogDescription:string, backlogAssignedTo:string){
     console.log(backlogName+"; "+backlogAuthor)
     let body = JSON.stringify({ "title":backlogName,"state":backlogState,"authorId":backlogAuthor,"description":backlogDescription,"userStoryId":backlogAssignedTo });
     let headers = new Headers({ 'Content-Type': 'application/json' });

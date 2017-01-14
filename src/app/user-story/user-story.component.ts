@@ -14,7 +14,6 @@ import {UserService} from "../_services/user.service";
 
 export class UserStoryComponent {
 
-
   users: User;
   userStoryName:string;
   userStoryComplete:string="false";
@@ -25,9 +24,7 @@ export class UserStoryComponent {
   constructor(private userStoryDataService: UserStoryDataService, private userService: UserService) {
 
   }
-
-
-
+  
 
   userstories: UserStory[];
 
@@ -39,13 +36,6 @@ export class UserStoryComponent {
         this.loadUserStories()
       }
     );
-      /*.subscribe(
-        response => {
-        }, error => {
-          console.log(error);
-        }, () => {
-          console.log('Deleted complete');
-        });*/
   }
 
   loadUserStories(){
@@ -89,18 +79,4 @@ export class UserStoryComponent {
     }
 
   }
-/*
-  toggleUserStoryComplete(userStory) {
-    this.userStoryDataService.toggleUserStoryComplete(userStory);
-  }
-
-  removeUserStory(userStory) {
-    this.userStoryDataService.deleteUserStoryById(userStory.id);
-  }
-
-  get userStories() {
-    console.log("Components: userStories()");
-    return this.userStoryDataService.getAllUserStories();
-  }
-*/
 }
