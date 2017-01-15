@@ -45,13 +45,13 @@ export class BacklogComponent {
     );
   }
 
-  removeBacklogitemTask(task_id, backlogitem_id){
+ /* removeBacklogitemTask(task_id, backlogitem_id){
     this.taskDataService.deleteBacklogitemTask(task_id, backlogitem_id).subscribe(
       data => {
         this.getTasks(backlogitem_id)
       }
     );
-  }
+  }*/
 
   loadBacklogitems(){
     this.backlogDataService.getBacklogitems()
