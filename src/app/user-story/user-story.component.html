@@ -24,16 +24,19 @@
     </div>
   </div>
 
-  <div id="userstories">
+  <div id="container">
     <h2>Userstories</h2>
-  <section class="main" *ngIf="userstories?.length > 0">
+  <section class="myclass" *ngIf="userstories?.length > 0">
     <ul class="userStory-list">
       <li *ngFor="let userstory of userstories" [class.completed]="userstory.complete" class="list-group-item">
         <div class="view">
           <input class="toggle" data-toggle="toggle" type="checkbox" (click)="toggleUserStoryComplete(userStory)" [checked]="userstory.complete">
           <label class="black">{{userstory.title}}</label>
+          <br>
           <label class="blacksmall">{{userstory.authorDisplayName}}, {{userstory.creationDate}}</label>
-          <button class="destroy" (click)="removeUserStory(userstory)"></button>
+          <button id="#btnremove" class="btn btn-default btn-sm" (click)="removeUserStory(userstory)">
+            <span class="glyphicon glyphicon-remove"></span>
+          </button>
         </div>
       </li>
     </ul>

@@ -55,8 +55,8 @@
           <th>Beschreibung</th>
           <th>Backlog-Author</th>
           <th>Gehört zur Userstory</th>
-          <th>Task(s)</th>
           <th>Erstellt am</th>
+          <th>Task(s)</th>
           <th>Entfernen?</th>
           </thead>
         <tr *ngFor="let backlogitem of backlogitems">
@@ -65,8 +65,12 @@
             <td>{{backlogitem.description}}</td>
             <td>{{backlogitem.authorDisplayName}}</td>
             <td>{{backlogitem.userStoryDisplayName}}</td>
+
+            <td> {{backlogitem.creationDate}}</td>
             <td>
-              <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#formModalTask">Task(s) bearbeiten</button>
+              <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#formModalTask">
+               <span class="glyphicon glyphicon-edit"></span>
+              </button>
               <div id="formModalTask" class="modal fade" role="dialog">
                 <div class="modal-dialog">
                   <div class="modal-content">
@@ -74,18 +78,23 @@
                       <label>Bearbeite den Task!</label>
                       <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
-                      <div class="modal-body">
-                        <input #inputBacklogTask placeholder="Your Task" autofocus=""
-                               [(ngModel)]="backlogitemTask" (keyup.enter)="addTask(backlogitem)"
-                               (keyup.enter)="inputBacklogTask.value=''">
-                          {{backlogitem.tasks}}
-                      </div>
+                    <div class="modal-body">
+                      <input #inputBacklogTask placeholder="Your Task" autofocus=""
+                             [(ngModel)]="backlogitemTask" (keyup.enter)="addTask(backlogitem)"
+                             (keyup.enter)="inputBacklogTask.value=''">
+                      <select #owner id="ownerTask" [(ngModel)]="backlogitemTaskAuthor" class="form-control">
+                        <option *ngFor="let user of users" value="{{user._id}}">{{ user.email }}</option>
+                      </select>
                     </div>
                   </div>
                 </div>
+              </div>
             </td>
-            <td> {{backlogitem.creationDate}}</td>
-            <td><button class="destroy" (click)="removeBacklogitem(backlogitem)">&times;</button></td>
+            <td>
+              <button class="btn btn-default btn-sm" (click)="removeBacklogitem(backlogitem)">
+                <span class="glyphicon glyphicon-remove"></span>
+              </button>
+            </td>
         </tr>
         </table>
       </ul>

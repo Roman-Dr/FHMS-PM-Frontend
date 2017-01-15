@@ -27,10 +27,13 @@ export class BacklogComponent {
   backlogitemDescription:string;
   backlogitemAssignedTo:string;
   backlogitemTask:string;
+  backlogitemTaskAuthor:string;
+  
 
   backlogitems: Backlog[];
   users: User;
-  
+  backlogitemTasks: string;
+
   removeBacklogitem(backlogitem){
     console.log("Component: "+backlogitem._id)
     this.backlogDataService.deleteBacklogitem(backlogitem._id).subscribe(
@@ -63,7 +66,8 @@ export class BacklogComponent {
   }
 
   addTask(backlogitem){
-    this.backlogDataService.postTask(backlogitem._id,backlogitem.title).subscribe(
+    console.log(this.backlogitemTask)
+    this.backlogDataService.postTask(backlogitem._id,this.backlogitemTask,this.backlogitemTaskAuthor).subscribe(
       data => {
         this.loadBacklogitems()
       }
