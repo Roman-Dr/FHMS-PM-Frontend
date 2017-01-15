@@ -5,17 +5,19 @@ import {User} from "../_models/user";
 import {UserService} from "../_services/user.service";
 import {UserStoryDataService} from '../_services/user-story-data.service';
 import {UserStory} from "../_models/UserStory";
+import {Task} from "../_models/Task";
+import {TaskService} from "../_services/task.service";
 
 @Component({
   selector: 'app-backlog',
   templateUrl: './backlog.component.html',
   styleUrls: ['./backlog.component.css'],
-  providers: [BacklogDataService, UserStoryDataService]
+  providers: [BacklogDataService, UserStoryDataService, TaskService]
 })
 export class BacklogComponent {
 
 
-  constructor(private backlogDataService: BacklogDataService, private  userService: UserService, private userStoryDataService: UserStoryDataService) {
+  constructor(private backlogDataService: BacklogDataService, private  userService: UserService, private userStoryDataService: UserStoryDataService, private taskDataService: TaskService) {
   }
 
   errorMessage: string;
@@ -28,11 +30,11 @@ export class BacklogComponent {
   backlogitemAssignedTo:string;
   backlogitemTask:string;
   backlogitemTaskAuthor:string;
-  
+
 
   backlogitems: Backlog[];
   users: User;
-  backlogitemTasks: string;
+  backlogitemTasks: Task;
 
   removeBacklogitem(backlogitem){
     console.log("Component: "+backlogitem._id)
@@ -65,11 +67,18 @@ export class BacklogComponent {
       )
   }
 
+  getTasks(backlogitem_id:string){
+    this.taskDataService.getTasks(backlogitem_id)
+      .subscribe(
+        tasks => this.backlogitemTasks = tasks,
+        error => this.errorMessage =<any> error
+      )
+  }
+
   addTask(backlogitem){
     console.log(this.backlogitemTask)
     this.backlogDataService.postTask(backlogitem._id,this.backlogitemTask,this.backlogitemTaskAuthor).subscribe(
       data => {
-        this.loadBacklogitems()
       }
     )
   }

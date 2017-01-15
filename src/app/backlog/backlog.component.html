@@ -65,13 +65,12 @@
             <td>{{backlogitem.description}}</td>
             <td>{{backlogitem.authorDisplayName}}</td>
             <td>{{backlogitem.userStoryDisplayName}}</td>
-
             <td> {{backlogitem.creationDate}}</td>
             <td>
-              <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#formModalTask">
+              <button type="button" class="btn btn-default btn-sm" data-toggle="modal" [attr.data-target]="'#formModal' + backlogitem._id" (click)="getTasks(backlogitem._id)">
                <span class="glyphicon glyphicon-edit"></span>
               </button>
-              <div id="formModalTask" class="modal fade" role="dialog">
+              <div [id]="'formModal' + backlogitem._id" class="modal fade" role="dialog">
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
@@ -85,6 +84,10 @@
                       <select #owner id="ownerTask" [(ngModel)]="backlogitemTaskAuthor" class="form-control">
                         <option *ngFor="let user of users" value="{{user._id}}">{{ user.email }}</option>
                       </select>
+                      <li *ngFor="let task of backlogitemTasks"  class="list-group-item">
+                        <label class="">Title: {{task.title}}</label>
+                        <label class="">Author: {{task.authorDisplayName}}</label>
+                      </li>
                     </div>
                   </div>
                 </div>

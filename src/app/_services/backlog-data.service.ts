@@ -37,12 +37,12 @@ export class BacklogDataService {
       .catch(this.handleErrorDelete);
   }
 
-  postTask(id, task:string, taskauthor:string){
+  postTask(backlogitem_id:string, task:string, taskauthor:string){
     console.log(task)
     let body= JSON.stringify({"title":task,"authorId":taskauthor})
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers, method: "post" });
-    return this.http.post(this.backlogitemsUrl+"/"+id+"/tasks",body,options)
+    return this.http.post(this.backlogitemsUrl+"/"+backlogitem_id+"/tasks",body,options)
       .map(this.extractData)
       .catch(this.handleError);
   }
