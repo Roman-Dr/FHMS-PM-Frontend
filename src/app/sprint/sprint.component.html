@@ -15,27 +15,78 @@
             <td>{{sprint.startDate | date:'dd.MM.yyyy'}}</td>
             <td>{{sprint.endDate | date:'dd.MM.yyyy'}}</td>
             <td>
-              <button type="button" class="btn btn-default btn-sm" >
+              <button type="button" class="btn btn-default btn-sm">
                 <span class="glyphicon glyphicon-ok"></span>
               </button>
 
-              <a href="#edit-sprint-{{sprint._id}}" data-toggle="modal" >
-              <button type="button" class="btn btn-default btn-sm" >
-                <span class="glyphicon glyphicon-edit"></span>
+              <a href="#edit-sprint-{{sprint._id}}" data-toggle="modal">
+                <button type="button" class="btn btn-default btn-sm">
+                  <span class="glyphicon glyphicon-edit"></span>
+                </button>
+              </a>
+              <a href="#sprint-{{sprint._id}}-sprintcapacity" data-toggle="modal">
+              <button type="button" class="btn btn-default btn-sm">
+                <span class="glyphicon glyphicon-list"></span>
               </button>
               </a>
 
-              <button type="button" class="btn btn-default btn-sm" >
-                <span class="glyphicon glyphicon-list"></span>
-              </button>
-
               <button type="button" class="btn btn-default btn-sm" (click)="deleteSprint(sprint._id)">
-              <span class="glyphicon glyphicon-remove"></span>
-            </button>
+                <span class="glyphicon glyphicon-remove"></span>
+              </button>
 
             </td>
 
-            <div class="modal fade" id="edit-sprint-{{sprint._id}}" tabindex="-1" role="dialog" aria-labelledby="edit-sprint" aria-hidden="true">
+            <div class="modal fade" id="sprint-{{sprint._id}}-sprintcapacity" tabindex="-1" role="dialog"
+                 aria-labelledby="sprintcapacities" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h3 class="modal-title" id="sprintcapacities">Sprint Kapazität</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+<table>
+          <tr>
+            <th>Nutzer</th>
+            <th>Tage</th>
+            <th>Kapazität pro Tag</th>
+            <th></th>
+          </tr>
+          <tr *ngFor="let sprintCapacity of sprintCapacities">
+            <td>{{sprintCapacity.userId}}</td>
+            <td>{{sprintCapacity.daysOff}}</td>
+            <td>{{sprintCapacity.capacityPerDay}}</td>
+          </tr>
+  <tr>
+    <td><select  #userId id="user-id" class="form-control" >
+      <option *ngFor="let user of users" value="{{ user._id }}">{{ user.email }}</option>
+    </select></td>
+    <td><input type="number" #daysOff class="form-control" id="days-off"></td>
+    <td><input type="number" #capacityPerDay class="form-control" id="capacity-per-day"></td>
+    <td>
+      <button type="button" class="btn btn-default btn-sm"
+              (click)="createSprintCapacity(userId.value, daysOff.value, capacityPerDay.value)">
+        <span class="glyphicon glyphicon-plus"></span>
+      </button>
+    </td>
+  </tr>
+</table>
+
+                    <button type="button" class="btn btn-default" data-dismiss="modal"
+                            (click)="updateSprint(sprint._id, sprintName.value, startDate.value, endDate.value)">
+                      Speichern
+                    </button>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="modal fade" id="edit-sprint-{{sprint._id}}" tabindex="-1" role="dialog"
+                 aria-labelledby="edit-sprint" aria-hidden="true">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
@@ -47,18 +98,22 @@
                   <div class="modal-body">
                     <div class="form-group">
                       <label for="sprint-name-edit">Name</label>
-                      <input type="text" #sprintName class="form-control" id="sprint-name-edit" value="{{sprint.sprintName}}">
+                      <input type="text" #sprintName class="form-control" id="sprint-name-edit"
+                             value="{{sprint.sprintName}}">
                     </div>
 
                     <div class="form-group">
                       <label for="start-date-edit">Startdatum</label>
-                      <input type="text" #startDate class="form-control" id="start-date-edit" value="{{sprint.startDate}}">
+                      <input type="text" #startDate class="form-control" id="start-date-edit"
+                             value="{{sprint.startDate | date:'yyyy-MM-dd'}}">
                     </div>
                     <div class="form-group">
                       <label for="end-date-edit">Enddatum</label>
-                      <input type="text" #endDate class="form-control" id="end-date-edit" value="{{project.endDate}}">
+                      <input type="text" #endDate class="form-control" id="end-date-edit"
+                             value="{{sprint.endDate | date:'yyyy-MM-dd'}}">
                     </div>
-                    <button type="button" class="btn btn-default" data-dismiss="modal" (click)="createSprint(sprintName.value, startDate.value, endDate.value)">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"
+                            (click)="updateSprint(sprint._id, sprintName.value, startDate.value, endDate.value)">
                       Speichern
                     </button>
 
@@ -68,14 +123,17 @@
             </div>
 
 
-          </tr>
+
           <tr>
-            <td><input type="text" #sprintName class="form-control col-sm-3" id="sprint-name" placeholder="Name"></td>
-            <td><input type="date" #startDate class="form-control col-sm-3" id="start-date" placeholder="Startdatum"></td>
-            <td><input type="date" #endDate class="form-control col-sm-3" id="end-date" placeholder="Enddatum"></td>
-            <td><button type="button" class="btn btn-default btn-sm" (click)="createSprint(sprintName.value, startDate.value, endDate.value)">
-              <span class="glyphicon glyphicon-plus"></span>
-            </button></td>
+            <td><input type="text" #sprintName class="form-control" id="sprint-name"></td>
+            <td><input type="date" #startDate class="form-control" id="start-date"></td>
+            <td><input type="date" #endDate class="form-control" id="end-date"></td>
+            <td>
+              <button type="button" class="btn btn-default btn-sm"
+                      (click)="createSprint(sprintName.value, startDate.value, endDate.value)">
+                <span class="glyphicon glyphicon-plus"></span>
+              </button>
+            </td>
           </tr>
         </table>
 
@@ -83,8 +141,6 @@
     </div>
 
   </div>
-
-
 
 
 </div>

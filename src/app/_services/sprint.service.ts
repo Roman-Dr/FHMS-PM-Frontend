@@ -15,7 +15,7 @@ export class SprintService {
   createSprint(sprintName: string, startDate: string, endDate: string ) {
     return this.http.post
     (this._apiUrl,
-      JSON.stringify({sprintName, startDate, endDate}), { headers: this.headers }
+      JSON.stringify({sprintName, startDate, endDate}), {withCredentials: true, headers: this.headers}
     )
       .map(res => {
         // If request fails, throw an Error that will be caught
@@ -32,9 +32,9 @@ export class SprintService {
 
 
   updateSprint(sprintId: string, sprintName: string, startDate: string, endDate: string ) {
-    return this.http.post
+    return this.http.put
     (this._apiUrl+sprintId,
-      JSON.stringify({sprintName, startDate, endDate}), { headers: this.headers }
+      JSON.stringify({sprintName, startDate, endDate}), {withCredentials: true, headers: this.headers}
     )
       .map(res => {
         // If request fails, throw an Error that will be caught
@@ -68,8 +68,8 @@ export class SprintService {
 
   createSprintCapacity(sprintId: string, userId: string, daysOff: number, capacityPerDay: number ) {
     return this.http.post
-    (this._apiUrl+sprintId,
-      JSON.stringify({userId, daysOff, capacityPerDay}), {headers: this.headers}
+    (this._apiUrl+sprintId+"/sprintcapacities",
+      JSON.stringify({userId, daysOff, capacityPerDay}), {withCredentials: true, headers: this.headers}
     )
       .map(res => {
         // If request fails, throw an Error that will be caught
@@ -88,7 +88,17 @@ export class SprintService {
 
 
     getSprints() {
-    return this.http.get(this._apiUrl)
+    return this.http.get(this._apiUrl, {withCredentials: true, headers: this.headers})
+      .map(res => res.json())
+  }
+
+  getSprint(sprintId: string) {
+    return this.http.get(this._apiUrl+sprintId, {withCredentials: true, headers: this.headers})
+      .map(res => res.json())
+  }
+
+  getSprintCapacities(sprintId: string){
+    return this.http.get(this._apiUrl+sprintId+"/sprintcapacities", {withCredentials: true, headers: this.headers})
       .map(res => res.json())
   }
 

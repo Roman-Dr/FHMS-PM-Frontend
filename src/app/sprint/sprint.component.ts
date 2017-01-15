@@ -1,31 +1,64 @@
 import { Component, OnInit } from '@angular/core';
 import {Sprint} from "../_models/sprint";
 import {SprintService} from "../_services/sprint.service";
+import {SprintCapacity} from "../_models/sprint-capacity";
+import {UserService} from "../_services/user.service";
+import {User} from "../_models/user";
 
 @Component({
   selector: 'app-sprint',
   templateUrl: './sprint.component.html',
   styleUrls: ['./sprint.component.css'],
-  providers: [SprintService]
+  providers: [SprintService, UserService]
 })
 export class SprintComponent implements OnInit {
 
 
   sprints: Sprint[];
+  sprintCapacities: SprintCapacity[];
+  sprint: Sprint;
+  users: User[];
   errorMessage: string;
 
 
-  constructor(private sprintService: SprintService) {
+  constructor(private sprintService: SprintService, private userService: UserService) {
   }
 
   ngOnInit() {
-    this.getSprints()
+    this.getSprints();
+    this.getUsers();
   }
 
   getSprints() {
-    this.sprintService.getSprints()
+  this.sprintService.getSprints()
+    .subscribe(
+      sprints => this.sprints = sprints,
+      error => this.errorMessage = <any> error
+    )
+}
+
+  getSprint(sprintId: string) {
+    this.sprintService.getSprint(sprintId)
       .subscribe(
-        sprints => this.sprints = sprints,
+        sprint => this.sprint = sprint,
+        error => this.errorMessage = <any> error
+      )
+  }
+
+  getUsers() {
+    this.userService.getUsers()
+      .subscribe(
+        users => this.users = users,
+        error => this.errorMessage = <any> error
+      )
+  }
+
+
+
+  getSprintCapacities(sprintId: string) {
+    this.sprintService.getSprintCapacities(sprintId)
+      .subscribe(
+        sprintCapacities => this.sprintCapacities = sprintCapacities,
         error => this.errorMessage = <any> error
       )
   }
@@ -34,7 +67,8 @@ export class SprintComponent implements OnInit {
   createSprint(sprintName: string, startDate: string, endDate: string) {
     this.sprintService.createSprint(sprintName, startDate, endDate)
       .subscribe(
-        success => this.getSprints()
+        success => this.getSprints(),
+        error => this.errorMessage = <any> error
         );
   }
 
@@ -49,7 +83,8 @@ export class SprintComponent implements OnInit {
   deleteSprint(sprintId) {
     this.sprintService.deleteSprint(sprintId)
       .subscribe(
-        success => this.getSprints()
+        success => this.getSprints(),
+        error => this.errorMessage = <any> error
       );
 
 
@@ -59,10 +94,11 @@ export class SprintComponent implements OnInit {
   createSprintCapacity(sprintId: string, userId: string, dayOff: number, capacityPerDay: number) {
     this.sprintService.createSprintCapacity(sprintId, userId, dayOff, capacityPerDay)
       .subscribe(
-        success => {
-          this.getSprints();
-        });
+        success => this.getSprintCapacities(sprintId),
+        error => this.errorMessage = <any> error
+      );
   }
+
 
 
 }
