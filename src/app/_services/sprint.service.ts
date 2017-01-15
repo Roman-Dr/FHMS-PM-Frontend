@@ -31,6 +31,25 @@ export class SprintService {
   }
 
 
+  updateSprint(sprintId: string, sprintName: string, startDate: string, endDate: string ) {
+    return this.http.post
+    (this._apiUrl+sprintId,
+      JSON.stringify({sprintName, startDate, endDate}), { headers: this.headers }
+    )
+      .map(res => {
+        // If request fails, throw an Error that will be caught
+        if(res.status < 200 || res.status >= 300) {
+          throw new Error('This request has failed ' + res.status);
+        }
+        // If everything went fine, return the response
+        else {
+          console.log("Create Sprint successful");
+          return res.json();
+        }
+      })
+  }
+
+
   deleteSprint(sprintId) {
     return this.http.delete(this._apiUrl+sprintId, {withCredentials: true, headers: this.headers})
       .map(res => {

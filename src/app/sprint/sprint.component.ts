@@ -38,6 +38,14 @@ export class SprintComponent implements OnInit {
         );
   }
 
+
+  updateSprint(sprintId: string, sprintName: string, startDate: string, endDate: string) {
+    this.sprintService.updateSprint(sprintId, sprintName, startDate, endDate)
+      .subscribe(
+        success => this.getSprints()
+      );
+  }
+
   deleteSprint(sprintId) {
     this.sprintService.deleteSprint(sprintId)
       .subscribe(
