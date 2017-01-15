@@ -18,6 +18,12 @@ export class TaskService {
     return this.http.get(this.project_id+"/backlogitems/"+backlogitem_id+"/tasks")
       .map(res => res.json())
   }
+
+ /* deleteBacklogitemTask(task_id, backlogitem_id){
+    return this.http.delete(this.backlogitemsUrl+"/"+backlogitem_id+"/tasks/"+task_id,{headers: this.headers})
+      .map(this.extractData)
+      .catch(this.handleErrorDelete);
+  }*/
 }
 
 

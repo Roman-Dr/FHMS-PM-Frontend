@@ -45,6 +45,14 @@ export class BacklogComponent {
     );
   }
 
+  removeBacklogitemTask(task_id, backlogitem_id){
+    this.taskDataService.deleteBacklogitemTask(task_id, backlogitem_id).subscribe(
+      data => {
+        this.getTasks(backlogitem_id)
+      }
+    );
+  }
+
   loadBacklogitems(){
     this.backlogDataService.getBacklogitems()
       .subscribe(
@@ -79,6 +87,7 @@ export class BacklogComponent {
     console.log(this.backlogitemTask)
     this.backlogDataService.postTask(backlogitem._id,this.backlogitemTask,this.backlogitemTaskAuthor).subscribe(
       data => {
+        this.getTasks(backlogitem._id)
       }
     )
   }

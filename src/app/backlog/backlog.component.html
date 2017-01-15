@@ -87,6 +87,9 @@
                       <li *ngFor="let task of backlogitemTasks"  class="list-group-item">
                         <label class="">Title: {{task.title}}</label>
                         <label class="">Author: {{task.authorDisplayName}}</label>
+                        <button class="btn btn-default btn-sm" (click)="removeBacklogitemTask(task._id, backlogitem._id)">
+                          <span class="glyphicon glyphicon-remove"></span>
+                        </button>
                       </li>
                     </div>
                   </div>
