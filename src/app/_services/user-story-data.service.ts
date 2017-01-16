@@ -13,7 +13,7 @@ export class UserStoryDataService {
 
   constructor (private http: Http) {}
 
-  private userstoriesUrl = localStorage.getItem('project_url')+'/userstories';
+  private userstoriesUrl = sessionStorage.getItem('project_url')+'/userstories';
 
 
   deleteUserStory (id){

@@ -9,7 +9,7 @@ export class BacklogDataService {
 
   constructor(private http:Http) { }
 
-  private backlogitemsUrl = localStorage.getItem('project_url')+'/backlogitems';
+  private backlogitemsUrl = sessionStorage.getItem('project_url')+'/backlogitems';
 
   private headers: Headers = new Headers({ 'Content-Type': 'application/json' });
 
@@ -37,8 +37,8 @@ export class BacklogDataService {
       .catch(this.handleErrorDelete);
   }
 
- 
-  
+
+
   postTask(backlogitem_id:string, task:string, taskauthor:string){
     console.log(task)
     let body= JSON.stringify({"title":task,"authorId":taskauthor})

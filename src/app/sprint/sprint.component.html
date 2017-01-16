@@ -67,7 +67,7 @@
     <td><input type="number" #capacityPerDay class="form-control" id="capacity-per-day"></td>
     <td>
       <button type="button" class="btn btn-default btn-sm"
-              (click)="createSprintCapacity(userId.value, daysOff.value, capacityPerDay.value)">
+              (click)="createSprintCapacity(sprint._id, userId.value, daysOff.value, capacityPerDay.value)">
         <span class="glyphicon glyphicon-plus"></span>
       </button>
     </td>

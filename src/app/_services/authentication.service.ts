@@ -12,7 +12,7 @@ export class AuthenticationService {
   // private _apiUrl = 'http://localhost:3000/api/user/';
 
   constructor(private http: Http, private projectService: ProjectService) {
-    this.loggedIn = !!localStorage.getItem('user_id');
+    this.loggedIn = !!sessionStorage.getItem('user_id');
 
   }
 
@@ -37,7 +37,7 @@ export class AuthenticationService {
           let resBody = res.json();
           this.loggedIn = true;
 
-          localStorage.setItem('user_id', resBody);
+          sessionStorage.setItem('user_id', resBody);
 
           return resBody;
         }
@@ -55,10 +55,10 @@ export class AuthenticationService {
         else {
           this.loggedIn = false;
 
-          localStorage.removeItem('user_id');
+          sessionStorage.removeItem('user_id');
 
-          localStorage.removeItem('project_id');
-          localStorage.removeItem('project_url');
+          sessionStorage.removeItem('project_id');
+          sessionStorage.removeItem('project_url');
           this.projectService.setProjectSelectedFalse();
 
           console.log(this.loggedIn);
