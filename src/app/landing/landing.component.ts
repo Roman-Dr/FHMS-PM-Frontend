@@ -14,14 +14,9 @@ export class LandingComponent implements OnInit{
   constructor(private projectService: ProjectService) { }
 
   ngOnInit() {
-    for(let i = 0; i <= 1; i++) {
-      location.reload();
-    }
+
   }
 
-  isProjectSelected(){
-    this.projectService.isProjectSelected();
-  }
 
 
 

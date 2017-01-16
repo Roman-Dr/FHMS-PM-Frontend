@@ -12,7 +12,6 @@ import { AuthenticationService } from '../_services/authentication.service';
 
 
 export class LoginComponent {
-  @Output() sendLoggedInEvent: EventEmitter<any> = new EventEmitter(true);
 
   constructor(private authenticationService: AuthenticationService, private router: Router) {
 
@@ -20,8 +19,7 @@ export class LoginComponent {
 
   onSubmit(email, password) {
     this.authenticationService.login(email, password).subscribe(
-      success =>
-        this.router.navigate(['/projects'])
+      success => this.router.navigate(['/projects'])
       )
   }
 }

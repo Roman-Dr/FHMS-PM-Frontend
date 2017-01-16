@@ -19,6 +19,7 @@ export class ProjectComponent implements OnInit {
   users: User[];
   errorMessage: string;
   create = false;
+  projectSelected = !!sessionStorage.getItem('project_id');
 
   constructor(private projectService: ProjectService, private userService: UserService) {
   }

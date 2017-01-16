@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Backlog} from "../_models/backlog";
 import {BacklogDataService} from "../_services/backlog-data.service";
-import {DragulaService} from "ng2-dragula";
+
 
 @Component({
   selector: 'app-board',
@@ -12,12 +12,13 @@ import {DragulaService} from "ng2-dragula";
 export class BoardComponent implements OnInit {
   backlogitems: Backlog[];
 
-  constructor(private dragulaService: DragulaService, private backlogDataService: BacklogDataService) {
+  constructor(private backlogDataService: BacklogDataService) {
 
   }
 
   ngOnInit() {
     this.getBacklogitems();
+
   }
 
 

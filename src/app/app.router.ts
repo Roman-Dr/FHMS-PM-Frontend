@@ -9,21 +9,21 @@ import { UserStoryComponent} from './user-story/user-story.component';
 import { LoginComponent } from './login/login.component'
 import { RegisterComponent } from './register/register.component'
 import {ProjectComponent} from "./project/project.component";
-import {AuthGuard} from "./_services/auth-guard.service";
-import {ProjectGuard} from "./_services/project-guard.service";
+import {AuthenticationService} from "./_services/authentication.service"
+import {ProjectService} from "./_services/project.service"
 
 export const routes = [
   { path: '', component: LoginComponent, pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'projects', component: ProjectComponent, canActivate: [AuthGuard]},
-  { path: 'landing', component: LandingComponent, canActivate: [AuthGuard] },
-  { path: 'backlog', component: BacklogComponent, canActivate: [AuthGuard, ProjectGuard]},
-  { path: 'board', component: BoardComponent, canActivate: [AuthGuard, ProjectGuard] },
-  { path: 'sprints', component: SprintComponent, canActivate: [AuthGuard, ProjectGuard] },
-  { path: 'estimation', component: EstimationComponent, canActivate: [AuthGuard, ProjectGuard] },
-  { path: 'chart', component: ChartComponent, canActivate: [AuthGuard, ProjectGuard] },
-  { path: 'roadmap', component: RoadmapComponent, canActivate: [AuthGuard, ProjectGuard] },
-  { path: 'user-story', component: UserStoryComponent, canActivate: [AuthGuard, ProjectGuard] },
+  { path: 'projects', component: ProjectComponent, canActivate: [AuthenticationService]},
+  { path: 'landing', component: LandingComponent, canActivate: [AuthenticationService, ProjectService] },
+  { path: 'backlog', component: BacklogComponent, canActivate: [AuthenticationService, ProjectService]},
+  { path: 'board', component: BoardComponent, canActivate: [AuthenticationService, ProjectService] },
+  { path: 'sprints', component: SprintComponent, canActivate: [AuthenticationService, ProjectService] },
+  { path: 'estimation', component: EstimationComponent, canActivate: [AuthenticationService, ProjectService] },
+  { path: 'chart', component: ChartComponent, canActivate: [AuthenticationService, ProjectService] },
+  { path: 'roadmap', component: RoadmapComponent, canActivate: [AuthenticationService, ProjectService] },
+  { path: 'user-story', component: UserStoryComponent, canActivate: [AuthenticationService, ProjectService] }
 ];
 

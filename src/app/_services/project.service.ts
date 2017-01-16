@@ -1,15 +1,21 @@
 import {Injectable} from '@angular/core';
 import {Http, Headers, RequestOptions} from "@angular/http";
 import 'rxjs/Rx'
+import {CanActivate} from "@angular/router";
 
 @Injectable()
-export class ProjectService {
+export class ProjectService implements CanActivate{
   private _apiUrl = 'http://10.60.67.20:3000/api/projects/';
-  // private _apiUrl = 'http://localhost:3000/api/projects/';
-
-  private projectSelected = !!sessionStorage.getItem('project_id');
 
   private headers: Headers = new Headers({'Content-Type': 'application/json'});
+
+
+  private _canActivate: boolean = false;
+
+
+  canActivate() {
+    return this._canActivate;
+  }
 
   constructor(private http: Http) {
 
@@ -28,10 +34,10 @@ export class ProjectService {
   }
 
 
-  chooseProject(projectId) {
+  chooseProject(projectId) : void {
+    this._canActivate = true;
     sessionStorage.setItem('project_id', projectId);
     sessionStorage.setItem('project_url', this._apiUrl + projectId);
-    this.projectSelected = true;
   }
 
   createProject(displayName: string, description: string, dueDate: string, owner: string, stakeholders: string[], contributors: string[]) {
@@ -97,12 +103,8 @@ export class ProjectService {
       })
   }
 
-  isProjectSelected() {
-    return this.projectSelected;
-  }
-
 
   setProjectSelectedFalse() {
-    this.projectSelected = false;
+    this._canActivate = false;
   }
 }

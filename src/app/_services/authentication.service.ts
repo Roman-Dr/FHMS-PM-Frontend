@@ -1,17 +1,23 @@
 import {Injectable} from '@angular/core';
 import {Http, Headers} from '@angular/http'
+import {CanActivate} from '@angular/router';
 import 'rxjs/Rx'
 import {ProjectService} from "./project.service";
 
 @Injectable()
-export class AuthenticationService {
+export class AuthenticationService implements CanActivate{
 
-  private loggedIn;
+
   private headers = new Headers({ 'Content-Type': 'application/json' });
   private _apiUrl = 'http://10.60.67.20:3000/api/user/';
+  private _canActivate: boolean = false;
+
+
+  canActivate() {
+    return this._canActivate;
+  }
 
   constructor(private http: Http, private projectService: ProjectService) {
-    this.loggedIn = !!sessionStorage.getItem('user_id');
 
   }
 
@@ -29,10 +35,8 @@ export class AuthenticationService {
         }
         // If everything went fine, return the response
         else {
-          this.loggedIn = true;
-
+          this._canActivate = true;
           sessionStorage.setItem('user_id', res.json());
-
           return res.json();
         }
       })
@@ -47,15 +51,13 @@ export class AuthenticationService {
         }
         // If everything went fine, return the response
         else {
-          this.loggedIn = false;
-
+          this._canActivate = false;
           sessionStorage.removeItem('user_id');
           sessionStorage.removeItem('project_id');
           sessionStorage.removeItem('project_url');
 
           this.projectService.setProjectSelectedFalse();
 
-          console.log(this.loggedIn);
           console.log("Logout successful");
 
           return res.json();
@@ -63,9 +65,6 @@ export class AuthenticationService {
       })
   }
 
-  isLoggedIn() {
-    return this.loggedIn;
-  }
 
 
   registerUser(email, password) {

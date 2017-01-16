@@ -21,11 +21,9 @@ import { ProjectNavComponent } from './project-nav/project-nav.component';
 import {AuthenticationService} from "./_services/authentication.service";
 import {UserService} from "./_services/user.service";
 import {RouterModule} from "@angular/router";
-import {AuthGuard} from "./_services/auth-guard.service";
-import {ProjectGuard} from "./_services/project-guard.service";
 import {ProjectService} from "./_services/project.service";
-import {DragulaModule} from "ng2-dragula";
 import { ChartComponent } from './chart/chart.component';
+import {DndModule} from 'ng2-dnd';
 
 @NgModule({
   declarations: [
@@ -49,9 +47,9 @@ import { ChartComponent } from './chart/chart.component';
     HttpModule,
     NgbModule.forRoot(),
     RouterModule.forRoot(routes),
-    DragulaModule
+    DndModule.forRoot()
   ],
-  providers: [UserService, AuthenticationService, ProjectService, AuthGuard, ProjectGuard],
+  providers: [UserService, AuthenticationService, ProjectService],
   bootstrap: [AppComponent]
 
 })
