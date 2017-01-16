@@ -16,13 +16,13 @@ export class ProjectNavComponent implements OnInit {
   constructor(private projectService: ProjectService) { }
 
   ngOnInit() {
-    if (localStorage.getItem('project_id') !== null) {
+    if (sessionStorage.getItem('project_id') !== null) {
       this.getProject();
     }
   }
 
   getProject() {
-    this.projectService.getProject(localStorage.getItem('project_id'))
+    this.projectService.getProject(sessionStorage.getItem('project_id'))
       .subscribe(
         project => this.project = project,
         error => this.errorMessage = <any> error

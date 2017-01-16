@@ -24,7 +24,7 @@ export class UserStoryComponent {
   constructor(private userStoryDataService: UserStoryDataService, private userService: UserService) {
 
   }
-  
+
 
   userstories: UserStory[];
 
@@ -60,7 +60,7 @@ export class UserStoryComponent {
   }
 
   addUserStory() {
-    this.userStoryAuthor=localStorage.getItem("user_id")
+    this.userStoryAuthor=sessionStorage.getItem("user_id")
     if((!this.userStoryAuthor)||(!this.userStoryName)){
       console.log("UserStoryName("+this.userStoryName+") oder UserStoryAuthor("+this.userStoryAuthor+") sind leer: Component")
       this.userStoryAuthor=null

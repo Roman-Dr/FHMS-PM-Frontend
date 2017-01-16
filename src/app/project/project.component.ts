@@ -66,7 +66,7 @@ export class ProjectComponent implements OnInit {
   }
 
   createProject(displayName: string, description: string, dueDate: string, stakeholders: string[], contributors: string[]) {
-    this.projectService.createProject(displayName, description, dueDate, localStorage.getItem('user_id'), stakeholders, contributors)
+    this.projectService.createProject(displayName, description, dueDate, sessionStorage.getItem('user_id'), stakeholders, contributors)
       .subscribe(
         success => {
           this.getProjects();
@@ -76,7 +76,7 @@ export class ProjectComponent implements OnInit {
 
 
   updateProject(projectId: string, displayName: string, description: string, dueDate: string, stakeholders: string[], contributors: string[]) {
-    this.projectService.updateProject(projectId, displayName, description, dueDate, localStorage.getItem('user_id'), stakeholders, contributors)
+    this.projectService.updateProject(projectId, displayName, description, dueDate, sessionStorage.getItem('user_id'), stakeholders, contributors)
       .subscribe(
         success => {
           this.getProjects();
