@@ -9,7 +9,6 @@ import { AppComponent } from './app.component';
 import { LandingComponent } from './landing/landing.component';
 import { BacklogComponent } from './backlog/backlog.component';
 import { BoardComponent } from './board/board.component';
-import { ChartComponent } from './chart/chart.component';
 import { SprintComponent } from './sprint/sprint.component';
 import { EstimationComponent } from './estimation/estimation.component';
 import { RoadmapComponent } from './roadmap/roadmap.component';
@@ -25,6 +24,8 @@ import {RouterModule} from "@angular/router";
 import {AuthGuard} from "./_services/auth-guard.service";
 import {ProjectGuard} from "./_services/project-guard.service";
 import {ProjectService} from "./_services/project.service";
+import {DragulaModule} from "ng2-dragula";
+import { ChartComponent } from './chart/chart.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,6 @@ import {ProjectService} from "./_services/project.service";
     LandingComponent,
     BacklogComponent,
     BoardComponent,
-    ChartComponent,
     SprintComponent,
     EstimationComponent,
     RoadmapComponent,
@@ -40,14 +40,16 @@ import {ProjectService} from "./_services/project.service";
     RegisterComponent,
     UserStoryComponent,
     ProjectComponent,
-    ProjectNavComponent
+    ProjectNavComponent,
+    ChartComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     NgbModule.forRoot(),
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    DragulaModule
   ],
   providers: [UserService, AuthenticationService, ProjectService, AuthGuard, ProjectGuard],
   bootstrap: [AppComponent]

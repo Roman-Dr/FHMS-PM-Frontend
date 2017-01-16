@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Http, Headers} from '@angular/http'
 import 'rxjs/Rx'
 import {ProjectService} from "./project.service";
@@ -9,7 +9,6 @@ export class AuthenticationService {
   private loggedIn;
   private headers = new Headers({ 'Content-Type': 'application/json' });
   private _apiUrl = 'http://10.60.67.20:3000/api/user/';
-  // private _apiUrl = 'http://localhost:3000/api/user/';
 
   constructor(private http: Http, private projectService: ProjectService) {
     this.loggedIn = !!sessionStorage.getItem('user_id');
@@ -17,14 +16,11 @@ export class AuthenticationService {
   }
 
   login(email, password) {
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-
     return this.http
       .post(
         this._apiUrl +'login',
         JSON.stringify({ email, password }),
-        { withCredentials:true, headers: headers }
+        { withCredentials:true, headers: this.headers }
       )
       .map(res => {
         // If request fails, throw an Error that will be caught
@@ -33,13 +29,11 @@ export class AuthenticationService {
         }
         // If everything went fine, return the response
         else {
-
-          let resBody = res.json();
           this.loggedIn = true;
 
-          sessionStorage.setItem('user_id', resBody);
+          sessionStorage.setItem('user_id', res.json());
 
-          return resBody;
+          return res.json();
         }
       })
   }
@@ -56,15 +50,13 @@ export class AuthenticationService {
           this.loggedIn = false;
 
           sessionStorage.removeItem('user_id');
-
           sessionStorage.removeItem('project_id');
           sessionStorage.removeItem('project_url');
+
           this.projectService.setProjectSelectedFalse();
 
           console.log(this.loggedIn);
           console.log("Logout successful");
-
-          location.reload();
 
           return res.json();
         }

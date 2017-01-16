@@ -1,3 +1,23 @@
-<p>
-  board works!
-</p>
+<div class="row">
+  <div class="col-sm-2">
+    <h4>Test</h4>
+    <div [dragula]='"first-bag"'>
+      <div class="jumbotron" *ngFor="let backlogitem of backlogitems">
+        {{backlogitem.title}}
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-2">
+    <h4>Test</h4>
+    <div [dragula]='"second-bag"'>
+
+    </div>
+  </div>
+  <div class="col-sm-2">
+    <h4>Test</h4>
+    <div [dragula]='"third-bag"'>
+
+    </div>
+  </div>
+</div>
+
