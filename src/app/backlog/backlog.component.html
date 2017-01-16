@@ -85,11 +85,20 @@
                         <option *ngFor="let user of users" value="{{user._id}}">{{ user.email }}</option>
                       </select>
                       <li *ngFor="let task of backlogitemTasks"  class="list-group-item">
-                        <label class="">Title: {{task.title}}</label>
-                        <label class="">Author: {{task.authorDisplayName}}</label>
-                        <button class="btn btn-default btn-sm" (click)="removeBacklogitemTask(task._id, backlogitem._id)"> <!-- Funktion fehlt noch -->
+                        <table class="table table-hover">
+                          <thead>
+                          <th>Titel</th>
+                          <th>Author</th>
+                          <th>Entfernen?</th>
+                          </thead>
+                          <tr>
+                        <td><label class="">Title: {{task.title}}</label></td>
+                            <td><label class="">Author: {{task.authorDisplayName}}</label></td>
+                        <td><button class="btn btn-default btn-sm" (click)="removeBacklogitemTask(task._id, backlogitem._id)"> <!-- Funktion fehlt noch -->
                           <span class="glyphicon glyphicon-remove"></span>
-                        </button>
+                        </button></td>
+                        </tr>
+                      </table>
                       </li>
                     </div>
                   </div>

@@ -30,13 +30,24 @@
     <ul class="userStory-list">
       <li *ngFor="let userstory of userstories" [class.completed]="userstory.complete" class="list-group-item">
         <div class="view">
-          <input class="toggle" data-toggle="toggle" type="checkbox" (click)="toggleUserStoryComplete(userStory)" [checked]="userstory.complete">
-          <label class="black">{{userstory.title}}</label>
-          <br>
-          <label class="blacksmall">{{userstory.authorDisplayName}}, {{userstory.creationDate}}</label>
-          <button id="#btnremove" class="btn btn-default btn-sm" (click)="removeUserStory(userstory)">
+          <table class="table table-hover">
+            <thead>
+            <th>Status</th>
+            <th>Titel</th>
+            <th>Author</th>
+            <th>Datum</th>
+            <th>Löschen</th>
+            </thead>
+            <tr>
+              <td><input class="checkbox" data-toggle="toggle" type="checkbox" (click)="toggleUserStoryComplete(userStory)" [checked]="userstory.complete"></td>
+          <td><label class="black">{{userstory.title}}</label></td>
+              <td><label class="blacksmall">{{userstory.authorDisplayName}}</label></td>
+              <td><label>{{userstory.creationDate}}</label><td>
+          <td><button id="#btnremove" class="btn btn-default btn-sm" (click)="removeUserStory(userstory)">
             <span class="glyphicon glyphicon-remove"></span>
-          </button>
+          </button></td>
+            </tr>
+          </table>
         </div>
       </li>
     </ul>
