@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Sprint} from "../_models/sprint";
 import {SprintService} from "../_services/sprint.service";
-import {SprintCapacity} from "../_models/sprint-capacity";
 import {UserService} from "../_services/user.service";
 import {User} from "../_models/user";
 
@@ -13,9 +12,7 @@ import {User} from "../_models/user";
 })
 export class SprintComponent implements OnInit {
 
-
   sprints: Sprint[];
-  sprintCapacities: SprintCapacity[];
   sprint: Sprint;
   users: User[];
   errorMessage: string;
@@ -55,15 +52,6 @@ export class SprintComponent implements OnInit {
 
 
 
-  getSprintCapacities(sprintId: string) {
-    this.sprintService.getSprintCapacities(sprintId)
-      .subscribe(
-        sprintCapacities => this.sprintCapacities = sprintCapacities,
-        error => this.errorMessage = <any> error
-      )
-  }
-
-
   createSprint(sprintName: string, startDate: string, endDate: string) {
     this.sprintService.createSprint(sprintName, startDate, endDate)
       .subscribe(
@@ -94,7 +82,7 @@ export class SprintComponent implements OnInit {
   createSprintCapacity(sprintId: string, userId: string, dayOff: number, capacityPerDay: number) {
     this.sprintService.createSprintCapacity(sprintId, userId, dayOff, capacityPerDay)
       .subscribe(
-        success => this.getSprintCapacities(sprintId),
+        success => this.getSprints(),
         error => this.errorMessage = <any> error
       );
   }

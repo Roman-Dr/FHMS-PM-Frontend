@@ -26,6 +26,7 @@ import {ProjectGuard} from "./_services/project-guard.service";
 import {ProjectService} from "./_services/project.service";
 import { ChartComponent } from './chart/chart.component';
 import {DndModule} from "ng2-dnd";
+import {Ng2PaginationModule} from "ng2-pagination";
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import {DndModule} from "ng2-dnd";
     BrowserModule,
     FormsModule,
     HttpModule,
+    Ng2PaginationModule,
     NgbModule.forRoot(),
     DndModule.forRoot(),
     RouterModule.forRoot(routes),
