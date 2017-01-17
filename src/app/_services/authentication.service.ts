@@ -15,7 +15,7 @@ export class AuthenticationService {
 
   }
 
-  login(email, password) {
+  login(email: string, password: string) {
     return this.http
       .post(
         this._apiUrl +'login',
@@ -58,10 +58,10 @@ export class AuthenticationService {
 
 
 
-  registerUser(email, password) {
+  registerUser(email: string, password: string, firstname: string, lastname: string, birthdate: string) {
     return this.http.post
     (this._apiUrl +'signup',
-      JSON.stringify({email, password}), {headers: this.headers }
+      JSON.stringify({email, password, firstname, lastname, birthdate}), {headers: this.headers }
     )
       .map(res => {
         // If request fails, throw an Error that will be caught

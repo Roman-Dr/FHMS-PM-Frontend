@@ -14,24 +14,20 @@ import {AuthenticationService} from "../_services/authentication.service";
 
 
 export class RegisterComponent {
-  newUser: User = new User();
+  newUser: User;
   errorMessage: string;
 
   constructor(private authenticationService: AuthenticationService, private router: Router) {
   }
 
 
-  onSubmit(email, password) {
-    let success = this.authenticationService.registerUser(email, password)
-    if (success) {
-      console.log(this.router);
-      success.subscribe(
+  onSubmit(email, password, firstname, lastname, birthdate) {
+    this.authenticationService.registerUser(email, password, firstname, lastname, birthdate ).subscribe(
         user => this.newUser = user,
         error => this.errorMessage = <any> error
       );
-      this.router.navigate(['/login']);
-    } else {
-      console.log("Register failed, display error to user");
+
     }
-  }
+
+
 }
