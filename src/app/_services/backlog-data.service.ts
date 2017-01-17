@@ -3,6 +3,7 @@ import {Backlog} from '../_models/backlog';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import {Observable} from 'rxjs/Rx';
 import 'rxjs/Rx';
+import {map} from "rxjs/operator/map";
 
 @Injectable()
 export class BacklogDataService {
@@ -13,10 +14,11 @@ export class BacklogDataService {
 
   private headers: Headers = new Headers({ 'Content-Type': 'application/json' });
 
-  updateBacklog(backlogName:string, backlogState:string, backlogAuthor:string, backlogDescription:string, backlogAssignedTo:string){
+  updateBacklog(backlogitem_id, title, authorId, state, description, userstoryId){
+    console.log(authorId);
     return this.http.put
-    (this.backlogitemsUrl,
-      JSON.stringify({backlogName,backlogState,backlogAuthor,backlogDescription,backlogAssignedTo}),{ withCredentials: true, headers: this.headers}
+    (this.backlogitemsUrl+"/"+backlogitem_id,
+      JSON.stringify({"title":title,"state":state,"authorId": authorId, "description":description,"assignedToId":userstoryId}),{ withCredentials: true, headers: this.headers}
     )
       .map(res => { if(res.status < 200 || res.status >= 300) {
       throw new Error('This request has failed ' + res.status);

@@ -45,6 +45,14 @@ export class BacklogComponent {
     );
   }
 
+  updateBacklog(backlogitem_id, title, authorId, state, description, userstoryId){
+    this.backlogDataService.updateBacklog(backlogitem_id,title,authorId,state,description,userstoryId)
+      .subscribe(
+        success => {
+          this.loadBacklogitems();
+        });
+  }
+
   removeTask(backlogitem_id,task_id){
     this.taskDataService.deleteTask(backlogitem_id, task_id).subscribe(
       data => {

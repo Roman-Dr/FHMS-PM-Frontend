@@ -50,11 +50,11 @@
       <ul class="list-group">
         <table class="table table-hover">
           <thead>
-          <th>Backlog-Title</th>
+          <th>Title</th>
           <th>Status</th>
           <th>Beschreibung</th>
-          <th>Backlog-Author</th>
-          <th>Gehört zur Userstory</th>
+          <th>Author</th>
+          <th>Userstory</th>
           <th>Erstellt am</th>
           <th>Task(s)</th>
           <th></th>
@@ -69,7 +69,7 @@
             <td> {{backlogitem.creationDate}}</td>
             <td>
               <button type="button" class="btn btn-default btn-sm" data-toggle="modal" [attr.data-target]="'#formModal' + backlogitem._id" (click)="getTasks(backlogitem._id)">
-               <span class="glyphicon glyphicon-edit"></span>
+               <span class="glyphicon glyphicon-th-list"></span>
               </button>
               <div [id]="'formModal' + backlogitem._id" class="modal fade" role="dialog">
                 <div class="modal-dialog">
@@ -122,25 +122,25 @@
                       <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body">
-                      <label>{{backlogitem._id}}</label>
-                      <input #inputBacklogLabel value="{{backlogitem.title}}" class="newBacklogitem">
-                      <select #owner id="owner" value="{{backlogitem.authorId}}" class="form-control">
+                      <input #title value="{{backlogitem.title}}" class="newBacklogitem">
+                      <select #authorId id="owner" value="{{backlogitem.authorId}}" class="form-control">
                         <option *ngFor="let user of users" value="{{user._id}}">{{ user.email }}</option>
                       </select>
-                      <select #owner id="state" value="{{backlogitem.state}}" class="form-control">
+                      <select #state id="state" value="{{backlogitem.state}}" class="form-control">
                         <option value="New">New</option>
                         <option value="Committed">Committed</option>
                         <option value="Done">Done</option>
                         <option value="Removed">Removed</option>
                       </select>
-                      <textarea rows="8" cols="76"  class="newBacklogitem" value="{{backlogitem.description}}">
+                      <textarea #description rows="8" cols="76"  class="newBacklogitem" value="{{backlogitem.description}}">
                      </textarea>
-                      <select #owner id="assignedTo" value="{{backlogitem.userStoryId}}" class="form-control">
+                      <select #userstoryId id="assignedTo" value="{{backlogitem.userStoryId}}" class="form-control">
                         <option *ngFor="let userstory of userstories" value="{{userstory._id}}">{{ userstory.title }}</option>
                       </select>
                     </div>
                     <div class="modal-footer">
-                      <button type="submit" class="btn btn-success btn-lg" (click)="editBacklog()">Backlog ändern</button>
+                      <label>{{authorId.value}}</label>
+                      <button type="submit" class="btn btn-success btn-lg" (click)="updateBacklog(backlogitem._id, title.value, authorId.value, state.value, description.value,userstoryId.value)">Backlog ändern</button>
                       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                   </div>
