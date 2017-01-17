@@ -18,8 +18,15 @@ export class LoginComponent {
   }
 
   onSubmit(email, password) {
-    this.authenticationService.login(email, password).subscribe(
-      success => this.router.navigate(['/projects'])
-      )
+    this.authenticationService.login(email, password).subscribe(() => {
+    if (this.authenticationService.loggedIn) {
+      console.log(this.authenticationService.loggedIn);
+      // Get the redirect URL from our auth service
+      // If no redirect has been set, use the default
+      let redirect = this.authenticationService.redirectUrl ? this.authenticationService.redirectUrl : '/projects';
+      // Redirect the user
+      this.router.navigate([redirect]);
+  }
+  })
   }
 }

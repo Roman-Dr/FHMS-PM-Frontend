@@ -19,9 +19,8 @@ export class ProjectComponent implements OnInit {
   users: User[];
   errorMessage: string;
   create = false;
-  projectSelected = !!sessionStorage.getItem('project_id');
 
-  constructor(private projectService: ProjectService, private userService: UserService) {
+  constructor(private projectService: ProjectService, private userService: UserService, private router: Router) {
   }
 
   ngOnInit() {
@@ -54,7 +53,15 @@ export class ProjectComponent implements OnInit {
   }
 
   chooseProject(projectId) {
-    this.projectService.chooseProject(projectId);
+    this.projectService.chooseProject(projectId).subscribe(() => {
+      if (this.projectService.projectSelected) {
+        // Get the redirect URL from our auth service
+        // If no redirect has been set, use the default
+        let redirect = this.projectService.redirectUrl ? this.projectService.redirectUrl : '/landing';
+        // Redirect the user
+        this.router.navigate([redirect]);
+      }
+    })
   }
 
   removeProject(projectId) {

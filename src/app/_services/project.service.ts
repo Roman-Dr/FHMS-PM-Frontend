@@ -1,14 +1,19 @@
 import {Injectable} from '@angular/core';
-import {Http, Headers, RequestOptions} from "@angular/http";
+import {Http, Headers} from "@angular/http";
 import 'rxjs/Rx'
+import {Observable} from "rxjs";
+import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/delay';
 
 @Injectable()
 export class ProjectService {
+
+  projectSelected : boolean = false;
+  redirectUrl: string;
+
+
   private _apiUrl = 'http://10.60.67.20:3000/api/projects/';
-  // private _apiUrl = 'http://localhost:3000/api/projects/';
-
-  private projectSelected = !!sessionStorage.getItem('project_id');
-
   private headers: Headers = new Headers({'Content-Type': 'application/json'});
 
   constructor(private http: Http) {
@@ -31,11 +36,10 @@ export class ProjectService {
   chooseProject(projectId) {
     sessionStorage.setItem('project_id', projectId);
     sessionStorage.setItem('project_url', this._apiUrl + projectId);
-    this.projectSelected = true;
+    return Observable.of(true).delay(1000).do(val => this.projectSelected = true);
   }
 
   createProject(displayName: string, description: string, dueDate: string, owner: string, stakeholders: string[], contributors: string[]) {
-
     return this.http.post
     (this._apiUrl,
       JSON.stringify({displayName, description, dueDate, owner, stakeholders, contributors}), {
@@ -58,8 +62,6 @@ export class ProjectService {
 
 
   updateProject(projectId: string, displayName: string, description: string, dueDate: string, owner: string, stakeholders: string[], contributors: string[]) {
-
-
     return this.http.put
     (this._apiUrl + projectId,
       JSON.stringify({displayName, description, dueDate, owner, stakeholders, contributors}), {
@@ -95,14 +97,5 @@ export class ProjectService {
           return res.json();
         }
       })
-  }
-
-  isProjectSelected() {
-    return this.projectSelected;
-  }
-
-
-  setProjectSelectedFalse() {
-    this.projectSelected = false;
   }
 }

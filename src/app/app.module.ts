@@ -51,7 +51,13 @@ import {DndModule} from "ng2-dnd";
     DndModule.forRoot(),
     RouterModule.forRoot(routes),
   ],
-  providers: [UserService, AuthenticationService, ProjectService, AuthGuard, ProjectGuard],
+  providers: [
+    UserService,
+    AuthenticationService,
+    ProjectService,
+    AuthGuard,
+    ProjectGuard
+  ],
   bootstrap: [AppComponent]
 
 })

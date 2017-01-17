@@ -2,21 +2,26 @@ import { Injectable } from '@angular/core';
 import {Http, Headers} from '@angular/http'
 import 'rxjs/Rx'
 import {ProjectService} from "./project.service";
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/delay';
 
 @Injectable()
 export class AuthenticationService {
 
-  private loggedIn;
+  loggedIn: boolean = false;
+  redirectUrl: string;
+
   private headers = new Headers({ 'Content-Type': 'application/json' });
   private _apiUrl = 'http://10.60.67.20:3000/api/user/';
 
   constructor(private http: Http, private projectService: ProjectService) {
-    this.loggedIn = !!sessionStorage.getItem('user_id');
+
 
   }
 
   login(email, password) {
-
     return this.http
       .post(
         this._apiUrl +'login',
@@ -30,13 +35,9 @@ export class AuthenticationService {
         }
         // If everything went fine, return the response
         else {
-
-          let resBody = res.json();
+          sessionStorage.setItem('user_id', res.json());
           this.loggedIn = true;
-
-          sessionStorage.setItem('user_id', resBody);
-
-          return resBody;
+          return Observable.of(true).delay(1000).do(val => this.loggedIn = true);
         }
       })
   }
@@ -51,30 +52,22 @@ export class AuthenticationService {
         // If everything went fine, return the response
         else {
           this.loggedIn = false;
+          this.projectService.projectSelected = false;
 
           sessionStorage.removeItem('user_id');
-
           sessionStorage.removeItem('project_id');
           sessionStorage.removeItem('project_url');
-          this.projectService.setProjectSelectedFalse();
 
-          console.log(this.loggedIn);
           console.log("Logout successful");
-
-          location.reload();
 
           return res.json();
         }
       })
   }
 
-  isLoggedIn() {
-    return this.loggedIn;
-  }
 
 
   registerUser(email, password) {
-
     return this.http.post
     (this._apiUrl +'signup',
       JSON.stringify({email, password}), {headers: this.headers }
@@ -91,6 +84,10 @@ export class AuthenticationService {
           return res.json();
         }
       })
+  }
+
+  isLoggendIn(){
+    return this.loggedIn;
   }
 
 
