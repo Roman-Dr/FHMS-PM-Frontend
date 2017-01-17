@@ -11,13 +11,10 @@ export class ProjectGuard implements CanActivate {
     return this.checkProject(url);
   }
   checkProject(url){
-    if (this.projectService.projectSelected) { console.log(this.projectService.projectSelected); return true; }
-
-    console.log(this.projectService.projectSelected);
+    if (sessionStorage.getItem('project_id')) { return true; }
     // Store the attempted URL for redirecting
     this.projectService.redirectUrl = url;
 
-    // Navigate to the login page with extras
     this.router.navigate(['/projects']);
     return false;
   }

@@ -2,24 +2,17 @@ import {Injectable} from '@angular/core';
 import {Http, Headers} from "@angular/http";
 import 'rxjs/Rx'
 import {Observable} from "rxjs";
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/delay';
 
 @Injectable()
 export class ProjectService {
 
-  projectSelected : boolean = false;
   redirectUrl: string;
 
 
   private _apiUrl = 'http://10.60.67.20:3000/api/projects/';
   private headers: Headers = new Headers({'Content-Type': 'application/json'});
 
-  constructor(private http: Http) {
-
-
-  }
+  constructor(private http: Http) { }
 
 
   getProjects() {
@@ -36,7 +29,7 @@ export class ProjectService {
   chooseProject(projectId) {
     sessionStorage.setItem('project_id', projectId);
     sessionStorage.setItem('project_url', this._apiUrl + projectId);
-    return Observable.of(true).delay(1000).do(val => this.projectSelected = true);
+    return Observable.of(true);
   }
 
   createProject(displayName: string, description: string, dueDate: string, owner: string, stakeholders: string[], contributors: string[]) {
@@ -84,7 +77,6 @@ export class ProjectService {
 
 
   removeProject(projectId) {
-
     return this.http.delete(this._apiUrl + projectId, {withCredentials: true, headers: this.headers})
       .map(res => {
         // If request fails, throw an Error that will be caught

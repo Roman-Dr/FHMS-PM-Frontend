@@ -1,22 +1,16 @@
 import { Injectable } from '@angular/core';
 import {Http, Headers} from '@angular/http'
 import 'rxjs/Rx'
-import {ProjectService} from "./project.service";
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/delay';
 
 @Injectable()
 export class AuthenticationService {
 
-  loggedIn: boolean = false;
   redirectUrl: string;
 
   private headers = new Headers({ 'Content-Type': 'application/json' });
   private _apiUrl = 'http://10.60.67.20:3000/api/user/';
 
-  constructor(private http: Http, private projectService: ProjectService) {
+  constructor(private http: Http) {
 
 
   }
@@ -36,8 +30,8 @@ export class AuthenticationService {
         // If everything went fine, return the response
         else {
           sessionStorage.setItem('user_id', res.json());
-          this.loggedIn = true;
-          return Observable.of(true).delay(1000).do(val => this.loggedIn = true);
+
+          return res.json();
         }
       })
   }
@@ -51,9 +45,6 @@ export class AuthenticationService {
         }
         // If everything went fine, return the response
         else {
-          this.loggedIn = false;
-          this.projectService.projectSelected = false;
-
           sessionStorage.removeItem('user_id');
           sessionStorage.removeItem('project_id');
           sessionStorage.removeItem('project_url');
@@ -85,10 +76,5 @@ export class AuthenticationService {
         }
       })
   }
-
-  isLoggendIn(){
-    return this.loggedIn;
-  }
-
 
 }

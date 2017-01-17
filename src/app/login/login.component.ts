@@ -19,8 +19,7 @@ export class LoginComponent {
 
   onSubmit(email, password) {
     this.authenticationService.login(email, password).subscribe(() => {
-    if (this.authenticationService.loggedIn) {
-      console.log(this.authenticationService.loggedIn);
+    if (sessionStorage.getItem('user_id')) {
       // Get the redirect URL from our auth service
       // If no redirect has been set, use the default
       let redirect = this.authenticationService.redirectUrl ? this.authenticationService.redirectUrl : '/projects';
