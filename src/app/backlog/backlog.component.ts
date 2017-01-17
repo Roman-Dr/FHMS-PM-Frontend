@@ -45,7 +45,7 @@ export class BacklogComponent {
     );
   }
 
-  removeTask(backlogitem_id, task_id){
+  removeTask(backlogitem_id,task_id){
     this.taskDataService.deleteTask(backlogitem_id, task_id).subscribe(
       data => {
         this.getTasks(backlogitem_id)

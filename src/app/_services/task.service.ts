@@ -22,7 +22,7 @@ export class TaskService {
       .map(res => res.json())
   }
 
-  deleteTask(backlogitem_id, task_id){
+  deleteTask(backlogitem_id:string, task_id){
     return this.http.delete(this.backlogitemsUrl+"/"+backlogitem_id+"/tasks/"+task_id,{headers: this.headers})
       .map(this.extractData)
       .catch(this.handleErrorDelete);

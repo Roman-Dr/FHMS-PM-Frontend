@@ -95,7 +95,7 @@
                           <tr>
                         <td><label class="">Title: {{task.title}}</label></td>
                             <td><label class="">Author: {{task.authorDisplayName}}</label></td>
-                        <td><button class="btn btn-default btn-sm" (click)="removeTask(task._id, backlogitem._id)"> <!-- Funktion fehlt noch -->
+                        <td><button class="btn btn-default btn-sm" (click)="removeTask(backlogitem._id, task._id)"> <!-- Funktion fehlt noch -->
                           <span class="glyphicon glyphicon-remove"></span>
                         </button></td>
                         </tr>
