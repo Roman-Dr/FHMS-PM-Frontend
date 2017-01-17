@@ -57,7 +57,8 @@
           <th>Gehört zur Userstory</th>
           <th>Erstellt am</th>
           <th>Task(s)</th>
-          <th>Entfernen?</th>
+          <th></th>
+          <th></th>
           </thead>
         <tr *ngFor="let backlogitem of backlogitems">
             <td>{{backlogitem.title}}</td>
@@ -94,12 +95,53 @@
                           <tr>
                         <td><label class="">Title: {{task.title}}</label></td>
                             <td><label class="">Author: {{task.authorDisplayName}}</label></td>
-                        <td><button class="btn btn-default btn-sm" (click)="removeBacklogitemTask(task._id, backlogitem._id)"> <!-- Funktion fehlt noch -->
+                        <td><button class="btn btn-default btn-sm" (click)="removeTask(task._id, backlogitem._id)"> <!-- Funktion fehlt noch -->
                           <span class="glyphicon glyphicon-remove"></span>
                         </button></td>
                         </tr>
                       </table>
                       </li>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="submit" class="btn btn-success btn-lg" (click)="addTask(backlogitem)">Backlog hinzufügen</button>
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td>
+              <button type="button" class="btn btn-default btn-sm" data-toggle="modal" [attr.data-target]="'#formModalBacklog' + backlogitem._id" (click)="getBacklogitems()">
+              <span class="glyphicon glyphicon-edit"></span>
+              </button>
+              <div [id]="'formModalBacklog' + backlogitem._id" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <label>Bearbeite das Backlogitem!</label>
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                      <label>{{backlogitem._id}}</label>
+                      <input #inputBacklogLabel value="{{backlogitem.title}}" class="newBacklogitem">
+                      <select #owner id="owner" value="{{backlogitem.authorId}}" class="form-control">
+                        <option *ngFor="let user of users" value="{{user._id}}">{{ user.email }}</option>
+                      </select>
+                      <select #owner id="state" value="{{backlogitem.state}}" class="form-control">
+                        <option value="New">New</option>
+                        <option value="Committed">Committed</option>
+                        <option value="Done">Done</option>
+                        <option value="Removed">Removed</option>
+                      </select>
+                      <textarea rows="8" cols="76"  class="newBacklogitem" value="{{backlogitem.description}}">
+                     </textarea>
+                      <select #owner id="assignedTo" value="{{backlogitem.userStoryId}}" class="form-control">
+                        <option *ngFor="let userstory of userstories" value="{{userstory._id}}">{{ userstory.title }}</option>
+                      </select>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="submit" class="btn btn-success btn-lg" (click)="editBacklog()">Backlog ändern</button>
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                   </div>
                 </div>
