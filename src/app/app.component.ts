@@ -3,6 +3,7 @@ import {ProjectNavComponent} from './project-nav/project-nav.component'
 import {AuthenticationService} from "./_services/authentication.service";
 import {Router} from "@angular/router";
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -15,17 +16,21 @@ export class AppComponent {
   constructor(private authenticationService: AuthenticationService, private router: Router) {
   }
 
+
+
+  ngOnInit() {
+
+
+  }
+
+
+
   logout() {
     this.authenticationService.logout()
       .subscribe(
-        success => {
-          this.router.navigate(['/login'])
-        })
-
+        success => this.router.navigate(['/login'])
+      )
   }
 
-  isLoggedIn() {
-    this.authenticationService.isLoggedIn();
-  }
 
 }

@@ -11,20 +11,13 @@ export class LandingComponent implements OnInit{
 
 
 
-  constructor(private projectService: ProjectService) { }
+  constructor() { }
 
   ngOnInit() {
 
   }
 
-  isProjectSelected(){
-    this.projectService.isProjectSelected();
 
-  }
-
-  pageReoload(){
-    location.reload();
-  }
 
 
 

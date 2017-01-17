@@ -1,20 +1,18 @@
 import {Injectable} from '@angular/core';
-import {Http, Headers, RequestOptions} from "@angular/http";
+import {Http, Headers} from "@angular/http";
 import 'rxjs/Rx'
+import {Observable} from "rxjs";
 
 @Injectable()
 export class ProjectService {
+
+  redirectUrl: string;
+
+
   private _apiUrl = 'http://10.60.67.20:3000/api/projects/';
-  // private _apiUrl = 'http://localhost:3000/api/projects/';
-
-  private projectSelected = !!sessionStorage.getItem('project_id');
-
   private headers: Headers = new Headers({'Content-Type': 'application/json'});
 
-  constructor(private http: Http) {
-
-
-  }
+  constructor(private http: Http) { }
 
 
   getProjects() {
@@ -31,11 +29,10 @@ export class ProjectService {
   chooseProject(projectId) {
     sessionStorage.setItem('project_id', projectId);
     sessionStorage.setItem('project_url', this._apiUrl + projectId);
-    this.projectSelected = true;
+    return Observable.of(true);
   }
 
   createProject(displayName: string, description: string, dueDate: string, owner: string, stakeholders: string[], contributors: string[]) {
-
     return this.http.post
     (this._apiUrl,
       JSON.stringify({displayName, description, dueDate, owner, stakeholders, contributors}), {
@@ -58,8 +55,6 @@ export class ProjectService {
 
 
   updateProject(projectId: string, displayName: string, description: string, dueDate: string, owner: string, stakeholders: string[], contributors: string[]) {
-
-
     return this.http.put
     (this._apiUrl + projectId,
       JSON.stringify({displayName, description, dueDate, owner, stakeholders, contributors}), {
@@ -82,7 +77,6 @@ export class ProjectService {
 
 
   removeProject(projectId) {
-
     return this.http.delete(this._apiUrl + projectId, {withCredentials: true, headers: this.headers})
       .map(res => {
         // If request fails, throw an Error that will be caught
@@ -95,14 +89,5 @@ export class ProjectService {
           return res.json();
         }
       })
-  }
-
-  isProjectSelected() {
-    return this.projectSelected;
-  }
-
-
-  setProjectSelectedFalse() {
-    this.projectSelected = false;
   }
 }

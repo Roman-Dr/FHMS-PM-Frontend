@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Output, EventEmitter} from '@angular/core';
 import { Router } from '@angular/router';
 import { Headers} from '@angular/http';
 import { AuthenticationService } from '../_services/authentication.service';
@@ -13,15 +13,19 @@ import { AuthenticationService } from '../_services/authentication.service';
 
 export class LoginComponent {
 
-
   constructor(private authenticationService: AuthenticationService, private router: Router) {
 
   }
 
   onSubmit(email, password) {
-    this.authenticationService.login(email, password).subscribe(
-      success => {
-        this.router.navigate(['/projects'])
-      })
+    this.authenticationService.login(email, password).subscribe(() => {
+    if (sessionStorage.getItem('user_id')) {
+      // Get the redirect URL from our auth service
+      // If no redirect has been set, use the default
+      let redirect = this.authenticationService.redirectUrl ? this.authenticationService.redirectUrl : '/projects';
+      // Redirect the user
+      this.router.navigate([redirect]);
+  }
+  })
   }
 }
