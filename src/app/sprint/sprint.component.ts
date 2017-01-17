@@ -79,6 +79,17 @@ export class SprintComponent implements OnInit {
   }
 
 
+  deleteSprintCapacity(sprintId, sprintCapacityId) {
+    this.sprintService.deleteSprintCapacity(sprintId, sprintCapacityId)
+      .subscribe(
+        success => this.getSprints(),
+        error => this.errorMessage = <any> error
+      );
+
+
+  }
+
+
   createSprintCapacity(sprintId: string, userId: string, dayOff: number, capacityPerDay: number) {
     this.sprintService.createSprintCapacity(sprintId, userId, dayOff, capacityPerDay)
       .subscribe(

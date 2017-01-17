@@ -40,12 +40,15 @@
         <th>Kapazität pro Tag</th>
         <th></th>
       </tr>
-      <tr *ngFor="let sprintCapacity of sprint.sprintCapacity">
+      <tr *ngFor="let sprintCapacity of sprint.sprintCapacity ">
         <td>{{sprintCapacity.userId}}</td>
         <td>{{sprintCapacity.daysOff}}</td>
         <td>{{sprintCapacity.capacityPerDay}}</td>
-        <td></td>
+        <td> <button type="button" class="btn btn-default btn-sm" (click)="deleteSprintCapacity(sprint._id, sprintCapacity._id)">
+          <span class="glyphicon glyphicon-remove"></span>
+        </button></td>
       </tr>
+
 
       <tr>
         <td>

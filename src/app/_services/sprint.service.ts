@@ -59,7 +59,7 @@ export class SprintService {
         }
         // If everything went fine, return the response
         else {
-          console.log("Delete Project successful");
+          console.log("Delete Sprint successful");
           return res.json();
         }
       })
@@ -84,7 +84,20 @@ export class SprintService {
       })
   }
 
-
+  deleteSprintCapacity(sprintId, sprintCapacityId) {
+    return this.http.delete(this._apiUrl+sprintId+"/sprintcapacities/"+sprintCapacityId, {withCredentials: true, headers: this.headers})
+      .map(res => {
+        // If request fails, throw an Error that will be caught
+        if(res.status < 200 || res.status >= 300) {
+          throw new Error('This request has failed ' + res.status);
+        }
+        // If everything went fine, return the response
+        else {
+          console.log("Delete Sprint Capacity successful");
+          return res.json();
+        }
+      })
+  }
 
 
     getSprints() {
