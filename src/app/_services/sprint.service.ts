@@ -84,7 +84,7 @@ export class SprintService {
       })
   }
 
-  deleteSprintCapacity(sprintId, sprintCapacityId) {
+  deleteSprintCapacity(sprintId: string, sprintCapacityId: string) {
     return this.http.delete(this._apiUrl+sprintId+"/sprintcapacities/"+sprintCapacityId, {withCredentials: true, headers: this.headers})
       .map(res => {
         // If request fails, throw an Error that will be caught
@@ -99,8 +99,27 @@ export class SprintService {
       })
   }
 
+  updateSprintCapacity(sprintId: string, sprintCapacityId, userId: string, daysOff: number, capacityPerDay: number ) {
+    return this.http.put
+    (this._apiUrl+sprintId+"/sprintcapacities/"+sprintCapacityId,
+      JSON.stringify({userId, daysOff, capacityPerDay}), {withCredentials: true, headers: this.headers}
+    )
+      .map(res => {
+        // If request fails, throw an Error that will be caught
+        if(res.status < 200 || res.status >= 300) {
+          throw new Error('This request has failed ' + res.status);
+        }
+        // If everything went fine, return the response
+        else {
+          console.log("Update Sprint Capacity successful");
+          return res.json();
+        }
+      })
+  }
 
-    getSprints() {
+
+
+  getSprints() {
     return this.http.get(this._apiUrl, {withCredentials: true, headers: this.headers})
       .map(res => res.json())
   }
@@ -110,9 +129,6 @@ export class SprintService {
       .map(res => res.json())
   }
 
-  getSprintCapacities(sprintId: string){
-    return this.http.get(this._apiUrl+sprintId+"/sprintcapacities", {withCredentials: true, headers: this.headers})
-      .map(res => res.json())
-  }
+
 
 }

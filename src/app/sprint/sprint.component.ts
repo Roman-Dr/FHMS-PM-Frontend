@@ -42,6 +42,14 @@ export class SprintComponent implements OnInit {
       )
   }
 
+
+  updateSprintCapacity(sprintId: string, sprintCapacityId, userId: string, daysOff: number, capacityPerDay: number ) {
+    this.sprintService.updateSprintCapacity(sprintId, sprintCapacityId, userId, daysOff, capacityPerDay)
+      .subscribe(
+        success => this.getSprints()
+      );
+  }
+
   getUsers() {
     this.userService.getUsers()
       .subscribe(

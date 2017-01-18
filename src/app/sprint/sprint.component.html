@@ -8,7 +8,7 @@
         <th>Enddatum</th>
         <th></th>
       </tr>
-      <tr>
+      <tr class="active">
         <td>{{sprint.sprintName}}</td>
         <td>{{sprint.startDate | date:'dd.MM.yyyy'}}</td>
         <td>{{sprint.endDate | date:'dd.MM.yyyy'}}</td>
@@ -23,11 +23,6 @@
             </button>
           </a>
 
-          <button type="button" class="btn btn-default btn-sm" (click)="getSprintCapacities(sprint._id)">
-            <span class="glyphicon glyphicon-list"></span>
-          </button>
-
-
           <button type="button" class="btn btn-default btn-sm" (click)="deleteSprint(sprint._id)">
             <span class="glyphicon glyphicon-remove"></span>
           </button>
@@ -37,16 +32,66 @@
       <tr>
         <th>Nutzer</th>
         <th>Tage</th>
-        <th>Kapazität pro Tag</th>
+        <th>Kapazität pro Tag in Stunden</th>
         <th></th>
       </tr>
-      <tr *ngFor="let sprintCapacity of sprint.sprintCapacity ">
+      <tr *ngFor="let sprintCapacity of sprint.sprintCapacity " class="active">
         <td>{{sprintCapacity.userId}}</td>
         <td>{{sprintCapacity.daysOff}}</td>
         <td>{{sprintCapacity.capacityPerDay}}</td>
-        <td> <button type="button" class="btn btn-default btn-sm" (click)="deleteSprintCapacity(sprint._id, sprintCapacity._id)">
+        <td>
+
+
+          <a href="#edit-sprintcapacity-{{sprintCapacity._id}}" data-toggle="modal">
+            <button type="button" class="btn btn-default btn-sm">
+              <span class="glyphicon glyphicon-edit"></span>
+            </button>
+          </a>
+
+
+          <div class="modal fade" id="edit-sprintcapacity-{{sprintCapacity._id}}" tabindex="-1" role="dialog"
+               aria-labelledby="edit-sprint" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h3 class="modal-title" id="edit-sprintcapacity">Kapazität des Sprints editieren</h3>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="form-group">
+                    <label for="user-edit">Name</label>
+                    <select #userId id="user-edit" class="form-control">
+                      <option *ngFor="let user of users" value="{{ user._id }}">{{ user.email }}</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="days-off-edit">Tage</label>
+                    <input type="text" #daysOff class="form-control" id="days-off-edit"
+                           value="{{sprintCapacity.daysOff}}">
+                  </div>
+                  <div class="form-group">
+                    <label for="capacity-edit">Kapazität pro Tag in Stunden</label>
+                    <input type="text" #capacityPerDay class="form-control" id="capacity-edit"
+                           value="{{sprintCapacity.capacityPerDay}}">
+                  </div>
+                  <button type="button" class="btn btn-default" data-dismiss="modal"
+                          (click)="updateSprintCapacity(sprint._id, sprintCapacity._id, userId.value, daysOff.value, capacityPerDay.value)">
+                    Speichern
+                  </button>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button type="button" class="btn btn-default btn-sm" (click)="deleteSprintCapacity(sprint._id, sprintCapacity._id)">
           <span class="glyphicon glyphicon-remove"></span>
-        </button></td>
+        </button>
+
+        </td>
       </tr>
 
 

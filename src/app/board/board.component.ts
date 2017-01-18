@@ -22,11 +22,14 @@ export class BoardComponent implements OnInit {
   }
 
 
-  getBacklogitems(){
+  getBacklogitems() {
     this.backlogDataService.getBacklogitems()
       .subscribe(
-        backlogitems=>this.backlogitems=backlogitems,
-        err => {console.log(err);
+        backlogitems => this.backlogitems = backlogitems,
+        err => {
+          console.log(err);
         });
   }
+
+
 }
