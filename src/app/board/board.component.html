@@ -1,29 +1,54 @@
-<h4>Simple Drag-and-Drop</h4>
 <div class="row">
   <div class="col-sm-3">
-    <div class="panel panel-success">
-      <div class="panel-heading">Available to drag</div>
+    <div class="panel panel-primary">
+      <div class="panel-heading">New</div>
       <div class="panel-body">
-        <div class="panel panel-default" >
-          <div class="panel-body" dnd-draggable [dragEnabled]="true">
-            <div>Drag Me</div>
+        <div class="panel panel-default">
+          <div class="panel-body" [dragula]='"first-bag"'>
+            <button class="btn btn-primary btn-lg" *ngFor="let backlogitem of backlogitems">{{backlogitem.title}}</button>
           </div>
         </div>
       </div>
     </div>
   </div>
+
   <div class="col-sm-3">
-    <div class="panel panel-info">
-      <div class="panel-heading">Place to drop</div>
-      <div class="panel-body" dnd-droppable>
+    <div class="panel panel-primary">
+      <div class="panel-heading">Approved</div>
+      <div class="panel-body">
+        <div class="panel panel-default">
+          <div class="panel-body" [dragula]='"first-bag"'>
+
+          </div>
+        </div>
       </div>
     </div>
   </div>
+
   <div class="col-sm-3">
-    <div class="panel panel-warning">
-      <div class="panel-heading">Restricted to drop</div>
-      <div class="panel-body" dnd-droppable>
+    <div class="panel panel-primary">
+      <div class="panel-heading">Committed</div>
+      <div class="panel-body">
+        <div class="panel panel-default">
+          <div class="panel-body" [dragula]='"first-bag"'>
+
+          </div>
+        </div>
       </div>
     </div>
   </div>
+
+  <div class="col-sm-3">
+    <div class="panel panel-primary">
+      <div class="panel-heading">Done</div>
+      <div class="panel-body">
+        <div class="panel panel-default">
+          <div class="panel-body" [dragula]='"first-bag"'>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>

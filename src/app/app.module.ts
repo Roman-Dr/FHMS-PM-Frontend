@@ -25,8 +25,8 @@ import {AuthGuard} from "./_services/auth-guard.service";
 import {ProjectGuard} from "./_services/project-guard.service";
 import {ProjectService} from "./_services/project.service";
 import { ChartComponent } from './chart/chart.component';
-import {DndModule} from "ng2-dnd";
 import {Ng2PaginationModule} from "ng2-pagination";
+import {DragulaModule} from "ng2-dragula";
 
 @NgModule({
   declarations: [
@@ -48,9 +48,9 @@ import {Ng2PaginationModule} from "ng2-pagination";
     BrowserModule,
     FormsModule,
     HttpModule,
+    DragulaModule,
     Ng2PaginationModule,
     NgbModule.forRoot(),
-    DndModule.forRoot(),
     RouterModule.forRoot(routes),
   ],
   providers: [
