@@ -18,14 +18,14 @@ export class BacklogDataService {
     console.log(authorId);
     return this.http.put
     (this.backlogitemsUrl+"/"+backlogitem_id,
-      JSON.stringify({"title":title,"state":state,"authorId": authorId, "description":description,"assignedToId":userstoryId}),{ withCredentials: true, headers: this.headers}
+      JSON.stringify({"title":title,"state":state,"authorId": authorId, "description":description,"userStoryId":userstoryId}),{ withCredentials: true, headers: this.headers}
     )
       .map(res => { if(res.status < 200 || res.status >= 300) {
       throw new Error('This request has failed ' + res.status);
     }
     // If everything went fine, return the response
     else {
-      console.log("Update Project successful");
+      console.log("Update Backlog successful");
       return res.json();
     }
   })

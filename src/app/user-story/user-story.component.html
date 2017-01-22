@@ -1,5 +1,7 @@
 <section class="app-UserStory">
-  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#formModal">Neue Userstory hinzufügen</button>
+  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#formModal">Neue Userstory
+    hinzufügen
+  </button>
   <div id="formModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -9,12 +11,14 @@
         </div>
         <div class="modal-body">
           <header class="header">
-    <input #inputUserStoryLabel class="newUserStory" placeholder="What's your Story? Insert a Task !" autofocus="" [(ngModel)]="userStoryName" (keyup.enter)="addUserStory()" (keyup.enter)="inputUserStoryLabel.value=''">
-    <!--<input #inputAuthorLabel class="newUserStory" placeholder="Author?" autofocus="" [(ngModel)]="userStoryAuthor" (keyup.enter)="addUserStory()" (keyup.enter)="inputAuthorLabel.value=''" (keyup.enter)="inputUserStoryLabel.value=''"> !-->
-    <!--<select #owner id="owner" [(ngModel)]="userStoryAuthor" class="form-control" >
-      <option *ngFor="let user of users" value="{{user._id}}">{{ user.email }}</option>
-    </select>-->
-  </header>
+            <input #inputUserStoryLabel class="newUserStory" placeholder="What's your Story? Insert a Task !"
+                   autofocus="" [(ngModel)]="userStoryName" (keyup.enter)="addUserStory()"
+                   (keyup.enter)="inputUserStoryLabel.value=''">
+            <!--<input #inputAuthorLabel class="newUserStory" placeholder="Author?" autofocus="" [(ngModel)]="userStoryAuthor" (keyup.enter)="addUserStory()" (keyup.enter)="inputAuthorLabel.value=''" (keyup.enter)="inputUserStoryLabel.value=''"> !-->
+            <!--<select #owner id="owner" [(ngModel)]="userStoryAuthor" class="form-control" >
+              <option *ngFor="let user of users" value="{{user._id}}">{{ user.email }}</option>
+            </select>-->
+          </header>
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-success btn-lg" (click)="addUserStory()">Add Userstory</button>
@@ -26,32 +30,36 @@
 
   <div id="container">
     <h2>Userstories</h2>
-  <section class="myclass" *ngIf="userstories?.length > 0">
-    <ul class="userStory-list">
-      <li *ngFor="let userstory of userstories" [class.completed]="userstory.complete" class="list-group-item">
-        <div class="view">
-          <table class="table table-hover">
-            <thead>
-            <th>Status</th>
-            <th>Titel</th>
-            <th>Author</th>
-            <th>Datum</th>
-            <th>Löschen</th>
-            </thead>
-            <tr>
-              <td><input class="checkbox" data-toggle="toggle" type="checkbox" (click)="toggleUserStoryComplete(userStory)" [checked]="userstory.complete"></td>
-          <td><label class="black">{{userstory.title}}</label></td>
-              <td><label class="blacksmall">{{userstory.authorDisplayName}}</label></td>
-              <td><label>{{userstory.creationDate}}</label><td>
-          <td><button id="#btnremove" class="btn btn-default btn-sm" (click)="removeUserStory(userstory)">
-            <span class="glyphicon glyphicon-remove"></span>
-          </button></td>
-            </tr>
-          </table>
-        </div>
-      </li>
-    </ul>
-  </section>
+    <section class="myclass" *ngIf="userstories?.length > 0">
+      <ul class="userStory-list">
+        <li *ngFor="let userstory of userstories" [class.completed]="userstory.complete" class="list-group-item">
+          <div class="view">
+            <table class="table table-hover">
+              <thead>
+              <th>Status</th>
+              <th>Titel</th>
+              <th>Author</th>
+              <th>Datum</th>
+              <th>Löschen</th>
+              </thead>
+              <tr>
+                <td><input class="checkbox" data-toggle="toggle" type="checkbox"
+                           (click)="toggleUserStoryComplete(userStory)" [checked]="userstory.complete"></td>
+                <td><label class="black">{{userstory.title}}</label></td>
+                <td><label class="blacksmall">{{userstory.authorDisplayName}}</label></td>
+                <td><label>{{userstory.creationDate}}</label>
+                <td>
+                <td>
+                  <button id="#btnremove" class="btn btn-default btn-sm" (click)="removeUserStory(userstory)">
+                    <span class="glyphicon glyphicon-remove"></span>
+                  </button>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </li>
+      </ul>
+    </section>
   </div>
   <footer class="footer" *ngIf="userstories?.length > 0">
     <span class="userStory-count"><strong>{{userstories?.length}}</strong> {{userstories?.length == 1 ? 'UserStory' : 'User Stories'}} left</span>
