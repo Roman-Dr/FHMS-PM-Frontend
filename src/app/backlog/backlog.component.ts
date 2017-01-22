@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
-import { Backlog} from '../_models/backlog';
+import {Component, OnInit, Input, OnChanges} from '@angular/core';
+import {Backlog} from '../_models/backlog';
 import {BacklogDataService} from '../_services/backlog-data.service';
 import {User} from "../_models/user";
 import {UserService} from "../_services/user.service";
@@ -23,21 +23,21 @@ export class BacklogComponent {
   errorMessage: string;
   userstories: UserStory[];
 
-  backlogitemTitle:string;
-  backlogitemState:string;
-  backlogitemAuthor:string;
-  backlogitemDescription:string;
-  backlogitemAssignedTo:string;
-  backlogitemTask:string;
-  backlogitemTaskAuthor:string;
+  backlogitemTitle: string;
+  backlogitemState: string;
+  backlogitemAuthor: string;
+  backlogitemDescription: string;
+  backlogitemAssignedTo: string;
+  backlogitemTask: string;
+  backlogitemTaskAuthor: string;
 
 
   backlogitems: Backlog[];
   users: User;
   backlogitemTasks: Task;
 
-  removeBacklogitem(backlogitem){
-    console.log("Component: "+backlogitem._id)
+  removeBacklogitem(backlogitem) {
+    console.log("Component: " + backlogitem._id)
     this.backlogDataService.deleteBacklogitem(backlogitem._id).subscribe(
       data => {
         this.loadBacklogitems()
@@ -45,15 +45,16 @@ export class BacklogComponent {
     );
   }
 
-  updateBacklog(backlogitem_id, title, authorId, state, description, userstoryId){
-    this.backlogDataService.updateBacklog(backlogitem_id,title,authorId,state,description,userstoryId)
+  updateBacklog(backlogitem_id, title, authorId, state, description, userstoryId) {
+    this.backlogDataService.updateBacklog(backlogitem_id, title, authorId, state, description, userstoryId)
       .subscribe(
         success => {
-          this.loadBacklogitems();
         });
   }
 
-  removeTask(backlogitem_id,task_id){
+
+
+  removeTask(backlogitem_id, task_id) {
     this.taskDataService.deleteTask(backlogitem_id, task_id).subscribe(
       data => {
         this.getTasks(backlogitem_id)
@@ -61,15 +62,16 @@ export class BacklogComponent {
     );
   }
 
-  loadBacklogitems(){
+  loadBacklogitems() {
     this.backlogDataService.getBacklogitems()
       .subscribe(
-        backlogitems=>this.backlogitems=backlogitems,
-        err => {console.log(err);
+        backlogitems => this.backlogitems = backlogitems,
+        err => {
+          console.log(err);
         });
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.loadBacklogitems()
     this.getUsers()
     this.loadUserStories()
@@ -83,17 +85,17 @@ export class BacklogComponent {
       )
   }
 
-  getTasks(backlogitem_id:string){
+  getTasks(backlogitem_id: string) {
     this.taskDataService.getTasks(backlogitem_id)
       .subscribe(
         tasks => this.backlogitemTasks = tasks,
-        error => this.errorMessage =<any> error
+        error => this.errorMessage = <any> error
       )
   }
 
-  addTask(backlogitem){
+  addTask(backlogitem) {
     console.log(this.backlogitemTask)
-    this.backlogDataService.postTask(backlogitem._id,this.backlogitemTask,this.backlogitemTaskAuthor).subscribe(
+    this.backlogDataService.postTask(backlogitem._id, this.backlogitemTask, this.backlogitemTaskAuthor).subscribe(
       data => {
         this.getTasks(backlogitem._id)
       }
@@ -101,33 +103,33 @@ export class BacklogComponent {
   }
 
   addBacklogitem() {
-    if((!this.backlogitemTitle)||(!this.backlogitemAuthor)||(!this.backlogitemDescription)||(!this.backlogitemAssignedTo)){
-      console.log("BacklogTitle("+this.backlogitemTitle+") oder BacklogAuthor("+this.backlogitemAuthor+") oder BacklogDescription("+this.backlogitemDescription+") oder BacklogAssignedTo("+this.backlogitemAssignedTo+") sind leer: Component Backlog")
-      this.backlogitemTitle=null
-      this.backlogitemAuthor=null
-      this.backlogitemDescription=null
-      this.backlogitemAssignedTo=null
+    if ((!this.backlogitemTitle) || (!this.backlogitemAuthor) || (!this.backlogitemDescription) || (!this.backlogitemAssignedTo)) {
+      console.log("BacklogTitle(" + this.backlogitemTitle + ") oder BacklogAuthor(" + this.backlogitemAuthor + ") oder BacklogDescription(" + this.backlogitemDescription + ") oder BacklogAssignedTo(" + this.backlogitemAssignedTo + ") sind leer: Component Backlog")
+      this.backlogitemTitle = null
+      this.backlogitemAuthor = null
+      this.backlogitemDescription = null
+      this.backlogitemAssignedTo = null
     }
-    else{
-      console.log("1")
-      this.backlogDataService.postBacklogitemRestful( this.backlogitemTitle,this.backlogitemState,this.backlogitemAuthor,this.backlogitemDescription, this.backlogitemAssignedTo).subscribe(
+    else {
+      this.backlogDataService.postBacklogitemRestful(this.backlogitemTitle, this.backlogitemState, this.backlogitemAuthor, this.backlogitemDescription, this.backlogitemAssignedTo).subscribe(
         //data => this.postMyUserStoriesToServer = JSON.stringify(data),
         data => {
           this.loadBacklogitems()
         }
       );
-      this.backlogitemTitle=null
-      this.backlogitemAuthor=null
-      this.backlogitemDescription=null
-      this.backlogitemAssignedTo=null
+      this.backlogitemTitle = null
+      this.backlogitemAuthor = null
+      this.backlogitemDescription = null
+      this.backlogitemAssignedTo = null
     }
   }
 
-  loadUserStories(){
+  loadUserStories() {
     this.userStoryDataService.getUserStories()
       .subscribe(
-        userstories=>this.userstories=userstories,
-        err => {console.log(err);
+        userstories => this.userstories = userstories,
+        err => {
+          console.log(err);
         });
   }
 
