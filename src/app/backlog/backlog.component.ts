@@ -48,8 +48,9 @@ export class BacklogComponent {
   updateBacklog(backlogitem_id, title, authorId, state, description, userstoryId) {
     this.backlogDataService.updateBacklog(backlogitem_id, title, authorId, state, description, userstoryId)
       .subscribe(
-        success => {
-        });
+        success =>
+          this.loadBacklogitems()
+        );
   }
 
 
