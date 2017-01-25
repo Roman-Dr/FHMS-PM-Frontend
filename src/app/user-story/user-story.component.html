@@ -64,7 +64,7 @@
                         </div>
                         <div class="modal-body">
                           <input #title value="{{userstory.title}}">
-                          <input class="checkbox" data-toggle="toggle" type="checkbox" #state  checked="{{userstory.complete}}">
+                          <input class="checkbox" data-toggle="toggle" type="checkbox" #state  [checked]="userstory.complete">
                           <select #author value="{{userstory.authorId}}" class="form-control">
                             <option *ngFor="let user of users" value="{{user._id}}">{{user.email}}</option>
                           </select>
@@ -79,7 +79,7 @@
                 </td>
                 <td>
                   <button id="#btnremove" class="btn btn-default btn-sm" (click)="removeUserStory(userstory)">
-                    <span class="glyphicon glyphicon-remove"></span>
+                    <span class="glyphicon glyphicon-trash"></span>
                   </button>
                 </td>
               </tr>

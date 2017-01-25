@@ -13,7 +13,9 @@ input[type='checkbox'].checkbox-glyph + label:after{
 }
 input[type='checkbox'].checkbox-glyph + label:before{/*unchecked icon*/
   content:"\e014";
+  color: red;
 }
 input[type='checkbox']:checked.checkbox-glyph + label:before{/*checked icon*/
   content:"\e013";
+  color: green;
 }
