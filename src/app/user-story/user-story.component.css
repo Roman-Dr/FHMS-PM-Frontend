@@ -1,1 +1,19 @@
 
+input[type='checkbox'].checkbox-glyph + label:before,
+input[type='checkbox'].checkbox-glyph + label:after{
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+input[type='checkbox'].checkbox-glyph + label:before{/*unchecked icon*/
+  content:"\e014";
+}
+input[type='checkbox']:checked.checkbox-glyph + label:before{/*checked icon*/
+  content:"\e013";
+}

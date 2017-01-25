@@ -44,8 +44,10 @@
               <th></th>
               </thead>
               <tr>
-                <td><input #checkboxUserstory class="checkbox" data-toggle="toggle" type="checkbox"
-                           (click)="toggleUserstory(userstory, checkboxUserstory.checked.toString())" [checked]="userstory.complete"></td>
+                <td><input #checkboxUserstory [id]="checkbox-2+userstory._id" class="checkbox-glyph sr-only" data-toggle="toggle" type="checkbox"
+                           (click)="toggleUserstory(userstory, checkboxUserstory.checked.toString())" [checked]="userstory.complete">
+                <label [for]='checkbox-2+userstory._id' class='fancy-checkbox-label'></label>
+                </td>
                 <td><label class="black">{{userstory.title}}</label></td>
                 <td><label class="blacksmall">{{userstory.authorDisplayName}}</label></td>
                 <td><label>{{userstory.creationDate | date:'dd.MM.yyyy'}}</label></td>
