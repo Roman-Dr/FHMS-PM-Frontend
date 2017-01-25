@@ -1,5 +1,5 @@
 <section class="app-UserStory">
-  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#formModal">Neue Userstory
+  <button type="button" class="btn btn-default" data-toggle="modal" data-target="#formModal">Neue Userstory
     hinzufügen
   </button>
   <div id="formModal" class="modal fade" role="dialog">
@@ -39,16 +39,42 @@
               <th>Status</th>
               <th>Titel</th>
               <th>Author</th>
-              <th>Datum</th>
-              <th>Löschen</th>
+              <th>Erstellt am</th>
+              <th></th>
+              <th></th>
               </thead>
               <tr>
-                <td><input class="checkbox" data-toggle="toggle" type="checkbox"
-                           (click)="toggleUserStoryComplete(userStory)" [checked]="userstory.complete"></td>
+                <td><input #checkboxUserstory class="checkbox" data-toggle="toggle" type="checkbox"
+                           (click)="toggleUserstory(userstory, checkboxUserstory.checked.toString())" [checked]="userstory.complete"></td>
                 <td><label class="black">{{userstory.title}}</label></td>
                 <td><label class="blacksmall">{{userstory.authorDisplayName}}</label></td>
-                <td><label>{{userstory.creationDate}}</label>
+                <td><label>{{userstory.creationDate | date:'dd.MM.yyyy'}}</label></td>
                 <td>
+                  <button type="button" class="btn btn-default btn-sm" data-toggle="modal" [attr.data-target]="'#editModal'+userstory._id">
+                    <span class="glyphicon glyphicon-edit"></span>
+                  </button>
+                  <div [id]="'editModal'+userstory._id" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h4 class="modal-title">Userstory bearbeiten</h4>
+                        </div>
+                        <div class="modal-body">
+                          <input #title value="{{userstory.title}}">
+                          <input class="checkbox" data-toggle="toggle" type="checkbox" #state  checked="{{userstory.complete}}">
+                          <select #author value="{{userstory.authorId}}" class="form-control">
+                            <option *ngFor="let user of users" value="{{user._id}}">{{user.email}}</option>
+                          </select>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-default" data-dismiss="modal" (click)="editUserstory(userstory._id, title.value,state.checked.toString(),author.value)">Bearbeiten</button>
+                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
                 <td>
                   <button id="#btnremove" class="btn btn-default btn-sm" (click)="removeUserStory(userstory)">
                     <span class="glyphicon glyphicon-remove"></span>

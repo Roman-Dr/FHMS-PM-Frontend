@@ -6,6 +6,7 @@ import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import {User} from "../_models/user";
+import {map} from "rxjs/operator/map";
 
 @Injectable()
 export class UserStoryDataService {
@@ -15,6 +16,40 @@ export class UserStoryDataService {
 
   private userstoriesUrl = sessionStorage.getItem('project_url')+'/userstories';
 
+  private headers: Headers = new Headers({ 'Content-Type': 'application/json' });
+
+
+  toggleUserStory(userstoryObject, changedcomplete){
+    return this.http.put
+    (this.userstoriesUrl+"/"+userstoryObject._id,
+      JSON.stringify({"title":userstoryObject.title,"complete":changedcomplete,"authorId": userstoryObject.authorId}),{ withCredentials: true, headers: this.headers}
+    )
+      .map(res => { if(res.status < 200 || res.status >= 300) {
+        throw new Error('This request has failed ' + res.status);
+      }
+      // If everything went fine, return the response
+      else {
+        console.log("Update Backlog successful");
+        return res.json();
+      }
+      })
+  }
+
+  editUserstory(userstory_id, title, state, author){
+    return this.http.put
+    (this.userstoriesUrl+"/"+userstory_id,
+      JSON.stringify({"title":title,"complete":state,"authorId": author}),{ withCredentials: true, headers: this.headers}
+    )
+      .map(res => { if(res.status < 200 || res.status >= 300) {
+        throw new Error('This request has failed ' + res.status);
+      }
+      // If everything went fine, return the response
+      else {
+        console.log("Update Backlog successful");
+        return res.json();
+      }
+      })
+  }
 
   deleteUserStory (id){
     let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -67,63 +102,5 @@ export class UserStoryDataService {
     console.log("nachPostService")
     return Observable.throw(errMsg);
   }
-
-
-
-
-
-
-
-  /*// Simulate POST /todos
-  addUserStory(userStory: UserStory): UserStoryDataService {
-    if(userStory.author==''||userStory.title==''){
-
-    }
-    else {
-      if (!userStory.id) {
-        userStory.id = ++this.lastId;
-      }
-      this.userStories.push(userStory);
-      return this;
-    }
-  }
-
-  // Simulate DELETE /todos/:id
-  deleteUserStoryById(id: number): UserStoryDataService {
-    this.userStories = this.userStories
-      .filter(userStory => userStory.id !== id);
-    return this;
-  }
-
-  // Simulate PUT /todos/:id
-  updateUserStoryById(id: number, values: Object = {}): UserStory {
-    let userStory = this.getUserStoryById(id);
-    if (!userStory) {
-      return null;
-    }
-    Object.assign(userStory, values);
-    return userStory;
-  }
-
-  // Simulate GET /todos
-  getAllUserStories(): UserStory[] {
-    console.log("Service: getAllUserStories()");
-    return this.userStories;
-  }
-
-  // Simulate GET /todos/:id
-  getUserStoryById(id: number): UserStory {
-    return this.userStories
-      .filter(userStory => userStory.id === id)
-      .pop();
-  }
-
-  // Toggle todo complete
-  toggleUserStoryComplete(userStory: UserStory) {
-    let updatedTodo = this.updateUserStoryById(userStory.id, {
-      complete: !userStory.complete
-    });
-    return updatedTodo;
-  }*/
 }
 

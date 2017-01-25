@@ -1,7 +1,7 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import {Component, OnInit, Input, OnChanges} from '@angular/core';
 import {UserStory} from '../_models/UserStory';
 import {UserStoryDataService} from '../_services/user-story-data.service';
-import { Observable } from 'rxjs/Observable';
+import {Observable} from 'rxjs/Observable';
 import {User} from "../_models/user";
 import {UserService} from "../_services/user.service";
 
@@ -15,8 +15,8 @@ import {UserService} from "../_services/user.service";
 export class UserStoryComponent {
 
   users: User;
-  userStoryName:string;
-  userStoryComplete:string="false";
+  userStoryName: string;
+  userStoryComplete: string = "false";
   userStoryAuthor: string;
   errorMessage: string;
 
@@ -29,8 +29,28 @@ export class UserStoryComponent {
   userstories: UserStory[];
 
 
-  removeUserStory(userstory){
-    console.log("Component: "+userstory._id)
+  toggleUserstory(userstoryObject, userstorystate) {
+    /*Toggelt den userstorystate, der als String eingereicht wird => einfache Lösung*/
+    if (userstorystate == "true") userstorystate == "false"
+    else userstorystate == "true"
+
+    this.userStoryDataService.toggleUserStory(userstoryObject, userstorystate)
+      .subscribe(
+        success =>
+          this.loadUserStories()
+      );
+  }
+
+  editUserstory(userstory_id, title, state, author) {
+    this.userStoryDataService.editUserstory(userstory_id, title, state, author)
+      .subscribe(
+        success =>
+          this.loadUserStories()
+      );
+  }
+
+  removeUserStory(userstory) {
+    console.log("Component: " + userstory._id)
     this.userStoryDataService.deleteUserStory(userstory._id).subscribe(
       data => {
         this.loadUserStories()
@@ -38,15 +58,16 @@ export class UserStoryComponent {
     );
   }
 
-  loadUserStories(){
+  loadUserStories() {
     this.userStoryDataService.getUserStories()
       .subscribe(
-        userstories=>this.userstories=userstories,
-        err => {console.log(err);
-    });
+        userstories => this.userstories = userstories,
+        err => {
+          console.log(err);
+        });
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.loadUserStories()
     this.getUsers()
   }
@@ -60,22 +81,22 @@ export class UserStoryComponent {
   }
 
   addUserStory() {
-    this.userStoryAuthor=sessionStorage.getItem("user_id")
-    if((!this.userStoryAuthor)||(!this.userStoryName)){
-      console.log("UserStoryName("+this.userStoryName+") oder UserStoryAuthor("+this.userStoryAuthor+") sind leer: Component")
-      this.userStoryAuthor=null
-      this.userStoryName=null
+    this.userStoryAuthor = sessionStorage.getItem("user_id")
+    if ((!this.userStoryAuthor) || (!this.userStoryName)) {
+      console.log("UserStoryName(" + this.userStoryName + ") oder UserStoryAuthor(" + this.userStoryAuthor + ") sind leer: Component")
+      this.userStoryAuthor = null
+      this.userStoryName = null
     }
-    else{
+    else {
       console.log("1")
-      this.userStoryDataService.postUserStoryRestful( this.userStoryName,this.userStoryComplete,this.userStoryAuthor).subscribe(
+      this.userStoryDataService.postUserStoryRestful(this.userStoryName, this.userStoryComplete, this.userStoryAuthor).subscribe(
         //data => this.postMyUserStoriesToServer = JSON.stringify(data),
         data => {
-            this.loadUserStories()
+          this.loadUserStories()
         }
       );
-     this.userStoryAuthor=null
-    this.userStoryName=null
+      this.userStoryAuthor = null
+      this.userStoryName = null
     }
 
   }

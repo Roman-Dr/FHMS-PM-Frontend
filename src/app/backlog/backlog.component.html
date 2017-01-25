@@ -1,5 +1,5 @@
 <section class="app-Backlog">
-  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#formModal">Backlogitem
+  <button type="button" class="btn btn-default" data-toggle="modal" data-target="#formModal">Backlogitem
     hinzufügen
   </button>
   <div id="formModal" class="modal fade" role="dialog">
@@ -69,7 +69,7 @@
             <td>{{backlogitem.description}}</td>
             <td>{{backlogitem.authorDisplayName}}</td>
             <td>{{backlogitem.userStoryDisplayName}}</td>
-            <td> {{backlogitem.creationDate}}</td>
+            <td> {{backlogitem.creationDate | date:'dd.MM.yyyy'}}</td>
             <td>
               <button type="button" class="btn btn-default btn-sm" data-toggle="modal"
                       [attr.data-target]="'#formModal' + backlogitem._id" (click)="getTasks(backlogitem._id)">
