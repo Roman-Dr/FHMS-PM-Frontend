@@ -63,7 +63,7 @@
           <th></th>
           <th></th>
           </thead>
-          <tr *ngFor="let backlogitem of backlogitems">
+          <tr *ngFor="let backlogitem of backlogitems | paginate: { itemsPerPage: 5, currentPage: p }">
             <td>{{backlogitem.title}}</td>
             <td>{{backlogitem.state}}</td>
             <td>{{backlogitem.description}}</td>
@@ -167,6 +167,8 @@
             </td>
           </tr>
         </table>
+        <pagination-controls (pageChange)="p = $event" previousLabel="Zurück" nextLabel="Vor"></pagination-controls>
+
       </ul>
     </section>
   </div>

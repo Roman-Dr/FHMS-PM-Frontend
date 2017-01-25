@@ -32,7 +32,7 @@
     <h2>Userstories</h2>
     <section class="myclass" *ngIf="userstories?.length > 0">
       <ul class="userStory-list">
-        <li *ngFor="let userstory of userstories" [class.completed]="userstory.complete" class="list-group-item">
+        <li *ngFor="let userstory of userstories | paginate: { itemsPerPage: 5, currentPage: p }" [class.completed]="userstory.complete" class="list-group-item">
           <div class="view">
             <table class="table table-hover">
               <thead>
@@ -84,8 +84,11 @@
                 </td>
               </tr>
             </table>
+
+
           </div>
         </li>
+        <pagination-controls (pageChange)="p = $event" previousLabel="Zurück" nextLabel="Vor"></pagination-controls>
       </ul>
     </section>
   </div>
