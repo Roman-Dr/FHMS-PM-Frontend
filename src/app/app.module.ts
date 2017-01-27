@@ -17,7 +17,6 @@ import { RegisterComponent } from './register/register.component';
 import { UserStoryComponent } from './user-story/user-story.component';
 import {platformBrowserDynamic} from "@angular/platform-browser-dynamic";
 import { ProjectComponent } from './project/project.component';
-import { ProjectNavComponent } from './project-nav/project-nav.component';
 import {AuthenticationService} from "./_services/authentication.service";
 import {UserService} from "./_services/user.service";
 import {RouterModule} from "@angular/router";
@@ -41,7 +40,6 @@ import {DragulaModule} from "ng2-dragula";
     RegisterComponent,
     UserStoryComponent,
     ProjectComponent,
-    ProjectNavComponent,
     ChartComponent
   ],
   imports: [

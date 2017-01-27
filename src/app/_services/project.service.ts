@@ -7,6 +7,7 @@ import {Observable} from "rxjs";
 export class ProjectService {
 
   redirectUrl: string;
+  choosenProject: string;
 
 
   private _apiUrl = 'http://10.60.67.20:3000/api/projects/';

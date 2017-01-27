@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot} from '@angular/router';
 import {ProjectService} from "./project.service";
+import {Observable} from "rxjs";
 
 @Injectable()
 export class ProjectGuard implements CanActivate {
@@ -15,7 +16,9 @@ export class ProjectGuard implements CanActivate {
     // Store the attempted URL for redirecting
     this.projectService.redirectUrl = url;
 
+
     this.router.navigate(['/projects']);
     return false;
   }
+
 }

@@ -2,6 +2,7 @@ import {Component, Output, EventEmitter} from '@angular/core';
 import { Router } from '@angular/router';
 import { Headers} from '@angular/http';
 import { AuthenticationService } from '../_services/authentication.service';
+import {AuthGuard} from "../_services/auth-guard.service";
 
 @Component({
   selector: 'login',
@@ -13,7 +14,7 @@ import { AuthenticationService } from '../_services/authentication.service';
 
 export class LoginComponent {
 
-  constructor(private authenticationService: AuthenticationService, private router: Router) {
+  constructor(private authenticationService: AuthenticationService, private router: Router, private authGuard: AuthGuard) {
 
   }
 
@@ -28,4 +29,10 @@ export class LoginComponent {
   }
   })
   }
+
+
+  isLoggedIn(){
+    return this.authGuard.checkLogin("")
+  }
+
 }

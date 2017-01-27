@@ -1,7 +1,7 @@
 <div class="app-root navbar navbar-default">
   <div class="container">
     <div class="navbar-header">
-      <a routerLink="projects" class="navbar-brand">Projektmanagement</a>
+      <a href="javascript:void(0)"  class="navbar-brand">Projektmanagement</a>
       <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -11,28 +11,28 @@
     <div class="navbar-collapse collapse" id="navbar-main">
       <ul class="nav navbar-nav">
 
-          <li>
-            <a routerLink="landing">Home</a>
+          <li *ngIf="isLoggedIn()">
+            <a routerLink="projects">Projekte</a>
           </li>
-          <li>
+          <li *ngIf="isLoggedIn()">
             <a routerLink="user-story">User-Story</a>
           </li>
-          <li>
+          <li *ngIf="isLoggedIn()">
             <a routerLink="backlog">Backlog</a>
           </li>
-          <li>
+          <li *ngIf="isLoggedIn()">
             <a routerLink="sprints">Sprint</a>
           </li>
-          <li>
+          <li *ngIf="isLoggedIn()">
             <a routerLink="board">SCRUM Board</a>
           </li>
-          <li>
+          <li *ngIf="isLoggedIn()">
             <a routerLink="estimation">Estimation Effort</a>
           </li>
-          <li>
+          <li *ngIf="isLoggedIn()">
             <a routerLink="chart">Burndown Chart</a>
           </li>
-          <li>
+          <li *ngIf="isLoggedIn()">
             <a routerLink="roadmap">Roadmap</a>
           </li>
 
@@ -40,12 +40,18 @@
 
       <div class="nav navbar-nav navbar-right">
         <a routerLink="login">
-          <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-log-in"></span></button>
+          <button *ngIf="!isLoggedIn()" type="button" class="btn btn-primary">
+            <span class="glyphicon glyphicon-log-in"></span> Login</button>
         </a>
 
+        <a routerLink="/register">
+        <button *ngIf="!isLoggedIn()" type="button" class="btn btn-primary">
+          <span class="glyphicon glyphicon-user"></span> Registrieren</button>
+      </a>
 
-        <button type="button" class="btn btn-primary" (click)="logout()"><span
-          class="glyphicon glyphicon-log-out"></span></button>
+
+        <button *ngIf="isLoggedIn()" type="button" class="btn btn-primary" (click)="logout()"><span
+          class="glyphicon glyphicon-log-out"></span> Logout</button>
 
       </div>
 
@@ -54,7 +60,6 @@
 </div>
 
 <div class="container">
-  <app-project-nav></app-project-nav>
   <router-outlet></router-outlet>
 </div>
 
