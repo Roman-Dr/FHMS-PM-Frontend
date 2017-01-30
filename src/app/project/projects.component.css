@@ -3,3 +3,8 @@
   width: 200px;
   height: 250px;
 }
+.vertical-center {
+  display: flex;
+  align-items: center;
+  text-align: center;
+}

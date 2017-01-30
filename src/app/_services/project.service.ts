@@ -3,6 +3,8 @@ import {Http, Headers} from "@angular/http";
 import 'rxjs/Rx'
 import {Observable} from "rxjs";
 
+import { AppSettings } from '../app.settings';
+
 @Injectable()
 export class ProjectService {
 
@@ -10,7 +12,7 @@ export class ProjectService {
   choosenProject: string;
 
 
-  private _apiUrl = 'http://10.60.67.20:3000/api/projects/';
+  private _apiUrl =  AppSettings.API_ENDPOINT + 'api/projects/';
   private headers: Headers = new Headers({'Content-Type': 'application/json'});
 
   constructor(private http: Http) { }

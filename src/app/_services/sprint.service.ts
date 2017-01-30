@@ -5,7 +5,6 @@ import {Headers, Http} from "@angular/http";
 export class SprintService {
 
   private _apiUrl = sessionStorage.getItem('project_url')+'/sprints/';
-  // private _apiUrl = 'http://localhost:3000/api/projects/';
 
   private headers = new Headers({ 'Content-Type': 'application/json' });
 

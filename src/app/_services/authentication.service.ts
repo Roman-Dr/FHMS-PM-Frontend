@@ -2,13 +2,15 @@ import { Injectable } from '@angular/core';
 import {Http, Headers} from '@angular/http'
 import 'rxjs/Rx'
 
+import { AppSettings } from '../app.settings';
+
 @Injectable()
 export class AuthenticationService {
 
   redirectUrl: string;
 
   private headers = new Headers({ 'Content-Type': 'application/json' });
-  private _apiUrl = 'http://10.60.67.20:3000/api/user/';
+  private _apiUrl = AppSettings.API_ENDPOINT + 'api/user/';
 
   constructor(private http: Http) {
 

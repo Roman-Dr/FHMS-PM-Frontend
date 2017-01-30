@@ -3,12 +3,12 @@ import {Http, Response, Headers} from '@angular/http'
 import 'rxjs/Rx'
 import {Observable} from "rxjs";
 
-
+import { AppSettings } from '../app.settings';
 @Injectable()
 export class TaskService {
 
 
-  private _apiUrl = 'http://10.60.67.20:3000/api/projects/';
+  private _apiUrl =  AppSettings.API_ENDPOINT + 'api/projects/';
   private backlogitemsUrl = sessionStorage.getItem('project_url')+'/backlogitems';
   private headers: Headers = new Headers({ 'Content-Type': 'application/json' });
   private project_id= sessionStorage.getItem('project_url');

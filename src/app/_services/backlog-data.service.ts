@@ -4,6 +4,7 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import {Observable} from 'rxjs/Rx';
 import 'rxjs/Rx';
 import {map} from "rxjs/operator/map";
+import { AppSettings } from '../app.settings';
 
 @Injectable()
 export class BacklogDataService {
