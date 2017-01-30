@@ -1,104 +1,152 @@
+import {Location} from '@angular/common';
 import {Component, OnInit} from '@angular/core';
-import {Project} from "../_models/project";
-import {ProjectService} from "../_services/project.service";
-import {Router} from "@angular/router";
-import {UserService} from "../_services/user.service";
-import {User} from "../_models/user";
-import {AuthenticationService} from "../_services/authentication.service";
+import {Router, ActivatedRoute, Params} from '@angular/router';
+
+import {UserService, ProjectService} from "../_services/index";
+
+import {User, Project} from "../_models/index";
 
 @Component({
   selector: 'app-project',
-  templateUrl: './project.component.html',
-  styleUrls: ['./project.component.css'],
-  providers: [ProjectService, UserService, AuthenticationService]
+  templateUrl: './project.component.html'
 })
 export class ProjectComponent implements OnInit {
 
-  projects: Project[];
-  user: User;
-  users: User[];
-  errorMessage: string;
-  create = false;
+  displayName: string = "Projekt";
+  errorMessage: string = "";
 
-  constructor(private projectService: ProjectService, private userService: UserService, private router: Router) {
+  isBusy: boolean = false;
+  isNew: boolean = false;
+
+  project: Project = new Project();
+  projectId: string;
+
+    users: User[] = [];
+
+  selectedStakeholder: string;
+  selectedContributor: string;
+
+  constructor(private projectService: ProjectService,
+              private userService: UserService,
+              private router: Router,
+              private activatedRoute: ActivatedRoute,
+              private location: Location) {
   }
 
   ngOnInit() {
-    this.getProjects();
     this.getUsers();
+
+    this.activatedRoute.params.subscribe((params: Params) => {
+      this.projectId = params['projectId'];
+      console.log('Project: ' + this.projectId);
+      if (this.projectId == 'new') {
+        this.isNew = true;
+      } else {
+        this.load(this.projectId);
+      }
+    });
   }
 
-  getProjects() {
-      this.projectService.getProjects()
-        .subscribe(
-          projects => this.projects = projects,
-          error => this.errorMessage = <any> error
-        )
+  parseDate(dateString: string): Date {
+    if (dateString) {
+      return new Date(dateString);
+    } else {
+      return null;
+    }
+  }
+
+  addContributor() {
+    console.log('Add ' + this.selectedContributor);
+
+    var userIndex = this.users.findIndex(x => x.email == this.selectedContributor);
+    if (userIndex > -1) {
+      var user = this.users[userIndex];
+
+      this.project.contributors.push(user);
+    }
+  }
+
+  removeContributor(index: number) {
+    this.project.contributors.splice(index, 1);
+  }
+
+  availableStakeholders() {
+    return this.users.filter(x => this.project.stakeholders.findIndex(y => y.email == x.email) == -1);
+  }
+
+  availableContributors() {
+    return this.users.filter(x => this.project.contributors.findIndex(y => y.email == x.email) == -1);
+  }
+
+  addStakeholder() {
+    console.log('Add ' + this.selectedStakeholder);
+
+    var userIndex = this.users.findIndex(x => x.email == this.selectedStakeholder);
+    if (userIndex > -1) {
+      var user = this.users[userIndex];
+
+      this.project.stakeholders.push(user);
+    }
+  }
+
+  removeStakeholder(index: number) {
+    this.project.stakeholders.splice(index, 1);
   }
 
   getUsers() {
     this.userService.getUsers()
       .subscribe(
-        users => this.users = users,
+        users => {
+          this.users = users;
+        },
         error => this.errorMessage = <any> error
       )
   }
 
-  getUser(userId) {
-    this.userService.getUser(userId)
+  load(id: string) {
+    console.log('Load project with id ' + id);
+    this.projectService.getProject(id)
       .subscribe(
-        user => this.user = user,
-        error => this.errorMessage = <any> error,
-      )
+        project => this.project = project,
+        error => this.errorMessage = <any> error
+      );
   }
 
-  chooseProject(projectId) {
-    this.projectService.chooseProject(projectId).subscribe(() => {
-      if (sessionStorage.getItem('project_id'))  {
-        // Get the redirect URL from our auth service
-        // If no redirect has been set, use the default
-        let redirect = this.projectService.redirectUrl ? this.projectService.redirectUrl : '/landing';
-        // Redirect the user
-        this.router.navigate([redirect]);
-      }
-    })
-  }
+  save() {
+    console.log('Saving...' + JSON.stringify(this.project));
 
-  removeProject(projectId) {
-    this.projectService.removeProject(projectId)
-      .subscribe(
-        success => this.getProjects()
-        );
+    var stakeholders = this.project.stakeholders.map((x: any) => x._id);
+    console.log(JSON.stringify(stakeholders));
+    var contributors = this.project.contributors.map((x: any) => x._id);
+    console.log(JSON.stringify(contributors));
+    var userId = sessionStorage.getItem('user_id');
+    console.log(JSON.stringify(userId));
 
-
-  }
-
-  createProject(displayName: string, description: string, dueDate: string, stakeholders: string[], contributors: string[]) {
-    this.projectService.createProject(displayName, description, dueDate, sessionStorage.getItem('user_id'), stakeholders, contributors)
-      .subscribe(
-        success => {
-          this.getProjects();
-          this.showCreation();
-        });
-  }
-
-
-  updateProject(projectId: string, displayName: string, description: string, dueDate: string, stakeholders: string[], contributors: string[]) {
-    this.projectService.updateProject(projectId, displayName, description, dueDate, sessionStorage.getItem('user_id'), stakeholders, contributors)
-      .subscribe(
-        success => {
-          this.getProjects();
-        });
-  }
-
-  showCreation() {
-    if (this.create) {
-      this.create = false;
+    if (this.isNew) {
+      this.projectService.createProject(this.project.displayName, this.project.description, this.project.dueDate.toDateString(), userId, stakeholders, contributors)
+        .subscribe(
+          success => {
+            this.location.back();
+          });
     }
     else {
-      this.create = true;
+      this.projectService.updateProject(this.projectId, this.project.displayName, this.project.description, this.project.dueDate.toDateString(), userId, stakeholders, contributors)
+        .subscribe(
+          success => {
+            this.location.back();
+          });
     }
   }
 
+  remove() {
+    if (this.isNew) {
+      this.location.back()
+    } else {
+      this.projectService.removeProject(this.projectId).subscribe(success => this.location.back());
+    }
+  }
 
+  cancel() {
+    this.location.back();
+  }
 }

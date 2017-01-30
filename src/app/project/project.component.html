@@ -1,133 +1,187 @@
-<h3>Bitte wählen Sie ein Projekt aus:</h3>
-<div class="row">
+<div class="app-project">
+  <div class="page-header">
+    <div class="btn-group pull-right" style="margin-top: 15px;">
+      <button type="button" class="btn" (click)="cancel()"><i
+        class="glyphicon glyphicon-arrow-left"></i> <span class="hidden-xs">Abbrechen</span></button>
+      <button type="button" [disabled]="!projectForm.form.valid" class="btn btn-success"
+              (click)="projectForm.ngSubmit.emit()"><i class="glyphicon glyphicon-floppy-disk"></i> <span
+        class="hidden-xs">Speichern</span></button>
+      <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteProject"><i
+        class="glyphicon glyphicon-trash"></i> <span
+        class="hidden-xs">Löschen</span></button>
+    </div>
 
-  <div class="jumbotron col-sm-3 project-box" *ngFor="let project of projects">
-    <a href="#edit-project-{{project._id}}" data-toggle="modal"><span class="glyphicon glyphicon-edit"
-                                                                      style="float: right"></span></a>
-    <a routerLink="/landing" (click)="chooseProject(project._id)"><h4>{{project.displayName}}</h4></a>
-    {{project.description}}<br>
-    {{project.dueDate | date:'dd.MM.yyyy'}} <br>
+    <h1><span class="hidden-xs">{{displayName}}</span><span *ngIf="project"><span class="hidden-xs">: </span>{{project.displayName}}</span>
+    </h1>
+  </div>
 
+  <form class="form-horizontal" (ngSubmit)="save()" id="projectForm" #projectForm="ngForm">
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="displayName">Bezeichnung</label>
+      <div class="col-md-4">
+        <input type="text" class="form-control" id="displayName" name="displayName" required minlength="4"
+               [(ngModel)]="project.displayName">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="description">Beschreibung</label>
+      <div class="col-md-4">
+        <textarea class="form-control" id="description" name="description" [(ngModel)]="project.description">
 
-    <div class="modal fade" id="edit-project-{{project._id}}" tabindex="-1" role="dialog" aria-labelledby="edit-project"
-         aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h3 class="modal-title" id="edit-project">Projekt editieren</h3>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div class="form-group">
-              <label for="display-name-edit">Anzeigename</label>
-              <input type="text" #displayName class="form-control" id="display-name-edit"
-                     value="{{project.displayName}}">
-            </div>
-            <div class="form-group">
-              <label for="description-edit">Beschreibung</label>
-              <textarea #description class="form-control" id="description-edit"
-                        value="{{project.description}}"></textarea>
-            </div>
-            <div class="form-group">
-              <label for="due-date-edit">Fälligkeitsdatum</label>
-              <input type="date" #dueDate class="form-control" id="due-date-edit">
-            </div>
-            <div class="form-group">
-              <label for="stakeholders-edit">Stakeholders</label>
-              <select multiple #stakeholders id="stakeholders-edit" class="form-control">
-                <option *ngFor="let user of users" value="{{ user._id }}">{{ user.email }}</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="contributors-edit">Contributors</label>
-              <select multiple #contributors id="contributors-edit" class="form-control">
-                <option *ngFor="let user of users" value="{{ user._id }}">{{ user.email }}</option>
-              </select>
-            </div>
-            <button type="button" class="btn btn-default"
-                    (click)="updateProject(project._id, displayName.value, description.value, dueDate.value, stakeholders.value, contributors.value)"
-                    data-dismiss="modal">Speichern
-            </button>
-
-            <p>Möchten Sie dieses Projekt entfernen?</p>
-            <a href="#delete-project-{{project._id}}" data-toggle="modal">
-              <button type="button" class="btn btn-primary" data-dismiss="modal">
-                Projekt entfernen
-              </button>
-            </a>
-
-          </div>
-        </div>
+        </textarea>
       </div>
     </div>
 
-    <div class="modal fade" id="delete-project-{{project._id}}" tabindex="-1" role="dialog"
-         aria-labelledby="delete-project" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title" id="delete-project">Projekt endgültig löschen</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <p style="color: red;">Sind Sie ganz sicher? Diese Aktion löscht alle angehängten Dokumente (User Stories,
-              Backlog Items, ...). Diese Aktion ist unwiederruflich.</p>
-            <button (click)="removeProject(project._id)" type="button" data-dismiss="modal"
-                    class="btn btn-default btn-sm">
-              Ja, bitte löschen
-            </button>
-
-          </div>
-        </div>
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="dueDate">Fälligkeitsdatum</label>
+      <div class="col-md-4">
+        <input type="date" class="form-control" id="dueDate" name="dueDate" [value]="project.dueDate | date:'yyyy-MM-dd'" (input)="project.dueDate=parseDate($event.target.value)">
       </div>
     </div>
 
+    <ul class="nav nav-tabs col-md-6 col-md-offset-2">
+      <li class="active"><a data-toggle="tab" href="#stakeholdersTab">Stakeholders</a></li>
+      <li><a data-toggle="tab" href="#contributorsTab">Contributors</a></li>
+    </ul>
 
+    <div class="tab-content col-md-6 col-md-offset-2">
+      <div id="stakeholdersTab" class="tab-pane fade in active" style="padding-top: 5px;">
+        <div class="table-responsive">
+          <table class="table table-condensed table-hover">
+            <thead>
+            <tr>
+              <th>Vorname</th>
+              <th>Nachname</th>
+              <th>E-Mail Adresse</th>
+              <th>
+                <div class="btn-group pull-right" style="margin-top: 5px;">
+                  <button type="button" class="btn btn-xs" data-toggle="modal" data-target="#addStakeholder"><i
+                    class="glyphicon glyphicon-plus"></i> <span class="hidden-xs">Neu</span></button>
+                </div>
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of project.stakeholders; let i = index">
+              <td>{{item.firstname}}</td>
+              <td>{{item.lastname}}</td>
+              <td>{{item.email}}</td>
+              <td>
+                <button type="button" class="btn btn-xs pull-right" (click)="removeStakeholder(i)"><i
+                  class="glyphicon glyphicon-trash"></i></button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="contributorsTab" class="tab-pane fade in" style="padding-top: 5px;">
+        <div class="table-responsive">
+          <table class="table table-condensed table-hover">
+            <thead>
+            <tr>
+              <th>Vorname</th>
+              <th>Nachname</th>
+              <th>E-Mail Adresse</th>
+              <th>
+                <div class="btn-group pull-right" style="margin-top: 5px;">
+                  <button type="button" class="btn btn-xs" data-toggle="modal" data-target="#addContributor"><i
+                    class="glyphicon glyphicon-plus"></i> <span class="hidden-xs">Neu</span></button>
+                </div>
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of project.contributors; let i = index">
+              <td>{{item.firstname}}</td>
+              <td>{{item.lastname}}</td>
+              <td>{{item.email}}</td>
+              <td>
+                <button type="button" class="btn btn-xs pull-right" (click)="removeContributor(i)"><i
+                  class="glyphicon glyphicon-trash"></i></button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <div class="modal fade" id="addStakeholder" tabindex="-1" role="dialog"
+       aria-labelledby="add-stakeholder" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Neuer Stakeholder</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <select class="form-control" id="userSelection" [(ngModel)]="selectedStakeholder">
+            <option *ngFor="let user of availableStakeholders()" value="{{user.email}}">
+              {{((user.firstname && user.lastname) ? user.firstname + " " + user.lastname + " (" + user.email + ")":
+              user.email)}}
+            </option>
+          </select>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="addStakeholder()"><i
+            class="glyphicon glyphicon-plus"> hinzufügen</i></button>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
-<div class="row">
-
-  <p>
-    <button (click)="showCreation()" type="submit" class="btn btn-default">Neues Projekt?</button>
-  </p>
-
-  <div *ngIf="create">
-    <div class="jumbotron center-block col-sm-8">
-      <form role="form"
-            (submit)="createProject(displayName.value, description.value, dueDate.value, stakeholders.value, contributors.value)">
-        <div class="form-group">
-          <label for="display-name">Anzeigename</label>
-          <input type="text" #displayName class="form-control" id="display-name">
+  <div class="modal fade" id="addContributor" tabindex="-1" role="dialog"
+       aria-labelledby="add-contributor" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="delete-contributor">Neuer Contributor</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-        <div class="form-group">
-          <label for="description">Beschreibung</label>
-          <textarea #description class="form-control" id="description"></textarea>
-        </div>
-        <div class="form-group">
-          <label for="due-date">Fälligkeitsdatum</label>
-          <input type="date" #dueDate class="form-control" id="due-date">
-        </div>
-        <div class="form-group">
-          <label for="stakeholders">Stakeholders</label>
-          <select multiple #stakeholders id="stakeholders" class="form-control">
-            <option *ngFor="let user of users" value="{{ user._id }}">{{ user.email }}</option>
+        <div class="modal-body">
+          <select class="form-control" [(ngModel)]="selectedContributor">
+            <option *ngFor="let user of availableContributors()" value="{{user.email}}">
+              {{((user.firstname && user.lastname) ? user.firstname + " " + user.lastname + " (" + user.email + ")":
+              user.email)}}
+            </option>
           </select>
         </div>
-        <div class="form-group">
-          <label for="contributors">Contributors</label>
-          <select multiple #contributors id="contributors" class="form-control">
-            <option *ngFor="let user of users" value="{{ user._id }}">{{ user.email }}</option>
-          </select>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="addContributor()"><i
+            class="glyphicon glyphicon-plus"> hinzufügen</i></button>
         </div>
-        <button class="btn btn-default">Submit</button>
-      </form>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="deleteProject" tabindex="-1" role="dialog"
+       aria-labelledby="delete-project" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="delete-project">Projekt endgültig löschen</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p style="color: red;">Sind Sie ganz sicher? Diese Aktion löscht alle angehängten Dokumente (User Stories,
+            Backlog Items, ...). Diese Aktion ist unwiederruflich.</p>
+          <button (click)="remove()" type="button" data-dismiss="modal"
+                  class="btn btn-default btn-sm">
+            Ja, bitte löschen
+          </button>
+
+        </div>
+      </div>
     </div>
   </div>
 </div>
-
-
 

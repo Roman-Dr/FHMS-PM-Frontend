@@ -1,0 +1,77 @@
+<h3>Bitte wählen Sie ein Projekt aus:</h3>
+<div class="row">
+
+  <div class="jumbotron col-sm-3 project-box" *ngFor="let project of projects">
+    <a routerLink="{{project._id}}" ><span class="glyphicon glyphicon-edit" style="float: right"></span></a>
+
+    <a routerLink="/landing" (click)="chooseProject(project._id)"><h4>{{project.displayName}}</h4></a>
+    {{project.description}}<br>
+    {{project.dueDate | date:'dd.MM.yyyy'}} <br>
+
+
+    <div class="modal fade" id="edit-project-{{project._id}}" tabindex="-1" role="dialog" aria-labelledby="edit-project"
+         aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title" id="edit-project">Projekt editieren</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="display-name-edit">Anzeigename</label>
+              <input type="text" #displayName class="form-control" id="display-name-edit"
+                     value="{{project.displayName}}">
+            </div>
+            <div class="form-group">
+              <label for="description-edit">Beschreibung</label>
+              <textarea #description class="form-control" id="description-edit"
+                        value="{{project.description}}"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="due-date-edit">Fälligkeitsdatum</label>
+              <input type="date" #dueDate class="form-control" id="due-date-edit">
+            </div>
+            <div class="form-group">
+              <label for="stakeholders-edit">Stakeholders</label>
+              <select multiple #stakeholders id="stakeholders-edit" class="form-control">
+                <option *ngFor="let user of users" value="{{ user._id }}">{{ user.email }}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="contributors-edit">Contributors</label>
+              <select multiple #contributors id="contributors-edit" class="form-control">
+                <option *ngFor="let user of users" value="{{ user._id }}">{{ user.email }}</option>
+              </select>
+            </div>
+            <button type="button" class="btn btn-default"
+                    (click)="updateProject(project._id, displayName.value, description.value, dueDate.value, stakeholders.value, contributors.value)"
+                    data-dismiss="modal">Speichern
+            </button>
+
+            <p>Möchten Sie dieses Projekt entfernen?</p>
+            <a href="#delete-project-{{project._id}}" data-toggle="modal">
+              <button type="button" class="btn btn-primary" data-dismiss="modal">
+                Projekt entfernen
+              </button>
+            </a>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+<div class="row">
+
+  <p style="margin-left: 20px;">
+    <button routerLink="new" type="button" class="btn btn-primary">Neues Projekt?</button>
+  </p>
+</div>
+
+
+

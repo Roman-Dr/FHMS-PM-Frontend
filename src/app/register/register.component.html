@@ -1,5 +1,7 @@
-<div class="jumbotron center-block col-sm-6">
-  <h1>Register</h1>
+<div class="col-sm-offset-3 col-sm-5">
+  <div class="page-header">
+    <h1>Registrierung</h1>
+  </div>
   <form role="form" (submit)="onSubmit(email.value, password.value, firstname.value, lastname.value, birthdate.value)">
     <div class="form-group">
       <input type="text" #email class="form-control" id="email" placeholder="E-Mail">
@@ -16,6 +18,6 @@
     <div class="form-group">
       <input type="date" #birthdate class="form-control" id="birthdate" placeholder="Geburtstag">
     </div>
-    <button type="submit" class="btn btn-default">Submit</button>
+    <button type="submit" class="btn btn-primary pull-right">Registrieren</button>
   </form>
 </div>

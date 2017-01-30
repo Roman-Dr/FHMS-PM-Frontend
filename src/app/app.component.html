@@ -1,60 +1,52 @@
-<div class="app-root navbar navbar-default">
-  <div class="container">
+<div class="app-root navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+
     <div class="navbar-header">
-      <a href="javascript:void(0)"  class="navbar-brand">Projektmanagement</a>
-      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-main"
+              aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
+
+      <a routerLink="projects" class="navbar-brand">Projektmanagement</a>
     </div>
+
     <div class="navbar-collapse collapse" id="navbar-main">
       <ul class="nav navbar-nav">
 
-          <li *ngIf="isLoggedIn()">
-            <a routerLink="projects">Projekte</a>
-          </li>
-          <li *ngIf="isLoggedIn()">
-            <a routerLink="user-story">User-Story</a>
-          </li>
-          <li *ngIf="isLoggedIn()">
-            <a routerLink="backlog">Backlog</a>
-          </li>
-          <li *ngIf="isLoggedIn()">
-            <a routerLink="sprints">Sprint</a>
-          </li>
-          <li *ngIf="isLoggedIn()">
-            <a routerLink="board">SCRUM Board</a>
-          </li>
-          <li *ngIf="isLoggedIn()">
-            <a routerLink="estimation">Estimation Effort</a>
-          </li>
-          <li *ngIf="isLoggedIn()">
-            <a routerLink="chart">Burndown Chart</a>
-          </li>
-          <li *ngIf="isLoggedIn()">
-            <a routerLink="roadmap">Roadmap</a>
-          </li>
-
+        <li *ngIf="isLoggedIn()">
+          <a routerLink="projects">Projekte</a>
+        </li>
+        <li *ngIf="isLoggedIn()">
+          <a routerLink="user-story">User-Story</a>
+        </li>
+        <li *ngIf="isLoggedIn()">
+          <a routerLink="backlog">Backlog</a>
+        </li>
+        <li *ngIf="isLoggedIn()">
+          <a routerLink="sprints">Sprints</a>
+        </li>
+        <li *ngIf="isLoggedIn()">
+          <a routerLink="roadmap">Roadmap</a>
+        </li>
+        <li *ngIf="isLoggedIn()" class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Boards<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li *ngIf="isLoggedIn()"><a routerLink="board">SCRUM Board</a></li>
+            <li *ngIf="isLoggedIn()"><a routerLink="estimation">Estimation Effort</a></li>
+            <li *ngIf="isLoggedIn()"><a routerLink="chart">Burndown Chart</a></li>
+          </ul>
+        </li>
       </ul>
 
       <div class="nav navbar-nav navbar-right">
-        <a routerLink="login">
-          <button *ngIf="!isLoggedIn()" type="button" class="btn btn-primary">
-            <span class="glyphicon glyphicon-log-in"></span> Login</button>
-        </a>
+        <li *ngIf="!isLoggedIn()"><a routerLink="/register"><span class="glyphicon glyphicon-user"></span> Registrieren</a></li>
+        <li *ngIf="!isLoggedIn()"><a routerLink="login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
 
-        <a routerLink="/register">
-        <button *ngIf="!isLoggedIn()" type="button" class="btn btn-primary">
-          <span class="glyphicon glyphicon-user"></span> Registrieren</button>
-      </a>
-
-
-        <button *ngIf="isLoggedIn()" type="button" class="btn btn-primary" (click)="logout()"><span
-          class="glyphicon glyphicon-log-out"></span> Logout</button>
-
+        <li *ngIf="isLoggedIn()"><a href="javascript: void(0);" (click)="logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
       </div>
-
     </div>
   </div>
 </div>
