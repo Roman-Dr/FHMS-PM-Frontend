@@ -2,12 +2,9 @@
   <div class="col-sm-3">
     <div class="panel panel-primary">
       <div class="panel-heading">New</div>
-      <div class="panel-body">
-        <div class="panel panel-default">
-          <div class="panel-body" [dragula]='"first-bag"'>
-            <button class="btn btn-primary btn-block" *ngFor="let backlogitem of backlogitems">{{backlogitem.title}}</button>
-          </div>
-        </div>
+      <div class="panel-body new-bag" [dragula]='"bag"' [dragulaModel]='newItems'>
+        <button class="btn btn-primary btn-block" *ngFor="let item of newItems">{{item.title}}
+        </button>
       </div>
     </div>
   </div>
@@ -15,12 +12,9 @@
   <div class="col-sm-3">
     <div class="panel panel-primary">
       <div class="panel-heading">Approved</div>
-      <div class="panel-body">
-        <div class="panel panel-default">
-          <div class="panel-body" [dragula]='"first-bag"'>
-
-          </div>
-        </div>
+      <div class="panel-body approved-bag" [dragula]='"bag"' [dragulaModel]='approvedItems'>
+        <button class="btn btn-primary btn-block" *ngFor="let item of approvedItems">{{item.title}}
+        </button>
       </div>
     </div>
   </div>
@@ -28,12 +22,9 @@
   <div class="col-sm-3">
     <div class="panel panel-primary">
       <div class="panel-heading">Committed</div>
-      <div class="panel-body">
-        <div class="panel panel-default">
-          <div class="panel-body" [dragula]='"first-bag"'>
-
-          </div>
-        </div>
+      <div class="panel-body committed-bag" [dragula]='"bag"' [dragulaModel]='committedItems'>
+        <button class="btn btn-primary btn-block" *ngFor="let item of committedItems">{{item.title}}
+        </button>
       </div>
     </div>
   </div>
@@ -41,14 +32,10 @@
   <div class="col-sm-3">
     <div class="panel panel-primary">
       <div class="panel-heading">Done</div>
-      <div class="panel-body">
-        <div class="panel panel-default">
-          <div class="panel-body" [dragula]='"first-bag"'>
-
-          </div>
-        </div>
+      <div class="panel-body done-bag" [dragula]='"bag"' [dragulaModel]='doneItems'>
+        <button class="btn btn-primary btn-block" *ngFor="let item of doneItems">{{item.title}}
+        </button>
       </div>
     </div>
   </div>
-
 </div>

@@ -12,6 +12,7 @@ export class BacklogDataService {
   constructor(private http:Http) { }
 
   private backlogitemsUrl = sessionStorage.getItem('project_url')+'/backlogitems';
+  private backlogitemUrl = sessionStorage.getItem('project_url')+'/backlogitem/';
 
   private headers: Headers = new Headers({ 'Content-Type': 'application/json' });
 
@@ -63,6 +64,11 @@ export class BacklogDataService {
 
   getBacklogitems() {
     return this.http.get(this.backlogitemsUrl)
+      .map(res => res.json())
+  }
+
+  getBacklogitemsByState(state: string) {
+    return this.http.get(this.backlogitemUrl+state)
       .map(res => res.json())
   }
 
