@@ -1,15 +1,23 @@
 import {Location} from '@angular/common';
 import {Component, OnInit} from '@angular/core';
-import {Router, ActivatedRoute, Params} from '@angular/router';
+import {ActivatedRoute, Params} from '@angular/router';
 
 import {Backlog, User, Task, UserStory, Sprint} from '../_models/index';
-import {ProjectService, TaskService,BacklogDataService,UserService,UserStoryDataService, SprintService} from '../_services/index';
+import {
+  ProjectService,
+  TaskService,
+  BacklogDataService,
+  UserService,
+  UserStoryDataService,
+  SprintService
+} from '../_services/index';
 
 
 @Component({
   selector: 'app-backlogItem',
   templateUrl: './backlogItem.component.html',
-  styleUrls: ['./backlogItem.component.css']
+  styleUrls: ['./backlogItem.component.css'],
+  providers: [BacklogDataService, TaskService, UserService, UserStoryDataService, SprintService]
 })
 export class BacklogItemComponent implements OnInit {
 
@@ -25,8 +33,8 @@ export class BacklogItemComponent implements OnInit {
   newTask: Task = null;
 
   contributors: User[] = [];
-  sprints: Sprint[]= [];
-  userStories: UserStory[]= [];
+  sprints: Sprint[] = [];
+  userStories: UserStory[] = [];
 
   isNew: boolean = false;
   isBusy: boolean = false;
@@ -37,11 +45,9 @@ export class BacklogItemComponent implements OnInit {
               private sprintService: SprintService,
               private userService: UserService,
               private userStoryDataService: UserStoryDataService,
-              private router: Router,
               private activatedRoute: ActivatedRoute,
               private location: Location) {
   }
-
 
 
   ngOnInit() {
@@ -64,10 +70,11 @@ export class BacklogItemComponent implements OnInit {
     this.activatedRoute.params.subscribe((params: Params) => {
       this.backlogItemId = params['backlogItemId'];
       console.log('BacklogItemId: ' + this.backlogItemId);
-      if (this.backlogItemId == 'new') {
+      if (this.backlogItemId == 'newBug' || this.backlogItemId == 'newBacklogItem') {
         this.isNew = true;
-        this.backlogItem = new Backlog();
 
+        this.backlogItem = new Backlog();
+        this.backlogItem.itemType = (this.backlogItemId == 'newBug' ? 'Bug' : 'BacklogItem');
         this.backlogItem.authorId = this.userId;
         this.projectId = this.projectId;
 
@@ -85,11 +92,13 @@ export class BacklogItemComponent implements OnInit {
         error => this.errorMessage = <any> error
       );
   }
+
   cancel() {
     this.location.back();
   }
+
   save() {
-    if(this.isNew) {
+    if (this.isNew) {
       this.backlogDataService.addBacklogItem(this.backlogItem)
         .subscribe(
           res => this.location.back(),
@@ -101,14 +110,15 @@ export class BacklogItemComponent implements OnInit {
           err => this.errorMessage = err);
     }
   }
+
   remove() {
-    if(!this.isNew) {
+    if (!this.isNew) {
       this.backlogDataService.deleteBacklogitem(this.backlogItemId).subscribe(
         data => {
           this.location.back();
         }
       );
-    }else {
+    } else {
       this.location.back();
     }
   }
@@ -116,9 +126,10 @@ export class BacklogItemComponent implements OnInit {
   create() {
     this.newTask = new Task();
   }
+
   addOrUpdateTask() {
-    if(this.newTask._id) {
-      if(!this.isNew) {
+    if (this.newTask._id) {
+      if (!this.isNew) {
         console.log('Update Task: ' + JSON.stringify(this.newTask));
         this.taskService.updateTask(this.backlogItemId, this.newTask)
           .subscribe(task => {
@@ -138,14 +149,17 @@ export class BacklogItemComponent implements OnInit {
         });
     }
   }
+
   discardTask() {
     this.newTask = null;
   }
+
   editTask(i: number) {
     this.newTask = this.backlogItem.tasks[i];
   }
+
   removeTask(i: number) {
-    var task= this.backlogItem.tasks[i];
+    var task = this.backlogItem.tasks[i];
     console.log('Remove Task: ' + JSON.stringify(task));
 
     this.taskService.deleteTask(this.backlogItemId, task._id)

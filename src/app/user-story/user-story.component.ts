@@ -14,7 +14,9 @@ import {UserService} from "../_services/user.service";
 
 export class UserStoryComponent {
 
-  users: User;
+  users: User[] = [];
+  userstories: UserStory[];
+
   userStoryName: string;
   userStoryComplete: string = "false";
   userStoryAuthor: string;
@@ -24,9 +26,6 @@ export class UserStoryComponent {
   constructor(private userStoryDataService: UserStoryDataService, private userService: UserService) {
 
   }
-
-
-  userstories: UserStory[];
 
 
   toggleUserstory(userstoryObject, userstorystate) {

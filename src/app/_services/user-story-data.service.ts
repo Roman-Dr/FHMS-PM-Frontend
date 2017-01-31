@@ -82,7 +82,18 @@ export class UserStoryDataService {
 
   getUserStories() {
     return this.http.get(AppSettings.getProjectUrl() + '/userstories/')
-      .map(res => res.json())
+      .map((responseData) => {
+        return responseData.json();
+      })
+      .map((userStories: Array<any>) => {
+        let result: Array<UserStory> = [];
+        if (userStories) {
+          userStories.forEach((x) => {
+            result.push(new UserStory(x));
+          });
+        }
+        return result;
+      });
   }
 
   private extractData(res: Response) {

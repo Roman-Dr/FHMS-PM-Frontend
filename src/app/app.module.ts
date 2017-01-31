@@ -67,11 +67,6 @@ import {AuthenticationService, UserService ,ProjectService, BacklogDataService, 
     AuthenticationService,
     UserService,
     ProjectService,
-    BacklogDataService,
-    SprintService,
-    TaskService,
-    UserStoryDataService,
-
     AuthGuard,
     ProjectGuard
   ],

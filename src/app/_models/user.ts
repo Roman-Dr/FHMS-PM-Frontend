@@ -1,4 +1,9 @@
 export class User {
+
+  constructor(values: Object = {}) {
+    Object.assign(this, values);
+  }
+
   public _id: string;
   public email: string;
   public password: string;

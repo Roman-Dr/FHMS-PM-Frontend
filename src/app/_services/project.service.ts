@@ -1,12 +1,15 @@
-import {Injectable} from '@angular/core';
+import {Injectable, Output, EventEmitter} from '@angular/core';
 import {Http, Headers} from "@angular/http";
 import 'rxjs/Rx'
 import {Observable} from "rxjs";
 
 import { AppSettings } from '../app.settings';
+import { Project } from '../_models/index';
 
 @Injectable()
 export class ProjectService {
+
+  @Output() projectChosen = new EventEmitter();
 
   redirectUrl: string;
   choosenProject: string;
@@ -20,12 +23,28 @@ export class ProjectService {
 
   getProjects() {
     return this.http.get(this._apiUrl, {withCredentials: true})
-      .map(res => res.json());
+      .map( (responseData) => {
+        return responseData.json();
+      })
+      .map((projects: Array<any>) => {
+        let result:Array<Project> = [];
+        if (projects) {
+          projects.forEach((x) => {
+            result.push(new Project(x));
+          });
+        }
+        return result;
+      });
   }
 
   getProject(projectId) {
     return this.http.get(this._apiUrl + projectId, {withCredentials: true})
-      .map(res => res.json());
+      .map( (responseData) => {
+        return responseData.json();
+      })
+      .map((project: Array<any>) => {
+        return new Project(project);
+      });
   }
   getContributorsByProjectId(projectId) {
     return this.http.get(this._apiUrl + projectId + '/contributors', {withCredentials: true})
@@ -39,6 +58,10 @@ export class ProjectService {
   chooseProject(projectId) {
     sessionStorage.setItem('project_id', projectId);
     sessionStorage.setItem('project_url', this._apiUrl + projectId);
+
+    this.getProject(projectId)
+      .subscribe(project => this.projectChosen.emit(project));
+
     return Observable.of(true);
   }
 

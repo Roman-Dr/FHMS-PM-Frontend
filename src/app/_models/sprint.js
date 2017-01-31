@@ -1,6 +1,8 @@
 "use strict";
 var Sprint = (function () {
-    function Sprint() {
+    function Sprint(values) {
+        if (values === void 0) { values = {}; }
+        Object.assign(this, values);
     }
     return Sprint;
 }());

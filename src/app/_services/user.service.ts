@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Http} from '@angular/http'
 import 'rxjs/Rx'
 import { AppSettings } from '../app.settings';
+import { User } from '../_models/index';
 
 @Injectable()
 export class UserService {
@@ -14,12 +15,28 @@ export class UserService {
 
   getUsers() {
     return this.http.get(this._apiUrl)
-      .map(res => res.json())
+      .map((responseData) => {
+        return responseData.json();
+      })
+      .map((users: Array<any>) => {
+        let result: Array<User> = [];
+        if (users) {
+          users.forEach((x) => {
+            result.push(new User(x));
+          });
+        }
+        return result;
+      });
   }
 
   getUser(userId) {
     return this.http.get(this._apiUrl+userId)
-      .map(res => res.json())
+      .map((responseData) => {
+        return responseData.json();
+      })
+      .map((user: any) => {
+        return new User(user);
+      });
   }
 }
 
