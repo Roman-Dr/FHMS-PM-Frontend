@@ -27,12 +27,12 @@ export class LoginComponent {
       // Redirect the user
       this.router.navigate([redirect]);
   }
-  })
+  });
   }
 
 
   isLoggedIn(){
-    return this.authGuard.checkLogin("")
+    return this.authGuard.checkLogin("");
   }
 
 }

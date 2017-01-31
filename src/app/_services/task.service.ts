@@ -4,15 +4,15 @@ import 'rxjs/Rx'
 import {Observable} from "rxjs";
 
 import { AppSettings } from '../app.settings';
+
+import { Task } from '../_models/index';
+
 @Injectable()
 export class TaskService {
 
-
-  private _apiUrl =  AppSettings.API_ENDPOINT + 'api/projects/';
   private backlogitemsUrl = sessionStorage.getItem('project_url')+'/backlogitems';
   private headers: Headers = new Headers({ 'Content-Type': 'application/json' });
   private project_id= sessionStorage.getItem('project_url');
-  // private _apiUrl = 'http://localhost:3000/api/user/';
 
   constructor(private http: Http) {
   }
@@ -28,6 +28,15 @@ export class TaskService {
       .catch(this.handleErrorDelete);
   }
 
+  addTask(backlogitem_id:string, task: Task) {
+    return this.http.post(this.project_id+"/backlogitems/"+backlogitem_id+"/tasks", task)
+      .map(this.extractData);
+  }
+  updateTask(backlogitem_id:string, task: Task) {
+    return this.http.put(this.project_id+"/backlogitems/"+backlogitem_id+"/tasks/" + task._id, task)
+      .map(this.extractData);
+  }
+
   private extractData(res: Response) {
     let body = res.json();
     return body.data || { };
@@ -37,13 +46,6 @@ export class TaskService {
     console.error(error);
     return Observable.throw(error.json().error || 'Server error');
   }
-
-
-  /* deleteBacklogitemTask(task_id, backlogitem_id){
-     return this.http.delete(this.backlogitemsUrl+"/"+backlogitem_id+"/tasks/"+task_id,{headers: this.headers})
-       .map(this.extractData)
-       .catch(this.handleErrorDelete);
-   }*/
 }
 
 

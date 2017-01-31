@@ -66,6 +66,10 @@ export class BacklogDataService {
     return this.http.get(this.backlogitemsUrl)
       .map(res => res.json())
   }
+  getBacklogitem(backlogItemId: string) {
+    return this.http.get(this.backlogitemsUrl + '/' + backlogItemId)
+      .map(res => res.json());
+  }
 
   private extractData(res: Response) {
     let body = res.json();

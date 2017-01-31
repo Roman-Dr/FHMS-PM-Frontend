@@ -1,0 +1,176 @@
+<section class="app-backlogItem">
+  <div class="page-header">
+    <div class="btn-group pull-right" style="margin-top: 15px;">
+      <button type="button" class="btn" (click)="cancel()"><i
+        class="glyphicon glyphicon-arrow-left"></i> <span class="hidden-xs">Abbrechen</span></button>
+      <button type="button" [disabled]="!backlogItemForm.form.valid" class="btn btn-success"
+              (click)="backlogItemForm.ngSubmit.emit()"><i class="glyphicon glyphicon-floppy-disk"></i> <span
+        class="hidden-xs">Speichern</span></button>
+      <button type="button" class="btn btn-danger" data-toggle="modal"><i
+        class="glyphicon glyphicon-trash"></i> <span
+        class="hidden-xs">Löschen</span></button>
+    </div>
+
+    <h1><span class="hidden-xs">{{displayName}}</span><span *ngIf="project"><span class="hidden-xs">: </span>{{backlogItem.title}}</span>
+    </h1>
+  </div>
+
+  <form class="form-horizontal" (ngSubmit)="save()" id="backlogItemForm" #backlogItemForm="ngForm">
+    <fieldset *ngIf="backlogItem">
+    <!-- Bezeichnung -->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="displayName">Bezeichnung</label>
+      <div class="col-md-4">
+        <input type="text" class="form-control" id="displayName" name="displayName" required minlength="4"
+               [(ngModel)]="backlogItem.title">
+      </div>
+    </div>
+
+      <!-- Status -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="state">Status</label>
+        <div class="col-md-4">
+          <select class="form-control" id="state" name="state" [(ngModel)]="backlogItem.state">
+            <option value="New">Neu</option>
+            <option value="Approved">Genehmigt</option>
+            <option value="Committed">Committed</option>
+            <option value="Done">Abgeschlossen</option>
+            <option value="Removed">Entfernt</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Status -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="state">Priorität</label>
+        <div class="col-md-4">
+          <select class="form-control" name="priority" [(ngModel)]="backlogItem.priority">
+            <option value="Low">Niedrig</option>
+            <option value="Normal">Normal</option>
+            <option value="High">Hoch</option>
+          </select>
+        </div>
+      </div>
+
+    <!-- Zuteilung -->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="state">Zugeteilt zu</label>
+      <div class="col-md-4">
+        <select class="form-control" id="assignedTo" name="assignedTo" [(ngModel)]="backlogItem.assignedToId">
+          <option *ngFor="let item of contributors" value="{{item._id}}">{{item.firstname + " " + item.lastname}}</option>
+        </select>
+      </div>
+    </div>
+
+      <!-- Aufwand -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="effort">Aufwand</label>
+        <div class="col-md-4">
+          <input type="number" class="form-control" id="effort" name="effort" required minlength="4"
+                 [(ngModel)]="backlogItem.effort">
+        </div>
+      </div>
+
+      <!-- Sprint -->
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="sprintId">Sprint</label>
+        <div class="col-md-4">
+          <select class="form-control" id="sprintId" name="sprintId" [(ngModel)]="backlogItem.sprintId">
+            <option *ngFor="let item of sprints" value="{{item._id}}">{{item.sprintName + " " + item.startDate + "-" + item.endDate}}</option>
+          </select>
+        </div>
+      </div>
+
+    <!-- Beschreibung -->
+    <div class="form-group">
+      <label class="col-md-4 control-label" for="description">Beschreibung</label>
+      <div class="col-md-4">
+        <textarea class="form-control" id="description" name="description" [(ngModel)]="backlogItem.description">
+
+        </textarea>
+      </div>
+    </div>
+
+
+    <ul class="nav nav-tabs col-md-10 col-md-offset-1">
+      <li class="active"><a data-toggle="tab" href="#tabTasks">Aufgaben</a></li>
+    </ul>
+
+    <div class="tab-content col-xs-12 col-md-10 col-md-offset-1">
+      <div id="tabTasks" class="tab-pane fade in active" style="padding-top: 5px;">
+        <div class="table-responsive">
+          <table class="table table-condensed table-hover">
+            <thead>
+              <tr>
+                <th class="col-xs-3">Bezeichnung</th>
+                <th class="col-xs-2">Zugeteilt zu</th>
+                <th class="col-xs-2">Status</th>
+                <th class="col-xs-2">Priorität</th>
+                <th class="col-xs-1">Aufwand</th>
+                <th class="col-xs-1">Verbleibend</th>
+                <th class="col-xs-1">
+                  <div class="btn-group pull-right" style="margin-top: 5px;">
+                    <button type="button" class="btn btn-xs" data-toggle="modal" data-target="#addTask"><i
+                      class="glyphicon glyphicon-plus"></i> <span class="hidden-xs">Neu</span></button>
+                  </div>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of backlogItem.tasks; let i = index">
+                <td class="col-xs-3">{{item.title}}</td>
+                <td class="col-xs-2">{{item.assignedToDisplayName}}</td>
+                <td class="col-xs-2">{{item.state}}</td>
+                <td class="col-xs-2">{{item.priority}}</td>
+                <td class="col-xs-1">{{item.effort}}</td>
+                <td class="col-xs-1">{{item.remainingWork}}</td>
+                <td class="col-xs-1">
+                  <button type="button" class="btn btn-xs pull-right" (click)="removeTask(i)"><i
+                    class="glyphicon glyphicon-trash"></i></button>
+                </td>
+              </tr>
+              <tr>
+                <td class="col-xs-3">
+                  <input class="form-control" type="text" name="newTaskTitle" [(ngModel)]="newTask.title">
+                </td>
+                <td class="col-xs-2">
+                  <select class="form-control" name="newTaskAssignedToId" [(ngModel)]="newTask.assignedToId">
+                    <option *ngFor="let item of contributors" value="{{item._id}}">{{item.firstname + " " + item.lastname}}</option>
+                  </select>
+                </td>
+                <td class="col-xs-2">
+                  <select class="form-control" name="newTaskState" [(ngModel)]="newTask.state">
+                    <option value="New">Neu</option>
+                    <option value="To Do">Todo</option>
+                    <option value="In Progress">In Bearbeitung</option>
+                    <option value="Done">Abgeschlossen</option>
+                    <option value="Removed">Entfernt</option>
+                  </select>
+                </td>
+                <td class="col-xs-2">
+                  <select class="form-control" name="newTaskPriority" [(ngModel)]="newTask.priority">
+                    <option value="Low">Niedrig</option>
+                    <option value="Normal">Normal</option>
+                    <option value="High">Hoch</option>
+                  </select>
+                </td>
+                <td class="col-xs-1">
+                  <input class="form-control" type="number" min="0" name="newTaskEffort" [(ngModel)]="newTask.effort">
+                </td>
+                <td class="col-xs-1">
+                  <input class="form-control" type="number" min="0" name="newTaskRemainingWork" [(ngModel)]="newTask.remainingWork">
+                </td>
+                <td class="col-xs-1">
+                  <button type="button" class="btn pull-right" (click)="addTask()"><i
+                    class="glyphicon glyphicon-plus"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    </fieldset>
+  </form>
+</section>

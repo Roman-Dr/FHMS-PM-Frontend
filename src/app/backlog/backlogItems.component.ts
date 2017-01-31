@@ -1,20 +1,14 @@
 import {Component, OnInit, Input, OnChanges} from '@angular/core';
-import {Backlog} from '../_models/backlog';
-import {BacklogDataService} from '../_services/backlog-data.service';
-import {User} from "../_models/user";
-import {UserService} from "../_services/user.service";
-import {UserStoryDataService} from '../_services/user-story-data.service';
-import {UserStory} from "../_models/UserStory";
-import {Task} from "../_models/Task";
-import {TaskService} from "../_services/task.service";
+
+import {Backlog, User, Task, UserStory} from '../_models/index';
+import {TaskService,BacklogDataService,UserService,UserStoryDataService} from '../_services/index';
 
 @Component({
-  selector: 'app-backlog',
-  templateUrl: './backlog.component.html',
-  styleUrls: ['./backlog.component.css'],
-  providers: [BacklogDataService, UserStoryDataService, TaskService]
+  selector: 'app-backlogItems',
+  templateUrl: 'backlogItems.component.html',
+  styleUrls: ['backlogItems.component.css']
 })
-export class BacklogComponent {
+export class BacklogItemsComponent {
 
 
   constructor(private backlogDataService: BacklogDataService, private  userService: UserService, private userStoryDataService: UserStoryDataService, private taskDataService: TaskService) {
@@ -31,7 +25,7 @@ export class BacklogComponent {
   backlogitemTask: string;
   backlogitemTaskAuthor: string;
 
-
+  displayNameTest: string = "TEST";
   backlogitems: Backlog[];
   users: User;
   backlogitemTasks: Task;
@@ -40,7 +34,7 @@ export class BacklogComponent {
     console.log("Component: " + backlogitem._id)
     this.backlogDataService.deleteBacklogitem(backlogitem._id).subscribe(
       data => {
-        this.loadBacklogitems()
+        this.loadBacklogitems();
       }
     );
   }
