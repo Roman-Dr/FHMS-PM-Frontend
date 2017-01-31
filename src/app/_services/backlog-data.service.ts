@@ -1,78 +1,56 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Backlog} from '../_models/backlog';
-import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import {Http, Response, Headers, RequestOptions} from '@angular/http';
 import {Observable} from 'rxjs/Rx';
 import 'rxjs/Rx';
 import {map} from "rxjs/operator/map";
-import { AppSettings } from '../app.settings';
+import {AppSettings} from '../app.settings';
 
 @Injectable()
 export class BacklogDataService {
 
-  constructor(private http:Http) { }
+  constructor(private http: Http) {
+  }
 
-  private backlogitemsUrl = sessionStorage.getItem('project_url')+'/backlogitems';
+  private headers: Headers = new Headers({'Content-Type': 'application/json'});
 
-  private headers: Headers = new Headers({ 'Content-Type': 'application/json' });
-
-  updateBacklog(backlogitem_id, title, authorId, state, description, userstoryId){
-    console.log(authorId);
-    return this.http.put
-    (this.backlogitemsUrl+"/"+backlogitem_id,
-      JSON.stringify({"title":title,"state":state,"authorId": authorId, "description":description,"userStoryId":userstoryId}),{ withCredentials: true, headers: this.headers}
-    )
-      .map(res => { if(res.status < 200 || res.status >= 300) {
-      throw new Error('This request has failed ' + res.status);
-    }
-    // If everything went fine, return the response
-    else {
-      console.log("Update Backlog successful");
-      return res.json();
-    }
-  })
-}
-
-  deleteBacklogitem (id){
-   // let headers = new Headers({ 'Content-Type': 'application/json' });
-    console.log("Service: "+id)
-    return this.http.delete(this.backlogitemsUrl+"/"+id,{headers: this.headers})
+  deleteBacklogitem(id) {
+    return this.http.delete(AppSettings.getProjectUrl() + '/backlogItems/' + id, {headers: this.headers})
       .map(this.extractData)
       .catch(this.handleErrorDelete);
   }
 
-  postTask(backlogitem_id:string, task:string, taskauthor:string){
-    console.log(task)
-    let body= JSON.stringify({"title":task,"authorId":taskauthor})
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers, method: "post" });
-    return this.http.post(this.backlogitemsUrl+"/"+backlogitem_id+"/tasks",body,options)
+  addBacklogItem(backlogItem: Backlog) {
+    console.log(JSON.stringify(backlogItem));
+
+    return this.http.post(AppSettings.getProjectUrl() + '/backlogItems/', backlogItem, {headers: this.headers})
       .map(this.extractData)
       .catch(this.handleError);
   }
 
-  postBacklogitemRestful(backlogName:string, backlogState:string, backlogAuthor:string, backlogDescription:string, backlogAssignedTo:string){
-    console.log(backlogName+"; "+backlogAuthor)
-    let body = JSON.stringify({ "title":backlogName,"state":backlogState,"authorId":backlogAuthor,"description":backlogDescription,"userStoryId":backlogAssignedTo });
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers, method: "post" });
-    console.log("vorPostService Backlog")
-    return this.http.post(this.backlogitemsUrl,body,options)
+  updateBacklogItem(backlogItemId: string, backlogItem: Backlog) {
+    console.log(JSON.stringify(backlogItem));
+
+    return this.http.put(AppSettings.getProjectUrl() + '/backlogItems/' + backlogItemId, backlogItem, {headers: this.headers})
       .map(this.extractData)
       .catch(this.handleError);
   }
 
   getBacklogitems() {
-    return this.http.get(this.backlogitemsUrl)
-      .map(res => res.json())
-  }
-  getBacklogitem(backlogItemId: string) {
-    return this.http.get(this.backlogitemsUrl + '/' + backlogItemId)
-      .map(res => res.json());
+    return this.http.get(AppSettings.getProjectUrl() + '/backlogItems')
+      .map(this.extractData)
+      .catch(this.handleError);
   }
 
+  getBacklogitem(backlogItemId: string) {
+    return this.http.get(AppSettings.getProjectUrl() + '/backlogItems/' + backlogItemId)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+
   private extractData(res: Response) {
-    let body = res.json();
-    return body.data || { };
+    return res.json() || {};
   }
 
   private handleErrorDelete(error: Response) {
@@ -80,7 +58,7 @@ export class BacklogDataService {
     return Observable.throw(error.json().error || 'Server error');
   }
 
-  private handleError (error: Response | any) {
+  private handleError(error: Response | any) {
     // In a real world app, we might use a remote logging infrastructure
     let errMsg: string;
     if (error instanceof Response) {

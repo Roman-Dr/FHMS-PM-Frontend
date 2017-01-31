@@ -1,24 +1,24 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Headers, Http} from "@angular/http";
+import {AppSettings} from "../app.settings";
 
 @Injectable()
 export class SprintService {
 
-  private _apiUrl = sessionStorage.getItem('project_url')+'/sprints/';
+  private headers = new Headers({'Content-Type': 'application/json'});
 
-  private headers = new Headers({ 'Content-Type': 'application/json' });
+  constructor(private http: Http) {
+  }
 
-  constructor(private http: Http) { }
 
-
-  createSprint(sprintName: string, startDate: string, endDate: string ) {
+  createSprint(sprintName: string, startDate: string, endDate: string) {
     return this.http.post
-    (this._apiUrl,
+    (AppSettings.getProjectUrl() + '/sprints/',
       JSON.stringify({sprintName, startDate, endDate}), {withCredentials: true, headers: this.headers}
     )
       .map(res => {
         // If request fails, throw an Error that will be caught
-        if(res.status < 200 || res.status >= 300) {
+        if (res.status < 200 || res.status >= 300) {
           throw new Error('This request has failed ' + res.status);
         }
         // If everything went fine, return the response
@@ -30,14 +30,14 @@ export class SprintService {
   }
 
 
-  updateSprint(sprintId: string, sprintName: string, startDate: string, endDate: string ) {
+  updateSprint(sprintId: string, sprintName: string, startDate: string, endDate: string) {
     return this.http.put
-    (this._apiUrl+sprintId,
+    (AppSettings.getProjectUrl() + '/sprints/' + sprintId,
       JSON.stringify({sprintName, startDate, endDate}), {withCredentials: true, headers: this.headers}
     )
       .map(res => {
         // If request fails, throw an Error that will be caught
-        if(res.status < 200 || res.status >= 300) {
+        if (res.status < 200 || res.status >= 300) {
           throw new Error('This request has failed ' + res.status);
         }
         // If everything went fine, return the response
@@ -50,10 +50,13 @@ export class SprintService {
 
 
   deleteSprint(sprintId) {
-    return this.http.delete(this._apiUrl+sprintId, {withCredentials: true, headers: this.headers})
+    return this.http.delete(AppSettings.getProjectUrl() + '/sprints/' + sprintId, {
+      withCredentials: true,
+      headers: this.headers
+    })
       .map(res => {
         // If request fails, throw an Error that will be caught
-        if(res.status < 200 || res.status >= 300) {
+        if (res.status < 200 || res.status >= 300) {
           throw new Error('This request has failed ' + res.status);
         }
         // If everything went fine, return the response
@@ -65,14 +68,14 @@ export class SprintService {
   }
 
 
-  createSprintCapacity(sprintId: string, userId: string, daysOff: number, capacityPerDay: number ) {
+  createSprintCapacity(sprintId: string, userId: string, daysOff: number, capacityPerDay: number) {
     return this.http.post
-    (this._apiUrl+sprintId+"/sprintcapacities",
+    (AppSettings.getProjectUrl() + '/sprints/' + sprintId + "/sprintcapacities",
       JSON.stringify({userId, daysOff, capacityPerDay}), {withCredentials: true, headers: this.headers}
     )
       .map(res => {
         // If request fails, throw an Error that will be caught
-        if(res.status < 200 || res.status >= 300) {
+        if (res.status < 200 || res.status >= 300) {
           throw new Error('This request has failed ' + res.status);
         }
         // If everything went fine, return the response
@@ -84,10 +87,13 @@ export class SprintService {
   }
 
   deleteSprintCapacity(sprintId: string, sprintCapacityId: string) {
-    return this.http.delete(this._apiUrl+sprintId+"/sprintcapacities/"+sprintCapacityId, {withCredentials: true, headers: this.headers})
+    return this.http.delete(AppSettings.getProjectUrl() + '/sprints/' + sprintId + "/sprintcapacities/" + sprintCapacityId, {
+      withCredentials: true,
+      headers: this.headers
+    })
       .map(res => {
         // If request fails, throw an Error that will be caught
-        if(res.status < 200 || res.status >= 300) {
+        if (res.status < 200 || res.status >= 300) {
           throw new Error('This request has failed ' + res.status);
         }
         // If everything went fine, return the response
@@ -98,14 +104,14 @@ export class SprintService {
       })
   }
 
-  updateSprintCapacity(sprintId: string, sprintCapacityId, userId: string, daysOff: number, capacityPerDay: number ) {
+  updateSprintCapacity(sprintId: string, sprintCapacityId, userId: string, daysOff: number, capacityPerDay: number) {
     return this.http.put
-    (this._apiUrl+sprintId+"/sprintcapacities/"+sprintCapacityId,
+    (AppSettings.getProjectUrl() + '/sprints/' + sprintId + "/sprintcapacities/" + sprintCapacityId,
       JSON.stringify({userId, daysOff, capacityPerDay}), {withCredentials: true, headers: this.headers}
     )
       .map(res => {
         // If request fails, throw an Error that will be caught
-        if(res.status < 200 || res.status >= 300) {
+        if (res.status < 200 || res.status >= 300) {
           throw new Error('This request has failed ' + res.status);
         }
         // If everything went fine, return the response
@@ -116,18 +122,16 @@ export class SprintService {
       })
   }
 
-
-
   getSprints() {
-    return this.http.get(this._apiUrl, {withCredentials: true, headers: this.headers})
+    return this.http.get(AppSettings.getProjectUrl() + '/sprints/', {withCredentials: true, headers: this.headers})
       .map(res => res.json())
   }
 
   getSprint(sprintId: string) {
-    return this.http.get(this._apiUrl+sprintId, {withCredentials: true, headers: this.headers})
+    return this.http.get(AppSettings.getProjectUrl() + '/sprints/' + sprintId, {
+      withCredentials: true,
+      headers: this.headers
+    })
       .map(res => res.json())
   }
-
-
-
 }

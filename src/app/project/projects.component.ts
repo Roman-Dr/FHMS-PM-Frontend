@@ -52,6 +52,7 @@ export class ProjectsComponent implements OnInit {
   }
 
   chooseProject(projectId) {
+    console.log('Choose project: ' + projectId);
     this.projectService.chooseProject(projectId).subscribe(() => {
       if (sessionStorage.getItem('project_id')) {
         // Get the redirect URL from our auth service

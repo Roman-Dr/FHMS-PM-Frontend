@@ -4,7 +4,7 @@
   <div class="jumbotron col-sm-3 project-box" *ngFor="let project of projects">
     <a routerLink="{{project._id}}" ><span class="glyphicon glyphicon-edit" style="float: right"></span></a>
 
-    <a routerLink="/landing" (click)="chooseProject(project._id)"><h4>{{project.displayName}}</h4></a>
+    <a href="javascript: void(0);" (click)="chooseProject(project._id)"><h4>{{project.displayName}}</h4></a>
     {{project.description}}<br>
     {{project.dueDate | date:'dd.MM.yyyy'}} <br>
   </div>

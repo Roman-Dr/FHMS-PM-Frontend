@@ -1,7 +1,8 @@
-import {Component, OnInit, Input, OnChanges} from '@angular/core';
+import {Component} from '@angular/core';
+import {Router} from '@angular/router';
 
-import {Backlog, User, Task, UserStory} from '../_models/index';
-import {TaskService,BacklogDataService,UserService,UserStoryDataService} from '../_services/index';
+import {Backlog} from '../_models/index';
+import {BacklogDataService} from '../_services/index';
 
 @Component({
   selector: 'app-backlogItems',
@@ -11,50 +12,38 @@ import {TaskService,BacklogDataService,UserService,UserStoryDataService} from '.
 export class BacklogItemsComponent {
 
 
-  constructor(private backlogDataService: BacklogDataService, private  userService: UserService, private userStoryDataService: UserStoryDataService, private taskDataService: TaskService) {
+  constructor(
+    private backlogDataService: BacklogDataService,
+    private router: Router) {
   }
 
+  displayName: string = "Backlogeinträge";
   errorMessage: string;
-  userstories: UserStory[];
+  backlogitems: Backlog[] = [];
 
-  backlogitemTitle: string;
-  backlogitemState: string;
-  backlogitemAuthor: string;
-  backlogitemDescription: string;
-  backlogitemAssignedTo: string;
-  backlogitemTask: string;
-  backlogitemTaskAuthor: string;
+  private markedForDeletionBacklogItem: Backlog;
 
-  displayNameTest: string = "TEST";
-  backlogitems: Backlog[];
-  users: User;
-  backlogitemTasks: Task;
-
-  removeBacklogitem(backlogitem) {
-    console.log("Component: " + backlogitem._id)
-    this.backlogDataService.deleteBacklogitem(backlogitem._id).subscribe(
-      data => {
-        this.loadBacklogitems();
-      }
-    );
+  markAsDeletedBacklogitem(backlogitem: Backlog) {
+    this.markedForDeletionBacklogItem = backlogitem;
+  }
+  remove() {
+    if(this.markedForDeletionBacklogItem) {
+      this.backlogDataService.deleteBacklogitem(this.markedForDeletionBacklogItem._id).subscribe(
+        data => {
+          this.loadBacklogitems();
+        }
+      );
+    }
+  }
+  cancelDeletion() {
+    this.markedForDeletionBacklogItem = null;
   }
 
-  updateBacklog(backlogitem_id, title, authorId, state, description, userstoryId) {
-    this.backlogDataService.updateBacklog(backlogitem_id, title, authorId, state, description, userstoryId)
-      .subscribe(
-        success =>
-          this.loadBacklogitems()
-        );
+  newBacklogItem() {
+    this.router.navigate(['backlog', 'new']);
   }
-
-
-
-  removeTask(backlogitem_id, task_id) {
-    this.taskDataService.deleteTask(backlogitem_id, task_id).subscribe(
-      data => {
-        this.getTasks(backlogitem_id)
-      }
-    );
+  openBacklogItem(id: string) {
+    this.router.navigate(['backlog', id]);
   }
 
   loadBacklogitems() {
@@ -67,65 +56,6 @@ export class BacklogItemsComponent {
   }
 
   ngOnInit() {
-    this.loadBacklogitems()
-    this.getUsers()
-    this.loadUserStories()
+    this.loadBacklogitems();
   }
-
-  getUsers() {
-    this.userService.getUsers()
-      .subscribe(
-        users => this.users = users,
-        error => this.errorMessage = <any> error
-      )
-  }
-
-  getTasks(backlogitem_id: string) {
-    this.taskDataService.getTasks(backlogitem_id)
-      .subscribe(
-        tasks => this.backlogitemTasks = tasks,
-        error => this.errorMessage = <any> error
-      )
-  }
-
-  addTask(backlogitem) {
-    console.log(this.backlogitemTask)
-    this.backlogDataService.postTask(backlogitem._id, this.backlogitemTask, this.backlogitemTaskAuthor).subscribe(
-      data => {
-        this.getTasks(backlogitem._id)
-      }
-    )
-  }
-
-  addBacklogitem() {
-    if ((!this.backlogitemTitle) || (!this.backlogitemAuthor) || (!this.backlogitemDescription) || (!this.backlogitemAssignedTo)) {
-      console.log("BacklogTitle(" + this.backlogitemTitle + ") oder BacklogAuthor(" + this.backlogitemAuthor + ") oder BacklogDescription(" + this.backlogitemDescription + ") oder BacklogAssignedTo(" + this.backlogitemAssignedTo + ") sind leer: Component Backlog")
-      this.backlogitemTitle = null
-      this.backlogitemAuthor = null
-      this.backlogitemDescription = null
-      this.backlogitemAssignedTo = null
-    }
-    else {
-      this.backlogDataService.postBacklogitemRestful(this.backlogitemTitle, this.backlogitemState, this.backlogitemAuthor, this.backlogitemDescription, this.backlogitemAssignedTo).subscribe(
-        //data => this.postMyUserStoriesToServer = JSON.stringify(data),
-        data => {
-          this.loadBacklogitems()
-        }
-      );
-      this.backlogitemTitle = null
-      this.backlogitemAuthor = null
-      this.backlogitemDescription = null
-      this.backlogitemAssignedTo = null
-    }
-  }
-
-  loadUserStories() {
-    this.userStoryDataService.getUserStories()
-      .subscribe(
-        userstories => this.userstories = userstories,
-        err => {
-          console.log(err);
-        });
-  }
-
 }
