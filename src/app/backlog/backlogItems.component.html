@@ -1,4 +1,4 @@
-<section class="app-Backlog">
+<section class="app-backlogItems">
   <button type="button" class="btn btn-default" data-toggle="modal" data-target="#formModal">Backlogitem
     hinzufügen
   </button>
@@ -71,6 +71,8 @@
             <td>{{backlogitem.userStoryDisplayName}}</td>
             <td> {{backlogitem.creationDate | date:'dd.MM.yyyy'}}</td>
             <td>
+              <a routerLink="{{backlogitem._id}}" ><span class="glyphicon glyphicon-edit"></span></a>
+
               <button type="button" class="btn btn-default btn-sm" data-toggle="modal"
                       [attr.data-target]="'#formModal' + backlogitem._id" (click)="getTasks(backlogitem._id)">
                 <span class="glyphicon glyphicon-th-list"></span>

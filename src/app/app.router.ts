@@ -1,5 +1,5 @@
 import {LandingComponent} from './landing/landing.component';
-import {BacklogComponent} from './backlog/backlog.component';
+import {BacklogItemComponent, BacklogItemsComponent} from './backlog/index';
 import {BoardComponent} from './board/board.component';
 import {SprintComponent} from './sprint/sprint.component';
 import {EstimationComponent} from './estimation/estimation.component';
@@ -19,7 +19,8 @@ export const routes = [
   {path: 'projects', component: ProjectsComponent, canActivate: [AuthGuard]},
   {path: 'projects/:projectId', component: ProjectComponent, canActivate: [AuthGuard]},
   {path: 'landing', component: LandingComponent, canActivate: [AuthGuard, ProjectGuard]},
-  {path: 'backlog', component: BacklogComponent, canActivate: [AuthGuard, ProjectGuard]},
+  {path: 'backlog', component: BacklogItemsComponent, canActivate: [AuthGuard, ProjectGuard]},
+  {path: 'backlog/:backlogItemId', component: BacklogItemComponent, canActivate: [AuthGuard, ProjectGuard]},
   {path: 'board', component: BoardComponent, canActivate: [AuthGuard, ProjectGuard]},
   {path: 'sprints', component: SprintComponent, canActivate: [AuthGuard, ProjectGuard]},
   {path: 'estimation', component: EstimationComponent, canActivate: [AuthGuard, ProjectGuard]},

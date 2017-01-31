@@ -7,8 +7,4 @@ export class Project {
   public owner: number;
   public stakeholders: User[] = [];
   public contributors: User[] = [];
-
-  addStakeholder(user: User) {
-    this.stakeholders.push(user);
-  }
 }

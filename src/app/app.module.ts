@@ -13,10 +13,10 @@ import {DragulaModule} from "ng2-dragula";
 import {AppComponent} from './app.component';
 
 //
-// SERVICES -> Declarations
+// COMPONENTS -> Declarations
 //
 import {LandingComponent} from './landing/landing.component';
-import {BacklogComponent} from './backlog/backlog.component';
+import {BacklogItemComponent, BacklogItemsComponent} from './backlog/index';
 import {BoardComponent} from './board/board.component';
 import {SprintComponent} from './sprint/sprint.component';
 import {EstimationComponent} from './estimation/estimation.component';
@@ -32,11 +32,8 @@ import {ChartComponent} from './chart/chart.component';
 //
 // SERVICES -> Providers
 //
-import {AuthenticationService} from "./_services/authentication.service";
-import {UserService} from "./_services/user.service";
-import {AuthGuard} from "./_services/auth-guard.service";
-import {ProjectGuard} from "./_services/project-guard.service";
-import {ProjectService} from "./_services/project.service";
+import {AuthGuard, ProjectGuard} from "./_services/index";
+import {AuthenticationService, UserService ,ProjectService, BacklogDataService, SprintService, TaskService, UserStoryDataService } from "./_services/index";
 //
 
 
@@ -44,7 +41,7 @@ import {ProjectService} from "./_services/project.service";
   declarations: [
     AppComponent,
     LandingComponent,
-    BacklogComponent,
+    BacklogItemComponent, BacklogItemsComponent,
     BoardComponent,
     SprintComponent,
     EstimationComponent,
@@ -52,8 +49,7 @@ import {ProjectService} from "./_services/project.service";
     LoginComponent,
     RegisterComponent,
     UserStoryComponent,
-    ProjectComponent,
-    ProjectsComponent,
+    ProjectComponent, ProjectsComponent,
     ChartComponent
   ],
   imports: [
@@ -66,9 +62,14 @@ import {ProjectService} from "./_services/project.service";
     RouterModule.forRoot(routes),
   ],
   providers: [
-    UserService,
     AuthenticationService,
+    UserService,
     ProjectService,
+    BacklogDataService,
+    SprintService,
+    TaskService,
+    UserStoryDataService,
+
     AuthGuard,
     ProjectGuard
   ],

@@ -13,8 +13,6 @@ export class AuthenticationService {
   private _apiUrl = AppSettings.API_ENDPOINT + 'api/user/';
 
   constructor(private http: Http) {
-
-
   }
 
   login(email: string, password: string) {

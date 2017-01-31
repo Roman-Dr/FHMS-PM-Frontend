@@ -20,14 +20,21 @@ export class ProjectService {
 
   getProjects() {
     return this.http.get(this._apiUrl, {withCredentials: true})
-      .map(res => res.json())
+      .map(res => res.json());
   }
 
   getProject(projectId) {
     return this.http.get(this._apiUrl + projectId, {withCredentials: true})
-      .map(res => res.json())
+      .map(res => res.json());
   }
-
+  getContributorsByProjectId(projectId) {
+    return this.http.get(this._apiUrl + projectId + '/contributors', {withCredentials: true})
+      .map(res => res.json());
+  }
+  getStakeholdersByProjectId(projectId) {
+    return this.http.get(this._apiUrl + projectId + '/stakeholders', {withCredentials: true})
+      .map(res => res.json());
+  }
 
   chooseProject(projectId) {
     sessionStorage.setItem('project_id', projectId);
