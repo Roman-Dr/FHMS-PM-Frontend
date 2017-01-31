@@ -5,4 +5,8 @@ export class AppSettings {
   constructor() {
 
   }
+
+  public static getProjectUrl(): string {
+    return AppSettings.API_ENDPOINT + 'api/projects/' + sessionStorage.getItem('project_id');
+  }
 }
