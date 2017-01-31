@@ -1,7 +1,7 @@
 export class Task {
 
-
-  constructor() {
+  constructor(values: Object = {}) {
+    Object.assign(this, values);
   }
 
   public _id: String;

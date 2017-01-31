@@ -23,6 +23,7 @@ export const routes = [
   {path: 'backlog/:backlogItemId', component: BacklogItemComponent, canActivate: [AuthGuard, ProjectGuard]},
   {path: 'board', component: BoardComponent, canActivate: [AuthGuard, ProjectGuard]},
   {path: 'sprints', component: SprintComponent, canActivate: [AuthGuard, ProjectGuard]},
+  {path: 'sprints/:sprintId/backlog', component: BacklogItemsComponent, canActivate: [AuthGuard, ProjectGuard]},
   {path: 'estimation', component: EstimationComponent, canActivate: [AuthGuard, ProjectGuard]},
   {path: 'chart', component: ChartComponent, canActivate: [AuthGuard, ProjectGuard]},
   {path: 'roadmap', component: RoadmapComponent, canActivate: [AuthGuard, ProjectGuard]},

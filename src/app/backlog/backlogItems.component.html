@@ -1,30 +1,34 @@
 <section class="app-backlogItems">
 
   <div class="page-header">
-    <h1>{{displayName}}</h1>
+    <h1>{{ (sprint ? sprint.sprintName + " > " : "") + displayName}}</h1>
   </div>
 
   <table class="table table-hover">
     <thead>
-      <th class="col-xs-1">#</th>
       <th class="col-xs-3">Bezeichnung</th>
       <th class="col-xs-1">Status</th>
       <th class="col-xs-2">Priorität</th>
-      <th class="col-xs-2">Erstellt von</th>
+      <th class="col-xs-1">Aufwand</th>
+      <th class="col-xs-2">Sprint</th>
       <th class="col-xs-2">Zugeteilt an</th>
       <th class="col-xs-1 text-right">
-        <button type="button" class="btn btn-xs" (click)="newBacklogItem()" style="margin-bottom: 2px;">
-          <i class="glyphicon glyphicon-plus"></i> <span class="hidden-xs">Neu</span>
+        <button type="button" class="btn btn-xs btn-danger" (click)="newBug()" style="margin-bottom: 2px;">
+          <i class="glyphicon glyphicon-plus"></i> <span class="hidden-xs"> Bug</span>
+        </button>
+        <button type="button" class="btn btn-xs btn-success" (click)="newBacklogItem()" style="margin-bottom: 2px;">
+          <i class="glyphicon glyphicon-plus"></i> <span class="hidden-xs"> Backlogeintrag</span>
         </button>
       </th>
     </thead>
     <tbody>
-      <tr *ngFor="let backlogitem of backlogitems | paginate: { itemsPerPage: 25, currentPage: p }">
-        <td class="col-xs-1">{{backlogitem.itemType}}</td>
+      <tr *ngFor="let backlogitem of backlogitems | paginate: { itemsPerPage: 25, currentPage: p }"
+          [ngClass]="{danger: backlogitem.itemType == 'Bug'}">
         <td class="col-xs-3">{{backlogitem.title}}</td>
-        <td class="col-xs-1">{{backlogitem.state}}</td>
-        <td class="col-xs-2">{{backlogitem.priority}}</td>
-        <td class="col-xs-2">{{backlogitem.authorDisplayName}}</td>
+        <td class="col-xs-1">{{backlogitem.humanizeState()}}</td>
+        <td class="col-xs-2">{{backlogitem.humanizePriority()}}</td>
+        <td class="col-xs-1 text-right">{{backlogitem.effort}}</td>
+        <td class="col-xs-2">{{backlogitem.sprintDisplayName}}</td>
         <td class="col-xs-2">{{backlogitem.assignedToDisplayName}}</td>
         <td class="col-xs-1 text-right">
           <button class="btn btn-xs" (click)="openBacklogItem(backlogitem._id)" style="margin-right: 3px;"><span class="glyphicon glyphicon-edit"></span>

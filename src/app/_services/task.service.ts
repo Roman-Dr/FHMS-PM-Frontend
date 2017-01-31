@@ -17,7 +17,18 @@ export class TaskService {
 
   getTasks(backlogitem_id: string) {
     return this.http.get(AppSettings.getProjectUrl() + '/backlogitems/' + backlogitem_id + "/tasks")
-      .map(res => res.json())
+      .map((responseData) => {
+        return responseData.json();
+      })
+      .map((tasks: Array<any>) => {
+        let result: Array<Task> = [];
+        if (tasks) {
+          tasks.forEach((x) => {
+            result.push(new Task(x));
+          });
+        }
+        return result;
+      });
   }
 
   deleteTask(backlogitem_id: string, task_id) {

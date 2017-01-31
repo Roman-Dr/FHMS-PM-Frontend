@@ -38,14 +38,28 @@ export class BacklogDataService {
 
   getBacklogitems() {
     return this.http.get(AppSettings.getProjectUrl() + '/backlogItems')
-      .map(this.extractData)
-      .catch(this.handleError);
+      .map( (responseData) => {
+        return responseData.json();
+      })
+      .map((backlogItems: Array<any>) => {
+        let result:Array<Backlog> = [];
+        if (backlogItems) {
+          backlogItems.forEach((x) => {
+            result.push(new Backlog(x));
+          });
+        }
+        return result;
+      });
   }
 
   getBacklogitem(backlogItemId: string) {
     return this.http.get(AppSettings.getProjectUrl() + '/backlogItems/' + backlogItemId)
-      .map(this.extractData)
-      .catch(this.handleError);
+      .map( (responseData) => {
+        return responseData.json();
+      })
+      .map((backlogItem: any) => {
+        return new Backlog(backlogItem);
+      });
   }
 
 

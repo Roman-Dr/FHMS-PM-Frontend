@@ -1,7 +1,8 @@
 import {Component} from '@angular/core';
-import {AuthenticationService} from "./_services/authentication.service";
 import {Router} from "@angular/router";
-import {AuthGuard} from "./_services/auth-guard.service";
+
+import {ProjectService, AuthenticationService, AuthGuard} from "./_services/index";
+import {Project} from "./_models/index";
 
 
 @Component({
@@ -15,26 +16,34 @@ export class AppComponent {
 
   projectName: string = sessionStorage.getItem('project_name');
 
-  constructor(private authenticationService: AuthenticationService, private router: Router, private authGuard: AuthGuard) {
+  currentProject: Project;
+
+  constructor(private authenticationService: AuthenticationService,
+              private projectService: ProjectService,
+              private router: Router,
+              private authGuard: AuthGuard) {
   }
 
 
-
   ngOnInit() {
-
+    this.projectService.projectChosen
+      .subscribe(project => {
+        console.log('App: ' + JSON.stringify(project));
+        this.currentProject = project;
+      });
   }
 
   logout() {
     this.authenticationService.logout()
       .subscribe(
-        success => this.router.navigate(['/login'])
+        success => {
+          this.currentProject = null;
+          this.router.navigate(['/login'])
+        }
       )
   }
 
   isLoggedIn(){
     return this.authGuard.isLoggedIn();
   }
-
-
-
 }

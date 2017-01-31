@@ -10,28 +10,28 @@
         <span class="icon-bar"></span>
       </button>
 
-      <a routerLink="projects" class="navbar-brand">Projektmanagement</a>
+      <a routerLink="projects" class="navbar-brand">{{ currentProject ? currentProject.displayName : "Projektmanagement" }}</a>
     </div>
 
     <div class="navbar-collapse collapse" id="navbar-main">
       <ul class="nav navbar-nav">
 
-        <li *ngIf="isLoggedIn()">
-          <a routerLink="projects">Projekte</a>
-        </li>
-        <li *ngIf="isLoggedIn()">
+        <!--<li *ngIf="isLoggedIn()">-->
+          <!--<a routerLink="projects">Projekte</a>-->
+        <!--</li>-->
+        <li *ngIf="isLoggedIn() && currentProject">
           <a routerLink="user-story">User-Story</a>
         </li>
-        <li *ngIf="isLoggedIn()">
+        <li *ngIf="isLoggedIn() && currentProject">
           <a routerLink="backlog">Backlog</a>
         </li>
-        <li *ngIf="isLoggedIn()">
+        <li *ngIf="isLoggedIn() && currentProject">
           <a routerLink="sprints">Sprints</a>
         </li>
-        <li *ngIf="isLoggedIn()">
+        <li *ngIf="isLoggedIn() && currentProject">
           <a routerLink="roadmap">Roadmap</a>
         </li>
-        <li *ngIf="isLoggedIn()" class="dropdown">
+        <li *ngIf="isLoggedIn() && currentProject" class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">Boards<span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li *ngIf="isLoggedIn()"><a routerLink="board">SCRUM Board</a></li>
