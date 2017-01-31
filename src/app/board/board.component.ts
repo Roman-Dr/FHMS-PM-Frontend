@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Backlog, ItemState} from "../_models/index";
+import {Backlog, ItemType} from "../_models/index";
 import {BacklogDataService} from "../_services/index";
 import {DragulaService, dragula} from "ng2-dragula";
 
@@ -17,10 +17,6 @@ export class BoardComponent implements OnInit {
   approvedItems: Backlog[];
   committedItems: Backlog[];
   doneItems: Backlog[];
-
-  states = [
-    'New', 'Approved', 'Committed', 'Done', 'Removed'
-  ];
 
 
   constructor(private backlogDataService: BacklogDataService, private dragulaService: DragulaService) {
@@ -50,19 +46,19 @@ export class BoardComponent implements OnInit {
     for (let i = 0; i <= items.length; i++) {
 
       console.log(items[i]);
-      if (items[i].state === ItemState.New) {
+      if (items[i].itemType === ItemType.New) {
         this.newItems.push(items[i])
       }
 
-      if (items[i].state === ItemState.Approved) {
+      if (items[i].itemType === ItemType.Approved) {
         this.approvedItems.push(items[i])
       }
 
-      if (items[i].state === ItemState.Committed) {
+      if (items[i].itemType === ItemType.Committed) {
         this.committedItems.push(items[i])
       }
 
-      if (items[i].state === ItemState.Done) {
+      if (items[i].itemType === ItemType.Done) {
         this.doneItems.push(items[i])
       }
     }

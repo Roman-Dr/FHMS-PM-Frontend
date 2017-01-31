@@ -11,7 +11,7 @@ export class SprintService {
   }
 
 
-  createSprint(sprintName: string, startDate: string, endDate: string) {
+  createSprint(sprintName: string, startDate, endDate) {
     return this.http.post
     (AppSettings.getProjectUrl() + '/sprints/',
       JSON.stringify({sprintName, startDate, endDate}), {withCredentials: true, headers: this.headers}
@@ -30,7 +30,7 @@ export class SprintService {
   }
 
 
-  updateSprint(sprintId: string, sprintName: string, startDate: string, endDate: string) {
+  updateSprint(sprintId: string, sprintName: string, startDate, endDate) {
     return this.http.put
     (AppSettings.getProjectUrl() + '/sprints/' + sprintId,
       JSON.stringify({sprintName, startDate, endDate}), {withCredentials: true, headers: this.headers}

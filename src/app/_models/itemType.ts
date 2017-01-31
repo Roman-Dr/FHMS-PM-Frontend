@@ -1,4 +1,4 @@
-export enum ItemState {
+export enum ItemType {
   New = 0,
   Approved = 1,
   Committed = 2,
