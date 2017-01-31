@@ -8,8 +8,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var core_1 = require('@angular/core');
 var backlog_data_service_1 = require("../_services/backlog-data.service");
 var BoardComponent = (function () {
-    function BoardComponent(backlogDataService) {
+    function BoardComponent(backlogDataService, dragulaService) {
         this.backlogDataService = backlogDataService;
+        this.dragulaService = dragulaService;
+        this.states = [
+            'New', 'Approved', 'Committed', 'Done', 'Removed'
+        ];
     }
     BoardComponent.prototype.ngOnInit = function () {
         this.getBacklogitems();
@@ -17,9 +21,25 @@ var BoardComponent = (function () {
     BoardComponent.prototype.getBacklogitems = function () {
         var _this = this;
         this.backlogDataService.getBacklogitems()
-            .subscribe(function (backlogitems) { return _this.backlogitems = backlogitems; }, function (err) {
+            .subscribe(function (items) { return _this.items = items; }, function (err) {
             console.log(err);
         });
+    };
+    BoardComponent.prototype.sortBacklogItems = function (items) {
+        for (var i = 0; i <= this.items.length; i++) {
+            if (this.items[i].state === ItemState.New) {
+                this.newItems.push(this.items[i]);
+            }
+            if (this.items[i].state === ItemState.Approved) {
+                this.approvedItems.push(this.items[i]);
+            }
+            if (this.items[i].state === ItemState.Committed) {
+                this.committedItems.push(this.items[i]);
+            }
+            if (this.items[i].state === ItemState.Done) {
+                this.doneItems.push(this.items[i]);
+            }
+        }
     };
     BoardComponent = __decorate([
         core_1.Component({

@@ -38,3 +38,6 @@ testem.log
 #System Files
 .DS_Store
 Thumbs.db
+
+#App settings
+/src/app/app.settings.json

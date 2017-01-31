@@ -1,10 +1,10 @@
-import {Task} from './index';
+import {Task, ItemState} from './index';
 
 export class Backlog{
   id: number;
   title: string = '';
   tasks: Task[] = [];
-  status: string='';
+  state: ItemState;
   author: string='';
   complete: boolean;
   backlog_item_id: string;

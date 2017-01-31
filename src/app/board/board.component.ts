@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {Backlog} from "../_models/backlog";
-import {BacklogDataService} from "../_services/backlog-data.service";
+import {Backlog, ItemState} from "../_models/index";
+import {BacklogDataService} from "../_services/index";
 import {DragulaService, dragula} from "ng2-dragula";
 
 
@@ -42,7 +42,26 @@ export class BoardComponent implements OnInit {
         });
   }
 
+  sortBacklogItems(items: Backlog[]) {
+    for (let i = 0; i <= this.items.length; i++) {
+      if (this.items[i].state === ItemState.New) {
+        this.newItems.push(this.items[i])
+      }
 
+      if (this.items[i].state === ItemState.Approved) {
+        this.approvedItems.push(this.items[i])
+      }
+
+      if (this.items[i].state === ItemState.Committed) {
+        this.committedItems.push(this.items[i])
+      }
+
+      if (this.items[i].state === ItemState.Done) {
+        this.doneItems.push(this.items[i])
+      }
+    }
+
+  }
 
 
 

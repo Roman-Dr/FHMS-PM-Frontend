@@ -8,8 +8,8 @@ import {ProjectService, TaskService,BacklogDataService,UserService,UserStoryData
 
 @Component({
   selector: 'app-backlogItem',
-  templateUrl: 'backlogItem.component.html',
-  styleUrls: ['backlogItem.component.css']
+  templateUrl: './backlogItem.component.html',
+  styleUrls: ['./backlogItem.component.css']
 })
 export class BacklogItemComponent implements OnInit {
 

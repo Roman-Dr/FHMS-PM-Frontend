@@ -5,8 +5,8 @@ import {TaskService,BacklogDataService,UserService,UserStoryDataService} from '.
 
 @Component({
   selector: 'app-backlogItems',
-  templateUrl: 'backlogItems.component.html',
-  styleUrls: ['backlogItems.component.css']
+  templateUrl: './backlogItems.component.html',
+  styleUrls: ['./backlogItems.component.css']
 })
 export class BacklogItemsComponent {
 

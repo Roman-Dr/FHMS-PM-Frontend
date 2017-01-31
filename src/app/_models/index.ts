@@ -7,3 +7,4 @@ export * from './sprint';
 export * from './task';
 export * from './user';
 export * from './UserStory';
+export * from './itemState';
