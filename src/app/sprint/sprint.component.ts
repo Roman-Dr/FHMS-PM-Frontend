@@ -79,7 +79,7 @@ export class SprintComponent implements OnInit {
 
 
   updateSprint(sprintId: string, sprintName: string) {
-    this.sprintService.updateSprint(sprintId, sprintName, this.startDate.momentObj, this.endDate.momentObj)
+    this.sprintService.updateSprint(sprintId, sprintName, this.startDateEdit.momentObj, this.endDateEdit.momentObj)
       .subscribe(
         success => this.getSprints()
       );

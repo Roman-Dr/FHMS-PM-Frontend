@@ -2,8 +2,8 @@
   <div class="col-sm-3">
     <div class="panel panel-primary">
       <div class="panel-heading">New</div>
-      <div class="panel-body new-bag" [dragula]='"bag"' [dragulaModel]='newItems'>
-        <button class="btn btn-primary btn-block" *ngFor="let item of newItems">{{item.title}}
+      <div id="new-bag" class="panel-body" [dragula]='"bag"' [dragulaModel]='newItems'>
+        <button class="btn btn-primary btn-block" *ngFor="let item of newItems" (mouseenter)="dragBacklogItem(item)" (mouseout)="selectState('New')">{{item.title}}
         </button>
       </div>
     </div>
@@ -12,8 +12,8 @@
   <div class="col-sm-3">
     <div class="panel panel-primary">
       <div class="panel-heading">Approved</div>
-      <div class="panel-body approved-bag" [dragula]='"bag"' [dragulaModel]='approvedItems'>
-        <button class="btn btn-primary btn-block" *ngFor="let item of approvedItems">{{item.title}}
+      <div id="approved-bag" class="panel-body" [dragula]='"bag"' [dragulaModel]='approvedItems'>
+        <button class="btn btn-primary btn-block" *ngFor="let item of approvedItems" (mouseenter)="dragBacklogItem(item)" (mouseout)="selectState('Approved')">{{item.title}}
         </button>
       </div>
     </div>
@@ -22,8 +22,8 @@
   <div class="col-sm-3">
     <div class="panel panel-primary">
       <div class="panel-heading">Committed</div>
-      <div class="panel-body committed-bag" [dragula]='"bag"' [dragulaModel]='committedItems'>
-        <button class="btn btn-primary btn-block" *ngFor="let item of committedItems">{{item.title}}
+      <div id="committed-bag" class="panel-body" [dragula]='"bag"' [dragulaModel]='committedItems'>
+        <button class="btn btn-primary btn-block" *ngFor="let item of committedItems" (mouseenter)="dragBacklogItem(item)" (mouseout)="selectState('Comitted')">{{item.title}}
         </button>
       </div>
     </div>
@@ -32,8 +32,8 @@
   <div class="col-sm-3">
     <div class="panel panel-primary">
       <div class="panel-heading">Done</div>
-      <div class="panel-body done-bag" [dragula]='"bag"' [dragulaModel]='doneItems'>
-        <button class="btn btn-primary btn-block" *ngFor="let item of doneItems">{{item.title}}
+      <div id="done-bag" class="panel-body" [dragula]='"bag"' [dragulaModel]='doneItems'>
+        <button class="btn btn-primary btn-block" *ngFor="let item of doneItems" (mouseenter)="dragBacklogItem(item)" (mouseout)="selectState('Done')">{{item.title}}
         </button>
       </div>
     </div>

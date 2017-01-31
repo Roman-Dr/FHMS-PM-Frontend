@@ -1,4 +1,4 @@
-import {Task, ItemType} from './index';
+import {Task} from './index';
 
 export class Backlog{
   _id: string;
@@ -7,7 +7,7 @@ export class Backlog{
 
   title: string;
   description: string;
-  itemType: ItemType;
+  itemType: string;
   // ['New', 'Approved', 'Committed', 'Done', 'Removed']
   state: string = 'New';
   // ['Low', 'Normal', 'High'],

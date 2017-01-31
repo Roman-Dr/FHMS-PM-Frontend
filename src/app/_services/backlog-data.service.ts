@@ -48,6 +48,13 @@ export class BacklogDataService {
       .catch(this.handleError);
   }
 
+  changeBacklogItemState(backlogItemId: string, state: string ) {
+    let backlogItem = JSON.stringify(Backlog);
+    return this.http.put(AppSettings.getProjectUrl() + '/backlogItems/' + backlogItemId + '/' + state, backlogItem ,{headers: this.headers})
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
 
   private extractData(res: Response) {
     return res.json() || {};
