@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Backlog, ItemState} from "../_models/index";
 import {BacklogDataService} from "../_services/index";
 import {DragulaService, dragula} from "ng2-dragula";
@@ -29,7 +29,7 @@ export class BoardComponent implements OnInit {
 
   ngOnInit() {
     this.getBacklogitems();
-
+    this.sortBacklogItems();
   }
 
 
@@ -40,31 +40,33 @@ export class BoardComponent implements OnInit {
         err => {
           console.log(err);
         });
+    this.sortBacklogItems();
   }
 
-  sortBacklogItems(items: Backlog[]) {
-    for (let i = 0; i <= this.items.length; i++) {
-      if (this.items[i].state === ItemState.New) {
-        this.newItems.push(this.items[i])
+  sortBacklogItems() {
+    let items = this.items;
+
+    console.log(items);
+    for (let i = 0; i <= items.length; i++) {
+
+      console.log(items[i]);
+      if (items[i].state === ItemState.New) {
+        this.newItems.push(items[i])
       }
 
-      if (this.items[i].state === ItemState.Approved) {
-        this.approvedItems.push(this.items[i])
+      if (items[i].state === ItemState.Approved) {
+        this.approvedItems.push(items[i])
       }
 
-      if (this.items[i].state === ItemState.Committed) {
-        this.committedItems.push(this.items[i])
+      if (items[i].state === ItemState.Committed) {
+        this.committedItems.push(items[i])
       }
 
-      if (this.items[i].state === ItemState.Done) {
-        this.doneItems.push(this.items[i])
+      if (items[i].state === ItemState.Done) {
+        this.doneItems.push(items[i])
       }
     }
-
   }
-
-
-
 
 
 }
