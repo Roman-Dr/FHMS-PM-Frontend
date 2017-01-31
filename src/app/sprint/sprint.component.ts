@@ -3,6 +3,7 @@ import {Sprint} from "../_models/sprint";
 import {SprintService} from "../_services/sprint.service";
 import {UserService} from "../_services/user.service";
 import {User} from "../_models/user";
+import {DateModel, DatePickerOptions} from "ng2-datepicker";
 
 @Component({
   selector: 'app-sprint',
@@ -17,8 +18,16 @@ export class SprintComponent implements OnInit {
   users: User[];
   errorMessage: string;
 
+  startDate: DateModel;
+  endDate: DateModel;
+
+  startDateEdit: DateModel;
+  endDateEdit: DateModel;
+  options: DatePickerOptions;
+
 
   constructor(private sprintService: SprintService, private userService: UserService) {
+    this.options = new DatePickerOptions();
   }
 
   ngOnInit() {
@@ -60,8 +69,8 @@ export class SprintComponent implements OnInit {
 
 
 
-  createSprint(sprintName: string, startDate: string, endDate: string) {
-    this.sprintService.createSprint(sprintName, startDate, endDate)
+  createSprint(sprintName: string) {
+    this.sprintService.createSprint(sprintName, this.startDate.momentObj, this.endDate.momentObj)
       .subscribe(
         success => this.getSprints(),
         error => this.errorMessage = <any> error
@@ -69,8 +78,8 @@ export class SprintComponent implements OnInit {
   }
 
 
-  updateSprint(sprintId: string, sprintName: string, startDate: string, endDate: string) {
-    this.sprintService.updateSprint(sprintId, sprintName, startDate, endDate)
+  updateSprint(sprintId: string, sprintName: string) {
+    this.sprintService.updateSprint(sprintId, sprintName, this.startDate.momentObj, this.endDate.momentObj)
       .subscribe(
         success => this.getSprints()
       );

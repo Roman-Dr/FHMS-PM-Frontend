@@ -87,9 +87,10 @@
             </div>
           </div>
 
-          <button type="button" class="btn btn-default btn-sm" (click)="deleteSprintCapacity(sprint._id, sprintCapacity._id)">
-          <span class="glyphicon glyphicon-remove"></span>
-        </button>
+          <button type="button" class="btn btn-default btn-sm"
+                  (click)="deleteSprintCapacity(sprint._id, sprintCapacity._id)">
+            <span class="glyphicon glyphicon-remove"></span>
+          </button>
 
         </td>
       </tr>
@@ -135,16 +136,14 @@
 
               <div class="form-group">
                 <label for="start-date-edit">Startdatum</label>
-                <input type="text" #startDate class="form-control" id="start-date-edit"
-                       value="{{sprint.startDate | date:'yyyy-MM-dd'}}">
+                <ng2-datepicker [options]="{'format': 'DD.MM.YYYY', 'locale': 'de'}" [(ngModel)]="startDateEdit" class="form-control" id="start-date-edit" ></ng2-datepicker>
               </div>
               <div class="form-group">
                 <label for="end-date-edit">Enddatum</label>
-                <input type="text" #endDate class="form-control" id="end-date-edit"
-                       value="{{sprint.endDate | date:'yyyy-MM-dd'}}">
+                <ng2-datepicker [options]="{'format': 'DD.MM.YYYY', 'locale': 'de'}" [(ngModel)]="endDateEdit" class="form-control" id="end-date-edit" ></ng2-datepicker>
               </div>
               <button type="button" class="btn btn-default" data-dismiss="modal"
-                      (click)="updateSprint(sprint._id, sprintName.value, startDate.value, endDate.value)">
+                      (click)="updateSprint(sprint._id, sprintName.value)">
                 Speichern
               </button>
 
@@ -164,17 +163,19 @@
       <label for="sprint-name">Anzeigename</label>
       <input type="text" #sprintName class="form-control" id="sprint-name" autocomplete="off">
     </div>
+
     <div class="form-group">
       <label for="start-date">Startdatum</label>
-      <input type="date" #startDate class="form-control" id="start-date" autocomplete="off">
+      <ng2-datepicker [options]="{'format': 'DD.MM.YYYY', 'locale': 'de'}" [(ngModel)]="startDate" class="form-control" id="start-date"></ng2-datepicker>
     </div>
     <div class="form-group">
       <label for="end-date">Enddatum</label>
-      <input type="date" #endDate class="form-control" id="end-date" autocomplete="off">
+      <ng2-datepicker [options]="{'format': 'DD.MM.YYYY', 'locale': 'de'}" [(ngModel)]="endDate" class="form-control" id="end-date"></ng2-datepicker>
     </div>
+
     <div class="form-group">
       <button type="button" class="btn btn-default btn-sm"
-              (click)="createSprint(sprintName.value, startDate.value, endDate.value)">
+              (click)="createSprint(sprintName.value)">
         Erstellen
       </button>
     </div>
@@ -182,6 +183,7 @@
 
 
 </div>
+
 
 
 

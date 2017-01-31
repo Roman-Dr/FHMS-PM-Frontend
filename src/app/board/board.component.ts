@@ -18,14 +18,17 @@ export class BoardComponent implements OnInit {
   committedItems: Backlog[];
   doneItems: Backlog[];
 
-  newState: string = "new";
+  states = [
+    'New', 'Approved', 'Committed', 'Done', 'Removed'
+  ];
+
 
   constructor(private backlogDataService: BacklogDataService, private dragulaService: DragulaService) {
 
   }
 
   ngOnInit() {
-    this.getNewBacklogItems();
+    this.getBacklogitems();
 
   }
 
@@ -39,14 +42,9 @@ export class BoardComponent implements OnInit {
         });
   }
 
-  getNewBacklogItems(){
-    this.backlogDataService.getBacklogitemsByState(this.newState)
-      .subscribe(
-        newItems => this.newItems = newItems,
-        err => {
-          console.log(err);
-        });
-  }
+
+
+
 
 
 

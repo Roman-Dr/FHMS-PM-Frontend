@@ -11,7 +11,7 @@ export class SprintService {
   constructor(private http: Http) { }
 
 
-  createSprint(sprintName: string, startDate: string, endDate: string ) {
+  createSprint(sprintName: string, startDate, endDate ) {
     return this.http.post
     (this._apiUrl,
       JSON.stringify({sprintName, startDate, endDate}), {withCredentials: true, headers: this.headers}
@@ -30,7 +30,7 @@ export class SprintService {
   }
 
 
-  updateSprint(sprintId: string, sprintName: string, startDate: string, endDate: string ) {
+  updateSprint(sprintId: string, sprintName: string, startDate, endDate ) {
     return this.http.put
     (this._apiUrl+sprintId,
       JSON.stringify({sprintName, startDate, endDate}), {withCredentials: true, headers: this.headers}

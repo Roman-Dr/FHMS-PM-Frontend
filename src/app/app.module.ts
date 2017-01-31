@@ -9,6 +9,7 @@ import {platformBrowserDynamic} from "@angular/platform-browser-dynamic";
 
 import {Ng2PaginationModule} from "ng2-pagination";
 import {DragulaModule} from "ng2-dragula";
+import {DatePickerModule} from "ng2-datepicker";
 
 import {AppComponent} from './app.component';
 
@@ -61,6 +62,7 @@ import {ProjectService} from "./_services/project.service";
     FormsModule,
     HttpModule,
     DragulaModule,
+    DatePickerModule,
     Ng2PaginationModule,
     NgbModule.forRoot(),
     RouterModule.forRoot(routes),
