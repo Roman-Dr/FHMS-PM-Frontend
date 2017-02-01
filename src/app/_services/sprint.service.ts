@@ -140,7 +140,7 @@ export class SprintService {
       });
   }
 
-  
+
   getSprint(sprintId: string) {
     return this.http.get(AppSettings.getProjectUrl() + '/sprints/' + sprintId, {withCredentials: true, headers: this.headers})
       .map( (responseData) => {
