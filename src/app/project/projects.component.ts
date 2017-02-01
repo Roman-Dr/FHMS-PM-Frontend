@@ -62,37 +62,4 @@ export class ProjectsComponent implements OnInit {
       }
     })
   }
-
-  removeProject(projectId) {
-
-
-
-  }
-
-  createProject(displayName: string, description: string, dueDate: string, stakeholders: string[], contributors: string[]) {
-    this.projectService.createProject(displayName, description, dueDate, sessionStorage.getItem('user_id'), stakeholders, contributors)
-      .subscribe(
-        success => {
-          this.getProjects();
-          this.showCreation();
-        });
-  }
-
-
-  updateProject(projectId: string, displayName: string, description: string, dueDate: string, stakeholders: string[], contributors: string[]) {
-    this.projectService.updateProject(projectId, displayName, description, dueDate, sessionStorage.getItem('user_id'), stakeholders, contributors)
-      .subscribe(
-        success => {
-          this.getProjects();
-        });
-  }
-
-  showCreation() {
-    if (this.create) {
-      this.create = false;
-    }
-    else {
-      this.create = true;
-    }
-  }
 }

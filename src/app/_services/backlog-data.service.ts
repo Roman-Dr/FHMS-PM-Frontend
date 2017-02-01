@@ -63,8 +63,7 @@ export class BacklogDataService {
   }
 
   changeBacklogItemState(backlogItemId: string, state: string ) {
-    let backlogItem = JSON.stringify(Backlog);
-    return this.http.put(AppSettings.getProjectUrl() + '/backlogItems/' + backlogItemId + '/' + state, backlogItem ,{headers: this.headers})
+    return this.http.put(AppSettings.getProjectUrl() + '/backlogItems/' + backlogItemId + '/' + state, {},{headers: this.headers})
       .map(this.extractData)
       .catch(this.handleError);
   }
