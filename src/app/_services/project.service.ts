@@ -5,7 +5,6 @@ import {Observable} from "rxjs";
 
 import { AppSettings } from '../app.settings';
 import { Project } from '../_models/index';
-import {ProjectGuard} from "./project-guard.service";
 
 @Injectable()
 export class ProjectService {
@@ -17,7 +16,7 @@ export class ProjectService {
   private _apiUrl =  AppSettings.API_ENDPOINT + 'api/projects/';
   private headers: Headers = new Headers({'Content-Type': 'application/json'});
 
-  constructor(private http: Http, private projectGuard: ProjectGuard) { }
+  constructor(private http: Http) { }
 
 
   getProjects() {
