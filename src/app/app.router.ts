@@ -9,8 +9,10 @@ import {UserStoryComponent} from './user-story/user-story.component';
 import {LoginComponent} from './login/login.component'
 import {RegisterComponent} from './register/register.component'
 import {ProjectComponent,ProjectsComponent} from "./project/index";
+import {SprintCapacityComponent} from "./sprint/sprintCapacity.component";
 import {AuthGuard} from "./_services/auth-guard.service";
 import {ProjectGuard} from "./_services/project-guard.service";
+
 
 export const routes = [
   {path: '', component: LoginComponent, pathMatch: 'full'},
@@ -24,6 +26,7 @@ export const routes = [
   {path: 'board', component: BoardComponent, canActivate: [AuthGuard, ProjectGuard]},
   {path: 'sprints', component: SprintComponent, canActivate: [AuthGuard, ProjectGuard]},
   {path: 'sprints/:sprintId/backlog', component: BacklogItemsComponent, canActivate: [AuthGuard, ProjectGuard]},
+  {path: 'sprints/:sprintId/sprintcapacities', component: SprintCapacityComponent, canActivate: [AuthGuard, ProjectGuard]},
   {path: 'estimation', component: EstimationComponent, canActivate: [AuthGuard, ProjectGuard]},
   {path: 'chart', component: ChartComponent, canActivate: [AuthGuard, ProjectGuard]},
   {path: 'roadmap', component: RoadmapComponent, canActivate: [AuthGuard, ProjectGuard]},

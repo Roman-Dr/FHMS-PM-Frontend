@@ -27,6 +27,7 @@ import {LoginComponent} from './login/login.component';
 import {RegisterComponent} from './register/register.component';
 import {UserStoryComponent} from './user-story/user-story.component';
 import {ProjectsComponent, ProjectComponent} from './project/index';
+import {SprintCapacityComponent} from "./sprint/sprintCapacity.component";
 import {ChartComponent} from './chart/chart.component';
 //
 
@@ -36,6 +37,7 @@ import {ChartComponent} from './chart/chart.component';
 //
 import {AuthGuard, ProjectGuard} from "./_services/index";
 import {AuthenticationService, UserService ,ProjectService, BacklogDataService, SprintService, TaskService, UserStoryDataService } from "./_services/index";
+
 //
 
 
@@ -46,6 +48,7 @@ import {AuthenticationService, UserService ,ProjectService, BacklogDataService, 
     BacklogItemComponent, BacklogItemsComponent,
     BoardComponent,
     SprintComponent,
+    SprintCapacityComponent,
     EstimationComponent,
     RoadmapComponent,
     LoginComponent,
