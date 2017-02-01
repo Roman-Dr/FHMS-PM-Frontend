@@ -1,8 +1,9 @@
 import {Component} from '@angular/core';
 import {Router} from "@angular/router";
 
-import {ProjectService, AuthenticationService, AuthGuard} from "./_services/index";
+import { AuthenticationService, AuthGuard, ProjectGuard} from "./_services/index";
 import {Project} from "./_models/index";
+import {ProjectService} from "./_services/project.service";
 
 
 @Component({
@@ -14,14 +15,13 @@ import {Project} from "./_models/index";
 })
 export class AppComponent {
 
-  projectName: string = sessionStorage.getItem('project_name');
-
   currentProject: Project;
 
   constructor(private authenticationService: AuthenticationService,
-              private projectService: ProjectService,
               private router: Router,
-              private authGuard: AuthGuard) {
+              private authGuard: AuthGuard,
+              private projectService: ProjectService,
+              private projectGuard: ProjectGuard) {
   }
 
 
@@ -45,5 +45,9 @@ export class AppComponent {
 
   isLoggedIn(){
     return this.authGuard.isLoggedIn();
+  }
+
+  isProjectSelected(){
+    return this.projectGuard.isProjectSelected();
   }
 }

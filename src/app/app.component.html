@@ -19,19 +19,19 @@
         <!--<li *ngIf="isLoggedIn()">-->
           <!--<a routerLink="projects">Projekte</a>-->
         <!--</li>-->
-        <li *ngIf="isLoggedIn() && currentProject">
+        <li *ngIf="isLoggedIn() && isProjectSelected()">
           <a routerLink="user-story">User-Story</a>
         </li>
-        <li *ngIf="isLoggedIn() && currentProject">
+        <li *ngIf="isLoggedIn() && isProjectSelected()">
           <a routerLink="backlog">Backlog</a>
         </li>
-        <li *ngIf="isLoggedIn() && currentProject">
+        <li *ngIf="isLoggedIn() && isProjectSelected()">
           <a routerLink="sprints">Sprints</a>
         </li>
-        <li *ngIf="isLoggedIn() && currentProject">
+        <li *ngIf="isLoggedIn() && isProjectSelected()">
           <a routerLink="roadmap">Roadmap</a>
         </li>
-        <li *ngIf="isLoggedIn() && currentProject" class="dropdown">
+        <li *ngIf="isLoggedIn() && isProjectSelected()" class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">Boards<span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li *ngIf="isLoggedIn()"><a routerLink="board">SCRUM Board</a></li>

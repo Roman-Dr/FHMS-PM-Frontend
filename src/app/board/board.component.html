@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-sm-3">
     <div class="panel panel-primary">
-      <div class="panel-heading">New</div>
+      <div class="panel-heading">Neu</div>
       <div id="New" class="panel-body" [dragula]='"another-bag"' [dragulaModel]="newItems">
         <button [disabled]="isBusy" class="btn btn-primary btn-block" *ngFor="let item of newItems" data-id="{{item._id}}">{{item.title}}</button>
       </div>
@@ -10,7 +10,7 @@
 
   <div class="col-sm-3">
     <div class="panel panel-primary">
-      <div class="panel-heading">Approved</div>
+      <div class="panel-heading">Genehmigt</div>
       <div id="Approved" class="panel-body" [dragula]='"another-bag"' [dragulaModel]="approvedItems">
         <button [disabled]="isBusy" class="btn btn-primary btn-block" *ngFor="let item of approvedItems" data-id="{{item._id}}">{{item.title}}</button>
       </div>
@@ -28,7 +28,7 @@
 
   <div class="col-sm-3">
     <div class="panel panel-primary">
-      <div class="panel-heading">Done</div>
+      <div class="panel-heading">Abgeschlossen</div>
       <div id="Done" class="panel-body" [dragula]='"another-bag"' [dragulaModel]="doneItems">
         <button [disabled]="isBusy" class="btn btn-primary btn-block" *ngFor="let item of doneItems" data-id="{{item._id}}">{{item.title}}</button>
       </div>
