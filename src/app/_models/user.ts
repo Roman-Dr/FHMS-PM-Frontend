@@ -1,9 +1,4 @@
 export class User {
-
-  constructor(values: Object = {}) {
-    Object.assign(this, values);
-  }
-
   public _id: string;
   public email: string;
   public password: string;
@@ -11,7 +6,11 @@ export class User {
   public lastname: string;
   public birthdate: Date;
 
-  public displayName() {
+  constructor(values: Object = {}) {
+    Object.assign(this, values);
+  }
+
+  displayName() {
     return this.firstname + ", " + this.lastname;
   }
   displayNameWithMail() {

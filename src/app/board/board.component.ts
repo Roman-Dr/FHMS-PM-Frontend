@@ -14,22 +14,17 @@ export class BoardComponent implements OnInit {
 
   items: Backlog[];
 
-  newItems: Backlog[] = [];
-  approvedItems: Backlog[] = [];
-  committedItems: Backlog[] = [];
-  doneItems: Backlog[] = [];
+  newItems: Array<Backlog> = [];
+  approvedItems: Array<Backlog> = [];
+  committedItems: Array<Backlog> = [];
+  doneItems: Array<Backlog> = [];
 
-  draggedItem: Backlog;
-  selectedState: string;
-
-
-
-
+  isBusy: boolean = false;
 
   constructor(private backlogDataService: BacklogDataService, private dragulaService: DragulaService) {
-    dragulaService.dropModel.subscribe(value =>
-      this.changeBacklogItemState(this.draggedItem)
-    );
+    dragulaService.dropModel.subscribe((value) => {
+      this.onDropModel(value.slice(1));
+    });
   }
 
   ngOnInit() {
@@ -37,7 +32,18 @@ export class BoardComponent implements OnInit {
   }
 
 
+  private onDropModel(args) {
+    let [el, target, source] = args;
+    // do something else
+    console.log('id: ' + el.id);
+    console.log('target: ' + target.id);
+    console.log('source: ' + source.id);
+    this.isBusy = true;
 
+    console.log(el.id + ': ' + source.id + '->' + target.id);
+
+    this.backlogDataService.changeBacklogItemState(el.id, target.id).subscribe(() =>  this.isBusy = false);
+  }
 
   getBacklogitems() {
     this.backlogDataService.getBacklogitems()
@@ -49,25 +55,6 @@ export class BoardComponent implements OnInit {
         err => {
           console.log(err);
         });
-  }
-
-  changeBacklogItemState(backlog: Backlog){
-    let editBacklog = backlog;
-    editBacklog.state = this.selectedState;
-    this.backlogDataService.updateBacklogItem(backlog._id, editBacklog)
-      .subscribe(
-        success => console.log("State of Backlog Item changed!")
-      )
-  }
-
-  selectState(state: string){
-    this.selectedState = state;
-    console.log(this.selectedState);
-  }
-
-  dragBacklogItem(backlogItem: Backlog){
-      this.draggedItem = backlogItem;
-      console.log(this.draggedItem);
   }
 
   sortBacklogItems(items: Backlog[]) {
@@ -87,13 +74,7 @@ export class BoardComponent implements OnInit {
       if (items[i].state == 'Done') {
         this.doneItems.push(items[i])
       }
-
       console.log(this.newItems);
     }
   }
-
-
-
-
-
 }
