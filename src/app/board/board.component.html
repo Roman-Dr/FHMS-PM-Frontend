@@ -2,7 +2,7 @@
   <div class="col-sm-3">
     <div class="panel panel-primary">
       <div class="panel-heading">New</div>
-      <div id="new" class="panel-body" [dragula]='"another-bag"' [dragulaModel]="newItems">
+      <div id="New" class="panel-body" [dragula]='"another-bag"' [dragulaModel]="newItems">
         <button [disabled]="isBusy" class="btn btn-primary btn-block" *ngFor="let item of newItems" data-id="{{item._id}}">{{item.title}}</button>
       </div>
     </div>
@@ -11,7 +11,7 @@
   <div class="col-sm-3">
     <div class="panel panel-primary">
       <div class="panel-heading">Approved</div>
-      <div id="approved" class="panel-body" [dragula]='"another-bag"' [dragulaModel]="approvedItems">
+      <div id="Approved" class="panel-body" [dragula]='"another-bag"' [dragulaModel]="approvedItems">
         <button [disabled]="isBusy" class="btn btn-primary btn-block" *ngFor="let item of approvedItems" data-id="{{item._id}}">{{item.title}}</button>
       </div>
     </div>
@@ -20,7 +20,7 @@
   <div class="col-sm-3">
     <div class="panel panel-primary">
       <div class="panel-heading">Committed</div>
-      <div id="committed" class="panel-body" [dragula]='"another-bag"' [dragulaModel]="committedItems">
+      <div id="Committed" class="panel-body" [dragula]='"another-bag"' [dragulaModel]="committedItems">
         <button [disabled]="isBusy" class="btn btn-primary btn-block" *ngFor="let item of committedItems" data-id="{{item._id}}">{{item.title}}</button>
       </div>
     </div>
@@ -29,7 +29,7 @@
   <div class="col-sm-3">
     <div class="panel panel-primary">
       <div class="panel-heading">Done</div>
-      <div id="done" class="panel-body" [dragula]='"another-bag"' [dragulaModel]="doneItems">
+      <div id="Done" class="panel-body" [dragula]='"another-bag"' [dragulaModel]="doneItems">
         <button [disabled]="isBusy" class="btn btn-primary btn-block" *ngFor="let item of doneItems" data-id="{{item._id}}">{{item.title}}</button>
       </div>
     </div>
