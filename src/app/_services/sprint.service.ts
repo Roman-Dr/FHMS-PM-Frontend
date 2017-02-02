@@ -106,7 +106,7 @@ export class SprintService {
       })
   }
 
-  updateSprintCapacity(sprintId: string, sprintCapacityId, userId: string, daysOff: number, capacityPerDay: number) {
+  updateSprintCapacity(sprintId: string, sprintCapacityId: string, userId: string, daysOff: number, capacityPerDay: number) {
     return this.http.put
     (AppSettings.getProjectUrl() + '/sprints/' + sprintId + "/sprintcapacities/" + sprintCapacityId,
       JSON.stringify({userId, daysOff, capacityPerDay}), {withCredentials: true, headers: this.headers}

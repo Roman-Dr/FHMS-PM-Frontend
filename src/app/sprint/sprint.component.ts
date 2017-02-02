@@ -77,7 +77,12 @@ export class SprintComponent implements OnInit {
   createSprint() {
     this.sprintService.createSprint(this.sprintName, this.startDate, this.endDate)
       .subscribe(
-        success => this.getSprints(),
+        success => {
+          this.getSprints();
+          this.sprintName = '';
+          this.startDate = null;
+          this.endDate = null;
+        },
         error => this.errorMessage = <any> error
         );
   }

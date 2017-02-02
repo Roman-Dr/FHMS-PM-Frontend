@@ -56,12 +56,17 @@ export class SprintCapacityComponent implements OnInit {
 
 
 
-  updateSprintCapacity(sprintCapacityId: string) {
-    this.sprintService.updateSprintCapacity(this.sprintId, sprintCapacityId, this.userId, this.daysOff, this.capacityPerDay)
+  updateSprintCapacity(sprintCapacity) {
+    this.sprintService.updateSprintCapacity(this.sprintId, sprintCapacity._id, sprintCapacity.userId, sprintCapacity.daysOff, sprintCapacity.capacityPerDay)
       .subscribe(
-        success => this.getSprint()
+        success => {
+          this.editedIndex = null;
+            this.getSprint();
+        },
+        error => this.errorMessage = <any> error
       );
   }
+
 
   getUsers() {
     this.userService.getUsers()
@@ -89,7 +94,13 @@ export class SprintCapacityComponent implements OnInit {
   createSprintCapacity() {
     this.sprintService.createSprintCapacity(this.sprintId, this.userId, this.daysOff, this.capacityPerDay)
       .subscribe(
-        success => this.getSprint(),
+        success => {
+          this.getSprint();
+          this.userId = '';
+          this.daysOff = null;
+          this.capacityPerDay = null;
+        },
+
         error => this.errorMessage = <any> error
       );
   }
