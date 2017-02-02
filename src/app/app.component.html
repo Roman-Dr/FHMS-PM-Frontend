@@ -26,6 +26,9 @@
           <a routerLink="backlog">Backlog</a>
         </li>
         <li *ngIf="isLoggedIn() && currentProject">
+          <a routerLink="planningPoker">Planungspoker</a>
+        </li>
+        <li *ngIf="isLoggedIn() && currentProject">
           <a routerLink="sprints">Sprints</a>
         </li>
         <li *ngIf="isLoggedIn() && currentProject">

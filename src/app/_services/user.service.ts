@@ -30,7 +30,7 @@ export class UserService {
   }
 
   getUser(userId) {
-    return this.http.get(this._apiUrl+userId)
+    return this.http.get(this._apiUrl + 'users/' +userId)
       .map((responseData) => {
         return responseData.json();
       })

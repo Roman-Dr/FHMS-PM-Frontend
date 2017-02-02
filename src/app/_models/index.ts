@@ -7,3 +7,6 @@ export * from './sprint';
 export * from './task';
 export * from './user';
 export * from './UserStory';
+export * from './planningPoker';
+export * from './planningPokerRound';
+export * from './planningPokerRoundVote';
