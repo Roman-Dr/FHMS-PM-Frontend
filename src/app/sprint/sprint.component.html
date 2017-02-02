@@ -1,184 +1,87 @@
 <div class="row">
-
   <div class="table-responsive col-sm-8">
-    <table class="table" *ngFor="let sprint of sprints | paginate: { itemsPerPage: 3, currentPage: p }">
+    <table class="table">
       <tr>
+        <th>Status</th>
         <th>Name</th>
         <th>Startdatum</th>
         <th>Enddatum</th>
         <th></th>
       </tr>
-      <tr class="active">
+      <tr *ngFor="let sprint of sprints | paginate: { itemsPerPage: 20, currentPage: p }">
+        <td><span *ngIf="checkStatus(sprint)" class="glyphicon glyphicon-ok" style="margin-left: 15px"></span><span *ngIf="!checkStatus(sprint)" class="glyphicon glyphicon-remove" style="margin-left: 15px"></span></td>
         <td>{{sprint.sprintName}}</td>
         <td>{{sprint.startDate | date:'dd.MM.yyyy'}}</td>
         <td>{{sprint.endDate | date:'dd.MM.yyyy'}}</td>
         <td>
-          <button type="button" class="btn btn-default btn-sm">
-            <span class="glyphicon glyphicon-ok"></span>
+          <button type="button" class="btn btn-xs" (click)="chooseSprintForEdit(sprint)">
+            <span class="glyphicon glyphicon-edit"></span>
           </button>
 
-          <a href="#edit-sprint-{{sprint._id}}" data-toggle="modal">
-            <button type="button" class="btn btn-default btn-sm">
-              <span class="glyphicon glyphicon-edit"></span>
-            </button>
-          </a>
-
-          <button type="button" class="btn btn-default btn-sm" (click)="deleteSprint(sprint._id)">
-            <span class="glyphicon glyphicon-remove"></span>
+          <button type="button" class="btn btn-xs" (click)="openSprintCapacity(sprint._id)">
+            <span class="glyphicon glyphicon-list"></span>
           </button>
 
-        </td>
-      </tr>
-      <tr>
-        <th>Nutzer</th>
-        <th>Tage</th>
-        <th>Kapazität pro Tag in Stunden</th>
-        <th></th>
-      </tr>
-      <tr *ngFor="let sprintCapacity of sprint.sprintCapacity " class="active">
-        <td>{{sprintCapacity.userId}}</td>
-        <td>{{sprintCapacity.daysOff}}</td>
-        <td>{{sprintCapacity.capacityPerDay}}</td>
-        <td>
-
-
-          <a href="#edit-sprintcapacity-{{sprintCapacity._id}}" data-toggle="modal">
-            <button type="button" class="btn btn-default btn-sm">
-              <span class="glyphicon glyphicon-edit"></span>
-            </button>
-          </a>
-
-
-          <div class="modal fade" id="edit-sprintcapacity-{{sprintCapacity._id}}" tabindex="-1" role="dialog"
-               aria-labelledby="edit-sprint" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h3 class="modal-title" id="edit-sprintcapacity">Kapazität des Sprints editieren</h3>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <div class="form-group">
-                    <label for="user-edit">Name</label>
-                    <select #userId id="user-edit" class="form-control">
-                      <option *ngFor="let user of users" value="{{ user._id }}">{{ user.email }}</option>
-                    </select>
-                  </div>
-
-                  <div class="form-group">
-                    <label for="days-off-edit">Tage</label>
-                    <input type="text" #daysOff class="form-control" id="days-off-edit"
-                           value="{{sprintCapacity.daysOff}}">
-                  </div>
-                  <div class="form-group">
-                    <label for="capacity-edit">Kapazität pro Tag in Stunden</label>
-                    <input type="text" #capacityPerDay class="form-control" id="capacity-edit"
-                           value="{{sprintCapacity.capacityPerDay}}">
-                  </div>
-                  <button type="button" class="btn btn-default" data-dismiss="modal"
-                          (click)="updateSprintCapacity(sprint._id, sprintCapacity._id, userId.value, daysOff.value, capacityPerDay.value)">
-                    Speichern
-                  </button>
-
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <button type="button" class="btn btn-default btn-sm"
-                  (click)="deleteSprintCapacity(sprint._id, sprintCapacity._id)">
-            <span class="glyphicon glyphicon-remove"></span>
+          <button type="button" class="btn btn-xs" (click)="deleteSprint(sprint._id)">
+            <span class="glyphicon glyphicon-trash"></span>
           </button>
 
         </td>
-      </tr>
-
-
-      <tr>
-        <td>
-          <select #userId id="user-id" class="form-control">
-            <option *ngFor="let user of users" value="{{ user._id }}">{{ user.email }}</option>
-          </select>
-        </td>
-        <td>
-          <input type="number" #daysOff class="form-control" id="days-off">
-        </td>
-        <td>
-          <input type="number" #capacityPerDay class="form-control" id="capacity-per-day">
-        </td>
-        <td>
-          <button type="button" class="btn btn-default btn-sm"
-                  (click)="createSprintCapacity(sprint._id, userId.value, daysOff.value, capacityPerDay.value)">
-            <span class="glyphicon glyphicon-plus"></span>
-          </button>
-        </td>
-      </tr>
-
-
-      <div class="modal fade" id="edit-sprint-{{sprint._id}}" tabindex="-1" role="dialog"
-           aria-labelledby="edit-sprint" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h3 class="modal-title" id="edit-sprint">Sprint editieren</h3>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <div class="form-group">
-                <label for="sprint-name-edit">Name</label>
-                <input type="text" #sprintName class="form-control" id="sprint-name-edit"
-                       value="{{sprint.sprintName}}">
-              </div>
-
-              <div class="form-group">
-                <label for="start-date-edit">Startdatum</label>
-                <ng2-datepicker [options]="{'format': 'DD.MM.YYYY', 'locale': 'de'}" [(ngModel)]="startDateEdit" class="form-control" id="start-date-edit" ></ng2-datepicker>
-              </div>
-              <div class="form-group">
-                <label for="end-date-edit">Enddatum</label>
-                <ng2-datepicker [options]="{'format': 'DD.MM.YYYY', 'locale': 'de'}" [(ngModel)]="endDateEdit" class="form-control" id="end-date-edit" ></ng2-datepicker>
-              </div>
-              <button type="button" class="btn btn-default" data-dismiss="modal"
-                      (click)="updateSprint(sprint._id, sprintName.value)">
-                Speichern
-              </button>
-
-            </div>
-          </div>
-        </div>
-      </div>
-
     </table>
 
     <pagination-controls (pageChange)="p = $event" previousLabel="Zurück" nextLabel="Vor"></pagination-controls>
 
   </div>
+
+
   <div class="jumbotron col-sm-4">
-    <h3>Sprint erstellen</h3>
+    <h3 *ngIf="!editMode">Sprint erstellen</h3>
+    <h3 *ngIf="editMode">Sprint editieren</h3>
+    <button *ngIf="editMode" type="button" class="btn btn-xs" style="float: right" (click)="cancelSprintForEdit()">
+      <span class="glyphicon glyphicon-remove"></span>
+    </button>
     <div class="form-group">
       <label for="sprint-name">Anzeigename</label>
-      <input type="text" #sprintName class="form-control" id="sprint-name" autocomplete="off">
-    </div>
 
+      <input type="text" *ngIf="!editMode" class="form-control" [(ngModel)]="sprintName" id="sprint-name"
+             autocomplete="off">
+
+      <input type="text" *ngIf="editMode" [(ngModel)]="chosenSprint.sprintName" class="form-control"
+             autocomplete="off"
+             (change)="updateSprint(chosenSprint)">
+
+    </div>
     <div class="form-group">
       <label for="start-date">Startdatum</label>
-      <ng2-datepicker [options]="{'format': 'DD.MM.YYYY', 'locale': 'de'}" [(ngModel)]="startDate" class="form-control" id="start-date"></ng2-datepicker>
+
+      <input type="date" *ngIf="!editMode" [(ngModel)]="startDate"
+             class="form-control"
+             id="start-date">
+
+      <input type="date" *ngIf="editMode" [(ngModel)]="chosenSprint.startDate"
+             class="form-control"
+             (change)="updateSprint(chosenSprint)">
     </div>
     <div class="form-group">
       <label for="end-date">Enddatum</label>
-      <ng2-datepicker [options]="{'format': 'DD.MM.YYYY', 'locale': 'de'}" [(ngModel)]="endDate" class="form-control" id="end-date"></ng2-datepicker>
+
+      <input type="date" *ngIf="!editMode"  [(ngModel)]="endDate"
+             class="form-control"
+             id="end-date">
+
+      <input type="date" *ngIf="editMode" [(ngModel)]="chosenSprint.endDate"
+             class="form-control"
+      (change)="updateSprint(chosenSprint)">
     </div>
 
     <div class="form-group">
-      <button type="button" class="btn btn-default btn-sm"
-              (click)="createSprint(sprintName.value)">
+      <button *ngIf="!editMode" type="button" class="btn btn-sm"
+              (click)="createSprint()">
         Erstellen
       </button>
+
     </div>
+
   </div>
 
 

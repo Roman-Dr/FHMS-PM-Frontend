@@ -1,4 +1,4 @@
-import {Injectable, Output, EventEmitter} from '@angular/core';
+import {Injectable, Output, EventEmitter,} from '@angular/core';
 import {Http, Headers} from "@angular/http";
 import 'rxjs/Rx'
 import {Observable} from "rxjs";
@@ -8,11 +8,9 @@ import { Project } from '../_models/index';
 
 @Injectable()
 export class ProjectService {
-
   @Output() projectChosen = new EventEmitter();
 
   redirectUrl: string;
-  choosenProject: string;
 
 
   private _apiUrl =  AppSettings.API_ENDPOINT + 'api/projects/';

@@ -10,6 +10,7 @@ import {platformBrowserDynamic} from "@angular/platform-browser-dynamic";
 import {Ng2PaginationModule} from "ng2-pagination";
 import {DragulaModule} from "ng2-dragula";
 import {DatePickerModule} from "ng2-datepicker";
+import {ChartsModule} from "ng2-charts";
 
 import {AppComponent} from './app.component';
 
@@ -27,6 +28,7 @@ import {RegisterComponent} from './register/register.component';
 import {UserStoryComponent} from './user-story/user-story.component';
 import {ProjectsComponent, ProjectComponent} from './project/index';
 import {PlanningPokerComponent} from './planningPoker/index';
+import {SprintCapacityComponent} from "./sprint/sprintCapacity.component";
 import {ChartComponent} from './chart/chart.component';
 //
 
@@ -35,7 +37,7 @@ import {ChartComponent} from './chart/chart.component';
 // SERVICES -> Providers
 //
 import {AuthGuard, ProjectGuard} from "./_services/index";
-import {AuthenticationService, UserService ,ProjectService } from "./_services/index";
+import {AuthenticationService, UserService ,ProjectService, SprintService } from "./_services/index";
 //
 
 
@@ -46,6 +48,7 @@ import {AuthenticationService, UserService ,ProjectService } from "./_services/i
     BacklogItemComponent, BacklogItemsComponent,
     BoardComponent,
     SprintComponent,
+    SprintCapacityComponent,
     EstimationComponent,
     RoadmapComponent,
     LoginComponent,
@@ -62,6 +65,7 @@ import {AuthenticationService, UserService ,ProjectService } from "./_services/i
     DragulaModule,
     DatePickerModule,
     Ng2PaginationModule,
+    ChartsModule,
     NgbModule.forRoot(),
     RouterModule.forRoot(routes),
   ],

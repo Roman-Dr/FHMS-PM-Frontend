@@ -44,7 +44,7 @@ export class SprintService {
         }
         // If everything went fine, return the response
         else {
-          console.log("Create Sprint successful");
+          console.log("Update Sprint successful");
           return res.json();
         }
       })
@@ -140,12 +140,13 @@ export class SprintService {
       });
   }
 
+
   getSprint(sprintId: string) {
     return this.http.get(AppSettings.getProjectUrl() + '/sprints/' + sprintId, {withCredentials: true, headers: this.headers})
       .map( (responseData) => {
         return responseData.json();
       })
-      .map((sprint: Array<any>) => {
+      .map((sprint: any) => {
         return new Sprint(sprint);
       });
   }

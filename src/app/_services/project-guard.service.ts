@@ -1,11 +1,12 @@
-import { Injectable } from '@angular/core';
+import {Injectable, EventEmitter, Output} from '@angular/core';
 import {CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot} from '@angular/router';
 import {ProjectService} from "./project.service";
 import {Observable} from "rxjs";
 
 @Injectable()
 export class ProjectGuard implements CanActivate {
-  constructor(private projectService: ProjectService, private router: Router) {}
+
+  constructor(private projectService: ProjectService, private router: Router ) {}
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     let url: string = state.url;
 
@@ -20,5 +21,16 @@ export class ProjectGuard implements CanActivate {
     this.router.navigate(['/projects']);
     return false;
   }
+
+
+  isProjectSelected() {
+    if (sessionStorage.getItem('project_id') !== null) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+
 
 }

@@ -1,14 +1,6 @@
-.item {
-  background-color: gray;
+.drop-bag {
+  min-height: 650px;
 }
-
-
-.drop {
-  height: 600px;
-  margin-right: 25px
-}
-
-
 
 .gu-mirror {
   position: fixed !important;

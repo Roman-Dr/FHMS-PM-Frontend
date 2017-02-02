@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 
-import {UserService, ProjectService, AuthenticationService} from "../_services/index";
+import {UserService, ProjectService} from "../_services/index";
 
 import {User, Project} from "../_models/index";
 
@@ -16,7 +16,6 @@ export class ProjectsComponent implements OnInit {
   user: User;
   users: User[];
   errorMessage: string;
-  create = false;
 
   constructor(private projectService: ProjectService, private userService: UserService, private router: Router) {
   }
@@ -39,14 +38,6 @@ export class ProjectsComponent implements OnInit {
       .subscribe(
         users => this.users = users,
         error => this.errorMessage = <any> error
-      )
-  }
-
-  getUser(userId) {
-    this.userService.getUser(userId)
-      .subscribe(
-        user => this.user = user,
-        error => this.errorMessage = <any> error,
       )
   }
 
