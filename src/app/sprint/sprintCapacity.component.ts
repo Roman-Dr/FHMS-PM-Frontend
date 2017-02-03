@@ -35,8 +35,8 @@ export class SprintCapacityComponent implements OnInit {
     this.getUsers();
 
     this.activatedRoute.params.subscribe((params: Params) => {
-
       this.sprintId = params['sprintId'];
+      console.log("Sprint: " + this.sprintId);
       if(this.sprintId) {
         this.sprintService.getSprint(this.sprintId).subscribe(sprint => this.sprint = sprint);
       } else {

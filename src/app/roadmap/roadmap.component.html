@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-xs-12">
       <div class="page-header">
         <h1>Roadmap</h1>
       </div>
@@ -28,7 +28,9 @@
         <ul class="timeline timeline-horizontal">
           <li class="timeline-item" *ngFor="let initiative of initiatives">
             <div class="timeline-badge primary" (click)="onSelect(initiative)"
-                 [class.selected]="initiative == selectedInitiative"><i class="glyphicon glyphicon-check"></i></div>
+                 [style.background-color]="changeColor(initiative)">
+              <i class="glyphicon glyphicon-check"></i>
+            </div>
             <div class="timeline-panel">
               <div class="timeline-heading">
                 <h4 class="timeline-title">{{initiative.title}}</h4>
@@ -42,30 +44,38 @@
           </li>
         </ul>
       </div>
-      <div *ngIf="selectedInitiative">
-        <h2>{{selectedInitiative.title}}</h2>
-        <table class="table table-bordered table-hover" style="width: 50%">
-          <tbody>
-          <tr>
-            <th class="col-xs-3">Beschreibung</th>
-            <td>{{selectedInitiative.description}}</td>
-          </tr>
-          <tr>
-            <th class="col-xs-3">Ziel</th>
-            <td>{{selectedInitiative.goal}}</td>
-          </tr>
-          <tr>
-            <th class="col-xs-3">Features</th>
-            <td>
-              <ul>
-                <li *ngFor="let feature of selectedInitiative.features">
-                  {{feature.title}}
-                </li>
-              </ul>
-            </td>
-          </tr>
-          </tbody>
-        </table>
+      <div class="jumbotron container-fluid" *ngIf="selectedInitiative">
+        <div class="col-xs-6 col-md-offset-3">
+          <h2>{{selectedInitiative.title}}</h2>
+          <table class="table">
+            <tbody>
+            <tr>
+              <th class="col-xs-3">Beschreibung</th>
+              <td>{{selectedInitiative.description}}</td>
+            </tr>
+            <tr>
+              <th class="col-xs-3">Ziel</th>
+              <td>{{selectedInitiative.goal}}</td>
+            </tr>
+            <tr>
+              <th class="col-xs-3">Features</th>
+              <td>
+                <ul class="list-group">
+                  <li class="list-group-item" *ngFor="let feature of selectedInitiative.features">
+                    {{feature.title}}
+                  </li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td style="text-align: right">
+                <button class="btn btn-danger" (click)="deleteInitiative()">Löschen</button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
@@ -89,15 +99,15 @@
         <div class="form-group row">
           <label for="start-date" class="col-xs-2 col-form-label">Startdatum</label>
           <div class="col-xs-6">
-            <ng2-datepicker [options]="{'format': 'DD.MM.YYYY', 'locale': 'de'}" [(ngModel)]="initiativeStartDate"
-                            class="form-control" id="start-date"></ng2-datepicker>
+            <input type="date" [(ngModel)]="initiativeStartDate"
+                            class="form-control" id="start-date">
           </div>
         </div>
         <div class="form-group row">
           <label for="end-date" class="col-xs-2 col-form-label">Enddatum</label>
           <div class="col-xs-6">
-            <ng2-datepicker [options]="{'format': 'DD.MM.YYYY', 'locale': 'de'}" [(ngModel)]="initiativeEndDate"
-                            class="form-control" id="end-date"></ng2-datepicker>
+            <input type="date" [(ngModel)]="initiativeEndDate"
+                            class="form-control" id="end-date">
           </div>
         </div>
         <div class="form-group row">

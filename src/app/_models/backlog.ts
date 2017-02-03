@@ -40,7 +40,7 @@ export class Backlog {
     if (this.priority == "Low") {
       return "Niedrig";
     }
-    else if (this.priority == "Low") {
+    else if (this.priority == "Normal") {
       return "Normal";
     }
     else {

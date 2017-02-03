@@ -1,0 +1,92 @@
+<div class="app-planningPokerGame">
+  <div class="page-header">
+    <div class="btn-group pull-right" style="margin-top: 15px;">
+      <button type="button" class="btn" (click)="nextPhase()" [disabled]="!canNextPhase()">
+        <span class="hidden-xs">Weiter </span><i class="glyphicon glyphicon-arrow-right"></i>
+      </button>
+    </div>
+
+
+    <h1>Planungspoker aktives Spiel</h1>
+  </div>
+
+  <div class="well">
+    <div class="row">
+      <div class="col-sm-6">
+        Backlogeintrag: {{planningPoker?.item?.title}}
+      </div>
+      <div class="col-sm-6">
+        Moderator: {{planningPoker?.moderator.firstname + " " + planningPoker?.moderator.lastname}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        Aktuelle Runde: {{activeRound?.number}}
+      </div>
+      <div class="col-sm-6">
+
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="viewState == ViewStates.WaitingForRound">
+    <div class="well">
+      <div *ngIf="isModerator">
+        <span>Geben Sie die Runde mit einem Klick auf 'Weiter' frei...</span>
+      </div>
+      <div *ngIf="!isModerator">
+        <span>Warten Sie bis der Moderator die Runde freigegeben hat...</span>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="viewState == ViewStates.Vote">
+    <div class="well">
+      <div *ngIf="isModerator">
+        <span>Warten Sie bis alle Ihre Stimme abgegeben haben...</span>
+      </div>
+      <div *ngIf="!isModerator">
+        <div class="form-group">
+          <label for="inputEffort">Aufwand: </label>
+          <input type="number" id="inputEffort" min="1" required class="form-control" [(ngModel)]="inputVoteEffort" />
+        </div>
+        <div class="form-group">
+          <label for="inputReason">Begründung: </label>
+          <input type="text" id="inputReason" class="form-control" [(ngModel)]="inputVoteReason" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="viewState == ViewStates.WaitingForDiscussion">
+    <h2>Waiting for discussion...</h2>
+  </div>
+  <div *ngIf="viewState == ViewStates.Discussion">
+    <h2>Discussion...</h2>
+  </div>
+  <div *ngIf="viewState == ViewStates.Decision">
+    <div class="well">
+      <table class="table table-hover">
+        <thead>
+        <th>Teilnehmer</th>
+        <th>Aufwand</th>
+        <th>Grund</th>
+        <th></th>
+        </thead>
+        <tbody>
+        <tr *ngFor="let vote of activeRound?.votes">
+          <td>{{vote.voterDisplayName}}</td>
+          <td>{{vote.effort}}</td>
+          <td>{{vote.reason}}</td>
+          <td>
+            <button [disabled]="!isModerator" class="btn btn-xs" (click)="acceptVote(vote)"><span class="glyphicon glyphicon-ok"></span> annehmen</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div *ngIf="viewState == ViewStates.End">
+    <div class="well">
+      <span>Das Planungspoker ist nun abgeschlossen. Aufwand: {{activeRound.electedEffort}}</span>
+    </div>
+  </div>
+</div>
