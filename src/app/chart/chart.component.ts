@@ -67,16 +67,6 @@ export class ChartComponent implements OnInit  {
     this.getSprints();
   }
 
-
-  createTestData(){
-    this.sprintService.createSprintBurnDownMeasure(this.selectedSprint._id, new Date('2016-12-01'), 50).subscribe(success => console.log("yes!"));
-    this.sprintService.createSprintBurnDownMeasure(this.selectedSprint._id, new Date('2016-12-02'), 45).subscribe(success => console.log("yes!"));
-    this.sprintService.createSprintBurnDownMeasure(this.selectedSprint._id, new Date('2016-12-03'), 40).subscribe(success => console.log("yes!"));
-    this.sprintService.createSprintBurnDownMeasure(this.selectedSprint._id, new Date('2016-12-04'), 35).subscribe(success => console.log("yes!"));
-    this.sprintService.createSprintBurnDownMeasure(this.selectedSprint._id, new Date('2016-12-05'), 30).subscribe(success => console.log("yes!"));
-  }
-
-
   getSprints() {
     this.sprintService.getSprints()
       .subscribe(

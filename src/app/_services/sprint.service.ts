@@ -150,28 +150,7 @@ export class SprintService {
         return new Sprint(sprint);
       });
   }
-
-
-  createSprintBurnDownMeasure(sprintId: string, dateOfMeasurement: Date, remainingWorkTillNow: number) {
-    return this.http.post
-    (AppSettings.getProjectUrl() + '/sprints/' + sprintId + "/burnDown",
-      JSON.stringify({dateOfMeasurement, remainingWorkTillNow}), {withCredentials: true, headers: this.headers}
-    )
-      .map(res => {
-        // If request fails, throw an Error that will be caught
-        if (res.status < 200 || res.status >= 300) {
-          throw new Error('This request has failed ' + res.status);
-        }
-        // If everything went fine, return the response
-        else {
-          console.log("Create Sprint Down Measure successful");
-          return res.json();
-        }
-      })
-  }
-
-
-
+  
 
 }
 

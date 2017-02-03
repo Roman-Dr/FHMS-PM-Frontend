@@ -1,11 +1,11 @@
-<h2>Userstories</h2>
+<h2>User Stories</h2>
 
 
 <div class="table-responsive">
   <table class="table">
     <tr>
       <th>Status</th>
-      <th>Titel</th>
+      <th>User Story</th>
       <th>Autor</th>
       <th>Erstellt am</th>
       <th></th>
@@ -65,8 +65,8 @@
       </td>
     </tr>
     <tr>
-      <td colspan="4"><input class="form-control" placeholder="Bitte tragen Sie eine User Story ein."
-                 autofocus="" [(ngModel)]="userStory" (keyup.enter)="addUserStory()">
+      <td colspan="4"><textarea rows="4" class="form-control" placeholder="Bitte tragen Sie eine User Story ein."
+                                autofocus="" [(ngModel)]="userStory" (keyup.enter)="addUserStory()"></textarea>
       </td>
       <td></td>
     </tr>
