@@ -1,3 +1,4 @@
+import {SprintCapacity, SprintBurnDownMeasures} from "./index";
 export class Sprint {
   constructor(values: Object = {}) {
     Object.assign(this, values);
@@ -7,5 +8,6 @@ export class Sprint {
   public sprintName: string;
   public startDate: Date;
   public endDate: Date;
-  public sprintCapacity: string[];
+  public sprintCapacity: SprintCapacity[];
+  public sprintBurnDownMeasures: SprintBurnDownMeasures[];
 }
