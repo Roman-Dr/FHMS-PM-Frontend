@@ -1,0 +1,140 @@
+<div class="app-planningPoker">
+  <div class="page-header">
+    <h1><span class="hidden-xs">{{displayName}}</span><span *ngIf="project"><span class="hidden-xs">: </span>{{project.displayName}}</span>
+    </h1>
+  </div>
+
+  <div class="jumbotron">
+    <div class="btn-group btn-group-justified">
+
+      <div class="btn-group">
+        <button type="button" class="btn btn-primary" (click)="startNew()" data-toggle="modal"
+                data-target="#modalWaitingForParticipants" style="height: 100px;">
+          <i class="glyphicon glyphicon-plus"></i>
+          <span class="hidden-xs">Erstellen</span>
+        </button>
+      </div>
+
+      <div class="btn-group">
+        <button type="button" class="btn btn-primary" (click)="startParticipate()" data-toggle="modal"
+                data-target="#modalSearchingPlanningPoker" style="height: 100px;">
+          <i class="glyphicon glyphicon-search"></i>
+          <span class="hidden-xs">Teilnehmen</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="modalWaitingForParticipants" tabindex="-1" role="dialog"
+     aria-labelledby="waitingForParticipants" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Vorbereitung Planungspoker</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="abortNewPlanningPoker()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="isWaitingForParticipants" class="well">
+          Bitte warten Sie bis andere Teilnehmer beigetreten sind...<br/>
+          <div class="progress progress-striped active">
+            <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"
+                 style="width: 100%"></div>
+          </div>
+        </div>
+
+        <div *ngIf="isWaitingForSubmit">
+          <div class="form-group">
+            <label for="backlogItemSelection">Backlogeintrag: </label>
+            <select class="form-control" id="backlogItemSelection" name="backlogItemSelection"
+                    (change)="onBacklogItemSelected($event.target.value)">
+              <option></option>
+              <option *ngFor="let item of backlogItems" value="{{item._id}}">{{item.title}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div *ngIf="isWaitingForParticipants">
+          <table class="table table-condensed">
+            <thead>
+            <tr>
+              <th>Vorname</th>
+              <th>Nachname</th>
+              <th>E-Mail Adresse</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of newPlanningPoker?.participants">
+              <td>{{item.firstname}}</td>
+              <td>{{item.lastname}}</td>
+              <td>{{item.email}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success pull-right" data-dismiss="modal" (click)="acceptParticipants()"
+                [disabled]="!newPlanningPoker || !(newPlanningPoker.participants) || newPlanningPoker.participants.length == 0"><i
+          class="glyphicon glyphicon-plus"></i> Planungspoker starten</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="modalSearchingPlanningPoker" tabindex="-1" role="dialog"
+     aria-labelledby="searchingPlanningPoker" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Suche Planungspoker</h4>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="isSearching">
+          <table class="table table-condensed">
+            <thead>
+            <tr>
+              <th>Moderator</th>
+              <th>BacklogItem/UserStory</th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of availablePlanningPokers">
+              <td>{{item.moderator.firstname + " " + item.moderator.lastname}}</td>
+              <td>{{item.item.title}}</td>
+              <td class="col-xs-1 text-right">
+                <button class="btn btn-xs" (click)="onSelectPlanningPoker(item)">
+                  <span class="glyphicon glyphicon-ok"></span>
+                </button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div *ngIf="isWaitingForStart" class="well">
+        <span>Warte bis der Moderator das Planungspoker startet!</span>
+      </div>
+
+      <div *ngIf="!isSearching && !isWaitingForStart && selectedPlanningPoker?.isStarted" class="well">
+        <span>Das wurde Planungspoker gestartet!</span>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" [disabled]="!selectedPlanningPoker || isWaitingForStart"
+                class="btn btn-success pull-right" (click)="participate()"><i class="glyphicon glyphicon-plus"></i> Teilnehmen</button>
+        <button type="button" [disabled]="isWaitingForStart" data-dismiss="modal" class="btn btn-success pull-left"
+                data-dismiss="modal" (click)="abortParticipation()"><i class="glyphicon glyphicon-remove"></i> Abbrechen
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
