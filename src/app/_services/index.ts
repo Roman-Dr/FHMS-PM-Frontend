@@ -14,3 +14,4 @@ export * from './user-story-data.service';
 export * from './planningPoker.service';
 export * from './planningPokerGame.service';
 
+export * from './initiative.service';

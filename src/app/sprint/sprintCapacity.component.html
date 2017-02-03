@@ -6,15 +6,30 @@
       <th>Kapazität pro Tag in Stunden</th>
       <th></th>
     </tr>
-    <tr *ngFor="let sprintCapacity of sprint?.sprintCapacity">
-      <td>{{sprintCapacity.userId}}</td>
-      <td>{{sprintCapacity.daysOff}}</td>
-      <td>{{sprintCapacity.capacityPerDay}}</td>
+    <tr *ngFor="let sprintCapacity of sprint?.sprintCapacity; let i = index">
+      <td>{{sprintCapacity.userDisplayName}}</td>
+      <td>
+        <input type="text"
+               class="form-control"
+               [readonly]="editedIndex !== i"
+               (click)="edit(sprintCapacity, i)"
+                (change)="updateSprintCapacity(sprintCapacity)"
+               [(ngModel)]="sprintCapacity.daysOff"
+               style="background-color:white;"/>
+      </td>
+      <td>
+        <input type="text"
+               class="form-control"
+               [readonly]="editedIndex !== i"
+               (click)="edit(sprintCapacity, i)"
+               (change)="updateSprintCapacity(sprintCapacity)"
+               [(ngModel)]="sprintCapacity.capacityPerDay"
+               style="background-color:white;"/></td>
       <td>
 
         <button type="button" class="btn btn-xs"
                 (click)="deleteSprintCapacity(sprintCapacity._id)">
-          <span class="glyphicon glyphicon-remove"></span>
+          <span class="glyphicon glyphicon-trash"></span>
         </button>
 
       </td>
@@ -28,6 +43,8 @@
       </td>
       <td>
         <input [(ngModel)]="daysOff" type="number" class="form-control" id="days-off">
+
+
       </td>
       <td>
         <input [(ngModel)]="capacityPerDay" type="number" class="form-control" id="capacity-per-day">

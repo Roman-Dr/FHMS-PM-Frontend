@@ -10,3 +10,4 @@ export * from './UserStory';
 export * from './planningPoker';
 export * from './planningPokerRound';
 export * from './planningPokerRoundVote';
+export * from './initiative';
