@@ -11,5 +11,6 @@ export class PlanningPokerRoundVote {
   _id: string;
   effort: Number;
   reason: String;
-  voter: User;
+  voterId: string;
+  voterDisplayName: string;
 }

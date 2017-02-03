@@ -9,28 +9,29 @@ import {UserStoryComponent} from './user-story/user-story.component';
 import {LoginComponent} from './login/login.component'
 import {RegisterComponent} from './register/register.component'
 import {ProjectComponent,ProjectsComponent} from "./project/index";
-import {PlanningPokerComponent} from "./planningPoker/index";
+import {PlanningPokerComponent, PlanningPokerGameComponent} from "./planningPoker/index";
 import {SprintCapacityComponent} from "./sprint/sprintCapacity.component";
-import {AuthGuard} from "./_services/auth-guard.service";
-import {ProjectGuard} from "./_services/project-guard.service";
+
+import {AuthGuard, ProjectGuard, NavigationLockGuard} from "./_services/index";
 
 export const routes = [
   {path: '', component: LoginComponent, pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
-  {path: 'projects', component: ProjectsComponent, canActivate: [AuthGuard]},
-  {path: 'projects/:projectId', component: ProjectComponent, canActivate: [AuthGuard]},
-  {path: 'landing', component: LandingComponent, canActivate: [AuthGuard, ProjectGuard]},
-  {path: 'backlog', component: BacklogItemsComponent, canActivate: [AuthGuard, ProjectGuard]},
-  {path: 'backlog/:backlogItemId', component: BacklogItemComponent, canActivate: [AuthGuard, ProjectGuard]},
-  {path: 'board', component: BoardComponent, canActivate: [AuthGuard, ProjectGuard]},
-  {path: 'sprints', component: SprintComponent, canActivate: [AuthGuard, ProjectGuard]},
-  {path: 'sprints/:sprintId/backlog', component: BacklogItemsComponent, canActivate: [AuthGuard, ProjectGuard]},
-  {path: 'sprints/:sprintId/sprintcapacities', component: SprintCapacityComponent, canActivate: [AuthGuard, ProjectGuard]},
-  {path: 'estimation', component: EstimationComponent, canActivate: [AuthGuard, ProjectGuard]},
-  {path: 'planningPoker', component: PlanningPokerComponent, canActivate: [AuthGuard, ProjectGuard]},
-  {path: 'chart', component: ChartComponent, canActivate: [AuthGuard, ProjectGuard]},
-  {path: 'roadmap', component: RoadmapComponent, canActivate: [AuthGuard, ProjectGuard]},
-  {path: 'user-story', component: UserStoryComponent, canActivate: [AuthGuard, ProjectGuard]},
+  {path: 'projects', component: ProjectsComponent, canActivate: [AuthGuard, NavigationLockGuard]},
+  {path: 'projects/:projectId', component: ProjectComponent, canActivate: [AuthGuard, NavigationLockGuard]},
+  {path: 'landing', component: LandingComponent, canActivate: [AuthGuard, ProjectGuard, NavigationLockGuard]},
+  {path: 'backlog', component: BacklogItemsComponent, canActivate: [AuthGuard, ProjectGuard, NavigationLockGuard]},
+  {path: 'backlog/:backlogItemId', component: BacklogItemComponent, canActivate: [AuthGuard, ProjectGuard, NavigationLockGuard]},
+  {path: 'board', component: BoardComponent, canActivate: [AuthGuard, ProjectGuard, NavigationLockGuard]},
+  {path: 'sprints', component: SprintComponent, canActivate: [AuthGuard, ProjectGuard, NavigationLockGuard]},
+  {path: 'sprints/:sprintId/backlog', component: BacklogItemsComponent, canActivate: [AuthGuard, ProjectGuard, NavigationLockGuard]},
+  {path: 'sprints/:sprintId/sprintcapacities', component: SprintCapacityComponent, canActivate: [AuthGuard, ProjectGuard, NavigationLockGuard]},
+  {path: 'estimation', component: EstimationComponent, canActivate: [AuthGuard, ProjectGuard, NavigationLockGuard]},
+  {path: 'planningPoker', component: PlanningPokerComponent, canActivate: [AuthGuard, ProjectGuard, NavigationLockGuard]},
+  {path: 'planningPoker/game/:planningPokerId', component: PlanningPokerGameComponent, canActivate: [AuthGuard, ProjectGuard]},
+  {path: 'chart', component: ChartComponent, canActivate: [AuthGuard, ProjectGuard, NavigationLockGuard]},
+  {path: 'roadmap', component: RoadmapComponent, canActivate: [AuthGuard, ProjectGuard, NavigationLockGuard]},
+  {path: 'user-story', component: UserStoryComponent, canActivate: [AuthGuard, ProjectGuard, NavigationLockGuard]},
 ];
 

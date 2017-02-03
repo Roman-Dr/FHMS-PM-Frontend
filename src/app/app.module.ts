@@ -27,7 +27,7 @@ import {LoginComponent} from './login/login.component';
 import {RegisterComponent} from './register/register.component';
 import {UserStoryComponent} from './user-story/user-story.component';
 import {ProjectsComponent, ProjectComponent} from './project/index';
-import {PlanningPokerComponent} from './planningPoker/index';
+import {PlanningPokerComponent,PlanningPokerGameComponent} from './planningPoker/index';
 import {SprintCapacityComponent} from "./sprint/sprintCapacity.component";
 import {ChartComponent} from './chart/chart.component';
 //
@@ -36,7 +36,7 @@ import {ChartComponent} from './chart/chart.component';
 //
 // SERVICES -> Providers
 //
-import {AuthGuard, ProjectGuard} from "./_services/index";
+import {AuthGuard, ProjectGuard, NavigationLockGuard} from "./_services/index";
 import {AuthenticationService, UserService ,ProjectService, SprintService } from "./_services/index";
 //
 
@@ -55,7 +55,7 @@ import {AuthenticationService, UserService ,ProjectService, SprintService } from
     RegisterComponent,
     UserStoryComponent,
     ProjectComponent, ProjectsComponent,
-    PlanningPokerComponent,
+    PlanningPokerComponent, PlanningPokerGameComponent,
     ChartComponent
   ],
   imports: [
@@ -74,6 +74,7 @@ import {AuthenticationService, UserService ,ProjectService, SprintService } from
     UserService,
     ProjectService,
     AuthGuard,
+    NavigationLockGuard,
     ProjectGuard
   ],
   bootstrap: [AppComponent]

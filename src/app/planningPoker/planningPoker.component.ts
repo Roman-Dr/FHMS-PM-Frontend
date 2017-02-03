@@ -9,6 +9,8 @@ import {PlanningPokerService, UserService, ProjectService, BacklogDataService} f
 
 import {PlanningPoker, PlanningPokerRound, PlanningPokerRoundVote, Project, User, Backlog} from "../_models/index";
 
+declare var jQuery:any;
+
 @Component({
   selector: 'app-planningPoker',
   templateUrl: './planningPoker.component.html',
@@ -114,6 +116,8 @@ export class PlanningPokerComponent implements OnInit, OnDestroy {
         this.stopTimers();
         // TODO?
         console.log(JSON.stringify(x));
+
+        this.router.navigate(['planningPoker', 'game', this.newPlanningPoker._id]);
       });
   }
   abortNewPlanningPoker() {
@@ -146,13 +150,19 @@ export class PlanningPokerComponent implements OnInit, OnDestroy {
             // SUCCESS
             this.searchPlanningPokerTimer = window.setInterval(()=> {
               this.planningPokerService.getPlanningPoker(this.selectedPlanningPoker._id).subscribe(y => {
-                this.selectedPlanningPoker.isStarted = y.isStarted;
-                if(this.selectedPlanningPoker.isStarted) {
-                  this.isSearching = false;
-                  this.isWaitingForStart = false;
+                  this.selectedPlanningPoker.isStarted = y.isStarted;
+                  if (this.selectedPlanningPoker.isStarted) {
+                    this.isSearching = false;
+                    this.isWaitingForStart = false;
 
-                  this.stopTimers();
-                }
+                    this.stopTimers();
+                    // Workaround: Modal darf sich erst nach dem Start schließen
+                    jQuery("#modalSearchingPlanningPoker").modal("hide");
+
+                    window.setTimeout(() => {
+                      this.router.navigate(['planningPoker', 'game', this.selectedPlanningPoker._id]);
+                    }, 2000);
+                  }
               });
             }, 5000);
             console.log("Waiting for start...");
@@ -167,15 +177,5 @@ export class PlanningPokerComponent implements OnInit, OnDestroy {
   }
   abortParticipation() {
     this.stopTimers();
-
-    this.planningPokerService.unparticipate(this.user._id, this.selectedPlanningPoker)
-      .subscribe(x => {
-        if(x) {
-          this.isWaitingForStart = false;
-          this.isSearching = false;
-          this.availablePlanningPokers = [];
-          this.selectedPlanningPoker = null;
-        }
-      });
   }
 }

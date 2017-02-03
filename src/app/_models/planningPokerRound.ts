@@ -16,5 +16,9 @@ export class PlanningPokerRound {
   minEffort: PlanningPokerRoundVote;
   maxEffort: PlanningPokerRoundVote;
 
+  // ['Pending', 'Accepted', 'Rejected']
+  state: string;
+
   votes: Array<PlanningPokerRoundVote> = [];
+  votesCount: Number;
 }

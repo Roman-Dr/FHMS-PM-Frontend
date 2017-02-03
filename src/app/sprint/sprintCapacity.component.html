@@ -6,7 +6,7 @@
       <th>Kapazität pro Tag in Stunden</th>
       <th></th>
     </tr>
-    <tr *ngFor="let sprintCapacity of sprint.sprintCapacity">
+    <tr *ngFor="let sprintCapacity of sprint?.sprintCapacity">
       <td>{{sprintCapacity.userId}}</td>
       <td>{{sprintCapacity.daysOff}}</td>
       <td>{{sprintCapacity.capacityPerDay}}</td>
