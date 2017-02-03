@@ -2,8 +2,8 @@
   <div class="col-sm-3">
     <div class="panel panel-primary">
       <div class="panel-heading">Neu</div>
-      <div id="New" class="panel-body" [dragula]='"another-bag"' [dragulaModel]="newItems">
-        <button [disabled]="isBusy" class="btn btn-primary btn-block" *ngFor="let item of newItems" data-id="{{item._id}}">{{item.title}}</button>
+      <div id="New" class="panel-body drop-bag" [dragula]='"bag"' [dragulaModel]="newItems">
+        <button [disabled]="isBusy" class="btn btn-primary btn-block" *ngFor="let item of newItems" data-id="{{item._id}}" (dblclick)="openBacklogItem(item._id)">{{item.title}}</button>
       </div>
     </div>
   </div>
@@ -11,8 +11,8 @@
   <div class="col-sm-3">
     <div class="panel panel-primary">
       <div class="panel-heading">Genehmigt</div>
-      <div id="Approved" class="panel-body" [dragula]='"another-bag"' [dragulaModel]="approvedItems">
-        <button [disabled]="isBusy" class="btn btn-primary btn-block" *ngFor="let item of approvedItems" data-id="{{item._id}}">{{item.title}}</button>
+      <div id="Approved" class="panel-body drop-bag" [dragula]='"bag"' [dragulaModel]="approvedItems">
+        <button [disabled]="isBusy" class="btn btn-primary btn-block" *ngFor="let item of approvedItems" data-id="{{item._id}}" (dblclick)="openBacklogItem(item._id)"> {{item.title}}</button>
       </div>
     </div>
   </div>
@@ -20,8 +20,8 @@
   <div class="col-sm-3">
     <div class="panel panel-primary">
       <div class="panel-heading">Committed</div>
-      <div id="Committed" class="panel-body" [dragula]='"another-bag"' [dragulaModel]="committedItems">
-        <button [disabled]="isBusy" class="btn btn-primary btn-block" *ngFor="let item of committedItems" data-id="{{item._id}}">{{item.title}}</button>
+      <div id="Committed" class="panel-body drop-bag" [dragula]='"bag"' [dragulaModel]="committedItems">
+        <button [disabled]="isBusy" class="btn btn-primary btn-block" *ngFor="let item of committedItems" data-id="{{item._id}}" (dblclick)="openBacklogItem(item._id)">{{item.title}}</button>
       </div>
     </div>
   </div>
@@ -29,8 +29,8 @@
   <div class="col-sm-3">
     <div class="panel panel-primary">
       <div class="panel-heading">Abgeschlossen</div>
-      <div id="Done" class="panel-body" [dragula]='"another-bag"' [dragulaModel]="doneItems">
-        <button [disabled]="isBusy" class="btn btn-primary btn-block" *ngFor="let item of doneItems" data-id="{{item._id}}">{{item.title}}</button>
+      <div id="Done" class="panel-body drop-bag" [dragula]='"bag"' [dragulaModel]="doneItems">
+        <button [disabled]="isBusy" class="btn btn-primary btn-block" *ngFor="let item of doneItems" data-id="{{item._id}}" (dblclick)="openBacklogItem(item._id)">{{item.title}}</button>
       </div>
     </div>
   </div>

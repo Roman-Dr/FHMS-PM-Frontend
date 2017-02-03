@@ -2,37 +2,39 @@ import { Component, OnInit } from '@angular/core';
 import {Sprint} from "../_models/sprint";
 import {SprintService} from "../_services/sprint.service";
 import {UserService} from "../_services/user.service";
-import {User} from "../_models/user";
-import {DateModel, DatePickerOptions} from "ng2-datepicker";
+import {Router} from "@angular/router";
+import {DatePipe} from "@angular/common";
 
 @Component({
   selector: 'app-sprint',
   templateUrl: './sprint.component.html',
   styleUrls: ['./sprint.component.css'],
-  providers: [SprintService, UserService]
+  providers: [SprintService, UserService, DatePipe]
 })
 export class SprintComponent implements OnInit {
 
   sprints: Sprint[];
   sprint: Sprint;
-  users: User[];
   errorMessage: string;
 
-  startDate: DateModel;
-  endDate: DateModel;
+  sprintName: string;
+  startDate: Date;
+  endDate: Date;
 
-  startDateEdit: DateModel;
-  endDateEdit: DateModel;
-  options: DatePickerOptions;
+  chosenSprint: Sprint;
+  editMode: boolean = false;
+
+  today;
 
 
-  constructor(private sprintService: SprintService, private userService: UserService) {
-    this.options = new DatePickerOptions();
+
+  constructor(private sprintService: SprintService, private router: Router, private datePipe: DatePipe) {
+   this.today = this.datePipe.transform(Date.now(), 'yyyy-MM-dd');
   }
+
 
   ngOnInit() {
     this.getSprints();
-    this.getUsers();
   }
 
   getSprints() {
@@ -43,43 +45,51 @@ export class SprintComponent implements OnInit {
     )
 }
 
-  getSprint(sprintId: string) {
-    this.sprintService.getSprint(sprintId)
-      .subscribe(
-        sprint => this.sprint = sprint,
-        error => this.errorMessage = <any> error
-      )
+
+
+  openSprintCapacity(sprintId: string) {
+    this.router.navigate(['sprints/'+sprintId+'/sprintcapacities']);
+  }
+
+  checkStatus(sprint){
+    if(sprint.endDate >= this.today) {return true;}
+    else {return false};
+  }
+
+  chooseSprintForEdit(sprint){
+    sprint.startDate = this.datePipe.transform(sprint.startDate, 'yyyy-MM-dd');
+      sprint.endDate = this.datePipe.transform(sprint.endDate, 'yyyy-MM-dd');
+
+    this.chosenSprint = sprint;
+
+
+    console.log(this.chosenSprint);
+    this.editMode = true;
+  }
+
+  cancelSprintForEdit(){
+    this.chosenSprint = null;
+    this.editMode = false;
   }
 
 
-  updateSprintCapacity(sprintId: string, sprintCapacityId, userId: string, daysOff: number, capacityPerDay: number ) {
-    this.sprintService.updateSprintCapacity(sprintId, sprintCapacityId, userId, daysOff, capacityPerDay)
+
+  createSprint() {
+    this.sprintService.createSprint(this.sprintName, this.startDate, this.endDate)
       .subscribe(
-        success => this.getSprints()
-      );
-  }
-
-  getUsers() {
-    this.userService.getUsers()
-      .subscribe(
-        users => this.users = users,
-        error => this.errorMessage = <any> error
-      )
-  }
-
-
-
-  createSprint(sprintName: string) {
-    this.sprintService.createSprint(sprintName, this.startDate.momentObj, this.endDate.momentObj)
-      .subscribe(
-        success => this.getSprints(),
+        success => {
+          this.getSprints();
+          this.sprintName = '';
+          this.startDate = null;
+          this.endDate = null;
+        },
         error => this.errorMessage = <any> error
         );
   }
 
 
-  updateSprint(sprintId: string, sprintName: string) {
-    this.sprintService.updateSprint(sprintId, sprintName, this.startDateEdit.momentObj, this.endDateEdit.momentObj)
+  updateSprint(sprint) {
+    this.sprintService.updateSprint(sprint._id, sprint.sprintName, sprint.startDate, sprint.endDate)
       .subscribe(
         success => this.getSprints()
       );
@@ -96,24 +106,7 @@ export class SprintComponent implements OnInit {
   }
 
 
-  deleteSprintCapacity(sprintId, sprintCapacityId) {
-    this.sprintService.deleteSprintCapacity(sprintId, sprintCapacityId)
-      .subscribe(
-        success => this.getSprints(),
-        error => this.errorMessage = <any> error
-      );
 
-
-  }
-
-
-  createSprintCapacity(sprintId: string, userId: string, dayOff: number, capacityPerDay: number) {
-    this.sprintService.createSprintCapacity(sprintId, userId, dayOff, capacityPerDay)
-      .subscribe(
-        success => this.getSprints(),
-        error => this.errorMessage = <any> error
-      );
-  }
 
 
 

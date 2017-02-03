@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Backlog} from "../_models/index";
 import {BacklogDataService} from "../_services/index";
 import {DragulaService, dragula} from "ng2-dragula";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -21,7 +22,7 @@ export class BoardComponent implements OnInit {
 
   isBusy: boolean = false;
 
-  constructor(private backlogDataService: BacklogDataService, private dragulaService: DragulaService) {
+  constructor(private backlogDataService: BacklogDataService, private dragulaService: DragulaService, private router: Router) {
     dragulaService.dropModel.subscribe((value) => {
       this.onDropModel(value.slice(1));
     });
@@ -55,6 +56,10 @@ export class BoardComponent implements OnInit {
         err => {
           console.log(err);
         });
+  }
+
+  openBacklogItem(id: string) {
+    this.router.navigate(['backlog', id]);
   }
 
   sortBacklogItems(items: Backlog[]) {

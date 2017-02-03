@@ -44,7 +44,7 @@ export class SprintService {
         }
         // If everything went fine, return the response
         else {
-          console.log("Create Sprint successful");
+          console.log("Update Sprint successful");
           return res.json();
         }
       })
@@ -106,7 +106,7 @@ export class SprintService {
       })
   }
 
-  updateSprintCapacity(sprintId: string, sprintCapacityId, userId: string, daysOff: number, capacityPerDay: number) {
+  updateSprintCapacity(sprintId: string, sprintCapacityId: string, userId: string, daysOff: number, capacityPerDay: number) {
     return this.http.put
     (AppSettings.getProjectUrl() + '/sprints/' + sprintId + "/sprintcapacities/" + sprintCapacityId,
       JSON.stringify({userId, daysOff, capacityPerDay}), {withCredentials: true, headers: this.headers}
@@ -140,12 +140,13 @@ export class SprintService {
       });
   }
 
+
   getSprint(sprintId: string) {
     return this.http.get(AppSettings.getProjectUrl() + '/sprints/' + sprintId, {withCredentials: true, headers: this.headers})
       .map( (responseData) => {
         return responseData.json();
       })
-      .map((sprint: Array<any>) => {
+      .map((sprint: any) => {
         return new Sprint(sprint);
       });
   }
