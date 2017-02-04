@@ -21,6 +21,7 @@ export class UserStoryComponent {
   status: string = "false";
   userStory: string;
   errorMessage: string;
+  searchText: string;
 
 
   constructor(private userStoryDataService: UserStoryDataService, private userService: UserService) {
@@ -68,14 +69,22 @@ export class UserStoryComponent {
   }
 
   addUserStory() {
-      this.userStoryDataService.postUserStoryRestful(this.userStory, this.status, this.author).subscribe(
-        //data => this.postMyUserStoriesToServer = JSON.stringify(data),
-        data => {
-          this.loadUserStories()
-        }
-      );
-      this.userStory = ''
-      this.author = ''
+    this.userStoryDataService.postUserStoryRestful(this.userStory, this.status, this.author).subscribe(
+      //data => this.postMyUserStoriesToServer = JSON.stringify(data),
+      data => {
+        this.loadUserStories()
+      }
+    );
+    this.userStory = ''
+    this.author = ''
+  }
+
+  getUserStories() {
+    if(this.searchText) {
+      return this.userstories.filter(x => x.toString().indexOf(this.searchText) > -1);
+    } else {
+      return this.userstories;
     }
+  }
 
 }

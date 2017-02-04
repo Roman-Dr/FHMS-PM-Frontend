@@ -1,76 +1,91 @@
-<h2>User Stories</h2>
+<div class="UserStory">
+  <div class="page-header">
+    <div class="pull-right" style="margin-top: 15px;">
+      <div class="input-group" style="width: 200px;">
+        <input id="searchText" type="text" class="form-control" name="searchText" placeholder="Suchbegriff..."
+               [(ngModel)]="searchText">
+        <span class="input-group-addon">
+          <i class="glyphicon glyphicon-search"></i>
+        </span>
+      </div>
+    </div>
+
+    <h1>User Stories</h1>
+  </div>
 
 
-<div class="table-responsive">
-  <table class="table">
-    <tr>
-      <th>Status</th>
-      <th>User Story</th>
-      <th>Autor</th>
-      <th>Erstellt am</th>
-      <th></th>
-    </tr>
+  <div class="table-responsive">
+    <table class="table">
+      <tr>
+        <th>Status</th>
+        <th>User Story</th>
+        <th>Autor</th>
+        <th>Erstellt am</th>
+        <th></th>
+      </tr>
 
 
-    <tr *ngFor="let userstory of userstories | paginate: { itemsPerPage: 8, currentPage: p }">
+      <tr *ngFor="let userstory of getUserStories() | paginate: { itemsPerPage: 5, currentPage: p }">
 
-      <td><input #checkboxUserstory [id]="checkbox-2+userstory._id" class="checkbox-glyph sr-only"
-                 data-toggle="toggle" type="checkbox"
-                 (click)="toggleUserstory(userstory, checkboxUserstory.checked.toString())"
-                 [checked]="userstory.complete">
-        <label [for]='checkbox-2+userstory._id' class='fancy-checkbox-label'></label>
-      </td>
-      <td>{{userstory.title}}</td>
-      <td>{{userstory.authorDisplayName}}</td>
-      <td>{{userstory.creationDate | date:'dd.MM.yyyy'}}</td>
-      <td>
-        <button type="button" class="btn btn-xs" data-toggle="modal"
-                [attr.data-target]="'#editModal'+userstory._id">
-          <span class="glyphicon glyphicon-edit"></span>
-        </button>
-        <button id="#btnremove" class="btn btn-xs" (click)="removeUserStory(userstory)">
-          <span class="glyphicon glyphicon-trash"></span>
-        </button>
+        <td><input #checkboxUserstory [id]="checkbox-2+userstory._id" class="checkbox-glyph sr-only"
+                   data-toggle="toggle" type="checkbox"
+                   (click)="toggleUserstory(userstory, checkboxUserstory.checked.toString())"
+                   [checked]="userstory.complete">
+          <label [for]='checkbox-2+userstory._id' class='fancy-checkbox-label'></label>
+        </td>
+        <td>{{userstory.title}}</td>
+        <td>{{userstory.authorDisplayName}}</td>
+        <td>{{userstory.creationDate | date:'dd.MM.yyyy'}}</td>
+        <td>
+          <button type="button" class="btn btn-xs" data-toggle="modal"
+                  [attr.data-target]="'#editModal'+userstory._id">
+            <span class="glyphicon glyphicon-edit"></span>
+          </button>
+          <button id="#btnremove" class="btn btn-xs" (click)="removeUserStory(userstory)">
+            <span class="glyphicon glyphicon-trash"></span>
+          </button>
 
-        <div [id]="'editModal'+userstory._id" class="modal fade" role="dialog">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Userstory bearbeiten</h4>
-              </div>
-              <div class="modal-body">
-                <label for="userstory-title">Titel</label>
-                <input #title value="{{userstory.title}}" class="form-control" id="userstory-title">
-                <label for="userstory-author">Autor</label>
-                <select #author value="{{userstory.authorId}}" class="form-control" id="userstory-author">
-                  <option *ngFor="let user of users" value="{{user._id}}">{{user.email}}</option>
-                </select>
+          <div [id]="'editModal'+userstory._id" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Userstory bearbeiten</h4>
+                </div>
+                <div class="modal-body">
+                  <label for="userstory-title">Titel</label>
+                  <input #title value="{{userstory.title}}" class="form-control" id="userstory-title">
+                  <label for="userstory-author">Autor</label>
+                  <select #author value="{{userstory.authorId}}" class="form-control" id="userstory-author">
+                    <option *ngFor="let user of users" value="{{user._id}}">{{user.email}}</option>
+                  </select>
 
-                <label for="userstory-state">Ist die User Story abgeschlossen?</label>
-                <input class="checkbox" data-toggle="toggle" type="checkbox" id="userstory-state" #state
-                       [checked]="userstory.complete">
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal"
-                        (click)="editUserstory(userstory._id, title.value,state.checked.toString(),author.value)">
-                  Speichern
-                </button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Schließen</button>
+                  <label for="userstory-state">Ist die User Story abgeschlossen?</label>
+                  <input class="checkbox" data-toggle="toggle" type="checkbox" id="userstory-state" #state
+                         [checked]="userstory.complete">
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal"
+                          (click)="editUserstory(userstory._id, title.value,state.checked.toString(),author.value)">
+                    Speichern
+                  </button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Schließen</button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-      </td>
-    </tr>
-    <tr>
-      <td colspan="4"><textarea rows="4" class="form-control" placeholder="Bitte tragen Sie eine User Story ein."
-                                autofocus="" [(ngModel)]="userStory" (keyup.enter)="addUserStory()"></textarea>
-      </td>
-      <td></td>
-    </tr>
-  </table>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="4"><textarea rows="4" class="form-control" placeholder="Bitte tragen Sie eine User Story ein."
+                                  autofocus="" [(ngModel)]="userStory" (keyup.enter)="addUserStory()"></textarea>
+        </td>
+        <td></td>
+      </tr>
+    </table>
+  </div>
+
+  <pagination-controls (pageChange)="p = $event" previousLabel="Zurück" nextLabel="Vor"></pagination-controls>
+
 </div>
-
-<pagination-controls (pageChange)="p = $event" previousLabel="Zurück" nextLabel="Vor"></pagination-controls>

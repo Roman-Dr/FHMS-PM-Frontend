@@ -11,6 +11,7 @@ import {RegisterComponent} from './register/register.component'
 import {ProjectComponent,ProjectsComponent} from "./project/index";
 import {PlanningPokerComponent, PlanningPokerGameComponent} from "./planningPoker/index";
 import {SprintCapacityComponent} from "./sprint/sprintCapacity.component";
+import {AdminComponent} from "./admin/admin.component";
 
 import {AuthGuard, ProjectGuard, NavigationLockGuard} from "./_services/index";
 
@@ -33,5 +34,6 @@ export const routes = [
   {path: 'chart', component: ChartComponent, canActivate: [AuthGuard, ProjectGuard, NavigationLockGuard]},
   {path: 'roadmap', component: RoadmapComponent, canActivate: [AuthGuard, ProjectGuard, NavigationLockGuard]},
   {path: 'user-story', component: UserStoryComponent, canActivate: [AuthGuard, ProjectGuard, NavigationLockGuard]},
+  {path: 'admin', component: AdminComponent, canActivate: [AuthGuard, NavigationLockGuard]},
 ];
 

@@ -30,6 +30,7 @@ import {ProjectsComponent, ProjectComponent} from './project/index';
 import {PlanningPokerComponent,PlanningPokerGameComponent} from './planningPoker/index';
 import {SprintCapacityComponent} from "./sprint/sprintCapacity.component";
 import {ChartComponent} from './chart/chart.component';
+import {AdminComponent} from './admin/admin.component';
 //
 
 
@@ -56,7 +57,8 @@ import {AuthenticationService, UserService ,ProjectService, SprintService } from
     UserStoryComponent,
     ProjectComponent, ProjectsComponent,
     PlanningPokerComponent, PlanningPokerGameComponent,
-    ChartComponent
+    ChartComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
