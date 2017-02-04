@@ -15,7 +15,7 @@
 
 
   <div class="table-responsive">
-    <table class="table">
+    <table class="table table-hover">
       <tr>
         <th>Status</th>
         <th>User Story</th>
@@ -23,18 +23,21 @@
         <th></th>
       </tr>
 
-
-      <tr *ngFor="let userStory of getUserStories() | paginate: { itemsPerPage: 5, currentPage: p }">
-        <td class="col-xs-1"><input #checkboxUserstory [id]="checkbox-2+userStory._id" class="checkbox-glyph sr-only"
-                   data-toggle="toggle" type="checkbox"
-                   (click)="toggleUserstory(userStory, checkboxUserstory.checked.toString())"
-                   [checked]="userStory.complete">
+      <tr *ngFor="let userStory of getUserStories() | paginate: { itemsPerPage: 10, currentPage: p }">
+        <td class="col-xs-1">
+          <input #checkboxUserstory [id]="checkbox-2+userStory._id" class="checkbox-glyph sr-only"
+                 data-toggle="toggle" type="checkbox"
+                 [checked]="userStory.complete">
           <label [for]='checkbox-2+userStory._id' class='fancy-checkbox-label'></label>
         </td>
         <td class="col-xs-6">{{userStory.toStory()}}</td>
         <td class="col-xs-3">{{userStory.authorDisplayName}}</td>
         <td class="col-xs-1">
           <div class="pull-right">
+            <button type="button" class="btn btn-xs" (click)="toggleState(userStory)" [disabled]="isBusy || isEditing"
+                    [ngClass]="{'btn-success': !userStory.complete, 'btn-danger': userStory.complete}">
+              <span class="glyphicon glyphicon-retweet"></span>
+            </button>
             <button type="button" class="btn btn-xs" (click)="onBeginEdit(userStory)" [disabled]="isBusy || isEditing">
               <span class="glyphicon glyphicon-edit"></span>
             </button>
@@ -44,25 +47,34 @@
           </div>
         </td>
       </tr>
+
       <tr *ngIf="userStory">
         <td colspan="4">
-          <form class="form-horizontal" (ngSubmit)="save()" id="projectForm" #projectForm="ngForm">
-            <div class="input-group">
-              <span class="input-group-addon">Als</span>
-              <input [disabled]="isBusy" [(ngModel)]="userStory.role" id="role" name="role" type="text" class="form-control" placeholder="[Rolle]" style="width: 100px;">
-              <span class="input-group-addon">möchte ich</span>
-              <input [disabled]="isBusy" [(ngModel)]="userStory.feature" id="feature" name="feature" type="text" class="form-control" placeholder="[Ziel/Wunsch]" style="width: 500px;">
-              <span class="input-group-addon">, um</span>
-              <input [disabled]="isBusy" [(ngModel)]="userStory.benefit" id="benefit" name="benefit" type="text" class="form-control" placeholder="[Nutzen]" style="width: 200px;"
-                     (keyup.enter)="addOrUpdateUserStory()" (keyup.esc)="aboutAddOrUpdateUserStory()">
-              <span class="input-group-addon">.</span>
+          <form class="form-inline" (ngSubmit)="addOrUpdateUserStory()" id="userStoryForm" #userStoryForm="ngForm">
+            <div class="form-group">
+              <div class="input-group">
+                <span class="input-group-addon">Als</span>
+
+                <input [disabled]="isBusy" [(ngModel)]="userStory.role" required minlength="3" id="role" name="role" type="text"
+                       class="form-control" placeholder="[Rolle]" style="width: 100px;" (keyup.esc)="aboutAddOrUpdateUserStory()">
+
+                <span class="input-group-addon">möchte ich</span>
+
+                <input [disabled]="isBusy" [(ngModel)]="userStory.feature" required minlength="3" id="feature" name="feature" type="text"
+                       class="form-control" placeholder="[Ziel/Wunsch]" style="width: 500px;" (keyup.esc)="aboutAddOrUpdateUserStory()">
+
+                <span class="input-group-addon">, um</span>
+
+                <input [disabled]="isBusy" [(ngModel)]="userStory.benefit" required minlength="3" id="benefit" name="benefit" type="text"
+                       class="form-control" placeholder="[Nutzen]" style="width: 200px;"
+                       (keyup.esc)="aboutAddOrUpdateUserStory()">
+
+                <span class="input-group-addon">.</span>
+              </div>
             </div>
+            <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i></button>
           </form>
         </td>
-        <!--<td colspan="4"><textarea rows="4" class="form-control" placeholder="Bitte tragen Sie eine User Story ein."
-                                  autofocus="" [(ngModel)]="userStory" (keyup.enter)="addUserStory()"></textarea>
-        </td>
-        <td></td>-->
       </tr>
     </table>
   </div>
