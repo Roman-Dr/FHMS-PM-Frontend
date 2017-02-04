@@ -10,7 +10,8 @@ import {platformBrowserDynamic} from "@angular/platform-browser-dynamic";
 import {Ng2PaginationModule} from "ng2-pagination";
 import {DragulaModule} from "ng2-dragula";
 import {DatePickerModule} from "ng2-datepicker";
-import {ChartsModule} from "ng2-charts";
+
+import {ChartsModule} from "../assets/addon/ng2-charts";
 
 import {AppComponent} from './app.component';
 

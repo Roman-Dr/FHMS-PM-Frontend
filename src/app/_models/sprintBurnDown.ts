@@ -15,6 +15,7 @@ export class idealPoint {
   public date: Date;
   public value: number;
   public index: number;
+  public dateFormatted: string;
 
 }
 
@@ -23,5 +24,6 @@ export class realityPoint {
   public date: Date;
   public value: number;
   public index: number;
+  public dateFormatted: string;
 
 }

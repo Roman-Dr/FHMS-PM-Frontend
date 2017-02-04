@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {SprintService} from "../_services/sprint.service";
-import {Sprint, SprintBurnDown} from "../_models/index";
+import {Sprint} from "../_models/index";
 import {DatePipe} from "@angular/common";
 
 @Component({
@@ -12,9 +12,8 @@ import {DatePipe} from "@angular/common";
 export class ChartComponent implements OnInit  {
 
   sprints: Sprint[];
-  selected: boolean = false;
+  sptintSelected: boolean = false;
   errorMessage: string;
-  today: string;
 
   // lineChart
   lineChartData:Array<any> = [
@@ -28,30 +27,21 @@ export class ChartComponent implements OnInit  {
 
 
   lineChartColors:Array<any> = [
-    { // grey
-      backgroundColor: 'rgba(148,159,177,0.2)',
-      borderColor: 'rgba(148,159,177,1)',
+    {
+      backgroundColor: 'rgba(255,255,255,0)',
+      borderColor: '#FF1000',
       pointBackgroundColor: 'rgba(148,159,177,1)',
       pointBorderColor: '#fff',
       pointHoverBackgroundColor: '#fff',
       pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-    },
-    { // dark grey
-      backgroundColor: 'rgba(77,83,96,0.2)',
-      borderColor: 'rgba(77,83,96,1)',
+    },    {
+      backgroundColor: 'rgba(255,255,255,0)',
+      borderColor: '#3040FF',
       pointBackgroundColor: 'rgba(77,83,96,1)',
       pointBorderColor: '#fff',
       pointHoverBackgroundColor: '#fff',
       pointHoverBorderColor: 'rgba(77,83,96,1)'
     },
-    { // grey
-      backgroundColor: 'rgba(148,159,177,0.2)',
-      borderColor: 'rgba(148,159,177,1)',
-      pointBackgroundColor: 'rgba(148,159,177,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-    }
   ];
   lineChartLegend:boolean = true;
   lineChartType:string = 'line';
@@ -87,6 +77,8 @@ export class ChartComponent implements OnInit  {
 
   setChartData(burnDown){
     if (burnDown.idealPoints.length !== 0) {
+
+
       let idealPointsValueArray: Array<any> = [];
       let realityPointsValueArray: Array<any> = [];
       let idealPointsDateArray: Array<any> = [];
@@ -94,7 +86,8 @@ export class ChartComponent implements OnInit  {
       for(let i = 0; i < burnDown.idealPoints.length; i++) {
         idealPointsValueArray.push(burnDown.idealPoints[i].value);
         realityPointsValueArray.push(burnDown.realityPoints[i].value);
-        idealPointsDateArray.push(burnDown.idealPoints[i].date);
+        idealPointsDateArray.push(burnDown.idealPoints[i].dateFormatted);
+
       }
         this.lineChartData =
           [
@@ -104,7 +97,9 @@ export class ChartComponent implements OnInit  {
               , label: 'Real'}
         ];
 
+
         this.lineChartLabels = idealPointsDateArray;
+      console.log(this.lineChartLabels);
 
     }
   }
