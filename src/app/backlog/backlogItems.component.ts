@@ -20,6 +20,8 @@ export class BacklogItemsComponent {
   private sprint: Sprint;
   private sprintId: string;
 
+  searchText: string;
+
   constructor(private activatedRoute: ActivatedRoute,
               private backlogDataService: BacklogDataService,
               private sprintService: SprintService,
@@ -84,5 +86,13 @@ export class BacklogItemsComponent {
         err => {
           console.log(err);
         });
+  }
+
+  getBacklogItemsDataView() {
+    if(this.searchText) {
+      return this.backlogitems.filter(x => x.toString().indexOf(this.searchText) > -1);
+    } else {
+      return this.backlogitems;
+    }
   }
 }

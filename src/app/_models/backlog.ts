@@ -47,6 +47,7 @@ export class Backlog {
       return "Hoch";
     }
   }
+
   public humanizeState() {
     switch (this.state) {
       case 'New':
@@ -61,5 +62,18 @@ export class Backlog {
       case 'Removed':
         return 'Entfernt';
     }
+  }
+
+  public toString() {
+    return JSON.stringify({
+      1: this.title,
+      2: this.sprintDisplayName,
+      3: this.assignedToDisplayName,
+      4: this.userStoryDisplayName,
+      5: this.humanizePriority(),
+      6: this.humanizeState(),
+      7: this.itemType,
+      8: this.description
+    });
   }
 }
