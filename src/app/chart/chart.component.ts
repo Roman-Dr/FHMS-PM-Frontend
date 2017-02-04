@@ -12,6 +12,7 @@ import {DatePipe} from "@angular/common";
 export class ChartComponent implements OnInit  {
 
   sprints: Sprint[];
+  selected: boolean = false;
   errorMessage: string;
   today: string;
 
@@ -58,8 +59,7 @@ export class ChartComponent implements OnInit  {
 
 
 
-  constructor(private sprintService: SprintService, private datePipe: DatePipe) {
-    this.today = this.datePipe.transform(Date.now(), 'yyyy-MM-dd');
+  constructor(private sprintService: SprintService) {
   }
 
   ngOnInit() {
@@ -96,9 +96,7 @@ export class ChartComponent implements OnInit  {
         realityPointsValueArray.push(burnDown.realityPoints[i].value);
         idealPointsDateArray.push(burnDown.idealPoints[i].date);
       }
-
         this.lineChartData =
-
           [
           {data: idealPointsValueArray
             , label: 'Ideal'},
@@ -106,26 +104,9 @@ export class ChartComponent implements OnInit  {
               , label: 'Real'}
         ];
 
-
-
         this.lineChartLabels = idealPointsDateArray;
 
     }
-  }
-
-  checkStatus(sprint){
-    if(sprint.endDate >= this.today) {return true;}
-    else {return false};
-  }
-
-
-  // events
-  chartClicked(e:any):void {
-    console.log(e);
-  }
-
-  chartHovered(e:any):void {
-    console.log(e);
   }
 }
 
