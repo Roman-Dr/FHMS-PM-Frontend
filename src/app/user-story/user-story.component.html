@@ -12,7 +12,7 @@
     </tr>
 
 
-    <tr *ngFor="let userstory of userstories | paginate: { itemsPerPage: 5, currentPage: p }">
+    <tr *ngFor="let userstory of userstories | paginate: { itemsPerPage: 8, currentPage: p }">
 
       <td><input #checkboxUserstory [id]="checkbox-2+userstory._id" class="checkbox-glyph sr-only"
                  data-toggle="toggle" type="checkbox"
