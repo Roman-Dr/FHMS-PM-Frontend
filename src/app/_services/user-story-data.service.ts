@@ -1,12 +1,10 @@
 import {UserStory} from '../_models/UserStory';
 import {Injectable}     from '@angular/core';
-import {Http, Response, Headers, RequestOptions} from '@angular/http';
+import {Http, Response, Headers} from '@angular/http';
 import {Observable} from 'rxjs/Rx';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import {User} from "../_models/user";
-import {map} from "rxjs/operator/map";
 import {AppSettings} from "../app.settings";
 
 @Injectable()
@@ -39,24 +37,23 @@ export class UserStoryDataService {
       })
   }
 
-  editUserstory(userstory_id, title, state, author) {
-    return this.http.put
-    (AppSettings.getProjectUrl() + '/userstories/' + userstory_id,
-      JSON.stringify({"title": title, "complete": state, "authorId": author}), {
-        withCredentials: true,
-        headers: this.headers
-      }
-    )
-      .map(res => {
-        if (res.status < 200 || res.status >= 300) {
-          throw new Error('This request has failed ' + res.status);
-        }
-        // If everything went fine, return the response
-        else {
-          console.log("Update Backlog successful");
-          return res.json();
-        }
+  addUserStory(userStory: UserStory) {
+    return this.http.post(AppSettings.getProjectUrl() + '/userstories/', userStory, {headers: this.headers})
+      .map( (responseData) => {
+        return responseData.json();
       })
+      .map((item: Array<any>) => {
+        return new UserStory(item);
+      });
+  }
+  updateUserStory(userStory: UserStory) {
+    return this.http.put(AppSettings.getProjectUrl() + '/userstories/' + userStory._id, userStory, {headers: this.headers})
+      .map( (responseData) => {
+        return responseData.json();
+      })
+      .map((item: Array<any>) => {
+        return new UserStory(item);
+      });
   }
 
   deleteUserStory(id) {
@@ -66,17 +63,6 @@ export class UserStoryDataService {
       .map(this.extractData)
       .catch(this.handleErrorDelete);
   }
-
-  postUserStoryRestful(title: string, complete: string, authorId: string) {
-    let body = JSON.stringify({title, complete, authorId});
-    let headers = new Headers({'Content-Type': 'application/json'});
-    let options = new RequestOptions({headers: headers, method: "post"});
-    console.log("vorPostService")
-    return this.http.post(AppSettings.getProjectUrl() + '/userstories/', body, options)
-      .map(this.extractData)
-      .catch(this.handleError);
-  }
-
 
   getUserStories() {
     return this.http.get(AppSettings.getProjectUrl() + '/userstories/')

@@ -14,77 +14,98 @@ import {UserService} from "../_services/user.service";
 
 export class UserStoryComponent {
 
-  users: User[] = [];
-  userstories: UserStory[];
+  userStories: UserStory[];
+  userStory: UserStory = new UserStory();
 
-  author: string = sessionStorage.getItem("user_id");
-  status: string = "false";
-  userStory: string;
-  errorMessage: string;
+  authorId: string = sessionStorage.getItem("user_id");
   searchText: string;
 
+  isBusy: boolean = false;
+  isEditing: boolean = false;
 
-  constructor(private userStoryDataService: UserStoryDataService, private userService: UserService) {
+  constructor(private userStoryDataService: UserStoryDataService) {
 
   }
 
+  ngOnInit() {
+    this.newUserStory();
+    this.loadUserStories();
+  }
 
-  editUserstory(userstory_id, title, state, author) {
-    this.userStoryDataService.editUserstory(userstory_id, title, state, author)
+  loadUserStories() {
+    this.isBusy = true;
+    this.userStoryDataService.getUserStories()
       .subscribe(
-        success =>
-          this.loadUserStories()
-      );
+        userStories => this.userStories = userStories,
+        err => {
+          console.log(err);
+        },
+        () => this.isBusy = false);
+  }
+
+  getUserStories() {
+    if (this.searchText) {
+      return this.userStories.filter(x => x.toString().indexOf(this.searchText) > -1);
+    } else {
+      return this.userStories;
+    }
+  }
+
+  onBeginEdit(userStory: UserStory) {
+    this.isEditing = true;
+    this.userStory = new UserStory(userStory);
   }
 
   removeUserStory(userstory) {
+    this.isBusy = true;
     console.log("Component: " + userstory._id)
     this.userStoryDataService.deleteUserStory(userstory._id).subscribe(
       data => {
         this.loadUserStories()
-      }
+      },
+      err => console.log(err),
+      () => this.isBusy = false
     );
   }
 
-  loadUserStories() {
-    this.userStoryDataService.getUserStories()
-      .subscribe(
-        userstories => this.userstories = userstories,
-        err => {
-          console.log(err);
-        });
+  newUserStory() {
+    this.userStory = new UserStory();
+    this.userStory.authorId = this.authorId;
   }
 
-  ngOnInit() {
-    this.loadUserStories()
-    this.getUsers()
-  }
-
-  getUsers() {
-    this.userService.getUsers()
-      .subscribe(
-        users => this.users = users,
-        error => this.errorMessage = <any> error
-      )
-  }
-
-  addUserStory() {
-    this.userStoryDataService.postUserStoryRestful(this.userStory, this.status, this.author).subscribe(
-      //data => this.postMyUserStoriesToServer = JSON.stringify(data),
-      data => {
-        this.loadUserStories()
-      }
-    );
-    this.userStory = ''
-    this.author = ''
-  }
-
-  getUserStories() {
-    if(this.searchText) {
-      return this.userstories.filter(x => x.toString().indexOf(this.searchText) > -1);
-    } else {
-      return this.userstories;
+  addOrUpdateUserStory() {
+    if (this.isBusy) {
+      return;
+    }
+    this.userStory.authorId = this.authorId;
+    this.isBusy = true;
+    if (this.isEditing) {
+      this.userStoryDataService.updateUserStory(this.userStory).subscribe(
+        x => {
+          this.loadUserStories();
+          this.newUserStory();
+        },
+        err => console.log(err),
+        () => {
+          this.isBusy = false;
+          this.isEditing = false;
+        }
+      );
+    }
+    else {
+      this.userStoryDataService.addUserStory(this.userStory).subscribe(
+        x => {
+          this.loadUserStories();
+          this.newUserStory();
+        },
+        err => console.log(err),
+        () => this.isBusy = false
+      );
     }
   }
-
+  aboutAddOrUpdateUserStory() {
+    this.isEditing = false;
+    this.isBusy = false;
+    this.newUserStory();
+  }
 }
