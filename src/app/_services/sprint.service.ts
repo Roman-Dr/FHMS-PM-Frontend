@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Headers, Http} from "@angular/http";
 import {AppSettings} from "../app.settings";
 
-import {Sprint, SprintBurnDown} from "../_models/index";
+import {Sprint, SprintBurnDown, SprintRetrospective} from "../_models/index";
 
 @Injectable()
 export class SprintService {
@@ -10,6 +10,48 @@ export class SprintService {
   private headers = new Headers({'Content-Type': 'application/json'});
 
   constructor(private http: Http) {
+  }
+
+
+
+  getSprints() {
+    return this.http.get(AppSettings.getProjectUrl() + '/sprints/', {withCredentials: true, headers: this.headers})
+      .map((responseData) => {
+        return responseData.json();
+      })
+      .map((sprints: Array<any>) => {
+        let result: Array<Sprint> = [];
+        if (sprints) {
+          sprints.forEach((x) => {
+            result.push(new Sprint(x));
+          });
+        }
+        return result;
+      });
+  }
+
+
+  getSprint(sprintId: string) {
+    return this.http.get(AppSettings.getProjectUrl() + '/sprints/' + sprintId, {
+      withCredentials: true,
+      headers: this.headers
+    })
+      .map((responseData) => {
+        return responseData.json();
+      })
+      .map((sprint: any) => {
+        return new Sprint(sprint);
+      });
+
+  }
+  getSprintBurndown(sprintId: string) {
+    return this.http.get(AppSettings.getProjectUrl() + '/sprints/' + sprintId + '/burnDown', {withCredentials: true, headers: this.headers})
+      .map( (responseData) => {
+        return responseData.json();
+      })
+      .map((sprintBurnDown: any) => {
+        return new SprintBurnDown(sprintBurnDown);
+      });
   }
 
 
@@ -124,45 +166,23 @@ export class SprintService {
       })
   }
 
-  getSprints() {
-    return this.http.get(AppSettings.getProjectUrl() + '/sprints/', {withCredentials: true, headers: this.headers})
-      .map((responseData) => {
-        return responseData.json();
-      })
-      .map((sprints: Array<any>) => {
-        let result: Array<Sprint> = [];
-        if (sprints) {
-          sprints.forEach((x) => {
-            result.push(new Sprint(x));
-          });
+  createSprintRetrospective(sprintId: string, userId: string, comment: string) {
+    return this.http.post
+    (AppSettings.getProjectUrl() + '/sprints/' + sprintId + "/retrospective",
+      JSON.stringify({userId, comment}), {withCredentials: true, headers: this.headers}
+    )
+      .map(res => {
+        // If request fails, throw an Error that will be caught
+        if (res.status < 200 || res.status >= 300) {
+          throw new Error('This request has failed ' + res.status);
         }
-        return result;
-      });
-  }
-
-
-  getSprint(sprintId: string) {
-    return this.http.get(AppSettings.getProjectUrl() + '/sprints/' + sprintId, {
-      withCredentials: true,
-      headers: this.headers
-    })
-      .map((responseData) => {
-        return responseData.json();
+        // If everything went fine, return the response
+        else {
+          console.log("Create Sprint Retrospective successful");
+          return res.json();
+        }
       })
-      .map((sprint: any) => {
-        return new Sprint(sprint);
-      });
-
   }
-    getSprintBurndown(sprintId: string) {
-      return this.http.get(AppSettings.getProjectUrl() + '/sprints/' + sprintId + '/burnDown', {withCredentials: true, headers: this.headers})
-        .map( (responseData) => {
-          return responseData.json();
-        })
-        .map((sprintBurnDown: any) => {
-          return new SprintBurnDown(sprintBurnDown);
-        });
-    }
 
 
 

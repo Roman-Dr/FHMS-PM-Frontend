@@ -67,6 +67,7 @@ export class ChartComponent implements OnInit  {
   }
 
   getSprintBurnDown(sprint){
+    this.sptintSelected = true;
     this.sprintService.getSprintBurndown(sprint._id)
       .subscribe(
         burnDown => this.setChartData(burnDown),
@@ -103,6 +104,15 @@ export class ChartComponent implements OnInit  {
 
     }
   }
+
+  getStyle() {
+    if(this.sptintSelected) {
+      return "#e95420";
+    } else {
+      return "";
+    }
+  }
+
 }
 
 

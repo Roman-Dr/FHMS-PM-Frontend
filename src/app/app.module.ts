@@ -21,7 +21,7 @@ import {AppComponent} from './app.component';
 import {LandingComponent} from './landing/landing.component';
 import {BacklogItemComponent, BacklogItemsComponent} from './backlog/index';
 import {BoardComponent} from './board/board.component';
-import {SprintComponent} from './sprint/sprint.component';
+import {SprintComponent, SprintCapacityComponent, SprintRetrospectiveComponent} from './sprint/index';
 import {EstimationComponent} from './estimation/estimation.component';
 import {RoadmapComponent} from './roadmap/roadmap.component';
 import {LoginComponent} from './login/login.component';
@@ -29,7 +29,6 @@ import {RegisterComponent} from './register/register.component';
 import {UserStoryComponent} from './user-story/user-story.component';
 import {ProjectsComponent, ProjectComponent} from './project/index';
 import {PlanningPokerComponent,PlanningPokerGameComponent} from './planningPoker/index';
-import {SprintCapacityComponent} from "./sprint/sprintCapacity.component";
 import {ChartComponent} from './chart/chart.component';
 import {AdminComponent} from './admin/admin.component';
 //
@@ -51,6 +50,7 @@ import {AuthenticationService, UserService ,ProjectService, SprintService } from
     BoardComponent,
     SprintComponent,
     SprintCapacityComponent,
+    SprintRetrospectiveComponent,
     EstimationComponent,
     RoadmapComponent,
     LoginComponent,

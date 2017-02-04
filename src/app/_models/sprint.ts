@@ -1,4 +1,5 @@
-import {SprintCapacity} from "./index";
+import {SprintCapacity, SprintRetrospective} from "./index";
+
 export class Sprint {
   constructor(values: Object = {}) {
     Object.assign(this, values);
@@ -9,4 +10,5 @@ export class Sprint {
   public startDate: Date;
   public endDate: Date;
   public sprintCapacity: SprintCapacity[];
+  public sprintRetrospective: SprintRetrospective;
 }

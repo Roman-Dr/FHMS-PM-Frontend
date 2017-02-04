@@ -4,6 +4,7 @@ import {SprintService} from "../_services/sprint.service";
 import {UserService} from "../_services/user.service";
 import {User} from "../_models/user";
 import {ActivatedRoute, Params} from "@angular/router";
+import {Location} from "@angular/common";
 
 @Component({
   selector: 'app-sprintCapacity',
@@ -27,7 +28,7 @@ export class SprintCapacityComponent implements OnInit {
 
 
 
-  constructor(private sprintService: SprintService, private userService: UserService, private activatedRoute: ActivatedRoute) {
+  constructor(private sprintService: SprintService, private userService: UserService, private activatedRoute: ActivatedRoute, private location: Location) {
 
   }
 
@@ -77,8 +78,8 @@ export class SprintCapacityComponent implements OnInit {
   }
 
 
-  deleteSprintCapacity(sprintCapacityId) {
-    this.sprintService.deleteSprintCapacity(this.sprintId, sprintCapacityId)
+  deleteSprintCapacity(sprintCapacity) {
+    this.sprintService.deleteSprintCapacity(this.sprintId, sprintCapacity._id)
       .subscribe(
         success => this.getSprint(),
         error => this.errorMessage = <any> error
@@ -86,6 +87,11 @@ export class SprintCapacityComponent implements OnInit {
 
 
   }
+
+  cancel() {
+    this.location.back();
+  }
+
 
   edit(sprintcapacity: any, i: number) {
     this.editedIndex = i;

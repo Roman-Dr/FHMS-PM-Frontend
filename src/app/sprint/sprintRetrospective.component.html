@@ -1,0 +1,39 @@
+
+  <h1>Sprint Retrospektive: {{sprint?.sprintName}}</h1>
+
+    <button type="button" class="btn" (click)="cancel()" style="float: right"><i
+      class="glyphicon glyphicon-arrow-left"></i> <span class="hidden-xs">Zurück</span>
+    </button>
+
+
+
+<div class="table-responsive" style="margin-top: 50px">
+  <table class="table">
+    <tr>
+      <th>Nutzer</th>
+      <th>Kommentar</th>
+    </tr>
+    <tr *ngFor="let sprintRetrospective of sprint?.sprintRetrospective">
+      <td>{{sprintRetrospective.userDisplayName}}</td>
+      <td>{{sprintRetrospective.comment}}</td>
+    </tr>
+    <tr *ngFor="let sprintCapacity of sprint?.sprintCapacity">
+      <td class="col-sm-2">
+        <input type="text" [(ngModel)]="sprintCapacity.userDisplayName" id="user-id" class="form-control" readonly>
+      </td>
+      <td class="col-sm-10">
+        <textarea rows="5" [(ngModel)]="comment" class="form-control" id="comment" placeholder="Hier können Sie einen Kommentar zu dem jeweiligen Benutzer eingeben."></textarea>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2"><button type="button" class="btn btn-primary btn-block" style="margin-top: 10px"
+                                      (click)="createSprintRetrospective()">
+        <span class="glyphicon glyphicon-floppy-disk"></span>
+      </button></td>
+    </tr>
+  </table>
+</div>
+
+
+
+<h1>Nicht abschicken - läuft noch nicht korrekt</h1>

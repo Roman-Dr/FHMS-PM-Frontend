@@ -47,8 +47,12 @@ export class SprintComponent implements OnInit {
 
 
 
-  openSprintCapacity(sprintId: string) {
-    this.router.navigate(['sprints/'+sprintId+'/sprintcapacities']);
+  openSprintCapacity(sprint) {
+    this.router.navigate(['sprints/'+sprint._id+'/sprintcapacities']);
+  }
+
+  openSprintRetrospective(sprint) {
+    this.router.navigate(['sprints/'+sprint._id+'/sprintretrospective']);
   }
 
   checkStatus(sprint){
@@ -95,8 +99,8 @@ export class SprintComponent implements OnInit {
       );
   }
 
-  deleteSprint(sprintId) {
-    this.sprintService.deleteSprint(sprintId)
+  deleteSprint(sprint) {
+    this.sprintService.deleteSprint(sprint._id)
       .subscribe(
         success => this.getSprints(),
         error => this.errorMessage = <any> error

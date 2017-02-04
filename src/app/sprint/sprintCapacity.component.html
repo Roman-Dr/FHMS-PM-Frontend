@@ -1,4 +1,13 @@
-<div class="table-responsive col-sm-8">
+
+<h1>Sprint Kapazitäten: {{sprint?.sprintName}}</h1>
+
+<button type="button" class="btn" (click)="cancel()" style="float: right"><i
+  class="glyphicon glyphicon-arrow-left"></i> <span class="hidden-xs">Zurück</span>
+</button>
+
+
+
+<div class="table-responsive" style="margin-top: 50px">
   <table class="table">
     <tr>
       <th>Nutzer</th>
@@ -28,7 +37,7 @@
       <td>
 
         <button type="button" class="btn btn-xs"
-                (click)="deleteSprintCapacity(sprintCapacity._id)">
+                (click)="deleteSprintCapacity(sprintCapacity)">
           <span class="glyphicon glyphicon-trash"></span>
         </button>
 
@@ -38,7 +47,7 @@
     <tr>
       <td>
         <select [(ngModel)]="userId" id="user-id" class="form-control">
-          <option *ngFor="let user of users" value="{{ user._id }}">{{ user.email }}</option>
+          <option *ngFor="let user of users" value="{{ user._id }}">{{user.displayName()}}</option>
         </select>
       </td>
       <td>

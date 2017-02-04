@@ -1,3 +1,5 @@
+<h1>Sprints</h1>
+
 <div class="row">
   <div class="table-responsive col-sm-8">
     <table class="table">
@@ -18,12 +20,16 @@
             <span class="glyphicon glyphicon-edit"></span>
           </button>
 
-          <button type="button" class="btn btn-xs" (click)="openSprintCapacity(sprint._id)">
+          <button type="button" class="btn btn-xs" (click)="openSprintCapacity(sprint)">
             <span class="glyphicon glyphicon-list"></span>
           </button>
 
-          <button type="button" class="btn btn-xs" (click)="deleteSprint(sprint._id)">
+          <button type="button" class="btn btn-xs" (click)="deleteSprint(sprint)">
             <span class="glyphicon glyphicon-trash"></span>
+          </button>
+
+          <button type="button" class="btn btn-xs" (click)="openSprintRetrospective(sprint)">
+            Retrospektive starten
           </button>
 
         </td>
@@ -43,7 +49,7 @@
     <div class="form-group">
       <label for="sprint-name">Anzeigename</label>
 
-      <input type="text" *ngIf="!editMode" class="form-control" [(ngModel)]="sprintName" id="sprint-name"
+      <input type="text" *ngIf="!editMode" class="form-control"  [(ngModel)]="sprintName" id="sprint-name"
              autocomplete="off">
 
       <input type="text" *ngIf="editMode" [(ngModel)]="chosenSprint.sprintName" class="form-control"
@@ -51,21 +57,23 @@
              (change)="updateSprint(chosenSprint)">
 
     </div>
+
     <div class="form-group">
+
       <label for="start-date">Startdatum</label>
 
       <input type="date" *ngIf="!editMode" [(ngModel)]="startDate"
              class="form-control"
              id="start-date">
 
-      <input type="date" *ngIf="editMode" [(ngModel)]="chosenSprint.startDate"
+      <input type="date" *ngIf="editMode"  [(ngModel)]="chosenSprint.startDate"
              class="form-control"
              (change)="updateSprint(chosenSprint)">
     </div>
     <div class="form-group">
       <label for="end-date">Enddatum</label>
 
-      <input type="date" *ngIf="!editMode"  [(ngModel)]="endDate"
+      <input type="date" *ngIf="!editMode" [(ngModel)]="endDate"
              class="form-control"
              id="end-date">
 
