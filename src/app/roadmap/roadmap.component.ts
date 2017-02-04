@@ -115,10 +115,10 @@ export class RoadmapComponent implements OnInit {
   }
 
   isOpen(initiative: Initiative): boolean{
-    var dateNow = this.datePipe.transform(Date.now(), 'yyyy-MM-dd');
-    var iniStartDate = this.datePipe.transform(initiative.startDate, 'yyyy-MM-dd');
+    //var dateNow = this.datePipe.transform(Date.now(), 'yyyy-MM-dd');
+   //var iniStartDate = this.datePipe.transform(initiative.startDate, 'yyyy-MM-dd');
 
-    if(iniStartDate > dateNow){
+    if(initiative.startDate > new Date()){
       return true;
     }else{
       return false;
@@ -126,10 +126,10 @@ export class RoadmapComponent implements OnInit {
   }
 
   isFinished(initiative: Initiative): boolean{
-    var dateNow = this.datePipe.transform(Date.now(), 'yyyy-MM-dd');
-    var iniEndDate = this.datePipe.transform(initiative.endDate, 'yyyy-MM-dd');
+    //var dateNow = this.datePipe.transform(Date.now(), 'yyyy-MM-dd');
+    //var iniEndDate = this.datePipe.transform(initiative.endDate, 'yyyy-MM-dd');
 
-    if(iniEndDate < dateNow){
+    if(initiative.endDate < new Date()){
       return true;
     }else{
       return false;
@@ -137,8 +137,7 @@ export class RoadmapComponent implements OnInit {
   }
 
   changeColor(initiative: Initiative): string{
-    console.log(initiative == this.selectedInitiative);
-    if(initiative == this.selectedInitiative){
+    if(initiative._id == this.selectedInitiative._id){
       return "#696969";
     }else if(this.isOpen(initiative)){
       return "#a70300";
