@@ -1,6 +1,16 @@
 <section class="app-backlogItems">
 
   <div class="page-header">
+    <div class="pull-right" style="margin-top: 15px;">
+      <div class="input-group" style="width: 200px;">
+        <input id="searchText" type="text" class="form-control" name="searchText" placeholder="Suchbegriff..."
+               [(ngModel)]="searchText">
+        <span class="input-group-addon">
+          <i class="glyphicon glyphicon-search"></i>
+        </span>
+      </div>
+    </div>
+
     <h1>{{ (sprint ? sprint.sprintName + " > " : "") + displayName}}</h1>
   </div>
 
@@ -22,7 +32,7 @@
       </th>
     </thead>
     <tbody>
-      <tr *ngFor="let backlogitem of backlogitems | paginate: { itemsPerPage: 25, currentPage: p }"
+      <tr *ngFor="let backlogitem of getBacklogItemsDataView() | paginate: { itemsPerPage: 25, currentPage: p }"
           [ngClass]="{danger: backlogitem.itemType == 'Bug'}">
         <td class="col-xs-3">{{backlogitem.title}}</td>
         <td class="col-xs-1">{{backlogitem.humanizeState()}}</td>

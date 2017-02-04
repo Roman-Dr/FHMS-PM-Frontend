@@ -1,0 +1,24 @@
+<div class="app-project">
+  <div class="page-header">
+    <div class="btn-group pull-right" style="margin-top: 15px;">
+    </div>
+
+    <h1>{{displayName}}</h1>
+  </div>
+
+  <div class="jumbotron">
+    <div class="btn-group btn-group-justified">
+
+      <div class="btn-group">
+        <button [disabled]="isBusy"
+                type="button" class="btn btn-primary" (click)="initializeDatabase()"
+                style="height: 100px;">
+          <i class="glyphicon glyphicon-refresh"></i>
+          <span class="hidden-xs">Datenbank initialisieren</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+

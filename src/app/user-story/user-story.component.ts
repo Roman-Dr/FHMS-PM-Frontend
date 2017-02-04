@@ -17,28 +17,17 @@ export class UserStoryComponent {
   users: User[] = [];
   userstories: UserStory[];
 
-  userStoryName: string;
-  userStoryComplete: string = "false";
-  userStoryAuthor: string;
+  author: string = sessionStorage.getItem("user_id");
+  status: string = "false";
+  userStory: string;
   errorMessage: string;
+  searchText: string;
 
 
   constructor(private userStoryDataService: UserStoryDataService, private userService: UserService) {
 
   }
 
-
-  toggleUserstory(userstoryObject, userstorystate) {
-    /*Toggelt den userstorystate, der als String eingereicht wird => einfache Lösung*/
-    if (userstorystate == "true") userstorystate == "false"
-    else userstorystate == "true"
-
-    this.userStoryDataService.toggleUserStory(userstoryObject, userstorystate)
-      .subscribe(
-        success =>
-          this.loadUserStories()
-      );
-  }
 
   editUserstory(userstory_id, title, state, author) {
     this.userStoryDataService.editUserstory(userstory_id, title, state, author)
@@ -80,23 +69,22 @@ export class UserStoryComponent {
   }
 
   addUserStory() {
-    this.userStoryAuthor = sessionStorage.getItem("user_id")
-    if ((!this.userStoryAuthor) || (!this.userStoryName)) {
-      console.log("UserStoryName(" + this.userStoryName + ") oder UserStoryAuthor(" + this.userStoryAuthor + ") sind leer: Component")
-      this.userStoryAuthor = null
-      this.userStoryName = null
-    }
-    else {
-      console.log("1")
-      this.userStoryDataService.postUserStoryRestful(this.userStoryName, this.userStoryComplete, this.userStoryAuthor).subscribe(
-        //data => this.postMyUserStoriesToServer = JSON.stringify(data),
-        data => {
-          this.loadUserStories()
-        }
-      );
-      this.userStoryAuthor = null
-      this.userStoryName = null
-    }
-
+    this.userStoryDataService.postUserStoryRestful(this.userStory, this.status, this.author).subscribe(
+      //data => this.postMyUserStoriesToServer = JSON.stringify(data),
+      data => {
+        this.loadUserStories()
+      }
+    );
+    this.userStory = ''
+    this.author = ''
   }
+
+  getUserStories() {
+    if(this.searchText) {
+      return this.userstories.filter(x => x.toString().indexOf(this.searchText) > -1);
+    } else {
+      return this.userstories;
+    }
+  }
+
 }

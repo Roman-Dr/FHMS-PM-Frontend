@@ -42,8 +42,9 @@
 
       <div class="nav navbar-nav navbar-right">
         <li *ngIf="!isLoggedIn()"><a routerLink="/register"><span class="glyphicon glyphicon-user"></span> Registrieren</a></li>
-        <li *ngIf="!isLoggedIn()"><a routerLink="login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li *ngIf="!isLoggedIn()"><a routerLink="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
 
+        <li *ngIf="isLoggedIn()"><a routerLink="/admin"><span class="glyphicon glyphicon-lock"></span> Admin</a></li>
         <li *ngIf="isLoggedIn()"><a href="javascript: void(0);" (click)="logout()"><span class="glyphicon glyphicon-log-out"></span> <span class="hidden-sm">Logout</span></a></li>
       </div>
     </div>

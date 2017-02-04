@@ -67,10 +67,8 @@ export class UserStoryDataService {
       .catch(this.handleErrorDelete);
   }
 
-  postUserStoryRestful(userStoryName: string, userStoryComplete: string, userStoryAuthor: string) {
-
-    console.log(userStoryName + "; " + userStoryAuthor)
-    let body = JSON.stringify({"title": userStoryName, "complete": userStoryComplete, "authorId": userStoryAuthor});
+  postUserStoryRestful(title: string, complete: string, authorId: string) {
+    let body = JSON.stringify({title, complete, authorId});
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers, method: "post"});
     console.log("vorPostService")
