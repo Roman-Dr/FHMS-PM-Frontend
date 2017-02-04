@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {SprintService} from "../_services/sprint.service";
-import {Sprint} from "../_models/sprint";
+import {Sprint, SprintBurnDown} from "../_models/index";
 import {DatePipe} from "@angular/common";
 
 @Component({
@@ -12,7 +12,6 @@ import {DatePipe} from "@angular/common";
 export class ChartComponent implements OnInit  {
 
   sprints: Sprint[];
-  selectedSprint: Sprint;
   errorMessage: string;
   today: string;
 
@@ -67,28 +66,50 @@ export class ChartComponent implements OnInit  {
     this.getSprints();
   }
 
+
+
   getSprints() {
     this.sprintService.getSprints()
       .subscribe(
         sprints => this.sprints = sprints,
         error => this.errorMessage = <any> error
-      )
+      );
   }
 
-  onSelect(sprint) {
-    this.selectedSprint = sprint;
-    console.log(this.selectedSprint);
-    this.setChartData();
+  getSprintBurnDown(sprint){
+    this.sprintService.getSprintBurndown(sprint._id)
+      .subscribe(
+        burnDown => this.setChartData(burnDown),
+        error => this.errorMessage = <any> error
+      );
   }
 
 
-  setChartData(){
-    if (this.selectedSprint.sprintBurnDownMeasures.length !== 0) {
-    this.lineChartData = [
-      {data: this.selectedSprint.sprintBurnDownMeasures[0].remainingWorkTillNow , label: 'Ideal'},
-      {data: this.selectedSprint.sprintBurnDownMeasures[1].remainingWorkTillNow, label: 'Real'}
-    ];
-    this.lineChartLabels = this.selectedSprint.sprintBurnDownMeasures[0].dateOfMeasurement;
+  setChartData(burnDown){
+    if (burnDown.idealPoints.length !== 0) {
+      let idealPointsValueArray: Array<any> = [];
+      let realityPointsValueArray: Array<any> = [];
+      let idealPointsDateArray: Array<any> = [];
+
+      for(let i = 0; i < burnDown.idealPoints.length; i++) {
+        idealPointsValueArray.push(burnDown.idealPoints[i].value);
+        realityPointsValueArray.push(burnDown.realityPoints[i].value);
+        idealPointsDateArray.push(burnDown.idealPoints[i].date);
+      }
+
+        this.lineChartData =
+
+          [
+          {data: idealPointsValueArray
+            , label: 'Ideal'},
+            {data: realityPointsValueArray
+              , label: 'Real'}
+        ];
+
+
+
+        this.lineChartLabels = idealPointsDateArray;
+
     }
   }
 

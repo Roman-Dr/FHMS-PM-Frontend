@@ -5,7 +5,7 @@ export * from './backlog';
 export * from './project';
 export * from './sprint';
 export * from './sprintCapacity';
-export * from './sprintBurnDownMeasures';
+export * from './sprintBurnDown';
 export * from './task';
 export * from './user';
 export * from './UserStory';

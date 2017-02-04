@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Headers, Http} from "@angular/http";
 import {AppSettings} from "../app.settings";
 
-import {Sprint} from "../_models/index";
+import {Sprint, SprintBurnDown} from "../_models/index";
 
 @Injectable()
 export class SprintService {
@@ -142,14 +142,28 @@ export class SprintService {
 
 
   getSprint(sprintId: string) {
-    return this.http.get(AppSettings.getProjectUrl() + '/sprints/' + sprintId, {withCredentials: true, headers: this.headers})
-      .map( (responseData) => {
+    return this.http.get(AppSettings.getProjectUrl() + '/sprints/' + sprintId, {
+      withCredentials: true,
+      headers: this.headers
+    })
+      .map((responseData) => {
         return responseData.json();
       })
       .map((sprint: any) => {
         return new Sprint(sprint);
       });
+
   }
+    getSprintBurndown(sprintId: string) {
+      return this.http.get(AppSettings.getProjectUrl() + '/sprints/' + sprintId + '/burnDown', {withCredentials: true, headers: this.headers})
+        .map( (responseData) => {
+          return responseData.json();
+        })
+        .map((sprintBurnDown: any) => {
+          return new SprintBurnDown(sprintBurnDown);
+        });
+    }
+
 
 
 }
