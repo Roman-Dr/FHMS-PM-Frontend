@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { InitiativeService } from '../_services/index';
 import {Initiative} from "../_models/initiative";
 import {DatePipe} from "@angular/common";
+import {Feature} from "../_models/feature";
 
 @Component({
   selector: 'app-roadmap',
@@ -13,12 +14,16 @@ export class RoadmapComponent implements OnInit {
 
   initiatives: Initiative[];
   selectedInitiative: Initiative;
+  editMode: boolean;
+
+  features: Feature[];
 
   initiativeTitle: string;
   initiativeGoal: string;
   initiativeDescription: string;
   initiativeStartDate: Date;
   initiativeEndDate: Date;
+  featureTitle: string;
 
   errorMessage: string;
 
@@ -34,7 +39,10 @@ export class RoadmapComponent implements OnInit {
         initiatives => {
           this.initiatives = initiatives;
           if(this.initiatives) {
-            this.selectedInitiative = this.initiatives[0];
+            if(this.selectedInitiative == null){
+              this.selectedInitiative = this.initiatives[0];
+            }
+            this.features = this.selectedInitiative.features;
           }
         }
       )
@@ -42,6 +50,12 @@ export class RoadmapComponent implements OnInit {
 
   onSelect(initiative: Initiative): void{
     this.selectedInitiative = initiative;
+    this.features = initiative.features;
+  }
+
+  edit(){
+    this.editMode = !this.editMode;
+    console.log(this.editMode);
   }
 
   addInitiative(){
@@ -50,6 +64,20 @@ export class RoadmapComponent implements OnInit {
         success => this.getInitiatives(),
         error => this.errorMessage = <any> error
       );
+    this.initiativeTitle = null;
+    this.initiativeGoal = null;
+    this.initiativeDescription = null;
+    this.initiativeStartDate = null;
+    this.initiativeEndDate = null;
+  }
+
+  updateInitiative(){
+    this.initiativeService.updateInitiative(this.selectedInitiative._id, this.selectedInitiative.title, this.selectedInitiative.startDate, this.selectedInitiative.endDate, this.selectedInitiative.description, this.selectedInitiative.goal)
+      .subscribe(
+        success => this.getInitiatives(),
+        error => this.errorMessage = <any> error
+      );
+    this.editMode = false;
   }
 
   deleteInitiative(){
@@ -60,11 +88,48 @@ export class RoadmapComponent implements OnInit {
       );
   }
 
+  getFeatues(){
+    this.initiativeService.getFeatures(this.selectedInitiative._id)
+      .subscribe(
+        features => {
+          this.features = features;
+        }
+      )
+  }
+
+  addFeature(){
+    this.initiativeService.addFeature(this.selectedInitiative._id, this.featureTitle)
+      .subscribe(
+        success => this.getFeatues(),
+        error => this.errorMessage = <any> error
+      );
+    this.featureTitle = null;
+  }
+
+  deleteFeature(index: number){
+    this.initiativeService.deleteFeature(this.selectedInitiative._id, this.selectedInitiative.features[index]._id)
+      .subscribe(
+        success => this.getFeatues(),
+        error => this.errorMessage = <any> error
+      );
+  }
+
   isOpen(initiative: Initiative): boolean{
     var dateNow = this.datePipe.transform(Date.now(), 'yyyy-MM-dd');
-    var iDate = this.datePipe.transform(initiative.startDate, 'yyyy-MM-dd');
+    var iniStartDate = this.datePipe.transform(initiative.startDate, 'yyyy-MM-dd');
 
-    if(iDate > dateNow){
+    if(iniStartDate > dateNow){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+  isFinished(initiative: Initiative): boolean{
+    var dateNow = this.datePipe.transform(Date.now(), 'yyyy-MM-dd');
+    var iniEndDate = this.datePipe.transform(initiative.endDate, 'yyyy-MM-dd');
+
+    if(iniEndDate < dateNow){
       return true;
     }else{
       return false;
@@ -72,12 +137,15 @@ export class RoadmapComponent implements OnInit {
   }
 
   changeColor(initiative: Initiative): string{
+    console.log(initiative == this.selectedInitiative);
     if(initiative == this.selectedInitiative){
-      return "#10515f";
+      return "#696969";
     }else if(this.isOpen(initiative)){
-      return "#07a702";
+      return "#a70300";
+    }else if(this.isFinished(initiative)){
+      return "#1cc500";
     }else{
-      return "#1f9eba";
+      return "#ffd20e";
     }
   }
 
