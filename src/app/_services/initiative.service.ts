@@ -43,18 +43,34 @@ export class InitiativeService {
       .map(this.extractData);
   }
 
-  updateInitiative(initiative_id: string, initiative: Initiative) {
-    return this.http.put(AppSettings.getProjectUrl() + '/initiatives/' + initiative_id, initiative)
+  updateInitiative(initiative_id: string, title: string, startDate: Date, endDate: Date, description: string, goal: string) {
+    return this.http.put(AppSettings.getProjectUrl() + '/initiatives/' + initiative_id, {title: title, startDate: startDate, endDate: endDate, description: description, goal: goal})
       .map(this.extractData);
   }
 
-  addFeature(initiative_id: string, feature: Feature){
-    return this.http.post(AppSettings.getProjectUrl() + '/initiatives/'+ initiative_id +'/features', feature)
+  getFeatures(initiative_id: string) {
+    return this.http.get(AppSettings.getProjectUrl() + '/initiatives/' + initiative_id + '/features')
+      .map((responseData) => {
+        return responseData.json();
+      })
+      .map((features: Array<any>) => {
+        let result: Array<Feature> = [];
+        if (features) {
+          features.forEach((x) => {
+            result.push(new Initiative(x));
+          });
+        }
+        return result;
+      });
+  }
+
+  addFeature(initiative_id: string, title: string){
+    return this.http.post(AppSettings.getProjectUrl() + '/initiatives/'+ initiative_id +'/features', {title: title})
       .map(this.extractData);
   }
 
-  deleteFeature(initiative_id: string, feature_id: string, feature: Feature){
-    return this.http.delete(AppSettings.getProjectUrl() + '/initiatives/'+ initiative_id +'/features/' + feature_id, feature)
+  deleteFeature(initiative_id: string, feature_id: string){
+    return this.http.delete(AppSettings.getProjectUrl() + '/initiatives/'+ initiative_id +'/features/' + feature_id)
       .map(this.extractData);
   }
 

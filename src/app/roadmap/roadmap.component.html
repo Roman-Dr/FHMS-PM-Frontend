@@ -29,7 +29,9 @@
           <li class="timeline-item" *ngFor="let initiative of initiatives">
             <div class="timeline-badge primary" (click)="onSelect(initiative)"
                  [style.background-color]="changeColor(initiative)">
-              <i class="glyphicon glyphicon-check"></i>
+              <i *ngIf="isFinished(initiative)" class="glyphicon glyphicon-check"></i>
+              <i *ngIf="isOpen(initiative)" class="glyphicon glyphicon-unchecked"></i>
+              <i *ngIf="!isOpen(initiative) && !isFinished(initiative)" class="glyphicon glyphicon-edit"></i>
             </div>
             <div class="timeline-panel">
               <div class="timeline-heading">
@@ -51,26 +53,53 @@
             <tbody>
             <tr>
               <th class="col-xs-3">Beschreibung</th>
-              <td>{{selectedInitiative.description}}</td>
+              <td *ngIf="!editMode">{{selectedInitiative.description}}</td>
+              <td *ngIf="editMode"><input type="text" class="form-control" [(ngModel)]="selectedInitiative.description">
+              </td>
             </tr>
             <tr>
               <th class="col-xs-3">Ziel</th>
-              <td>{{selectedInitiative.goal}}</td>
+              <td *ngIf="!editMode">{{selectedInitiative.goal}}</td>
+              <td *ngIf="editMode"><input type="text" class="form-control" [(ngModel)]="selectedInitiative.goal"></td>
             </tr>
             <tr>
               <th class="col-xs-3">Features</th>
               <td>
-                <ul class="list-group">
-                  <li class="list-group-item" *ngFor="let feature of selectedInitiative.features">
+                <ul>
+                  <li class="list-group-item"
+                      *ngFor="let feature of features; let i = index">
                     {{feature.title}}
+                    <span *ngIf="editMode" class="pull-right">
+                        <button class="btn btn-xs btn-danger" (click)="deleteFeature(i)">
+                          <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                    </span>
                   </li>
                 </ul>
+                <span *ngIf="editMode" class="pull-right">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="New Feature..." [(ngModel)]="featureTitle">
+                    <span class="input-group-btn">
+                      <button class="btn btn-secondary" type="button" (click)="addFeature()">
+                        <span class="glyphicon glyphicon-plus"></span>
+                      </button>
+                    </span>
+                  </div>
+                </span>
               </td>
             </tr>
             <tr>
               <td></td>
               <td style="text-align: right">
-                <button class="btn btn-danger" (click)="deleteInitiative()">Löschen</button>
+                <button *ngIf="!editMode"type="button" class="btn btn-default" (click)="edit()">
+                  <span class="glyphicon glyphicon-edit"></span>
+                </button>
+                <button *ngIf="editMode"type="button" class="btn btn-default" (click)="updateInitiative()">
+                  <span class="glyphicon glyphicon-floppy-disk"></span>
+                </button>
+                <button type="button" class="btn btn-danger" (click)="deleteInitiative()">
+                  <span class="glyphicon glyphicon-trash"></span>
+                </button>
               </td>
             </tr>
             </tbody>
@@ -100,24 +129,24 @@
           <label for="start-date" class="col-xs-2 col-form-label">Startdatum</label>
           <div class="col-xs-6">
             <input type="date" [(ngModel)]="initiativeStartDate"
-                            class="form-control" id="start-date">
+                   class="form-control" id="start-date">
           </div>
         </div>
         <div class="form-group row">
           <label for="end-date" class="col-xs-2 col-form-label">Enddatum</label>
           <div class="col-xs-6">
             <input type="date" [(ngModel)]="initiativeEndDate"
-                            class="form-control" id="end-date">
+                   class="form-control" id="end-date">
           </div>
         </div>
         <div class="form-group row">
-          <label for="initiative-goal" class="col-xs-2 col-form-label">Anzeigename</label>
+          <label for="initiative-goal" class="col-xs-2 col-form-label">Ziel</label>
           <div class="col-xs-10">
             <input type="text" class="form-control" id="initiative-goal" [(ngModel)]="initiativeGoal">
           </div>
         </div>
         <div class="form-group row">
-          <label for="initiative-description" class="col-xs-2 col-form-label">Anzeigename</label>
+          <label for="initiative-description" class="col-xs-2 col-form-label">Beschreibung</label>
           <div class="col-xs-10">
             <input type="text" class="form-control" id="initiative-description" [(ngModel)]="initiativeDescription">
           </div>
