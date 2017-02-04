@@ -1,16 +1,27 @@
-<div class="row">
-  <div class="col-sm-12">
-    <div style="display: block;">
-      <canvas baseChart width="400" height="400"
-              [datasets]="lineChartData"
-              [labels]="lineChartLabels"
-              [options]="lineChartOptions"
-              [colors]="lineChartColors"
-              [legend]="lineChartLegend"
-              [chartType]="lineChartType"
-              (chartHover)="chartHovered($event)"
-              (chartClick)="chartClicked($event)"></canvas>
+<div class="col-sm-6">
+  <canvas baseChart width="400" height="400"
+          [datasets]="lineChartData"
+          [labels]="lineChartLabels"
+          [options]="lineChartOptions"
+          [colors]="lineChartColors"
+          [legend]="lineChartLegend"
+          [chartType]="lineChartType"
+          (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"></canvas>
+</div>
+
+<div class="col-sm-4">
+
+    <div *ngFor="let sprint of sprints">
+      <div class="jumbotron burndown-sprints" *ngIf="checkStatus(sprint)" (click)="onSelect(sprint)">
+        <h5>{{sprint.sprintName + " " + (sprint.startDate | date:'dd.MM.yyyy') + " - " + (sprint.endDate | date:
+          'dd.MM.yyyy')}}</h5>
+      </div>
     </div>
-  </div>
+
+
+  <button class="btn btn-primary" (click)="createTestData()">Testdaten generieren</button>
+
+
 </div>
 

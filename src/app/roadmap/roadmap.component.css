@@ -58,6 +58,10 @@
 .timeline .timeline-item .timeline-badge.primary.selected{
   background-color: #10515f;
 }
+.timeline .timeline-item .timeline-badge.primary.open{
+  background-color: #07a702;
+}
+
 .timeline .timeline-item .timeline-badge.info {
   background-color: #5bc0de;
 }

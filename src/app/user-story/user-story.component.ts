@@ -17,9 +17,9 @@ export class UserStoryComponent {
   users: User[] = [];
   userstories: UserStory[];
 
-  userStoryName: string;
-  userStoryComplete: string = "false";
-  userStoryAuthor: string;
+  author: string = sessionStorage.getItem("user_id");
+  status: string = "false";
+  userStory: string;
   errorMessage: string;
 
 
@@ -27,18 +27,6 @@ export class UserStoryComponent {
 
   }
 
-
-  toggleUserstory(userstoryObject, userstorystate) {
-    /*Toggelt den userstorystate, der als String eingereicht wird => einfache Lösung*/
-    if (userstorystate == "true") userstorystate == "false"
-    else userstorystate == "true"
-
-    this.userStoryDataService.toggleUserStory(userstoryObject, userstorystate)
-      .subscribe(
-        success =>
-          this.loadUserStories()
-      );
-  }
 
   editUserstory(userstory_id, title, state, author) {
     this.userStoryDataService.editUserstory(userstory_id, title, state, author)
@@ -80,23 +68,14 @@ export class UserStoryComponent {
   }
 
   addUserStory() {
-    this.userStoryAuthor = sessionStorage.getItem("user_id")
-    if ((!this.userStoryAuthor) || (!this.userStoryName)) {
-      console.log("UserStoryName(" + this.userStoryName + ") oder UserStoryAuthor(" + this.userStoryAuthor + ") sind leer: Component")
-      this.userStoryAuthor = null
-      this.userStoryName = null
-    }
-    else {
-      console.log("1")
-      this.userStoryDataService.postUserStoryRestful(this.userStoryName, this.userStoryComplete, this.userStoryAuthor).subscribe(
+      this.userStoryDataService.postUserStoryRestful(this.userStory, this.status, this.author).subscribe(
         //data => this.postMyUserStoriesToServer = JSON.stringify(data),
         data => {
           this.loadUserStories()
         }
       );
-      this.userStoryAuthor = null
-      this.userStoryName = null
+      this.userStory = ''
+      this.author = ''
     }
 
-  }
 }
