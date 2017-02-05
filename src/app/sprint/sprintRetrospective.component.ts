@@ -63,7 +63,6 @@ export class SprintRetrospectiveComponent implements OnInit {
     for (let i = 0; i < project.contributors.length; i++) {
       let newSprintRetrospective = new Retrospective();
       newSprintRetrospective.userId = project.contributors[i]._id;
-      newSprintRetrospective.userDisplayName = project.contributors[i].firstname + " " + project.contributors[i].lastname;
       this.sprintRetrospectiveArray.push(newSprintRetrospective);
     }
   };

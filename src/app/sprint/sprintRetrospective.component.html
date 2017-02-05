@@ -16,8 +16,7 @@
     <tr>
       <tr *ngFor="let retrospective of sprint?.retrospective">
         <td >
-          <input type="text" [(ngModel)]="retrospective.userDisplayName"
-                 id="user-id" class="form-control" readonly>
+          {{retrospective.userDisplayName}}
         </td>
         <td>
           <textarea rows="5" [(ngModel)]="retrospective.comment" id="comment" class="form-control"
