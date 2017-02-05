@@ -32,6 +32,22 @@ export class InitiativeService {
       });
   }
 
+  getFilteredInitiatives(from: Date, to: Date){
+    return this.http.post(AppSettings.getProjectUrl() + '/initiatives/filter', {from: from, to: to})
+      .map((responseData) => {
+        return responseData.json();
+      })
+      .map((initiatives: Array<any>) => {
+        let result: Array<Initiative> = [];
+        if (initiatives) {
+          initiatives.forEach((x) => {
+            result.push(new Initiative(x));
+          });
+        }
+        return result;
+      });
+  }
+
   deleteInitiative(initiative_id: string) {
     return this.http.delete(AppSettings.getProjectUrl() + '/initiatives/' + initiative_id, {headers: this.headers})
       .map(this.extractData)

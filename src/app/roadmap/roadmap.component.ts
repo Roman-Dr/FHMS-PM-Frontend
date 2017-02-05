@@ -15,6 +15,8 @@ export class RoadmapComponent implements OnInit {
   initiatives: Initiative[];
   selectedInitiative: Initiative;
   editMode: boolean;
+  from: Date;
+  to: Date;
 
   features: Feature[];
 
@@ -34,18 +36,11 @@ export class RoadmapComponent implements OnInit {
   }
 
   getInitiatives(){
-    this.initiativeService.getInitiatives()
-      .subscribe(
-        initiatives => {
-          this.initiatives = initiatives;
-          if(this.initiatives) {
-            if(this.selectedInitiative == null){
-              this.selectedInitiative = this.initiatives[0];
-            }
-            this.features = this.selectedInitiative.features;
-          }
-        }
-      )
+    if(this.from == undefined || this.to == undefined){
+      this.getAllInitiatives();
+    }else{
+      this.filter();
+    }
   }
 
   onSelect(initiative: Initiative): void{
@@ -56,6 +51,36 @@ export class RoadmapComponent implements OnInit {
   edit(){
     this.editMode = !this.editMode;
     console.log(this.editMode);
+  }
+
+  getAllInitiatives(){
+    this.initiativeService.getInitiatives()
+      .subscribe(
+        initiatives => {
+          this.initiatives = initiatives;
+          if(this.initiatives) {
+            if(this.selectedInitiative == null){
+              this.selectedInitiative = this.initiatives[0];
+              this.features = this.selectedInitiative.features;
+            }
+          }
+        }
+      )
+  }
+
+  filter(){
+    this.initiativeService.getFilteredInitiatives(this.from, this.to)
+      .subscribe(
+        initiatives => {
+          this.initiatives = initiatives;
+          if(this.initiatives) {
+            if(this.selectedInitiative == null){
+              this.selectedInitiative = this.initiatives[0];
+              this.features = this.selectedInitiative.features;
+            }
+          }
+        }
+      )
   }
 
   addInitiative(){
@@ -78,6 +103,7 @@ export class RoadmapComponent implements OnInit {
         error => this.errorMessage = <any> error
       );
     this.editMode = false;
+    this.featureTitle = null;
   }
 
   deleteInitiative(){
@@ -88,7 +114,7 @@ export class RoadmapComponent implements OnInit {
       );
   }
 
-  getFeatues(){
+  getFeatures(){
     this.initiativeService.getFeatures(this.selectedInitiative._id)
       .subscribe(
         features => {
@@ -100,16 +126,16 @@ export class RoadmapComponent implements OnInit {
   addFeature(){
     this.initiativeService.addFeature(this.selectedInitiative._id, this.featureTitle)
       .subscribe(
-        success => this.getFeatues(),
+        success => this.getFeatures(),
         error => this.errorMessage = <any> error
       );
     this.featureTitle = null;
   }
 
   deleteFeature(index: number){
-    this.initiativeService.deleteFeature(this.selectedInitiative._id, this.selectedInitiative.features[index]._id)
+    this.initiativeService.deleteFeature(this.selectedInitiative._id, this.features[index]._id)
       .subscribe(
-        success => this.getFeatues(),
+        success => this.getFeatures(),
         error => this.errorMessage = <any> error
       );
   }
