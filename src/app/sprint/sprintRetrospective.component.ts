@@ -1,32 +1,35 @@
 import { Component, OnInit } from '@angular/core';
 import {Sprint, Retrospective} from "../_models/index";
-import {SprintService} from "../_services/sprint.service";
 import {ActivatedRoute, Params} from "@angular/router";
 import {Location} from "@angular/common";
+import {SprintService, ProjectService, UserService} from "../_services/index";
+
 
 @Component({
   selector: 'app-sprintRetrospective',
   templateUrl: './sprintRetrospective.component.html',
   styleUrls: ['./sprintRetrospective.component.css'],
-  providers: [SprintService]
+  providers: [SprintService, ProjectService, UserService]
 })
 export class SprintRetrospectiveComponent implements OnInit {
 
   sprint: Sprint;
+  sprintRetrospectiveArray: Array<any> = [];
   errorMessage: string;
   sprintId: string;
 
-  userId: string;
-  comment: string[];
 
 
-
-
-  constructor(private sprintService: SprintService, private activatedRoute: ActivatedRoute, private location: Location) {
+  constructor(private sprintService: SprintService,
+              private activatedRoute: ActivatedRoute,
+              private projectService: ProjectService,
+              private userService: UserService,
+              private location: Location) {
 
   }
 
   ngOnInit() {
+    this.getProject();
 
     this.activatedRoute.params.subscribe((params: Params) => {
       this.sprintId = params['sprintId'];
@@ -41,26 +44,33 @@ export class SprintRetrospectiveComponent implements OnInit {
   }
 
 
+  getUser(userId){
+    this.userService.getUser(userId).subscribe();
+  }
+
+
   getSprint(){
     this.sprintService.getSprint(this.sprintId).subscribe(sprint => this.sprint = sprint);
   }
 
+  getProject(){
+    this.projectService.getProject(sessionStorage.getItem('project_id')).subscribe(project => this.setUserIdsForRetrospective(project));
+  }
+
+
+
+  setUserIdsForRetrospective(project){
+    for(let i = 0; i < project.contributors.length; i++) {
+      let newSprintRetrospective = new Retrospective();
+      newSprintRetrospective.userId = project.contributors[i]._id;
+      this.sprintRetrospectiveArray.push(newSprintRetrospective);
+    }
+  }
 
   createSprintRetrospective() {
-    let sprintRetrospectiveArray: Array<any> = [];
-    for(let i = 0; i < this.sprint.retrospective.length; i++) {
-      let newSprintRetrospective = new Retrospective();
-      newSprintRetrospective.userId = this.sprint.sprintCapacity[i].userId;
-      newSprintRetrospective.comment = this.comment[i];
-      sprintRetrospectiveArray.push(newSprintRetrospective);
-    }
-
-    this.sprintService.createSprintRetrospective(this.sprintId, sprintRetrospectiveArray)
+    this.sprintService.createSprintRetrospective(this.sprintId, this.sprintRetrospectiveArray)
       .subscribe(
-        success => {
-          this.getSprint();
-        },
-
+        success => this.getSprint(),
         error => this.errorMessage = <any> error
       );
   }
