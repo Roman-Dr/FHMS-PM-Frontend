@@ -16,10 +16,10 @@
     <div class="navbar-collapse collapse" id="navbar-main">
       <ul class="nav navbar-nav">
         <li *ngIf="isLoggedIn() && isProjectSelected()">
-          <a routerLink="user-story">User-Story</a>
+          <a routerLink="user-story">User Stories</a>
         </li>
         <li *ngIf="isLoggedIn() && isProjectSelected()">
-          <a routerLink="backlog">Backlog</a>
+          <a routerLink="backlog">Backlog Items</a>
         </li>
         <li *ngIf="isLoggedIn() && isProjectSelected()">
           <a routerLink="planningPoker">Planungspoker</a>
@@ -34,7 +34,6 @@
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">Boards<span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li *ngIf="isLoggedIn()"><a routerLink="board">SCRUM Board</a></li>
-            <li *ngIf="isLoggedIn()"><a routerLink="estimation">Estimation Effort</a></li>
             <li *ngIf="isLoggedIn()"><a routerLink="chart">Burndown Chart</a></li>
           </ul>
         </li>

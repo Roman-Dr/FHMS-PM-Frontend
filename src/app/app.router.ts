@@ -1,7 +1,7 @@
 import {LandingComponent} from './landing/landing.component';
 import {BacklogItemComponent, BacklogItemsComponent} from './backlog/index';
 import {BoardComponent} from './board/board.component';
-import {SprintComponent} from './sprint/sprint.component';
+import {SprintComponent, SprintCapacityComponent, SprintRetrospectiveComponent} from './sprint/index';
 import {EstimationComponent} from './estimation/estimation.component';
 import {ChartComponent} from './chart/chart.component';
 import {RoadmapComponent} from './roadmap/roadmap.component';
@@ -10,7 +10,6 @@ import {LoginComponent} from './login/login.component'
 import {RegisterComponent} from './register/register.component'
 import {ProjectComponent,ProjectsComponent} from "./project/index";
 import {PlanningPokerComponent, PlanningPokerGameComponent} from "./planningPoker/index";
-import {SprintCapacityComponent} from "./sprint/sprintCapacity.component";
 import {AdminComponent} from "./admin/admin.component";
 
 import {AuthGuard, ProjectGuard, NavigationLockGuard} from "./_services/index";
@@ -28,6 +27,7 @@ export const routes = [
   {path: 'sprints', component: SprintComponent, canActivate: [AuthGuard, ProjectGuard, NavigationLockGuard]},
   {path: 'sprints/:sprintId/backlog', component: BacklogItemsComponent, canActivate: [AuthGuard, ProjectGuard, NavigationLockGuard]},
   {path: 'sprints/:sprintId/sprintcapacities', component: SprintCapacityComponent, canActivate: [AuthGuard, ProjectGuard, NavigationLockGuard]},
+  {path: 'sprints/:sprintId/sprintretrospective', component: SprintRetrospectiveComponent, canActivate: [AuthGuard, ProjectGuard, NavigationLockGuard]},
   {path: 'estimation', component: EstimationComponent, canActivate: [AuthGuard, ProjectGuard, NavigationLockGuard]},
   {path: 'planningPoker', component: PlanningPokerComponent, canActivate: [AuthGuard, ProjectGuard, NavigationLockGuard]},
   {path: 'planningPoker/game/:planningPokerId', component: PlanningPokerGameComponent, canActivate: [AuthGuard, ProjectGuard]},

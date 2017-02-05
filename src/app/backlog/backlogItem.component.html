@@ -79,7 +79,7 @@
               <label class="col-md-4 control-label" for="userStoryId">User-Story*</label>
               <div class="col-md-6">
                 <select class="form-control" id="userStoryId" name="userStoryId" [(ngModel)]="backlogItem.userStoryId" required>
-                  <option *ngFor="let item of userStories" value="{{item._id}}">{{item.title}}
+                  <option *ngFor="let item of userStories" value="{{item._id}}">{{item.toStory()}}
                   </option>
                 </select>
               </div>

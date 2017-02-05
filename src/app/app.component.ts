@@ -26,11 +26,20 @@ export class AppComponent {
 
 
   ngOnInit() {
-    this.projectService.projectChosen
-      .subscribe(project => {
-        console.log('App: ' + JSON.stringify(project));
-        this.currentProject = project;
-      });
+    if(!this.projectGuard.isProjectSelected()) {
+      this.projectService.projectChosen
+        .subscribe(project => {
+          console.log('App: ' + JSON.stringify(project));
+          this.currentProject = project;
+        });
+    } else {
+      this.projectService.getProject(sessionStorage.getItem('project_id')).
+      subscribe( project => {
+          console.log('Get Project after reload: ' + JSON.stringify(project));
+          this.currentProject = project;
+        });
+    }
+
   }
 
   logout() {

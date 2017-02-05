@@ -67,6 +67,11 @@ export class UserStoryComponent {
       () => this.isBusy = false
     );
   }
+  toggleState(userStory: UserStory) {
+    userStory.complete = !userStory.complete;
+    this.onBeginEdit(userStory);
+    this.addOrUpdateUserStory();
+  }
 
   newUserStory() {
     this.userStory = new UserStory();
@@ -103,6 +108,7 @@ export class UserStoryComponent {
       );
     }
   }
+
   aboutAddOrUpdateUserStory() {
     this.isEditing = false;
     this.isBusy = false;
