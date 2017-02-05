@@ -59,7 +59,13 @@
   background-color: #10515f;
 }
 .timeline .timeline-item .timeline-badge.primary.open{
-  background-color: #07a702;
+  background-color: #a70300;
+}
+.timeline .timeline-item .timeline-badge.primary.inProgress{
+  background-color: #ffd20e;
+}
+.timeline .timeline-item .timeline-badge.primary.finished{
+  background-color: #1cc500;
 }
 
 .timeline .timeline-item .timeline-badge.info {

@@ -6,16 +6,16 @@
       </div>
       <div class="row">
         <div class="form-group pull-left">
-          <label for="startdate" class="col-xs-1">Von</label>
-          <div class="col-xs-3">
-            <input type="text" class="form-control" id="startdate">
+          <label for="from" class="col-xs-1">Von</label>
+          <div class="col-xs-4">
+            <input type="date" class="form-control" id="from" [(ngModel)]="from">
           </div>
-          <label for="enddate" class="col-xs-1">Bis</label>
-          <div class="col-xs-3">
-            <input type="text" class="form-control" id="enddate">
+          <label for="to" class="col-xs-1">Bis</label>
+          <div class="col-xs-4">
+            <input type="date" class="form-control" id="to" [(ngModel)]="to">
           </div>
           <div class="col-xs-2">
-            <button class="btn btn-Default">Filtern</button>
+            <button class="btn btn-Default" (click)="getInitiatives()">Filtern</button>
           </div>
         </div>
         <div class="pull-right">
