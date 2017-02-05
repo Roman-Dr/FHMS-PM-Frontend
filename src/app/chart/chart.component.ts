@@ -108,12 +108,20 @@ export class ChartComponent implements OnInit {
     }
   }
 
-  getStyle(sprint) {
+  getBackgroundStyle(sprint) {
     if (sprint == this.selectedSprint) {
         return "#2c3e50";
       } else {
         return "";
       }
+  }
+
+  getFontStyle(sprint) {
+    if (sprint == this.selectedSprint) {
+      return "#ffffff";
+    } else {
+      return "";
+    }
   }
 }
 

@@ -14,7 +14,7 @@
 
 <div class="col-sm-4">
     <div *ngFor="let sprint of sprints | paginate: { itemsPerPage: 5, currentPage: p }">
-      <div class="jumbotron burndown-sprints"  (click)="getSprintBurnDown(sprint)" [style.background-color]="getStyle(sprint)">
+      <div class="jumbotron burndown-sprints"  (click)="getSprintBurnDown(sprint)" [style.background-color]="getBackgroundStyle(sprint)" [style.color]="getFontStyle(sprint)">
         <h5>{{sprint.sprintName + " " + (sprint.startDate | date:'dd.MM.yyyy') + " - " + (sprint.endDate | date:
           'dd.MM.yyyy')}}</h5>
       </div>
