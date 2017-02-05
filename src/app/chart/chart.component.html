@@ -1,4 +1,8 @@
-<div class="col-sm-8">
+<div class="page-header">
+  <h1>Burndown-Chart: {{selectedSprint?.sprintName}}</h1>
+</div>
+
+<div class="col-sm-8" style="margin-top: 10px">
   <canvas baseChart width="400" height="600"
           [datasets]="lineChartData"
           [labels]="lineChartLabels"
