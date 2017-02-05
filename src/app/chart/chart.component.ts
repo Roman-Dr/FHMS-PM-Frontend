@@ -110,7 +110,7 @@ export class ChartComponent implements OnInit {
 
   getStyle(sprint) {
     if (sprint == this.selectedSprint) {
-        return "#e95420";
+        return "#2c3e50";
       } else {
         return "";
       }
