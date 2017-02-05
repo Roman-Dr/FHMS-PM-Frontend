@@ -1,4 +1,4 @@
-export class SprintRetrospective {
+export class Retrospective {
   constructor(values: Object = {}) {
     Object.assign(this, values);
   }

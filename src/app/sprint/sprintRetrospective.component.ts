@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {Sprint} from "../_models/sprint";
+import {Sprint, Retrospective} from "../_models/index";
 import {SprintService} from "../_services/sprint.service";
-import {User} from "../_models/user";
 import {ActivatedRoute, Params} from "@angular/router";
 import {Location} from "@angular/common";
 
@@ -14,12 +13,11 @@ import {Location} from "@angular/common";
 export class SprintRetrospectiveComponent implements OnInit {
 
   sprint: Sprint;
-  users: User[];
   errorMessage: string;
   sprintId: string;
 
   userId: string;
-  comment: string;
+  comment: string[];
 
 
 
@@ -49,11 +47,18 @@ export class SprintRetrospectiveComponent implements OnInit {
 
 
   createSprintRetrospective() {
-    this.sprintService.createSprintRetrospective(this.sprintId, this.userId, this.comment)
+    let sprintRetrospectiveArray: Array<any> = [];
+    for(let i = 0; i < this.sprint.retrospective.length; i++) {
+      let newSprintRetrospective = new Retrospective();
+      newSprintRetrospective.userId = this.sprint.sprintCapacity[i].userId;
+      newSprintRetrospective.comment = this.comment[i];
+      sprintRetrospectiveArray.push(newSprintRetrospective);
+    }
+
+    this.sprintService.createSprintRetrospective(this.sprintId, sprintRetrospectiveArray)
       .subscribe(
         success => {
           this.getSprint();
-          this.comment = '';
         },
 
         error => this.errorMessage = <any> error

@@ -13,7 +13,7 @@
       <th>Nutzer</th>
       <th>Kommentar</th>
     </tr>
-    <tr *ngFor="let sprintRetrospective of sprint?.sprintRetrospective">
+    <tr *ngFor="let sprintRetrospective of sprint?.retrospective">
       <td>{{sprintRetrospective.userDisplayName}}</td>
       <td>{{sprintRetrospective.comment}}</td>
     </tr>
@@ -33,7 +33,3 @@
     </tr>
   </table>
 </div>
-
-
-
-<h1>Nicht abschicken - läuft noch nicht korrekt</h1>

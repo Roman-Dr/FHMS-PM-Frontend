@@ -166,10 +166,10 @@ export class SprintService {
       })
   }
 
-  createSprintRetrospective(sprintId: string, userId: string, comment: string) {
+  createSprintRetrospective(sprintId: string, sprintRetrospectiveArray: SprintRetrospective[]) {
     return this.http.post
     (AppSettings.getProjectUrl() + '/sprints/' + sprintId + "/retrospective",
-      JSON.stringify({userId, comment}), {withCredentials: true, headers: this.headers}
+      sprintRetrospectiveArray, {withCredentials: true, headers: this.headers}
     )
       .map(res => {
         // If request fails, throw an Error that will be caught

@@ -6,7 +6,7 @@ export * from './project';
 export * from './sprint';
 export * from './sprintCapacity';
 export * from './sprintBurnDown';
-export * from './sprintRetrospective';
+export * from './retrospective';
 export * from './task';
 export * from './user';
 export * from './UserStory';
