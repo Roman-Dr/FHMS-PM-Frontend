@@ -60,6 +60,11 @@ export class SprintComponent implements OnInit {
     else {return false};
   }
 
+  checkDisabledStatus(sprint){
+    if(sprint.endDate <= this.today) {return "disabled";}
+    else {return ""};
+  }
+
   chooseSprintForEdit(sprint){
     sprint.startDate = this.datePipe.transform(sprint.startDate, 'yyyy-MM-dd');
       sprint.endDate = this.datePipe.transform(sprint.endDate, 'yyyy-MM-dd');

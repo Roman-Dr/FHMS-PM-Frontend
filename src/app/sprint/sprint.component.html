@@ -11,16 +11,16 @@
         <th></th>
       </tr>
       <tr *ngFor="let sprint of sprints | paginate: { itemsPerPage: 20, currentPage: p }">
-        <td><span *ngIf="checkStatus(sprint)" class="glyphicon glyphicon-ok" style="margin-left: 15px"></span><span *ngIf="!checkStatus(sprint)" class="glyphicon glyphicon-remove" style="margin-left: 15px"></span></td>
+        <td><span *ngIf="checkStatus(sprint)" class="glyphicon glyphicon-ok" style="margin-left: 15px; color: green;"></span><span *ngIf="!checkStatus(sprint)" class="glyphicon glyphicon-remove" style="margin-left: 15px; color: red;"></span></td>
         <td>{{sprint.sprintName}}</td>
         <td>{{sprint.startDate | date:'dd.MM.yyyy'}}</td>
         <td>{{sprint.endDate | date:'dd.MM.yyyy'}}</td>
         <td>
-          <button type="button" class="btn btn-xs" (click)="chooseSprintForEdit(sprint)">
+          <button type="button" class="btn btn-xs" [disabled]="checkDisabledStatus(sprint)" (click)="chooseSprintForEdit(sprint)">
             <span class="glyphicon glyphicon-edit"></span>
           </button>
 
-          <button type="button" class="btn btn-xs" (click)="openSprintCapacity(sprint)">
+          <button type="button" class="btn btn-xs" [disabled]="checkDisabledStatus(sprint)" (click)="openSprintCapacity(sprint)">
             <span class="glyphicon glyphicon-list"></span>
           </button>
 
@@ -28,7 +28,7 @@
             <span class="glyphicon glyphicon-trash"></span>
           </button>
 
-          <button type="button" class="btn btn-xs" (click)="openSprintRetrospective(sprint)">
+          <button type="button" class="btn btn-xs" [disabled]="checkDisabledStatus(sprint)" (click)="openSprintRetrospective(sprint)">
             Retrospektive starten
           </button>
 
