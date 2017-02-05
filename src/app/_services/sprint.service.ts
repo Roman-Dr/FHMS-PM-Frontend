@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Headers, Http} from "@angular/http";
 import {AppSettings} from "../app.settings";
 
-import {Sprint, SprintBurnDown, SprintRetrospective} from "../_models/index";
+import {Sprint, SprintBurnDown, Retrospective} from "../_models/index";
 
 @Injectable()
 export class SprintService {
@@ -166,10 +166,9 @@ export class SprintService {
       })
   }
 
-  createSprintRetrospective(sprintId: string, sprintRetrospectiveArray: SprintRetrospective[]) {
+  createSprintRetrospective(sprint) {
     return this.http.post
-    (AppSettings.getProjectUrl() + '/sprints/' + sprintId + "/retrospective",
-      sprintRetrospectiveArray, {withCredentials: true, headers: this.headers}
+    (AppSettings.getProjectUrl() + '/sprints/' + sprint._id + "/retrospective", sprint, {withCredentials: true, headers: this.headers}
     )
       .map(res => {
         // If request fails, throw an Error that will be caught
@@ -183,6 +182,25 @@ export class SprintService {
         }
       })
   }
+
+
+  updateSprintRetrospective(sprint, sprintRetrospective) {
+    return this.http.put
+    (AppSettings.getProjectUrl() + '/sprints/' + sprint._id + "/retrospective/" + sprintRetrospective._id, sprintRetrospective, {withCredentials: true, headers: this.headers}
+    )
+      .map(res => {
+        // If request fails, throw an Error that will be caught
+        if (res.status < 200 || res.status >= 300) {
+          throw new Error('This request has failed ' + res.status);
+        }
+        // If everything went fine, return the response
+        else {
+          console.log("Update Sprint Retrospective successful");
+          return res.json();
+        }
+      })
+  }
+
 
 
 

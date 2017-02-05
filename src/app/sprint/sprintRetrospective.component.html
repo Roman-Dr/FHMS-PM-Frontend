@@ -13,35 +13,16 @@
       <th class="col-sm-10">Kommentar</th>
       <th></th>
     </tr>
-    <tr *ngFor="let sprintRetrospective of sprint?.retrospective">
-      <td >
-        {{sprintRetrospective.userDisplayName}}
-      </td>
-      <td>
-        {{sprintRetrospective.comment}}
-      </td>
-    </tr>
     <tr>
-      <tr *ngFor="let retrospective of sprintRetrospectiveArray">
+      <tr *ngFor="let retrospective of sprint?.retrospective">
         <td >
-          <input type="text" [(ngModel)]="retrospective.userId"
+          <input type="text" [(ngModel)]="retrospective.userDisplayName"
                  id="user-id" class="form-control" readonly>
         </td>
         <td>
           <textarea rows="5" [(ngModel)]="retrospective.comment" id="comment" class="form-control"
-                    placeholder="Hier können Sie einen Kommentar zu dem jeweiligen Benutzer eingeben."></textarea>
+                    placeholder="Hier können Sie einen Kommentar zu dem jeweiligen Benutzer eingeben. Ihre Eingaben werden beim Verlassen des Feldes gespeichert." (change)="updateSprintRetrospective(retrospective)"></textarea>
         </td>
       </tr>
-    <tr>
-      <td colspan="2">
-        <button type="button" class="btn btn-primary btn-block"
-                (click)="createSprintRetrospective()">
-          <span class="glyphicon glyphicon-floppy-disk"></span>
-        </button>
-      </td>
-    </tr>
   </table>
 </div>
-
-
-<h1>Nicht abschicken - funktioniert noch nicht!!!</h1>
