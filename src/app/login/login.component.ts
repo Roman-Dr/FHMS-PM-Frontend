@@ -16,6 +16,9 @@ export class LoginComponent {
   email: string;
   password: string;
 
+  badLogin: boolean = false;
+
+
   errorMessage: string = "Ihre Benutzerdaten sind nicht korrekt.";
 
 
@@ -24,22 +27,24 @@ export class LoginComponent {
   }
 
   onSubmit() {
-    this.authenticationService.login(this.email, this.password).subscribe(response => {
-       if (sessionStorage.getItem('user_id')) {
-          // Get the redirect URL from our auth service
-          // If no redirect has been set, use the default
-          let redirect = this.authenticationService.redirectUrl ? this.authenticationService.redirectUrl : '/projects';
-          // Redirect the user
-          this.router.navigate([redirect]);
+
+      this.authenticationService.login(this.email, this.password).subscribe(response => {
+        if (response != "Server error") {
+          if (sessionStorage.getItem('user_id')) {
+            // Get the redirect URL from our auth service
+            // If no redirect has been set, use the default
+            let redirect = this.authenticationService.redirectUrl ? this.authenticationService.redirectUrl : '/projects';
+            // Redirect the user
+            this.router.navigate([redirect]);
+          }
+        } else {
+          this.badLogin = true;
         }
-  });
+      });
+
   }
 
 
-  getBadLogin(){
-    if(this.authenticationService.badLogin){return true;}
-    else {return false;}
-  }
 
 
 

@@ -16,7 +16,6 @@ import {AuthenticationService} from "../_services/authentication.service";
 export class RegisterComponent {
 
 newUser: User = new User;
-  errorMessage: string;
 
 
 
@@ -26,8 +25,9 @@ newUser: User = new User;
 
   onSubmit() {
     this.authenticationService.registerUser(this.newUser.email, this.newUser.password, this.newUser.firstname, this.newUser.lastname, this.newUser.birthdate).subscribe(
-      response => {
+      success => {
         this.authenticationService.login(this.newUser.email, this.newUser.password).subscribe(response => {
+          if (response != "Server error") {
             if (sessionStorage.getItem('user_id')) {
               // Get the redirect URL from our auth service
               // If no redirect has been set, use the default
@@ -35,8 +35,8 @@ newUser: User = new User;
               // Redirect the user
               this.router.navigate([redirect]);
             }
-          },
-          error => this.errorMessage = <any> error
+          }}
+
         );
 
       });

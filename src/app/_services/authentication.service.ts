@@ -3,6 +3,7 @@ import {Http, Headers} from '@angular/http'
 import 'rxjs/Rx'
 
 import { AppSettings } from '../app.settings';
+import {Observable} from "rxjs";
 
 @Injectable()
 export class AuthenticationService {
@@ -11,8 +12,6 @@ export class AuthenticationService {
 
   private headers = new Headers({ 'Content-Type': 'application/json' });
   private _apiUrl = AppSettings.API_ENDPOINT + 'api/user/';
-
-  public badLogin: boolean = false;
 
   constructor(private http: Http) {
   }
@@ -27,8 +26,6 @@ export class AuthenticationService {
       .map(res => {
         // If request fails, throw an Error that will be caught
         if(res.status < 200 || res.status >= 300) {
-          console.log("Bad Login Case?");
-          this.badLogin = true;
           throw new Error('This request has failed ' + res.status);
         }
         // If everything went fine, return the response
@@ -38,6 +35,7 @@ export class AuthenticationService {
           return res.json();
         }
       })
+      .catch((error: any) => Observable.of(error.json().error || 'Server error'));
   }
 
   logout() {
@@ -73,6 +71,6 @@ export class AuthenticationService {
 
           return res.json();
         }
-      });
+      })
   }
 }

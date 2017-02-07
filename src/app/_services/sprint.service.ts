@@ -3,6 +3,7 @@ import {Headers, Http} from "@angular/http";
 import {AppSettings} from "../app.settings";
 
 import {Sprint, SprintBurnDown, Retrospective} from "../_models/index";
+import {Observable} from "rxjs";
 
 @Injectable()
 export class SprintService {
@@ -27,7 +28,8 @@ export class SprintService {
           });
         }
         return result;
-      });
+      })
+
   }
 
 
@@ -41,7 +43,8 @@ export class SprintService {
       })
       .map((sprint: any) => {
         return new Sprint(sprint);
-      });
+      })
+
 
   }
   getSprintBurndown(sprintId: string) {
@@ -51,7 +54,8 @@ export class SprintService {
       })
       .map((sprintBurnDown: any) => {
         return new SprintBurnDown(sprintBurnDown);
-      });
+      })
+
   }
 
 
@@ -71,6 +75,7 @@ export class SprintService {
           return res.json();
         }
       })
+
   }
 
 
@@ -90,6 +95,7 @@ export class SprintService {
           return res.json();
         }
       })
+
   }
 
 
@@ -109,6 +115,7 @@ export class SprintService {
           return res.json();
         }
       })
+
   }
 
 
@@ -128,6 +135,7 @@ export class SprintService {
           return res.json();
         }
       })
+
   }
 
   deleteSprintCapacity(sprintId: string, sprintCapacityId: string) {
@@ -146,6 +154,7 @@ export class SprintService {
           return res.json();
         }
       })
+
   }
 
   updateSprintCapacity(sprintId: string, sprintCapacityId: string, userId: string, daysOff: number, capacityPerDay: number) {
@@ -164,6 +173,7 @@ export class SprintService {
           return res.json();
         }
       })
+
   }
 
   createSprintRetrospective(sprint) {
@@ -181,6 +191,7 @@ export class SprintService {
           return res.json();
         }
       })
+
   }
 
 
@@ -195,10 +206,12 @@ export class SprintService {
         }
         // If everything went fine, return the response
         else {
+
           console.log("Update Sprint Retrospective successful");
           return res.json();
         }
       })
+
   }
 
 

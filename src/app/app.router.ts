@@ -15,11 +15,11 @@ import {AdminComponent} from "./admin/admin.component";
 import {AuthGuard, ProjectGuard, NavigationLockGuard} from "./_services/index";
 
 export const routes = [
-  {path: '', component: LoginComponent, pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'projects', component: ProjectsComponent, canActivate: [AuthGuard, NavigationLockGuard]},
   {path: 'projects/:projectId', component: ProjectComponent, canActivate: [AuthGuard, NavigationLockGuard]},
+  {path: '', component: LandingComponent, pathMatch: 'full', canActivate: [AuthGuard, ProjectGuard, NavigationLockGuard]},
   {path: 'landing', component: LandingComponent, canActivate: [AuthGuard, ProjectGuard, NavigationLockGuard]},
   {path: 'backlog', component: BacklogItemsComponent, canActivate: [AuthGuard, ProjectGuard, NavigationLockGuard]},
   {path: 'backlog/:backlogItemId', component: BacklogItemComponent, canActivate: [AuthGuard, ProjectGuard, NavigationLockGuard]},
