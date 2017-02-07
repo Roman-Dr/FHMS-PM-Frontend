@@ -29,7 +29,7 @@ export class LoginComponent {
   onSubmit() {
 
       this.authenticationService.login(this.email, this.password).subscribe(response => {
-        if (response != "Server error") {
+        if (response != "Unauthorized") {
           if (sessionStorage.getItem('user_id')) {
             // Get the redirect URL from our auth service
             // If no redirect has been set, use the default

@@ -35,7 +35,7 @@ export class AuthenticationService {
           return res.json();
         }
       })
-      .catch((error: any) => Observable.of(error.json().error || 'Server error'));
+      .catch((error: any) => Observable.of(error.json().error || 'Unauthorized'));
   }
 
   logout() {
@@ -72,5 +72,6 @@ export class AuthenticationService {
           return res.json();
         }
       })
+      .catch((error: any) => Observable.of(error.json().error || 'Conflict'));
   }
 }

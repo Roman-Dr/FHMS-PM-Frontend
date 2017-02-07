@@ -24,5 +24,6 @@
       <input type="date" [(ngModel)]="newUser.birthdate" class="form-control" id="birthdate" name="birthdate">
     </div>
     <button type="submit" class="btn btn-primary pull-right">Registrieren</button>
+    <p style="color: red" *ngIf="conflictExist">{{errorMessage}}</p>
   </form>
 </div>
