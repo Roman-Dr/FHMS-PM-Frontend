@@ -28,15 +28,18 @@ export class RoadmapComponent implements OnInit {
   featureTitle: string;
 
   errorMessage: string;
+  infoMessage: string;
+  info: boolean;
 
   constructor(private initiativeService: InitiativeService, private datePipe: DatePipe) { }
 
   ngOnInit() {
     this.getInitiatives();
+    this.info = false;
   }
 
   getInitiatives(){
-    if(this.from == undefined || this.to == undefined){
+    if(this.from == undefined || this.to == undefined || this.from.toString().length == 0 || this.to.toString().length == 0){
       this.getAllInitiatives();
     }else{
       this.filter();
@@ -84,16 +87,24 @@ export class RoadmapComponent implements OnInit {
   }
 
   addInitiative(){
-    this.initiativeService.addInitiative(this.initiativeTitle, this.initiativeStartDate, this.initiativeEndDate, this.initiativeDescription, this.initiativeGoal)
-      .subscribe(
-        success => this.getInitiatives(),
-        error => this.errorMessage = <any> error
-      );
-    this.initiativeTitle = null;
-    this.initiativeGoal = null;
-    this.initiativeDescription = null;
-    this.initiativeStartDate = null;
-    this.initiativeEndDate = null;
+    if(this.initiativeTitle == undefined || this.initiativeStartDate == undefined || this.initiativeEndDate == undefined){
+      this.infoMessage = "Es sind nicht alle Pflichtfelder gesetzt!";
+      this.info = true;
+    }else{
+      this.initiativeService.addInitiative(this.initiativeTitle, this.initiativeStartDate, this.initiativeEndDate, this.initiativeDescription, this.initiativeGoal)
+        .subscribe(
+          success => this.getInitiatives(),
+          error => this.errorMessage = <any> error
+        );
+      this.initiativeTitle = undefined;
+      this.initiativeGoal = undefined;
+      this.initiativeDescription = undefined;
+      this.initiativeStartDate = undefined;
+      this.initiativeEndDate = undefined;
+      this.infoMessage = "Die Initiative wurde angelegt!";
+      this.info = true;
+      this.getInitiatives();
+    }
   }
 
   updateInitiative(){
@@ -141,10 +152,8 @@ export class RoadmapComponent implements OnInit {
   }
 
   isOpen(initiative: Initiative): boolean{
-    //var dateNow = this.datePipe.transform(Date.now(), 'yyyy-MM-dd');
-   //var iniStartDate = this.datePipe.transform(initiative.startDate, 'yyyy-MM-dd');
 
-    if(initiative.startDate > new Date()){
+    if(new Date(initiative.startDate).getTime() > new Date().getTime()){
       return true;
     }else{
       return false;
@@ -152,10 +161,8 @@ export class RoadmapComponent implements OnInit {
   }
 
   isFinished(initiative: Initiative): boolean{
-    //var dateNow = this.datePipe.transform(Date.now(), 'yyyy-MM-dd');
-    //var iniEndDate = this.datePipe.transform(initiative.endDate, 'yyyy-MM-dd');
 
-    if(initiative.endDate < new Date()){
+    if(new Date(initiative.endDate).getTime() < new Date().getTime()){
       return true;
     }else{
       return false;
@@ -172,6 +179,10 @@ export class RoadmapComponent implements OnInit {
     }else{
       return "#ffd20e";
     }
+  }
+
+  disableInfo(){
+    this.info = false;
   }
 
 }
