@@ -30,6 +30,21 @@ export class SprintService {
       });
   }
 
+  getUnfinishedSprints(){
+    return this.http.get(AppSettings.getProjectUrl() + '/sprints/unfinished', {withCredentials: true, headers: this.headers})
+      .map((responseData) => {
+        return responseData.json();
+      })
+      .map((sprints: Array<any>) => {
+        let result: Array<Sprint> = [];
+        if (sprints) {
+          sprints.forEach((x) => {
+            result.push(new Sprint(x));
+          });
+        }
+        return result;
+      });
+  }
 
   getSprint(sprintId: string) {
     return this.http.get(AppSettings.getProjectUrl() + '/sprints/' + sprintId, {
@@ -44,6 +59,7 @@ export class SprintService {
       });
 
   }
+
   getSprintBurndown(sprintId: string) {
     return this.http.get(AppSettings.getProjectUrl() + '/sprints/' + sprintId + '/burnDown', {withCredentials: true, headers: this.headers})
       .map( (responseData) => {
