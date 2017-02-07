@@ -5,11 +5,11 @@
   <form role="form" (submit)="onSubmit()" id="loginForm" #loginForm="ngForm">
     <div class="form-group">
       <label for="email">E-Mail</label>
-      <input type="text" [(ngModel)]="email" class="form-control" id="email" name="email">
+      <input type="text" [(ngModel)]="email" required minlength="3" class="form-control" id="email" name="email">
     </div>
     <div class="form-group">
       <label for="email">Passwort</label>
-      <input type="password" [(ngModel)]="password"  class="form-control" id="password" name="password">
+      <input type="password" [(ngModel)]="password" required minlength="3" class="form-control" id="password" name="password">
     </div>
     <button type="submit" class="btn btn-primary pull-right">Anmelden</button>
     <p style="color: red" *ngIf="badLogin">{{errorMessage}}</p>
