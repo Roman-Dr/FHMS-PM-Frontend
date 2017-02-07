@@ -1,17 +1,22 @@
 import {Component, OnInit} from '@angular/core';
-import {ProjectService} from "../_services/project.service";
+import {UserStoryDataService, BacklogDataService, SprintService, InitiativeService} from "../_services/index";
 
 @Component({
   selector: 'app-landing',
   templateUrl: './landing.component.html',
   styleUrls: ['./landing.component.css'],
-  providers: [ProjectService]
+  providers: [UserStoryDataService, BacklogDataService, SprintService, InitiativeService]
 })
 export class LandingComponent implements OnInit{
 
 
 
-  constructor() { }
+
+
+  constructor(private userStoryService: UserStoryDataService,
+              private backlogItemService: BacklogDataService,
+              private sprintService: SprintService,
+              private initiativeService: InitiativeService) { }
 
   ngOnInit() {
 

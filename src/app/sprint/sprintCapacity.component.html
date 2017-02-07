@@ -5,9 +5,10 @@
     class="glyphicon glyphicon-arrow-left"></i> <span class="hidden-xs">Zurück</span>
   </button>
 </div>
-
+<form role="form" (submit)="createSprintCapacity()" id="sprintCapacityForm" #sprintCapacityForm="ngForm">
 <div class="table-responsive" style="margin-top: 50px">
   <table class="table">
+
     <tr>
       <th>Nutzer</th>
       <th>Tage</th>
@@ -19,19 +20,23 @@
       <td>
         <input type="text"
                class="form-control"
+               id="edit-days-off" name="edit-days-off"
                [readonly]="editedIndex !== i"
                (click)="edit(sprintCapacity, i)"
                 (change)="updateSprintCapacity(sprintCapacity)"
                [(ngModel)]="sprintCapacity.daysOff"
+               required minlength="1"
                style="background-color:white;"/>
       </td>
       <td>
         <input type="text"
                class="form-control"
+               id="edit-capacity-per-day" name="edit-capacity-per-day"
                [readonly]="editedIndex !== i"
                (click)="edit(sprintCapacity, i)"
                (change)="updateSprintCapacity(sprintCapacity)"
                [(ngModel)]="sprintCapacity.capacityPerDay"
+               required minlength="1"
                style="background-color:white;"/></td>
       <td>
 
@@ -45,21 +50,21 @@
 
     <tr>
       <td>
-        <select [(ngModel)]="userId" id="user-id" class="form-control">
+        <select [(ngModel)]="userId" id="user-id" name="user-id" class="form-control" required minlength="2">
           <option *ngFor="let user of users" value="{{ user._id }}">{{user.displayName()}}</option>
         </select>
       </td>
       <td>
-        <input [(ngModel)]="daysOff" type="number" class="form-control" id="days-off">
+        <input [(ngModel)]="daysOff" type="number" class="form-control" id="days-off" name="days-off" required minlength="1">
 
 
       </td>
       <td>
-        <input [(ngModel)]="capacityPerDay" type="number" class="form-control" id="capacity-per-day">
+        <input [(ngModel)]="capacityPerDay" type="number" class="form-control" id="capacity-per-day" name="capacity-per-day" required minlength="1">
       </td>
       <td>
-        <button type="button" class="btn btn-xs" style="margin-top: 10px"
-                (click)="createSprintCapacity()">
+        <button type="submit" class="btn btn-xs" style="margin-top: 10px"
+                >
           <span class="glyphicon glyphicon-plus"></span>
         </button>
       </td>
@@ -68,3 +73,4 @@
   </table>
 
 </div>
+</form>

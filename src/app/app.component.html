@@ -16,6 +16,9 @@
     <div class="navbar-collapse collapse" id="navbar-main">
       <ul class="nav navbar-nav">
         <li *ngIf="isLoggedIn() && isProjectSelected()">
+          <a routerLink="landing">Home</a>
+        </li>
+        <li *ngIf="isLoggedIn() && isProjectSelected()">
           <a routerLink="user-story">User Stories</a>
         </li>
         <li *ngIf="isLoggedIn() && isProjectSelected()">
