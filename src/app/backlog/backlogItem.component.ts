@@ -64,7 +64,7 @@ export class BacklogItemComponent implements OnInit {
               });
         });
 
-    this.sprintService.getSprints().subscribe(sprints => this.sprints = sprints);
+    this.sprintService.getUnfinishedSprints().subscribe(sprints => this.sprints = sprints);
     this.userStoryDataService.getUserStories().subscribe(userStories => this.userStories = userStories);
 
     this.activatedRoute.params.subscribe((params: Params) => {
