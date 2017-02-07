@@ -3,61 +3,67 @@
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 <div class="container">
   <div class="row">
-    <div class="col-lg-3">
+    <div class="col-lg-6">
       <div class="panel panel-info">
         <div class="panel-heading">
           <div class="row">
             <div class="col-xs-6">
-              <i class="fa fa-address-card-o fa-5x"></i>
+              <i class="fa fa-comments-o fa-5x"></i>
             </div>
             <div class="col-xs-6 text-right">
-              <p class="announcement-heading">1</p>
-              <p class="announcement-text">User Story</p>
+              <p class="announcement-heading">{{userStories?.length}}</p>
+              <p class="announcement-text">User Stories</p>
             </div>
           </div>
         </div>
         <a href="#">
-          <div class="panel-footer announcement-bottom">
+          <div class="panel-footer announcement-bottom dashboard-height">
             <div class="row">
-              <div class="col-xs-6">
-                Expand
-              </div>
-              <div class="col-xs-6 text-right">
-                <i class="fa fa-arrow-circle-right"></i>
-              </div>
+              <a routerLink="/user-story">
+                <div class="col-xs-6">
+                  Gehe zu
+                </div>
+                <div class="col-xs-6 text-right">
+                  <i class="fa fa-arrow-circle-right"></i>
+                </div>
+              </a>
             </div>
           </div>
         </a>
       </div>
     </div>
-    <div class="col-lg-3">
+    <div class="col-lg-6">
       <div class="panel panel-warning">
         <div class="panel-heading">
           <div class="row">
             <div class="col-xs-6">
-              <i class="fa fa-barcode fa-5x"></i>
+              <i class="fa fa-list fa-5x"></i>
             </div>
             <div class="col-xs-6 text-right">
-              <p class="announcement-heading">12</p>
-              <p class="announcement-text"> Products</p>
+              <p class="announcement-heading">{{backlogItems?.length}}</p>
+              <p class="announcement-text"> Backlog Items</p>
             </div>
           </div>
         </div>
         <a href="#">
-          <div class="panel-footer announcement-bottom">
+          <div class="panel-footer announcement-bottom dashboard-height">
             <div class="row">
-              <div class="col-xs-6">
-                Expand
-              </div>
-              <div class="col-xs-6 text-right">
-                <i class="fa fa-arrow-circle-right"></i>
-              </div>
+              <a routerLink="/backlog">
+                <div class="col-xs-6">
+                  Gehe zu
+                </div>
+                <div class="col-xs-6 text-right">
+                  <i class="fa fa-arrow-circle-right"></i>
+                </div>
+              </a>
             </div>
           </div>
         </a>
       </div>
     </div>
-    <div class="col-lg-3">
+  </div><!-- /.row -->
+  <div class="row"><!-- /.row -->
+    <div class="col-lg-6">
       <div class="panel panel-danger">
         <div class="panel-heading">
           <div class="row">
@@ -65,53 +71,56 @@
               <i class="fa fa-users fa-5x"></i>
             </div>
             <div class="col-xs-6 text-right">
-              <p class="announcement-heading">18</p>
-              <p class="announcement-text">Users</p>
+              <p class="announcement-heading">{{sprints?.length}}</p>
+              <p class="announcement-text">Sprints</p>
             </div>
           </div>
         </div>
         <a href="#">
-          <div class="panel-footer announcement-bottom">
+          <div class="panel-footer announcement-bottom dashboard-height">
             <div class="row">
-              <div class="col-xs-6">
-                Expand
-              </div>
-              <div class="col-xs-6 text-right">
-                <i class="fa fa-arrow-circle-right"></i>
-              </div>
+              <a routerLink="/sprints">
+                <div class="col-xs-6">
+                  Gehe zu
+                </div>
+                <div class="col-xs-6 text-right">
+                  <i class="fa fa-arrow-circle-right"></i>
+                </div>
+              </a>
             </div>
           </div>
         </a>
       </div>
     </div>
-    <div class="col-lg-3">
+    <div class="col-lg-6">
       <div class="panel panel-success">
         <div class="panel-heading">
           <div class="row">
             <div class="col-xs-6">
-              <i class="fa fa-comments fa-5x"></i>
+              <i class="fa fa-road fa-5x"></i>
             </div>
             <div class="col-xs-6 text-right">
-              <p class="announcement-heading">9000</p>
-              <p class="announcement-text"> Orders!</p>
+              <p class="announcement-heading">{{initiatives?.length}}</p>
+              <p class="announcement-text"> Initiativen</p>
             </div>
           </div>
         </div>
         <a href="#">
-          <div class="panel-footer announcement-bottom">
+          <div class="panel-footer announcement-bottom dashboard-height">
             <div class="row">
+              <a routerLink="/roadmap">
               <div class="col-xs-6">
-                Expand
+                Gehe zu
               </div>
               <div class="col-xs-6 text-right">
                 <i class="fa fa-arrow-circle-right"></i>
               </div>
+              </a>
             </div>
           </div>
         </a>
       </div>
     </div>
-  </div><!-- /.row -->
+  </div>
 </div>
-
 
