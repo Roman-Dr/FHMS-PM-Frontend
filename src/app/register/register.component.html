@@ -2,21 +2,21 @@
   <div class="page-header">
     <h1>Registrierung</h1>
   </div>
-  <form role="form" (submit)="onSubmit(email.value, password.value, firstname.value, lastname.value, birthdate.value)">
+  <form role="form" (submit)="onSubmit()" id="registerForm" #registerForm="ngForm">
     <div class="form-group">
-      <input type="text" #email class="form-control" id="email" placeholder="E-Mail">
+      <input type="text" [(ngModel)]="newUser.email" class="form-control" id="email" name="email" placeholder="E-Mail">
     </div>
     <div class="form-group">
-      <input type="password" #password class="form-control" id="password" placeholder="Password">
+      <input type="password" [(ngModel)]="newUser.password" class="form-control" id="password" name="password" placeholder="Password">
     </div>
     <div class="form-group">
-      <input type="text" #firstname class="form-control" id="firstname" placeholder="Vorname">
+      <input type="text" [(ngModel)]="newUser.firstname" class="form-control" id="firstname" name="firstname" placeholder="Vorname">
     </div>
     <div class="form-group">
-      <input type="text" #lastname class="form-control" id="lastname" placeholder="Nachname">
+      <input type="text" [(ngModel)]="newUser.lastname" class="form-control" id="lastname" name="lastname" placeholder="Nachname">
     </div>
     <div class="form-group">
-      <input type="date" #birthdate class="form-control" id="birthdate" placeholder="Geburtstag">
+      <input type="date" [(ngModel)]="newUser.birthdate" class="form-control" id="birthdate" name="birthdate" placeholder="Geburtstag">
     </div>
     <button type="submit" class="btn btn-primary pull-right">Registrieren</button>
   </form>

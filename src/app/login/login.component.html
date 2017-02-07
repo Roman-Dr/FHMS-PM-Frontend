@@ -2,15 +2,17 @@
   <div class="page-header">
     <h1>Login</h1>
   </div>
-  <form role="form" (submit)="onSubmit(email.value, password.value)">
+  <form role="form" (submit)="onSubmit()" id="loginForm" #loginForm="ngForm">
     <div class="form-group">
-      <input type="text" #email class="form-control" id="email" placeholder="E-Mail">
+      <label for="email">E-Mail</label>
+      <input type="text" [(ngModel)]="email" class="form-control" id="email" name="email">
     </div>
     <div class="form-group">
-      <input type="password" #password class="form-control" id="password" placeholder="Password">
+      <label for="email">Passwort</label>
+      <input type="password" [(ngModel)]="password"  class="form-control" id="password" name="password">
     </div>
-    <button type="submit" class="btn btn-primary pull-right">Anmelden!</button>
-    <p class="warning">{{errorMessage}}</p>
+    <button type="submit" class="btn btn-primary pull-right">Anmelden</button>
+    <p style="color: red" *ngIf="getBadLogin()">{{errorMessage}}</p>
 
   </form>
 </div>

@@ -12,6 +12,8 @@ export class AuthenticationService {
   private headers = new Headers({ 'Content-Type': 'application/json' });
   private _apiUrl = AppSettings.API_ENDPOINT + 'api/user/';
 
+  public badLogin: boolean = false;
+
   constructor(private http: Http) {
   }
 
@@ -25,6 +27,8 @@ export class AuthenticationService {
       .map(res => {
         // If request fails, throw an Error that will be caught
         if(res.status < 200 || res.status >= 300) {
+          console.log("Bad Login Case?");
+          this.badLogin = true;
           throw new Error('This request has failed ' + res.status);
         }
         // If everything went fine, return the response
@@ -58,7 +62,7 @@ export class AuthenticationService {
 
 
 
-  registerUser(email: string, password: string, firstname: string, lastname: string, birthdate: string) {
+  registerUser(email: string, password: string, firstname: string, lastname: string, birthdate: Date) {
     return this.http.post(this._apiUrl +'signup', JSON.stringify({email, password, firstname, lastname, birthdate}), { withCredentials: true, headers: this.headers })
       .map(res => {
         if(res.status < 200 || res.status >= 300) {

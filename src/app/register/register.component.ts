@@ -14,20 +14,33 @@ import {AuthenticationService} from "../_services/authentication.service";
 
 
 export class RegisterComponent {
-  newUser: User;
+
+newUser: User = new User;
   errorMessage: string;
+
+
 
   constructor(private authenticationService: AuthenticationService, private router: Router) {
   }
 
 
-  onSubmit(email, password, firstname, lastname, birthdate) {
-    this.authenticationService.registerUser(email, password, firstname, lastname, birthdate ).subscribe(
-        user => this.newUser = user,
-        error => this.errorMessage = <any> error
-      );
+  onSubmit() {
+    this.authenticationService.registerUser(this.newUser.email, this.newUser.password, this.newUser.firstname, this.newUser.lastname, this.newUser.birthdate).subscribe(
+      response => {
+        this.authenticationService.login(this.newUser.email, this.newUser.password).subscribe(response => {
+            if (sessionStorage.getItem('user_id')) {
+              // Get the redirect URL from our auth service
+              // If no redirect has been set, use the default
+              let redirect = this.authenticationService.redirectUrl ? this.authenticationService.redirectUrl : '/projects';
+              // Redirect the user
+              this.router.navigate([redirect]);
+            }
+          },
+          error => this.errorMessage = <any> error
+        );
 
-    }
+      });
 
 
+  }
 }

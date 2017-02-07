@@ -24,12 +24,11 @@ export class SprintComponent implements OnInit {
   chosenSprint: Sprint;
   editMode: boolean = false;
 
-  today;
 
 
 
   constructor(private sprintService: SprintService, private router: Router, private datePipe: DatePipe) {
-   this.today = this.datePipe.transform(Date.now(), 'yyyy-MM-dd');
+
   }
 
 
@@ -56,12 +55,12 @@ export class SprintComponent implements OnInit {
   }
 
   checkStatus(sprint){
-    if(sprint.endDate >= this.today) {return true;}
+    if(new Date(sprint.endDate).getTime() >= new Date().getTime()) {return true;}
     else {return false};
   }
 
   checkDisabledStatus(sprint){
-    if(sprint.endDate <= this.today) {return "disabled";}
+    if(new Date(sprint.endDate).getTime() >= new Date().getTime()) {return "disabled";}
     else {return ""};
   }
 
