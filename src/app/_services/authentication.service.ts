@@ -61,7 +61,7 @@ export class AuthenticationService {
 
 
   registerUser(email: string, password: string, firstname: string, lastname: string, birthdate: Date) {
-    return this.http.post(this._apiUrl +'signup', JSON.stringify({email, password, firstname, lastname, birthdate}), { withCredentials: true, headers: this.headers })
+    return this.http.post(this._apiUrl +'signup', JSON.stringify({email, password, firstname, lastname, birthdate}), { headers: this.headers })
       .map(res => {
         if(res.status < 200 || res.status >= 300) {
           throw new Error('This request has failed ' + res.status);

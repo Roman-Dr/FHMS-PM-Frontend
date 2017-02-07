@@ -25,7 +25,7 @@ newUser: User = new User;
 
   onSubmit() {
     this.authenticationService.registerUser(this.newUser.email, this.newUser.password, this.newUser.firstname, this.newUser.lastname, this.newUser.birthdate).subscribe(
-      success => {
+      user => {
         this.authenticationService.login(this.newUser.email, this.newUser.password).subscribe(response => {
           if (response != "Server error") {
             if (sessionStorage.getItem('user_id')) {
