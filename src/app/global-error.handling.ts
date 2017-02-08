@@ -20,6 +20,7 @@ export class CustomErrorHandler extends ErrorHandler {
   }
 
   handleError(error) {
+    console.log("Global: " +error);
     if (error.status && error.status == 401) {
       console.log("Automatic logout and redirect!");
       this.authenticationService.logout().subscribe(() => {

@@ -32,8 +32,8 @@ export class ProjectService {
           });
         }
         return result;
-      })
-      .catch((error: any) => Observable.of(error.json().error || 'Server error'));
+      });
+    //.catch((error: any) => Observable.of(error.json().error || 'Server error'));
   }
 
   getProject(projectId) {
