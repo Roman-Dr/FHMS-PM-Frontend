@@ -123,14 +123,14 @@ export class ProjectComponent implements OnInit {
     console.log(JSON.stringify(userId));
 
     if (this.isNew) {
-      this.projectService.createProject(this.project.displayName, this.project.description, this.project.dueDate.toDateString(), userId, stakeholders, contributors)
+      this.projectService.createProject(this.project.displayName, this.project.description, this.project.dueDate, userId, stakeholders, contributors)
         .subscribe(
           success => {
             this.location.back();
           });
     }
     else {
-      this.projectService.updateProject(this.projectId, this.project.displayName, this.project.description, this.project.dueDate.toDateString(), userId, stakeholders, contributors)
+      this.projectService.updateProject(this.projectId, this.project.displayName, this.project.description, this.project.dueDate, userId, stakeholders, contributors)
         .subscribe(
           success => {
             this.location.back();

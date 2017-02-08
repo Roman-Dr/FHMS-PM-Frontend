@@ -67,7 +67,7 @@ export class ProjectService {
     return Observable.of(true);
   }
 
-  createProject(displayName: string, description: string, dueDate: string, owner: string, stakeholders: string[], contributors: string[]) {
+  createProject(displayName: string, description: string, dueDate: any, owner: string, stakeholders: string[], contributors: string[]) {
     console.log('Create project');
     return this.http.post
     (this._apiUrl,
@@ -91,7 +91,7 @@ export class ProjectService {
   }
 
 
-  updateProject(projectId: string, displayName: string, description: string, dueDate: string, owner: string, stakeholders: string[], contributors: string[]) {
+  updateProject(projectId: string, displayName: string, description: string, dueDate: any, owner: string, stakeholders: string[], contributors: string[]) {
     return this.http.put
     (this._apiUrl + projectId,
       JSON.stringify({displayName, description, dueDate, owner, stakeholders, contributors}), {
