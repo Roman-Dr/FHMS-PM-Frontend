@@ -10,7 +10,7 @@
         <span class="icon-bar"></span>
       </button>
 
-      <a routerLink="projects" class="navbar-brand">{{ currentProject ? currentProject.displayName : "Projektmanagement" }}</a>
+      <a *ngIf="isLoggedIn()" routerLink="projects" class="navbar-brand">{{ currentProject ? currentProject.displayName : "Projektmanagement" }}</a>
     </div>
 
     <div class="navbar-collapse collapse" id="navbar-main">

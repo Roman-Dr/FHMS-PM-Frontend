@@ -9,6 +9,7 @@
 
       <div class="btn-group">
         <button type="button" class="btn btn-primary" (click)="startNew()" data-toggle="modal"
+                [disabled]="user?.role == 'Product Owner' || user?.role == 'Scrum Master'"
                 data-target="#modalWaitingForParticipants" style="height: 100px;">
           <i class="glyphicon glyphicon-plus"></i>
           <span class="hidden-xs">Erstellen</span>
@@ -17,6 +18,7 @@
 
       <div class="btn-group">
         <button type="button" class="btn btn-primary" (click)="startParticipate()" data-toggle="modal"
+                [disabled]="user?.role == 'Development Team'"
                 data-target="#modalSearchingPlanningPoker" style="height: 100px;">
           <i class="glyphicon glyphicon-search"></i>
           <span class="hidden-xs">Teilnehmen</span>

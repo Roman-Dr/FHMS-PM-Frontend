@@ -60,13 +60,14 @@ export class AuthenticationService {
   }
 
 
-  registerUser(email: string, password: string, firstname: string, lastname: string, birthdate: Date) {
+  registerUser(email: string, password: string, firstname: string, lastname: string, birthdate: Date, role: string) {
     return this.http.post(this._apiUrl + 'signup', JSON.stringify({
       email,
       password,
       firstname,
       lastname,
-      birthdate
+      birthdate,
+      role
     }), {headers: this.headers})
       .map(res => {
         if (res.status < 200 || res.status >= 300) {

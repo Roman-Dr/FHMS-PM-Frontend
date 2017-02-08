@@ -5,6 +5,7 @@ export class User {
   public firstname: string;
   public lastname: string;
   public birthdate: Date;
+  public role: string = "Development Team";
 
   constructor(values: Object = {}) {
     Object.assign(this, values);

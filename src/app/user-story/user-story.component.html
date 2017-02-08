@@ -26,7 +26,7 @@
       <tr *ngFor="let userStory of getUserStories() | paginate: { itemsPerPage: 10, currentPage: p }">
         <td class="col-xs-1">
           <input #checkboxUserstory [id]="checkbox-2+userStory._id" class="checkbox-glyph sr-only"
-                 data-toggle="toggle" type="checkbox"
+                 type="checkbox" disabled
                  [checked]="userStory.complete">
           <label [for]='checkbox-2+userStory._id' class='fancy-checkbox-label'></label>
         </td>
