@@ -24,7 +24,7 @@
                id="edit-days-off" name="edit-days-off"
                [readonly]="editedIndex !== i"
                (click)="edit(sprintCapacity, i)"
-                (change)="updateSprintCapacity(sprintCapacity, daysOff.value)"
+                (change)="updateSprintCapacity(sprintCapacity, daysOff.value, capacityPerDay.value)"
                value="{{sprintCapacity.daysOff}}"
                required minlength="1"
                style="background-color:white;"/>
