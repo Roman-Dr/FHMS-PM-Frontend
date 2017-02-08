@@ -15,7 +15,7 @@ export class BacklogDataService {
   private headers: Headers = new Headers({'Content-Type': 'application/json'});
 
   deleteBacklogitem(id) {
-    return this.http.delete(AppSettings.getProjectUrl() + '/backlogItems/' + id, {headers: this.headers})
+    return this.http.delete(AppSettings.getProjectUrl() + '/backlogItems/' + id, {withCredentials: true, headers: this.headers})
       .map(this.extractData)
       .catch(this.handleErrorDelete);
   }
@@ -23,7 +23,7 @@ export class BacklogDataService {
   addBacklogItem(backlogItem: Backlog) {
     console.log(JSON.stringify(backlogItem));
 
-    return this.http.post(AppSettings.getProjectUrl() + '/backlogItems/', backlogItem, {headers: this.headers})
+    return this.http.post(AppSettings.getProjectUrl() + '/backlogItems/', backlogItem, {withCredentials: true, headers: this.headers})
       .map(this.extractData)
       .catch(this.handleError);
   }
@@ -31,13 +31,13 @@ export class BacklogDataService {
   updateBacklogItem(backlogItemId: string, backlogItem: Backlog) {
     console.log(JSON.stringify(backlogItem));
 
-    return this.http.put(AppSettings.getProjectUrl() + '/backlogItems/' + backlogItemId, backlogItem, {headers: this.headers})
+    return this.http.put(AppSettings.getProjectUrl() + '/backlogItems/' + backlogItemId, backlogItem, {withCredentials: true, headers: this.headers})
       .map(this.extractData)
       .catch(this.handleError);
   }
 
   getBacklogitems() {
-    return this.http.get(AppSettings.getProjectUrl() + '/backlogItems')
+    return this.http.get(AppSettings.getProjectUrl() + '/backlogItems', {withCredentials: true, headers: this.headers})
       .map( (responseData) => {
         return responseData.json();
       })
@@ -53,7 +53,7 @@ export class BacklogDataService {
   }
 
   getBacklogitem(backlogItemId: string) {
-    return this.http.get(AppSettings.getProjectUrl() + '/backlogItems/' + backlogItemId)
+    return this.http.get(AppSettings.getProjectUrl() + '/backlogItems/' + backlogItemId, {withCredentials: true, headers: this.headers})
       .map( (responseData) => {
         return responseData.json();
       })
@@ -63,7 +63,7 @@ export class BacklogDataService {
   }
 
   changeBacklogItemState(backlogItemId: string, state: string ) {
-    return this.http.put(AppSettings.getProjectUrl() + '/backlogItems/' + backlogItemId + '/' + state, {},{headers: this.headers})
+    return this.http.put(AppSettings.getProjectUrl() + '/backlogItems/' + backlogItemId + '/' + state, {},{withCredentials: true, headers: this.headers})
       .map(this.extractData)
       .catch(this.handleError);
   }

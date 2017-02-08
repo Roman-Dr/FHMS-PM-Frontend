@@ -17,7 +17,7 @@ export class InitiativeService {
   }
 
   getInitiatives() {
-    return this.http.get(AppSettings.getProjectUrl() + '/initiatives')
+    return this.http.get(AppSettings.getProjectUrl() + '/initiatives', {withCredentials: true, headers: this.headers})
       .map((responseData) => {
         return responseData.json();
       })
@@ -33,7 +33,7 @@ export class InitiativeService {
   }
 
   getFilteredInitiatives(from: Date, to: Date){
-    return this.http.post(AppSettings.getProjectUrl() + '/initiatives/filter', {from: from, to: to})
+    return this.http.post(AppSettings.getProjectUrl() + '/initiatives/filter', {from: from, to: to}, {withCredentials: true, headers: this.headers})
       .map((responseData) => {
         return responseData.json();
       })
@@ -49,23 +49,23 @@ export class InitiativeService {
   }
 
   deleteInitiative(initiative_id: string) {
-    return this.http.delete(AppSettings.getProjectUrl() + '/initiatives/' + initiative_id, {headers: this.headers})
+    return this.http.delete(AppSettings.getProjectUrl() + '/initiatives/' + initiative_id, {withCredentials: true, headers: this.headers} )
       .map(this.extractData)
       .catch(this.handleErrorDelete);
   }
 
   addInitiative(title: string, startDate: Date, endDate: Date, description: string, goal: string) {
-    return this.http.post(AppSettings.getProjectUrl() + '/initiatives', {title: title, startDate: startDate, endDate: endDate, description: description, goal: goal})
+    return this.http.post(AppSettings.getProjectUrl() + '/initiatives', {title: title, startDate: startDate, endDate: endDate, description: description, goal: goal}, {withCredentials: true, headers: this.headers})
       .map(this.extractData);
   }
 
   updateInitiative(initiative_id: string, title: string, startDate: Date, endDate: Date, description: string, goal: string) {
-    return this.http.put(AppSettings.getProjectUrl() + '/initiatives/' + initiative_id, {title: title, startDate: startDate, endDate: endDate, description: description, goal: goal})
+    return this.http.put(AppSettings.getProjectUrl() + '/initiatives/' + initiative_id, {title: title, startDate: startDate, endDate: endDate, description: description, goal: goal}, {withCredentials: true, headers: this.headers})
       .map(this.extractData);
   }
 
   getFeatures(initiative_id: string) {
-    return this.http.get(AppSettings.getProjectUrl() + '/initiatives/' + initiative_id + '/features')
+    return this.http.get(AppSettings.getProjectUrl() + '/initiatives/' + initiative_id + '/features', {withCredentials: true, headers: this.headers})
       .map((responseData) => {
         return responseData.json();
       })
@@ -81,12 +81,12 @@ export class InitiativeService {
   }
 
   addFeature(initiative_id: string, title: string){
-    return this.http.post(AppSettings.getProjectUrl() + '/initiatives/'+ initiative_id +'/features', {title: title})
+    return this.http.post(AppSettings.getProjectUrl() + '/initiatives/'+ initiative_id +'/features', {title: title}, {withCredentials: true, headers: this.headers})
       .map(this.extractData);
   }
 
   deleteFeature(initiative_id: string, feature_id: string){
-    return this.http.delete(AppSettings.getProjectUrl() + '/initiatives/'+ initiative_id +'/features/' + feature_id)
+    return this.http.delete(AppSettings.getProjectUrl() + '/initiatives/'+ initiative_id +'/features/' + feature_id, {withCredentials: true, headers: this.headers})
       .map(this.extractData);
   }
 
