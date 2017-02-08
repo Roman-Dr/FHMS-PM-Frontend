@@ -54,6 +54,9 @@ export class PlanningPokerComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy() {
     this.stopTimers();
+    if(this.isNew && this.newPlanningPoker && this.newPlanningPoker.isActive) {
+      this.abortNewPlanningPoker();
+    }
   }
 
   stopTimers() {
@@ -67,6 +70,10 @@ export class PlanningPokerComponent implements OnInit, OnDestroy {
 
   // Startet ein neues Planungspoker
   startNew() {
+    if(this.isNew && this.newPlanningPoker && this.newPlanningPoker.isActive) {
+      this.abortNewPlanningPoker();
+    }
+
     this.isNew = true;
 
     this.backlogItemService.getBacklogitems().subscribe(x => {
