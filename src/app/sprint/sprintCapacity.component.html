@@ -19,23 +19,25 @@
       <td>{{sprintCapacity.userDisplayName}}</td>
       <td>
         <input type="text"
+               #daysOff
                class="form-control"
                id="edit-days-off" name="edit-days-off"
                [readonly]="editedIndex !== i"
                (click)="edit(sprintCapacity, i)"
-                (change)="updateSprintCapacity(sprintCapacity)"
-               [(ngModel)]="sprintCapacity.daysOff"
+                (change)="updateSprintCapacity(sprintCapacity, daysOff.value)"
+               value="{{sprintCapacity.daysOff}}"
                required minlength="1"
                style="background-color:white;"/>
       </td>
       <td>
-        <input type="text"
+      <input type="text"
+             #capacityPerDay
                class="form-control"
                id="edit-capacity-per-day" name="edit-capacity-per-day"
                [readonly]="editedIndex !== i"
                (click)="edit(sprintCapacity, i)"
-               (change)="updateSprintCapacity(sprintCapacity)"
-               [(ngModel)]="sprintCapacity.capacityPerDay"
+               (change)="updateSprintCapacity(sprintCapacity, daysOff.value, capacityPerDay.value)"
+               value="{{sprintCapacity.capacityPerDay}}"
                required minlength="1"
                style="background-color:white;"/></td>
       <td>

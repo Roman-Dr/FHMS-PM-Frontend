@@ -5,6 +5,7 @@ import {UserService} from "../_services/user.service";
 import {User} from "../_models/user";
 import {ActivatedRoute, Params} from "@angular/router";
 import {Location} from "@angular/common";
+import {SprintCapacity} from "../_models/sprintCapacity";
 
 @Component({
   selector: 'app-sprintCapacity',
@@ -57,8 +58,11 @@ export class SprintCapacityComponent implements OnInit {
 
 
 
-  updateSprintCapacity(sprintCapacity) {
-    this.sprintService.updateSprintCapacity(this.sprintId, sprintCapacity._id, sprintCapacity.userId, sprintCapacity.daysOff, sprintCapacity.capacityPerDay)
+  updateSprintCapacity(sprintCapacity, daysOff: number, capacityPerDay: number) {
+    if (daysOff == null) {daysOff = sprintCapacity.daysOff}
+    if (capacityPerDay == null) {capacityPerDay = sprintCapacity.capacityPerDay}
+
+    this.sprintService.updateSprintCapacity(this.sprintId, sprintCapacity._id, sprintCapacity.userId, daysOff, capacityPerDay)
       .subscribe(
         success => {
           this.editedIndex = null;
