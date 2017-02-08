@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {NgModule, ErrorHandler} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {RouterModule} from "@angular/router";
@@ -36,6 +36,7 @@ import {AdminComponent} from './admin/admin.component';
 //
 // SERVICES -> Providers
 //
+import {CustomErrorHandler} from "./global-error.handling";
 import {AuthGuard, ProjectGuard, NavigationLockGuard} from "./_services/index";
 import {AuthenticationService, UserService ,ProjectService, SprintService } from "./_services/index";
 //
@@ -76,7 +77,8 @@ import {AuthenticationService, UserService ,ProjectService, SprintService } from
     ProjectService,
     AuthGuard,
     NavigationLockGuard,
-    ProjectGuard
+    ProjectGuard,
+    {provide: ErrorHandler, useClass: CustomErrorHandler}
   ],
   bootstrap: [AppComponent]
 
