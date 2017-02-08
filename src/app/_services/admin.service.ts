@@ -15,9 +15,10 @@ export class AdminService {
   constructor(private http: Http) { }
 
   initializeDatabase() {
-    return this.http.get(this._apiUrl + 'databaseInitialisation')
+    return this.http.get(this._apiUrl + 'databaseInitialisation', {withCredentials: true, headers: this.headers})
       .map( (responseData) => {
         return responseData.status == 200;
-      });
+      })
+      .catch((error: any) => Observable.of(error.json().error || 'Server error'));
   }
 }

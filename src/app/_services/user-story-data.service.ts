@@ -35,37 +35,40 @@ export class UserStoryDataService {
           return res.json();
         }
       })
+      .catch((error: any) => Observable.of(error.json().error || 'Server error'));
   }
 
   addUserStory(userStory: UserStory) {
-    return this.http.post(AppSettings.getProjectUrl() + '/userstories/', userStory, {headers: this.headers})
+    return this.http.post(AppSettings.getProjectUrl() + '/userstories/', userStory, {withCredentials: true, headers: this.headers})
       .map( (responseData) => {
         return responseData.json();
       })
       .map((item: Array<any>) => {
         return new UserStory(item);
-      });
+      })
+      .catch((error: any) => Observable.of(error.json().error || 'Server error'));
   }
   updateUserStory(userStory: UserStory) {
-    return this.http.put(AppSettings.getProjectUrl() + '/userstories/' + userStory._id, userStory, {headers: this.headers})
+    return this.http.put(AppSettings.getProjectUrl() + '/userstories/' + userStory._id, userStory, {withCredentials: true, headers: this.headers})
       .map( (responseData) => {
         return responseData.json();
       })
       .map((item: Array<any>) => {
         return new UserStory(item);
-      });
+      })
+      .catch((error: any) => Observable.of(error.json().error || 'Server error'));
   }
 
   deleteUserStory(id) {
     let headers = new Headers({'Content-Type': 'application/json'});
     console.log("Service: " + id)
-    return this.http.delete(AppSettings.getProjectUrl() + '/userstories/' + id, {headers: headers})
+    return this.http.delete(AppSettings.getProjectUrl() + '/userstories/' + id, {withCredentials: true, headers: this.headers})
       .map(this.extractData)
       .catch(this.handleErrorDelete);
   }
 
   getUserStories() {
-    return this.http.get(AppSettings.getProjectUrl() + '/userstories/')
+    return this.http.get(AppSettings.getProjectUrl() + '/userstories/', {withCredentials: true, headers: this.headers})
       .map((responseData) => {
         return responseData.json();
       })
@@ -77,7 +80,8 @@ export class UserStoryDataService {
           });
         }
         return result;
-      });
+      })
+      .catch((error: any) => Observable.of(error.json().error || 'Server error'));
   }
 
   private extractData(res: Response) {

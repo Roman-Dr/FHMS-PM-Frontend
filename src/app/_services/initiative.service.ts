@@ -29,7 +29,8 @@ export class InitiativeService {
           });
         }
         return result;
-      });
+      })
+      .catch((error: any) => Observable.of(error.json().error || 'Server error'));
   }
 
   getFilteredInitiatives(from: Date, to: Date){
@@ -45,7 +46,8 @@ export class InitiativeService {
           });
         }
         return result;
-      });
+      })
+      .catch((error: any) => Observable.of(error.json().error || 'Server error'));
   }
 
   deleteInitiative(initiative_id: string) {
@@ -56,12 +58,14 @@ export class InitiativeService {
 
   addInitiative(title: string, startDate: Date, endDate: Date, description: string, goal: string) {
     return this.http.post(AppSettings.getProjectUrl() + '/initiatives', {title: title, startDate: startDate, endDate: endDate, description: description, goal: goal}, {withCredentials: true, headers: this.headers})
-      .map(this.extractData);
+      .map(this.extractData)
+      .catch((error: any) => Observable.of(error.json().error || 'Server error'));
   }
 
   updateInitiative(initiative_id: string, title: string, startDate: Date, endDate: Date, description: string, goal: string) {
     return this.http.put(AppSettings.getProjectUrl() + '/initiatives/' + initiative_id, {title: title, startDate: startDate, endDate: endDate, description: description, goal: goal}, {withCredentials: true, headers: this.headers})
-      .map(this.extractData);
+      .map(this.extractData)
+      .catch((error: any) => Observable.of(error.json().error || 'Server error'));
   }
 
   getFeatures(initiative_id: string) {
@@ -77,17 +81,20 @@ export class InitiativeService {
           });
         }
         return result;
-      });
+      })
+      .catch((error: any) => Observable.of(error.json().error || 'Server error'));
   }
 
   addFeature(initiative_id: string, title: string){
     return this.http.post(AppSettings.getProjectUrl() + '/initiatives/'+ initiative_id +'/features', {title: title}, {withCredentials: true, headers: this.headers})
-      .map(this.extractData);
+      .map(this.extractData)
+      .catch((error: any) => Observable.of(error.json().error || 'Server error'));
   }
 
   deleteFeature(initiative_id: string, feature_id: string){
     return this.http.delete(AppSettings.getProjectUrl() + '/initiatives/'+ initiative_id +'/features/' + feature_id, {withCredentials: true, headers: this.headers})
-      .map(this.extractData);
+      .map(this.extractData)
+      .catch((error: any) => Observable.of(error.json().error || 'Server error'));
   }
 
   private extractData(res: Response) {

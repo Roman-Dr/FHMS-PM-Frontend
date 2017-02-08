@@ -27,11 +27,12 @@ export class PlanningPokerGameService {
         } else {
           return null;
         }
-      });
+      })
+      .catch((error: any) => Observable.of(error.json().error || 'Server error'));
   }
   createNewRound(gameId: string) {
     // /projects/:project_id/planningPokers/:planning_poker_id/rounds
-    return this.http.post(AppSettings.getProjectUrl() + "/planningPokers/" + gameId + "/rounds", {})
+    return this.http.post(AppSettings.getProjectUrl() + "/planningPokers/" + gameId + "/rounds", {}, {withCredentials: true, headers: this.headers})
       .map( (responseData) => {
         return responseData.json();
       })
@@ -41,10 +42,11 @@ export class PlanningPokerGameService {
         } else {
           return null;
         }
-      });
+      })
+      .catch((error: any) => Observable.of(error.json().error || 'Server error'));
   }
   vote(gameId: string, roundId:string, userId: string, effort: number, reason: string) {
-    return this.http.post(AppSettings.getProjectUrl() + "/planningPokers/" + gameId + "/rounds/" + roundId + "/votes", {voterId: userId, effort: effort, reason: reason})
+    return this.http.post(AppSettings.getProjectUrl() + "/planningPokers/" + gameId + "/rounds/" + roundId + "/votes", {voterId: userId, effort: effort, reason: reason}, {withCredentials: true, headers: this.headers})
       .map( (responseData) => {
         return responseData.json();
       })
@@ -54,10 +56,11 @@ export class PlanningPokerGameService {
         } else {
           return null;
         }
-      });
+      })
+      .catch((error: any) => Observable.of(error.json().error || 'Server error'));
   }
   finishRound(gameId: string, roundId:string, state: string, vote: PlanningPokerRoundVote) {
-    return this.http.put(AppSettings.getProjectUrl() + "/planningPokers/" + gameId + "/rounds/" + roundId, {state:state, vote: vote})
+    return this.http.put(AppSettings.getProjectUrl() + "/planningPokers/" + gameId + "/rounds/" + roundId, {state:state, vote: vote}, {withCredentials: true, headers: this.headers})
       .map( (responseData) => {
         return responseData.json();
       })
@@ -67,6 +70,7 @@ export class PlanningPokerGameService {
         } else {
           return null;
         }
-      });
+      })
+      .catch((error: any) => Observable.of(error.json().error || 'Server error'));
   }
 }

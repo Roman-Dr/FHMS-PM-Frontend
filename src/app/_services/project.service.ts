@@ -32,7 +32,8 @@ export class ProjectService {
           });
         }
         return result;
-      });
+      })
+      .catch((error: any) => Observable.of(error.json().error || 'Server error'));
   }
 
   getProject(projectId) {
@@ -42,15 +43,18 @@ export class ProjectService {
       })
       .map((project: Array<any>) => {
         return new Project(project);
-      });
+      })
+      .catch((error: any) => Observable.of(error.json().error || 'Server error'));
   }
   getContributorsByProjectId(projectId) {
     return this.http.get(this._apiUrl + projectId + '/contributors', {withCredentials: true})
-      .map(res => res.json());
+      .map(res => res.json())
+      .catch((error: any) => Observable.of(error.json().error || 'Server error'));
   }
   getStakeholdersByProjectId(projectId) {
     return this.http.get(this._apiUrl + projectId + '/stakeholders', {withCredentials: true})
-      .map(res => res.json());
+      .map(res => res.json())
+      .catch((error: any) => Observable.of(error.json().error || 'Server error'));
   }
 
   chooseProject(projectId) {
@@ -83,6 +87,7 @@ export class ProjectService {
           return res.json();
         }
       })
+      .catch((error: any) => Observable.of(error.json().error || 'Server error'));
   }
 
 
@@ -105,6 +110,7 @@ export class ProjectService {
           return res.json();
         }
       })
+      .catch((error: any) => Observable.of(error.json().error || 'Server error'));
   }
 
 
@@ -121,5 +127,6 @@ export class ProjectService {
           return res.json();
         }
       })
+      .catch((error: any) => Observable.of(error.json().error || 'Server error'));
   }
 }
