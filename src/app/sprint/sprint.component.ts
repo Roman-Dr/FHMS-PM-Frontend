@@ -60,7 +60,7 @@ export class SprintComponent implements OnInit {
   }
 
   checkDisabledStatus(sprint){
-    if(new Date(sprint.endDate).getTime() <= new Date().getTime()) {return "disabled";}
+    if(new Date(sprint.endDate).getTime() >= new Date().getTime()) {return "disabled";}
     else {return ""};
   }
 

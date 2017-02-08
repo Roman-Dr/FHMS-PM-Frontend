@@ -97,6 +97,20 @@ export class SprintCapacityComponent implements OnInit {
 
   }
 
+  isSprintPast(){
+    if(this.sprint) {
+      if (new Date(this.sprint.endDate).getTime() <= new Date().getTime()) {
+        return true;
+      }
+      else {
+        return false
+      }
+    }
+    else {
+      return false;
+    }
+  }
+
   cancel() {
     this.location.back();
   }
