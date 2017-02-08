@@ -54,31 +54,10 @@
 }
 .timeline .timeline-item .timeline-badge.primary {
   background-color: #1f9eba;
+  cursor: pointer;
 }
-.timeline .timeline-item .timeline-badge.primary.selected{
-  background-color: #10515f;
-}
-.timeline .timeline-item .timeline-badge.primary.open{
-  background-color: #a70300;
-}
-.timeline .timeline-item .timeline-badge.primary.inProgress{
-  background-color: #ffd20e;
-}
-.timeline .timeline-item .timeline-badge.primary.finished{
-  background-color: #1cc500;
-}
-
-.timeline .timeline-item .timeline-badge.info {
-  background-color: #5bc0de;
-}
-.timeline .timeline-item .timeline-badge.success {
-  background-color: #59ba1f;
-}
-.timeline .timeline-item .timeline-badge.warning {
-  background-color: #d1bd10;
-}
-.timeline .timeline-item .timeline-badge.danger {
-  background-color: #ba1f1f;
+.timeline .timeline-item .timeline-badge.primary :hover {
+  color: #10515f;
 }
 .timeline .timeline-item .timeline-panel {
   position: relative;
