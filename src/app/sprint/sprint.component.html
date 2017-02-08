@@ -16,7 +16,7 @@
         <td>{{sprint.startDate | date:'dd.MM.yyyy'}}</td>
         <td>{{sprint.endDate | date:'dd.MM.yyyy'}}</td>
         <td>
-          <button type="button" class="btn btn-xs" [disabled]="checkDisabledStatus(sprint)" (click)="chooseSprintForEdit(sprint)">
+          <button type="button" class="btn btn-xs" (click)="chooseSprintForEdit(sprint)">
             <span class="glyphicon glyphicon-edit"></span>
           </button>
 

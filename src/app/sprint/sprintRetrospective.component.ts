@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Sprint, Retrospective} from "../_models/index";
+import {Sprint, Retrospective, Project} from "../_models/index";
 import {ActivatedRoute, Params} from "@angular/router";
 import {Location} from "@angular/common";
 import {SprintService, ProjectService, UserService} from "../_services/index";
@@ -9,11 +9,12 @@ import {SprintService, ProjectService, UserService} from "../_services/index";
   selector: 'app-sprintRetrospective',
   templateUrl: './sprintRetrospective.component.html',
   styleUrls: ['./sprintRetrospective.component.css'],
-  providers: [SprintService, ProjectService, UserService]
+  providers: [SprintService, ProjectService]
 })
 export class SprintRetrospectiveComponent implements OnInit {
 
   sprint: Sprint;
+  project: Project;
   sprintRetrospectiveArray: Array<any> = [];
   errorMessage: string;
   sprintId: string;
@@ -22,7 +23,6 @@ export class SprintRetrospectiveComponent implements OnInit {
   constructor(private sprintService: SprintService,
               private activatedRoute: ActivatedRoute,
               private projectService: ProjectService,
-              private userService: UserService,
               private location: Location) {
 
   }
@@ -38,16 +38,15 @@ export class SprintRetrospectiveComponent implements OnInit {
             if (sprint.retrospective.length == 0) {
               this.createSprintRetrospective(sprint)
             } else {
-              this.sprint = sprint;
-            }
+/*              if (this.project.contributors.length != sprint.retrospective.length ) {
+                this.createRetrospectiveWithNewContributors(sprint)
+              } else {*/
+                this.sprint = sprint;
+              }
           });
     });
   }
 
-
-  getUser(userId) {
-    this.userService.getUser(userId).subscribe();
-  }
 
 
   getSprint() {
@@ -55,7 +54,10 @@ export class SprintRetrospectiveComponent implements OnInit {
   }
 
   getProject() {
-    this.projectService.getProject(sessionStorage.getItem('project_id')).subscribe(project => this.setUserIdsForRetrospective(project));
+    this.projectService.getProject(sessionStorage.getItem('project_id')).subscribe(project => {
+      this.setUserIdsForRetrospective(project);
+      this.project = project;
+    });
   }
 
 
@@ -66,6 +68,26 @@ export class SprintRetrospectiveComponent implements OnInit {
       this.sprintRetrospectiveArray.push(newSprintRetrospective);
     }
   };
+
+
+/*
+  createRetrospectiveWithNewContributors(sprint) {
+    let sprintC = sprint;
+    sprintC.retrospective = this.sprintRetrospectiveArray;
+
+
+    for(let i = 0; i < sprint.retrospective.length; i++) {
+      sprintC.retrospective[i].comment = sprint.retrospective[i].comment
+    }
+
+    this.sprintService.createSprintRetrospective(sprintC)
+      .subscribe(
+        success => this.getSprint(),
+        error => this.errorMessage = <any> error
+      );
+
+  }
+*/
 
 
   createSprintRetrospective(sprint) {
@@ -92,5 +114,6 @@ export class SprintRetrospectiveComponent implements OnInit {
   cancel() {
     this.location.back();
   }
+
 
 }
