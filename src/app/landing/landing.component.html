@@ -3,124 +3,82 @@
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 <div class="container">
   <div class="row">
+
     <div class="col-lg-6">
-      <div class="panel panel-info">
-        <div class="panel-heading">
-          <div class="row">
-            <div class="col-xs-6">
-              <i class="fa fa-comments-o fa-5x"></i>
-            </div>
-            <div class="col-xs-6 text-right">
-              <p class="announcement-heading">{{userStories?.length}}</p>
-              <p class="announcement-text">User Stories</p>
-            </div>
-          </div>
-        </div>
-        <a href="#">
-          <div class="panel-footer announcement-bottom dashboard-height">
+      <a routerLink="/user-story">
+        <div class="panel panel-info">
+          <div class="panel-heading">
             <div class="row">
-              <a routerLink="/user-story">
-                <div class="col-xs-6">
-                  Gehe zu
-                </div>
-                <div class="col-xs-6 text-right">
-                  <i class="fa fa-arrow-circle-right"></i>
-                </div>
-              </a>
-            </div>
-          </div>
-        </a>
-      </div>
-    </div>
-    <div class="col-lg-6">
-      <div class="panel panel-warning">
-        <div class="panel-heading">
-          <div class="row">
-            <div class="col-xs-6">
-              <i class="fa fa-list fa-5x"></i>
-            </div>
-            <div class="col-xs-6 text-right">
-              <p class="announcement-heading">{{backlogItems?.length}}</p>
-              <p class="announcement-text"> Backlog Items</p>
-            </div>
-          </div>
-        </div>
-        <a href="#">
-          <div class="panel-footer announcement-bottom dashboard-height">
-            <div class="row">
-              <a routerLink="/backlog">
-                <div class="col-xs-6">
-                  Gehe zu
-                </div>
-                <div class="col-xs-6 text-right">
-                  <i class="fa fa-arrow-circle-right"></i>
-                </div>
-              </a>
-            </div>
-          </div>
-        </a>
-      </div>
-    </div>
-  </div><!-- /.row -->
-  <div class="row"><!-- /.row -->
-    <div class="col-lg-6">
-      <div class="panel panel-danger">
-        <div class="panel-heading">
-          <div class="row">
-            <div class="col-xs-6">
-              <i class="fa fa-users fa-5x"></i>
-            </div>
-            <div class="col-xs-6 text-right">
-              <p class="announcement-heading">{{sprints?.length}}</p>
-              <p class="announcement-text">Sprints</p>
-            </div>
-          </div>
-        </div>
-        <a href="#">
-          <div class="panel-footer announcement-bottom dashboard-height">
-            <div class="row">
-              <a routerLink="/sprints">
-                <div class="col-xs-6">
-                  Gehe zu
-                </div>
-                <div class="col-xs-6 text-right">
-                  <i class="fa fa-arrow-circle-right"></i>
-                </div>
-              </a>
-            </div>
-          </div>
-        </a>
-      </div>
-    </div>
-    <div class="col-lg-6">
-      <div class="panel panel-success">
-        <div class="panel-heading">
-          <div class="row">
-            <div class="col-xs-6">
-              <i class="fa fa-road fa-5x"></i>
-            </div>
-            <div class="col-xs-6 text-right">
-              <p class="announcement-heading">{{initiatives?.length}}</p>
-              <p class="announcement-text"> Initiativen</p>
-            </div>
-          </div>
-        </div>
-        <a href="#">
-          <div class="panel-footer announcement-bottom dashboard-height">
-            <div class="row">
-              <a routerLink="/roadmap">
               <div class="col-xs-6">
-                Gehe zu
+                <i class="fa fa-comments-o fa-5x"></i>
               </div>
               <div class="col-xs-6 text-right">
-                <i class="fa fa-arrow-circle-right"></i>
+                <p class="announcement-heading">{{userStories?.length}}</p>
+                <p class="announcement-text">User Stories</p>
               </div>
-              </a>
             </div>
           </div>
-        </a>
-      </div>
+        </div>
+      </a>
     </div>
+
+    <div class="col-lg-6">
+      <a routerLink="/backlog">
+        <div class="panel panel-warning">
+          <div class="panel-heading">
+            <div class="row">
+              <div class="col-xs-6">
+                <i class="fa fa-list fa-5x"></i>
+              </div>
+              <div class="col-xs-6 text-right">
+                <p class="announcement-heading">{{backlogItems?.length}}</p>
+                <p class="announcement-text"> Backlog Items</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+
+  </div><!-- /.row -->
+  <div class="row"><!-- /.row -->
+
+    <div class="col-lg-6">
+      <a routerLink="/sprints">
+        <div class="panel panel-danger">
+          <div class="panel-heading">
+            <div class="row">
+              <div class="col-xs-6">
+                <i class="fa fa-users fa-5x"></i>
+              </div>
+              <div class="col-xs-6 text-right">
+                <p class="announcement-heading">{{sprints?.length}}</p>
+                <p class="announcement-text">Sprints</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="col-lg-6">
+      <a routerLink="/roadmap">
+        <div class="panel panel-success">
+          <div class="panel-heading">
+            <div class="row">
+              <div class="col-xs-6">
+                <i class="fa fa-road fa-5x"></i>
+              </div>
+              <div class="col-xs-6 text-right">
+                <p class="announcement-heading">{{initiatives?.length}}</p>
+                <p class="announcement-text"> Initiativen</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+
   </div>
 </div>
 
