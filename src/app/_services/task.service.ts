@@ -16,7 +16,7 @@ export class TaskService {
   }
 
   getTasks(backlogitem_id: string) {
-    return this.http.get(AppSettings.getProjectUrl() + '/backlogitems/' + backlogitem_id + "/tasks")
+    return this.http.get(AppSettings.getProjectUrl() + '/backlogitems/' + backlogitem_id + "/tasks", {withCredentials: true, headers: this.headers})
       .map((responseData) => {
         return responseData.json();
       })
@@ -28,23 +28,26 @@ export class TaskService {
           });
         }
         return result;
-      });
+      })
+      .catch((error: any) => Observable.of(error.json().error || 'Server error'));
   }
 
   deleteTask(backlogitem_id: string, task_id) {
-    return this.http.delete(AppSettings.getProjectUrl() + '/backlogitems/' + backlogitem_id + "/tasks/" + task_id, {headers: this.headers})
+    return this.http.delete(AppSettings.getProjectUrl() + '/backlogitems/' + backlogitem_id + "/tasks/" + task_id, {withCredentials: true, headers: this.headers})
       .map(this.extractData)
       .catch(this.handleErrorDelete);
   }
 
   addTask(backlogitem_id: string, task: Task) {
-    return this.http.post(AppSettings.getProjectUrl() + '/backlogitems/' + backlogitem_id + "/tasks", task)
-      .map(this.extractData);
+    return this.http.post(AppSettings.getProjectUrl() + '/backlogitems/' + backlogitem_id + "/tasks", task, {withCredentials: true, headers: this.headers})
+      .map(this.extractData)
+      .catch((error: any) => Observable.of(error.json().error || 'Server error'));
   }
 
   updateTask(backlogitem_id: string, task: Task) {
-    return this.http.put(AppSettings.getProjectUrl() + '/backlogitems/' + backlogitem_id + "/tasks/" + task._id, task)
-      .map(this.extractData);
+    return this.http.put(AppSettings.getProjectUrl() + '/backlogitems/' + backlogitem_id + "/tasks/" + task._id, task, {withCredentials: true, headers: this.headers})
+      .map(this.extractData)
+      .catch((error: any) => Observable.of(error.json().error || 'Server error'));
   }
 
   private extractData(res: Response) {

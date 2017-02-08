@@ -29,7 +29,8 @@ export class PlanningPokerService {
           });
         }
         return result;
-      });
+      })
+      .catch((error: any) => Observable.of(error.json().error || 'Server error'));
   }
   getActivePlanningPokers() {
     return this.http.get(AppSettings.getProjectUrl() + "/activePlanningPokers", {withCredentials: true})
@@ -44,7 +45,8 @@ export class PlanningPokerService {
           });
         }
         return result;
-      });
+      })
+      .catch((error: any) => Observable.of(error.json().error || 'Server error'));
   }
 
   getPlanningPoker(id) {
@@ -54,46 +56,52 @@ export class PlanningPokerService {
       })
       .map((item: Array<any>) => {
         return new PlanningPoker(item);
-      });
+      })
+      .catch((error: any) => Observable.of(error.json().error || 'Server error'));
   }
 
   removePlanningPoker(id) {
     return this.http.delete(AppSettings.getProjectUrl() + "/planningPokers/" + id, {withCredentials: true})
       .map( (responseData) => {
         return responseData.status == 200;
-      });
+      })
+      .catch((error: any) => Observable.of(error.json().error || 'Server error'));
   }
 
   addPlanningPoker(planningPoker: PlanningPoker) {
-    return this.http.post(AppSettings.getProjectUrl() + "/planningPokers/", planningPoker, this.headers)
+    return this.http.post(AppSettings.getProjectUrl() + "/planningPokers/", planningPoker, {withCredentials: true, headers: this.headers})
       .map( (responseData) => {
         return responseData.json();
       })
       .map((item: any) => {
         return new PlanningPoker(item);
-      });
+      })
+      .catch((error: any) => Observable.of(error.json().error || 'Server error'));
   }
   updatePlanningPoker(planningPoker: PlanningPoker) {
-    return this.http.put(AppSettings.getProjectUrl() + "/planningPokers/" + planningPoker._id, planningPoker, this.headers)
+    return this.http.put(AppSettings.getProjectUrl() + "/planningPokers/" + planningPoker._id, planningPoker, {withCredentials: true, headers: this.headers})
       .map( (responseData) => {
         return responseData.json();
       })
       .map((item: any) => {
         return new PlanningPoker(item);
-      });
+      })
+      .catch((error: any) => Observable.of(error.json().error || 'Server error'));
   }
 
   participate(userId: string, planningPoker: PlanningPoker) {
-    return this.http.post(AppSettings.getProjectUrl() + "/planningPokers/" + planningPoker._id + "/participants", {userId: userId}, this.headers)
+    return this.http.post(AppSettings.getProjectUrl() + "/planningPokers/" + planningPoker._id + "/participants", {userId: userId}, {withCredentials: true, headers: this.headers})
       .map( (responseData) => {
         return responseData.status == 200;
-      });
+      })
+      .catch((error: any) => Observable.of(error.json().error || 'Server error'));
   }
   unparticipate(userId: string, planningPoker: PlanningPoker) {
-    return this.http.delete(AppSettings.getProjectUrl() + "/planningPokers/" + planningPoker._id + "/participants/" + userId, this.headers)
+    return this.http.delete(AppSettings.getProjectUrl() + "/planningPokers/" + planningPoker._id + "/participants/" + userId, {withCredentials: true, headers: this.headers})
       .map((responseData) => {
         return responseData.status == 200;
-      });
+      })
+      .catch((error: any) => Observable.of(error.json().error || 'Server error'));
   }
   getParticipantsOfPlanningPoker(id): Observable<Array<User>> {
     return this.http.get(AppSettings.getProjectUrl() + "/planningPokers/" + id + "/participants", {withCredentials: true})
@@ -108,6 +116,7 @@ export class PlanningPokerService {
           });
         }
         return result;
-      });
+      })
+      .catch((error: any) => Observable.of(error.json().error || 'Server error'));
   }
 }

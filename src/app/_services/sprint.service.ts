@@ -29,6 +29,7 @@ export class SprintService {
         }
         return result;
       })
+      .catch((error: any) => Observable.of(error.json().error || 'Server error'));
 
   }
 
@@ -45,7 +46,8 @@ export class SprintService {
           });
         }
         return result;
-      });
+      })
+      .catch((error: any) => Observable.of(error.json().error || 'Server error'));
   }
 
   getSprint(sprintId: string) {
@@ -59,6 +61,7 @@ export class SprintService {
       .map((sprint: any) => {
         return new Sprint(sprint);
       })
+      .catch((error: any) => Observable.of(error.json().error || 'Server error'));
 
 
   }
@@ -71,6 +74,7 @@ export class SprintService {
       .map((sprintBurnDown: any) => {
         return new SprintBurnDown(sprintBurnDown);
       })
+      .catch((error: any) => Observable.of(error.json().error || 'Server error'));
 
   }
 
@@ -91,6 +95,7 @@ export class SprintService {
           return res.json();
         }
       })
+      .catch((error: any) => Observable.of(error.json().error || 'Server error'));
 
   }
 
@@ -111,6 +116,7 @@ export class SprintService {
           return res.json();
         }
       })
+      .catch((error: any) => Observable.of(error.json().error || 'Server error'));
 
   }
 
@@ -131,6 +137,7 @@ export class SprintService {
           return res.json();
         }
       })
+      .catch((error: any) => Observable.of(error.json().error || 'Server error'));
 
   }
 
@@ -151,6 +158,7 @@ export class SprintService {
           return res.json();
         }
       })
+      .catch((error: any) => Observable.of(error.json().error || 'Server error'));
 
   }
 
@@ -170,6 +178,7 @@ export class SprintService {
           return res.json();
         }
       })
+      .catch((error: any) => Observable.of(error.json().error || 'Server error'));
 
   }
 
@@ -189,6 +198,7 @@ export class SprintService {
           return res.json();
         }
       })
+      .catch((error: any) => Observable.of(error.json().error || 'Server error'));
 
   }
 
@@ -207,6 +217,7 @@ export class SprintService {
           return res.json();
         }
       })
+      .catch((error: any) => Observable.of(error.json().error || 'Server error'));
 
   }
 
@@ -227,6 +238,7 @@ export class SprintService {
           return res.json();
         }
       })
+      .catch((error: any) => Observable.of(error.json().error || 'Server error'));
 
   }
 
