@@ -59,17 +59,22 @@ export class SprintCapacityComponent implements OnInit {
 
 
   updateSprintCapacity(sprintCapacity, daysOff: number, capacityPerDay: number) {
+    if ( daysOff > 0 && capacityPerDay > 0 ) {
+
     if (daysOff == null) {daysOff = sprintCapacity.daysOff}
     if (capacityPerDay == null) {capacityPerDay = sprintCapacity.capacityPerDay}
 
-    this.sprintService.updateSprintCapacity(this.sprintId, sprintCapacity._id, sprintCapacity.userId, daysOff, capacityPerDay)
-      .subscribe(
-        success => {
-          this.editedIndex = null;
+      this.sprintService.updateSprintCapacity(this.sprintId, sprintCapacity._id, sprintCapacity.userId, daysOff, capacityPerDay)
+        .subscribe(
+          success => {
+            this.editedIndex = null;
             this.getSprint();
-        },
-        error => this.errorMessage = <any> error
-      );
+          },
+          error => this.errorMessage = <any> error
+        );
+    }
+
+
   }
 
 
@@ -102,17 +107,20 @@ export class SprintCapacityComponent implements OnInit {
   }
 
   createSprintCapacity() {
-    this.sprintService.createSprintCapacity(this.sprintId, this.userId, this.daysOff, this.capacityPerDay)
-      .subscribe(
-        success => {
-          this.getSprint();
-          this.userId = '';
-          this.daysOff = null;
-          this.capacityPerDay = null;
-        },
 
-        error => this.errorMessage = <any> error
-      );
+    if ( this.daysOff > 0 || this.capacityPerDay > 0 ) {
+      this.sprintService.createSprintCapacity(this.sprintId, this.userId, this.daysOff, this.capacityPerDay)
+        .subscribe(
+          success => {
+            this.getSprint();
+            this.userId = '';
+            this.daysOff = null;
+            this.capacityPerDay = null;
+          },
+
+          error => this.errorMessage = <any> error
+        );
+    }
   }
 
 
