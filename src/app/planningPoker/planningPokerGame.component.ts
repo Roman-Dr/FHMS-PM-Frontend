@@ -162,7 +162,7 @@ export class PlanningPokerGameComponent implements OnInit, OnDestroy {
           return false;
         }
         else {
-          return true;
+          return this.inputVoteEffort > 0 && this.inputVoteReason.length > 0;
         }
       case ViewState.Decision:
         if(this.isModerator) {
