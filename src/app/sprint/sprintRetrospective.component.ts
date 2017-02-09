@@ -38,9 +38,6 @@ export class SprintRetrospectiveComponent implements OnInit {
             if (sprint.retrospective.length == 0) {
               this.createSprintRetrospective(sprint)
             } else {
-/*              if (this.project.contributors.length != sprint.retrospective.length ) {
-                this.createRetrospectiveWithNewContributors(sprint)
-              } else {*/
                 this.sprint = sprint;
               }
           });
@@ -70,24 +67,19 @@ export class SprintRetrospectiveComponent implements OnInit {
   };
 
 
-/*
-  createRetrospectiveWithNewContributors(sprint) {
-    let sprintC = sprint;
-    sprintC.retrospective = this.sprintRetrospectiveArray;
-
-
-    for(let i = 0; i < sprint.retrospective.length; i++) {
-      sprintC.retrospective[i].comment = sprint.retrospective[i].comment
+  isSprintPast(){
+    if(this.sprint) {
+      if (new Date(this.sprint.endDate).getTime() <= new Date().getTime()) {
+        return true;
+      }
+      else {
+        return false
+      }
     }
-
-    this.sprintService.createSprintRetrospective(sprintC)
-      .subscribe(
-        success => this.getSprint(),
-        error => this.errorMessage = <any> error
-      );
-
+    else {
+      return false;
+    }
   }
-*/
 
 
   createSprintRetrospective(sprint) {
