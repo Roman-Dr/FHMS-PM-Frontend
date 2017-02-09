@@ -99,7 +99,7 @@
               <label class="col-md-4 control-label" for="sprintId">Sprint</label>
               <div class="col-md-6">
                 <select class="form-control" id="sprintId" name="sprintId" [(ngModel)]="backlogItem.sprintId">
-                  <option *ngFor="let item of sprints" value="{{item._id}}">{{item.sprintName + " " + (item.startDate | date: 'dd.MM.yyyy') +
+                  <option *ngFor="let item of sprints" [disabled]="isOldSprint(item)" value="{{item._id}}">{{item.sprintName + " " + (item.startDate | date: 'dd.MM.yyyy') +
                     " - " + (item.endDate | date: 'dd.MM.yyyy')}}
                   </option>
                 </select>

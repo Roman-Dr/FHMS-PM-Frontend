@@ -64,7 +64,7 @@ export class BacklogItemComponent implements OnInit {
               });
         });
 
-    this.sprintService.getUnfinishedSprints().subscribe(sprints => this.sprints = sprints);
+    this.sprintService.getSprints().subscribe(sprints => this.sprints = sprints);
     this.userStoryDataService.getUserStories().subscribe(userStories => this.userStories = userStories);
 
     this.activatedRoute.params.subscribe((params: Params) => {
@@ -176,5 +176,15 @@ export class BacklogItemComponent implements OnInit {
   updateTaskAssignedTo(id: string) {
     var user = this.contributors.find(x => x._id == id);
     this.newTask.assignedToDisplayName = user ? user.firstname + " " + user.lastname : "";
+  }
+
+  isOldSprint(sprint: Sprint){
+    var sprintEndDate = new Date(sprint.endDate);
+    var now = new Date();
+    if(now> sprintEndDate){
+      return true;
+    } else {
+      return false;
+    }
   }
 }
