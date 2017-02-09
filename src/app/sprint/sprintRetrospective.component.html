@@ -1,27 +1,30 @@
-<div class="page-header">
-  <h1>Sprint Retrospektive: {{sprint?.sprintName}}</h1>
+<div class="app-sprintRetrospective" *ngIf="isSprintPast()">
+  <div class="page-header">
+    <h1>Sprint Retrospektive: {{sprint?.sprintName}}</h1>
 
-  <button type="button" class="btn" (click)="cancel()" style="float: right"><i
-    class="glyphicon glyphicon-arrow-left"></i> <span class="hidden-xs">Zurück</span>
-  </button>
-</div>
+    <button type="button" class="btn" (click)="cancel()" style="float: right"><i
+      class="glyphicon glyphicon-arrow-left"></i> <span class="hidden-xs">Zurück</span>
+    </button>
+  </div>
 
-<div class="table-responsive" style="margin-top: 50px">
-  <table class="table">
-    <tr>
-      <th class="col-sm-2">Nutzer</th>
-      <th class="col-sm-10">Kommentar</th>
-      <th></th>
-    </tr>
-    <tr>
+  <div class="table-responsive" style="margin-top: 50px">
+    <table class="table">
+      <tr>
+        <th class="col-sm-2">Nutzer</th>
+        <th class="col-sm-10">Kommentar</th>
+        <th></th>
+      </tr>
+      <tr>
       <tr *ngFor="let retrospective of sprint?.retrospective">
-        <td >
+        <td>
           {{retrospective.userDisplayName}}
         </td>
         <td>
           <textarea rows="5" [(ngModel)]="retrospective.comment" id="comment" class="form-control"
-                    placeholder="Hier können Sie einen Kommentar zu dem jeweiligen Benutzer eingeben. Ihre Eingaben werden beim Verlassen des Feldes gespeichert." (change)="updateSprintRetrospective(retrospective)"></textarea>
+                    placeholder="Hier können Sie einen Kommentar zu dem jeweiligen Benutzer eingeben. Ihre Eingaben werden beim Verlassen des Feldes gespeichert."
+                    (change)="updateSprintRetrospective(retrospective)"></textarea>
         </td>
       </tr>
-  </table>
+    </table>
+  </div>
 </div>
