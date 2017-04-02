@@ -11,7 +11,7 @@ var TaskService = (function () {
     // private _apiUrl = 'http://localhost:3000/api/user/';
     function TaskService(http) {
         this.http = http;
-        this._apiUrl = 'http://10.60.67.20:3000/api/projects/';
+        this._apiUrl = 'https://scrumjs.herokuapp.com/api/projects/';
         this.project_id = sessionStorage.getItem('project_url');
     }
     TaskService.prototype.getTasks = function (backlogitem_id) {

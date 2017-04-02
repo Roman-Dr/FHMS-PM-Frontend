@@ -11,7 +11,7 @@ require('rxjs/Rx');
 var ProjectService = (function () {
     function ProjectService(http) {
         this.http = http;
-        this._apiUrl = 'http://10.60.67.20:3000/api/projects/';
+        this._apiUrl = 'https://scrumjs.herokuapp.com/api/projects/';
         this.headers = new http_1.Headers({ 'Content-Type': 'application/json' });
         this._canActivate = false;
     }

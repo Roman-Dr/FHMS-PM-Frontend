@@ -11,7 +11,7 @@ var UserService = (function () {
     // private _apiUrl = 'http://localhost:3000/api/user/';
     function UserService(http) {
         this.http = http;
-        this._apiUrl = 'http://10.60.67.20:3000/api/user/';
+        this._apiUrl = 'https://scrumjs.herokuapp.com/api/user/';
     }
     UserService.prototype.getUsers = function () {
         return this.http.get(this._apiUrl)

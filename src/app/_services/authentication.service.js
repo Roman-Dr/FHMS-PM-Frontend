@@ -13,7 +13,7 @@ var AuthenticationService = (function () {
         this.http = http;
         this.projectService = projectService;
         this.headers = new http_1.Headers({ 'Content-Type': 'application/json' });
-        this._apiUrl = 'http://10.60.67.20:3000/api/user/';
+        this._apiUrl = 'https://scrumjs.herokuapp.com/api/user/';
         this._canActivate = false;
     }
     AuthenticationService.prototype.canActivate = function () {
